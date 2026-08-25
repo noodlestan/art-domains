@@ -30,6 +30,7 @@ The plan workflow runs on three working agreements:
 ## Goals
 
 Normalize structure inheritance declarations across every domain structure file. Ensure consistent use of `**Extends:**`, `**Inherits:**`, and `**Shape:**` fields, and remove redundant `**Primitive:** Record` declarations.
+
 - Every structure (except `resource-abstract.art`) MUST have a `::READ` directive for the super-structure it extends, placed in the `## Uses` section at the top of the file.
 
 ### Scope
@@ -79,7 +80,7 @@ This iteration normalizes all structure files and drifted type files in `$DOMAIN
 - Preserve local fields under each structure's own `**Shape:**` field.
 - Rename `**Specific fields:**` to `**Shape:**` in 4 drifted scope type files.
 
-## Workflow
+**Procedure:**
 
 You are going to perform a series of steps and check status after each one.
 
@@ -152,7 +153,7 @@ For each structure file that needs normalization, apply these rules:
 - The default base is `**Extends:** Structure: Resource (Abstract)`.
 - Work item structures extend `**Extends:** Structure: Work Item (Abstract)`.
 - Type files (scope types) extend their abstract parent type.
-- Every structure (except `resource-abstract.art`) MUST have a `::READ` directive for the super-structure it extends, placed in the `## Uses` section at the top of the file. Example: `::READ (Structure: Resource (Abstract)) FROM `$DOMAINS/_artificials/structures/resource-abstract.art``.
+- Every structure (except `resource-abstract.art`) MUST have a `::READ` directive for the super-structure it extends, placed in the `## Uses` section at the top of the file. Example: `::READ (Structure: Resource (Abstract)) FROM `$DOMAINS/\_artificials/structures/resource-abstract.art``.
 
 **Rule 2: Inherits Section**
 

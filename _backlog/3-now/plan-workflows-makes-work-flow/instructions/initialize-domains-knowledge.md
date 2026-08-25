@@ -64,7 +64,7 @@ This iteration creates 4 files across 2 commits.
 
 - Create `$ARTIFICIAL/art-domains/architecture/_records/adr/` — up to 3 ADRs capturing domain design principles.
 
-## Workflow
+**Procedure:**
 
 You are going to perform a series of steps and check status after each one.
 

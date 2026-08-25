@@ -30,7 +30,7 @@ artisans/           — (namespace) experiments
 | Art JS             | `art-js/_backlog/_parking-lot.md`      | `art-js/_backlog/`                           |
 | Art Domains        | `art-domains/_backlog/_parking-lot.md` | `art-domains/_backlog/_architect.md`         |
 
-## Setup
+## Seting Up
 
 Run at the root of the repository:
 
@@ -38,7 +38,7 @@ Run at the root of the repository:
 npm ci # to install dependencies.
 ```
 
-## Verification
+## Verififying
 
 Run per package modified:
 
