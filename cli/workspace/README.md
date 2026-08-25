@@ -23,3 +23,9 @@ npm install -g @art-domains/workspace-cli
 ```bash
 art-workspace --help
 ```
+
+## License
+
+Copyright (c) 2026 [Noodlestan](https://noodlestan.org/).
+
+Published under a [MIT license](https://noodlestan.mit-license.org/).
