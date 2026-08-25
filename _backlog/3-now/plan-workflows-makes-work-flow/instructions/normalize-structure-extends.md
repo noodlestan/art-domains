@@ -30,6 +30,7 @@ The plan workflow runs on three working agreements:
 ## Goals
 
 Normalize structure inheritance declarations across every domain structure file. Ensure consistent use of `**Extends:**`, `**Inherits:**`, and `**Shape:**` fields, and remove redundant `**Primitive:** Record` declarations.
+- Every structure (except `resource-abstract.art`) MUST have a `::READ` directive for the super-structure it extends, placed in the `## Uses` section at the top of the file.
 
 ### Scope
 
@@ -70,6 +71,7 @@ This iteration normalizes all structure files and drifted type files in `$DOMAIN
 
 **Single commit `normalize-structure-extends` — normalize inheritance declarations:**
 
+- Add `::READ` directive for the super-structure in each files `## Uses` section (except `resource-abstract.art`).
 - Update all structure files to use consistent `**Extends:**` declarations.
 - Ensure all structures list inherited fields under `**Inherits:**` (not `**Inherited:**`).
 - Remove `**Primitive:** Record` from all structures and types.
@@ -150,6 +152,7 @@ For each structure file that needs normalization, apply these rules:
 - The default base is `**Extends:** Structure: Resource (Abstract)`.
 - Work item structures extend `**Extends:** Structure: Work Item (Abstract)`.
 - Type files (scope types) extend their abstract parent type.
+- Every structure (except `resource-abstract.art`) MUST have a `::READ` directive for the super-structure it extends, placed in the `## Uses` section at the top of the file. Example: `::READ (Structure: Resource (Abstract)) FROM `$DOMAINS/_artificials/structures/resource-abstract.art``.
 
 **Rule 2: Inherits Section**
 
@@ -212,6 +215,12 @@ grep -r "Extends:" --include="*.art" . | grep -v "resource-abstract.art"
 Should show every structure (except resource-abstract.art) has an Extends declaration.
 
 ```bash
+grep -r "::READ.*Structure:" --include="*.art" . | grep -v "resource-abstract.art"
+```
+
+Should show every structure (except resource-abstract.art) has a ::READ for its super-structure.
+
+```bash
 grep -rn "## Structure: " --include="*.art" .
 ```
 
@@ -262,6 +271,12 @@ find . -path "*/structures/*.art" -type f -exec grep -l "Extends:" {} \; | wc -l
 ```
 
 Should match the total number of structure files minus `resource-abstract.art`.
+
+```bash
+find . -path "*/structures/*.art" -type f -exec grep -l "::READ.*Structure:" {} ; | wc -l
+```
+
+Should match the total number of structure files minus `resource-abstract.art` (all have ::READ for super-structure).
 
 ```bash
 grep -rn "## Structure: " --include="*.art" . | wc -l

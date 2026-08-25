@@ -269,7 +269,7 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 | Iteration: Integrate Work Domain With Others     | `DONE`    |
 | Iteration: Initialize Domains Knowledge          | `DONE`    |
 | Iteration: Initialize Architecture Knowledge     | `DONE`    |
-| Iteration: Normalize Structure Extends           | `DRAFT`   |
+| Iteration: Normalize Structure Extends           | `DONE`    |
 | Iteration: Finish Plan Iteration Model           | `DRAFT`   |
 | Iteration: Update Write Plan Skill               | `PLANNED` |
 | Iteration: Update Agent Modes                    | `PLANNED` |
@@ -487,7 +487,7 @@ knowledge(domains): Add domain design ADRs.
 
 **Id:** `normalize-structure-extends`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Changes:**
 
@@ -503,6 +503,8 @@ Normalize structure inheritance declarations across every domain:
 
 **Instructions:** `./plan-workflows-make-work-flow/instructions/normalize-structure-extends.md`
 
+**Report:** `./plan-workflows-make-work-flow/instructions/normalize-structure-extends__report.md`
+
 ##### Commit: `normalize-structure-extends`
 
 **Message:**
@@ -511,11 +513,11 @@ Normalize structure inheritance declarations across every domain:
 build(domains): normalize structure inheritance declarations
 ```
 
-**Status:** `READY`
+**Status:** `COMMITTED`
 
 **Policy:** `AUTONOMOUS`
 
-**Hash:** `TBD`
+**Hash:** `04e933c`
 
 #### Iteration: Finish Plan Iteration Model
 
@@ -628,7 +630,7 @@ Build the plan file from draft content (current iteration). Then update the writ
 
 ### Blockers
 
-- Sweep files for legacy naming ("domain Record", "Record Structure", "Attachment File") — blocked on fundamentals cleanup being finalised.
+- None
 
 ## Findings
 
