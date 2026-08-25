@@ -1,0 +1,21 @@
+# Module
+
+## Project: Art Domains
+
+**Purpose:** Domains source code, CLIs, and workspace tooling.
+
+**Description:** Owns the Workspace CLI, domain architecture, and related tooling.
+
+**Owner:** Project: Artificials
+
+**Author:** Noodlestan Collective
+
+**Repository:** Repository: Art Domains
+
+**Resources:**
+
+- Package: Workspace CLI
+
+**Private:** `false`
+
+**License:** License: Noodlestan 2026 MIT
