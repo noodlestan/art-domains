@@ -2,7 +2,7 @@
 
 **ID:** `workflows-make-work-flow`
 
-**Status:** `Done`
+**Status:** `PLANNING`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -250,34 +250,6 @@ This plan updates the write-plan skill and exercises the plan structures. The sc
 - Remove entire Tasks domain (superseded by Work abstractions)
 - Keep only Type: Spec (Abstract) in specs domain
 
-### Repositiory Scope: Artificial
-
-**Resource:** Repository: Artificial
-
-**Path:** `$ARTIFICIAL/`
-
-**Record:** `$ARTIFICIAL/_records/repository.art`
-
-**Role:** Hosts knowledge being updated.
-
-**Changes:**
-
-- Knowledge files, architecture and ADRs.
-
-### Repositiory Scope: Workspace
-
-**Resource:** Repository: Workspace
-
-**Path:** `$WORKSPACE/`
-
-**Record:** `$WORKSPACE/_records/repository.art`
-
-**Role:** Hosts all `.agents/domains/` files being built.
-
-**Changes:**
-
-- Knowledge files, architecture and ADRs.
-
 ## Work
 
 ### Execution Context
@@ -297,8 +269,8 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 | Iteration: Integrate Work Domain With Others     | `DONE`    |
 | Iteration: Initialize Domains Knowledge          | `DONE`    |
 | Iteration: Initialize Architecture Knowledge     | `DONE`    |
-| Iteration: Build Plan Workflows                  | `PLANNED` |
-| Iteration: Finish Plan Iteration Model           | `PLANNED` |
+| Iteration: Normalize Structure Extends           | `DRAFT`   |
+| Iteration: Finish Plan Iteration Model           | `DRAFT`   |
 | Iteration: Update Write Plan Skill               | `PLANNED` |
 | Iteration: Update Agent Modes                    | `PLANNED` |
 | Iteration: Refactor Domain Index Routines        | `PLANNED` |
@@ -515,15 +487,7 @@ knowledge(domains): Add domain design ADRs.
 
 **Id:** `normalize-structure-extends`
 
-**Status:** `DRAFT`
-
-##### Commit: `nornalize-structure-extends`
-
-**Message:**
-
-```
-build(domains): normalize structure inheritance declarations
-```
+**Status:** `READY`
 
 **Changes:**
 
@@ -537,25 +501,21 @@ Normalize structure inheritance declarations across every domain:
 - Preserve local fields under the structure’s own **Shape:** field.
 - make sure Structures do not repeat **Primitive:** Record.
 
-#### Iteration: Build Plan Workflows
+**Instructions:** `./plan-workflows-make-work-flow/instructions/normalize-structure-extends.md`
 
-**id:** `build-plan-workflows`
+##### Commit: `normalize-structure-extends`
 
-**Purpose:** Build plan.md from draft content, mapping to current plan structure.
+**Message:**
 
-**Description:** Read draft, map to plan structure fields, create plan.md with scopes, context, knowledge, iterations.
+```
+build(domains): normalize structure inheritance declarations
+```
 
-**Changes:**
+**Status:** `READY`
 
-- Read draft content.
-- Map to plan structure fields.
-- Create plan.md with scopes, context, knowledge, iterations.
+**Policy:** `AUTONOMOUS`
 
-**Instructions:** `./plan-workflows-make-work-flow/instructions/build-plan-workflows.md`
-
-**Report:** `./plan-workflows-make-work-flow/instructions/build-plan-workflows__report.md`
-
-**Status:** `DRAFT`
+**Hash:** `TBD`
 
 #### Iteration: Finish Plan Iteration Model
 
@@ -563,13 +523,16 @@ Normalize structure inheritance declarations across every domain:
 
 **Purpose:** Finish Plan → Iteration → Instructions → Commits model.
 
-**Description:** Review plan/iteration relation to Type: Commit, introduce Committing as workflow stage, introduce Type: Commit Convention.
+**Description:** Introduce checkout, branch, and policy fields to Type: Commit; move iterations to Overrides in plan.art; add scope identification directives to milestone.tart; add BLOCKED policy rule to agent-worker.
 
 **Changes:**
 
-- Review plan/iteration relation to new Type: Commit.
-- Introduce "Committing" as workflow stage.
-- Introduce Type: Commit Convention.
+- Add `checkout`, `branch`, and `policy` fields to Type: Commit in `commits/types/commit.art`.
+- Add `::READ (Type: Commit Policy)` to commit.art.
+- Move `work.items` from inherited to Overrides in `plans/structures/plan.art`.
+- Add Aliases section for `iterations` in plan.art.
+- Add scope identification directives to `roadmaps/templates/milestone.tart`.
+- Add BLOCKED commit policy rule to `skills/agent-worker/SKILL.md`.
 
 **Instructions:** `./plan-workflows-make-work-flow/instructions/finish-plan-iteration-model.md`
 
