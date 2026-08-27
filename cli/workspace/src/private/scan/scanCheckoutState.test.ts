@@ -14,8 +14,8 @@ import { scanCheckoutState } from './scanCheckoutState';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('scanCheckoutState', () => {

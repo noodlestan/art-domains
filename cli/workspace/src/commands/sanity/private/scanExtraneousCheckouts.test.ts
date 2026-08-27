@@ -12,8 +12,8 @@ import { scanExtraneousCheckouts } from './scanExtraneousCheckouts';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('scanExtraneousCheckouts', () => {

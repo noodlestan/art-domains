@@ -21,8 +21,8 @@ beforeEach(() => {
 	vi.spyOn(console, 'warn').mockImplementation(() => {});
 });
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 	vi.restoreAllMocks();
 });
 

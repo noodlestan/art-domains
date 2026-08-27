@@ -18,8 +18,8 @@ import { cloneSpecific } from './cloneSpecific';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 	vi.restoreAllMocks();
 });
 

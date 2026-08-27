@@ -9,8 +9,8 @@ import { createPushSuccess } from './createPushSuccess';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('createPushSuccess', () => {

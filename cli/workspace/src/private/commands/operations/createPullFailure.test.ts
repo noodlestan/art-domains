@@ -9,8 +9,8 @@ import { createPullFailure } from './createPullFailure';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('createPullFailure', () => {

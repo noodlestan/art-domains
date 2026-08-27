@@ -12,8 +12,8 @@ import { loadCheckoutRecords } from './loadCheckoutRecords';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 	vi.restoreAllMocks();
 });
 

@@ -13,8 +13,8 @@ import { getBehindCount } from './getBehindCount';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('getBehindCount', () => {

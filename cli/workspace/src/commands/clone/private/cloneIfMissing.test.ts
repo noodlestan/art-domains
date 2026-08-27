@@ -16,8 +16,8 @@ import { cloneIfMissing } from './cloneIfMissing';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 	vi.restoreAllMocks();
 });
 

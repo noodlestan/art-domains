@@ -9,8 +9,8 @@ import { getCurrentBranch } from './getCurrentBranch';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('getCurrentBranch', () => {

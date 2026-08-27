@@ -8,8 +8,8 @@ import { hasRemote } from './hasRemote';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('hasRemote', () => {

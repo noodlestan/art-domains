@@ -17,8 +17,9 @@ import { runSanity } from './runSanity';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
+	vi.restoreAllMocks();
 });
 
 async function makeWorkspaceRootBehind(tempDir: string, bareDir: string): Promise<void> {

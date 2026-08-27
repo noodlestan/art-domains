@@ -8,8 +8,8 @@ import { scanAllCheckoutsStates } from './scanAllCheckoutsStates';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('scanAllCheckoutsStates', () => {

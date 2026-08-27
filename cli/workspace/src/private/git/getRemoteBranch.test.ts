@@ -10,8 +10,8 @@ import { getRemoteBranch } from './getRemoteBranch';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('getRemoteBranch', () => {

@@ -14,8 +14,8 @@ import { doBranchCheckout } from './doBranchCheckout';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('doBranchCheckout', () => {

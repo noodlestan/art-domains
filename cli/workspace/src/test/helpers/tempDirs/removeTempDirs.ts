@@ -1,7 +1,6 @@
-import { rmSync } from 'node:fs';
+import { resilientRemoveDir } from './resilientRemoveDir';
 
-export function removeTempDirs(tempDirs: string[]): void {
-	for (const dir of tempDirs.splice(0)) {
-		rmSync(dir, { recursive: true, force: true });
-	}
+export async function removeTempDirs(tempDirs: string[]): Promise<void> {
+	const removals = tempDirs.splice(0).map(resilientRemoveDir);
+	await Promise.all(removals);
 }

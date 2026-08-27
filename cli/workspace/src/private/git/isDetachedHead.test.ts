@@ -8,8 +8,8 @@ import { isDetachedHead } from './isDetachedHead';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('isDetachedHead', () => {

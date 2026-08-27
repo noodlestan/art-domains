@@ -8,8 +8,8 @@ import { hasMergeConflicts } from './hasMergeConflicts';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('hasMergeConflicts', () => {

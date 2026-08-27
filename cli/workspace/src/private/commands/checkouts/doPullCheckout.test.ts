@@ -25,8 +25,8 @@ import { doPullCheckout } from './doPullCheckout';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('doPullCheckout', () => {

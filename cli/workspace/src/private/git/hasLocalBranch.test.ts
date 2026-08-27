@@ -10,8 +10,8 @@ import { hasLocalBranch } from './hasLocalBranch';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('hasLocalBranch', () => {

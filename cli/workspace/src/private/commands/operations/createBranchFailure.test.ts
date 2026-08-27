@@ -9,8 +9,8 @@ import { createBranchFailure } from './createBranchFailure';
 
 const tempDirs: string[] = [];
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 });
 
 describe('createBranchFailure', () => {
