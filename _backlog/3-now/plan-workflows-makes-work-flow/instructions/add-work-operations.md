@@ -72,14 +72,14 @@ Create `$DOMAINS/work/structures/operation.art`:
 
 **Inherits:**
 
-- `name` — Identifier. Operation name. Example: `Operation: Writing Commit Message`.
+- `name` — Identifier. Operation name. Example: `Operation: Writing Commit Messages`.
 
 **Shape:**
 
 - `workflow` — Structure: Workflow. The workflow this stage belongs to. Example: `Workflow: Planning Work`.
 - `stage` — Structure: Workflow Stage. The stage this operation belongs to. Example: `Workflow Stage: Writing Work Item`.
 - `purpose` — NaturalBlock. Example: "Write the commit message while work item is being authored.".
-- `example` — NaturalBlock. Example of this operation in context. Example: "Execute at the repository root: ```bash ... ```".
+- `example` — NaturalBlock. Example of this operation in context. Example: "Run from the repository root: ```bash ... ```".
 ````
 
 ### Step: Convert "Type: Workflow Stage" to "Structure: Workflow Stage" and add `operations`
@@ -91,14 +91,6 @@ Add
 ```art
 - `operations` — List(Structure: Operation). Operations discoverable in this workflow. Each operation belongs to a stage and contains instructions and examples.
 ```
-
-Update all workflow records and extract them to its own directory, extracting and completing the stages and operations in nested directories inside. Example `work/workflows/executing-work/worfklow.art` and nested stages and operations.
-
-- `$DOMAINS/work/workflows/executing-work/workflow.art` (serves as reference for others)
-- `$DOMAINS/work/workflows/delegating-work.art`
-- `$DOMAINS/work/workflows/planing-work.art`
-- `$DOMAINS/deployments/workflows/deploying.art`
-- `$DOMAINS/roadmaps/workflows/roadmapping.art`
 
 ### Step: Add "Type: Operating Instructions"
 
@@ -131,6 +123,17 @@ Add to `$DOMAINS/work/structures/work-item-abstract.art`:
 ```art
 - `operating-instructions` — List(Type: Operating Instructions). Operating instructions discovered from knowledge and scope resources relevant to this work item.
 ```
+
+### Step: Refactor Workflows nesting stages and ops
+
+Update all workflow records and extract them to its own directory, extracting and completing the stages and operations in nested directories inside. Example `work/workflows/executing-work/worfklow.art` and nested stages and operations.
+
+- `$DOMAINS/work/workflows/executing-work/workflow.art` (serves as reference for others)
+- `$DOMAINS/work/workflows/delegating-work.art`
+- `$DOMAINS/work/workflows/planing-work.art`
+- `$DOMAINS/deployments/workflows/deploying.art`
+- `$DOMAINS/roadmaps/workflows/roadmapping.art`
+
 
 ### Step: Add "Routine: Compose Work Operations"
 
@@ -215,13 +218,23 @@ Example of resource extracted:
 
 ## Verifying
 
-Execute from $WORKSPACE root:
+Run from `$WORKSPACE` root:
 
 ```bash
 npm run lint:fix # to fix formatting issues automatically
 npm run lint # to report other formatting issues
 ```
+## How to Report Back to the Delegator
 
-## How to Report Back
+This section describes how to report back to the delegator after completing the instruction.
 
-Render `$DOMAINS/plans/templates/instructions-report.tart` to produce the report. Write it next to this instruction file as `add-work-operations__report.md`.
+TEMPLATE DIRECTIVE: This section is mandatory.
+
+1. Summarise the current context, asking: are you reporting completion or a BLOCKER?
+2. Gather the evidence of changes made and outcomes achieved, or the blocker error details.
+3. Use the **render-template** skill with the `.agents/domains/plans/templates/instructions-report.tart` to render your report and write it next to this instruction file: `plan-%plan.id/instructions/%iteration.id__report.md`. No separate delegation record is created.
+4. If your prompt included a `DIRECTIVE FEEDBACK:` include the feedback sections in the rendered report.
+5. Generate the response and send it back to the delegator.
+6. Keep the response terse per the Working Agreements: happy face + up to 3 bullet points (done `%iteration.id`, created `{artefacts}`, thumbs up). The full trail lives in the report file; never repeat it in chat.
+
+Thank you for your service.

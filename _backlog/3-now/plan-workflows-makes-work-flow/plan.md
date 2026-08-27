@@ -28,7 +28,7 @@ This section lists the path variables used throughout the plan file and its down
 | `$SKILLS`      | `$WORKSPACE/.agents/skills`        | Skills resources directory (changes here)                        |
 | `$MANAGEMENT`  | `$WORKSPACE/checkouts/management`  | Management project checkout                                      |
 | `$ARTIFICIAL`  | `$WORKSPACE/checkouts/artificial`  | Artificial project checkout (migrated to ART_DOMAINS)            |
-| `$ART_DOMAINS` | `$WORKSPACE/checkouts/art-domains` | Where this plan lives.Serves as example for `_guide.md`.  |
+| `$ART_DOMAINS` | `$WORKSPACE/checkouts/art-domains` | Where this plan lives.Serves as example for `_guide.md`.         |
 
 ## Summary
 
@@ -136,6 +136,90 @@ This plan updates the write-plan skill and exercises the plan structures. The sc
 
 - Domain definitions, agent modes, and shared context updated across iterations.
 
+### Domain Scope: Work
+
+**Resource:** Domain: Work
+
+**Path:** `$DOMAINS/work/`
+
+**Role:** Changes required.
+
+**Changes:**
+
+- Add Work Status enum (DRAFT, PLANNING, READY, WORKING, BLOCKED, DELIVERED, INTEGRATING, DONE).
+- Change Structure: Plan to move `work.items` from inherited to overrides in and alias `iterations` field.
+- Change Structure: Work Item Abstract, add `operating-instructions` List(Type: Operating Instructions).
+- Rewrite work-item-abstract.art with plan-level examples.
+- Add scope types (Project Scope, Repository Scope, Package Scope, Application Scope, Deployment Scope).
+- Add Work Phase type, Work Attachment type,
+- Add Workflow, Workflow Stage, and Operation structures.
+- Add types Commit and Commit Policy.
+- Add Structure: Operation for workflow stage operations.
+- Add Type: Operating Instructions for declaring operations in scope and knowledge resources.
+- Extend Structure: Work Item (Abstract) with operating-instructions field.
+- Refactor workflows with nested stages and operations (`delegating-work`, `planning-work`, `executing-work`, `roadmapping`, `deploying`).
+- Add examples to workflow operations.
+- Remove `engineering` domain; replace with `work` workflows.
+- Move `workflow-stage` from types to structures.
+
+### Domain Scope: Plans
+
+**Resource:** Domain: Plans
+
+**Path:** `$DOMAINS/plans/`
+
+**Role:** Changes required.
+
+**Changes:**
+
+- Move `planning.art` workflow to Work Domain (Workflow: Planning Work).
+- Refactor `plan.art` to:
+  - use Structure: Iteration and Structure: Commit to render iterations and commit tables.
+  - use inherited fields from Work Item (Abstract) and new scope/context model.
+  - abstract repetitions
+- Add Structure: Iteration (replaces `%plan.commits` via `%plan.iterations` alias).
+- Update `instructions.tart` and `instructions-report.tart`.
+
+### Domain Scope: Roadmaps
+
+**Resource:** Domain: Roadmaps
+
+**Path:** `$DOMAINS/roadmaps/`
+
+**Role:** Changes required.
+
+**Changes:**
+
+- Move Phases field from Milestone to Roadmap structure.
+- Refactor milestone.art and milestone.tart for new structure.
+- Add roadmaps/definitions/index.md.
+- Refactor `Workflow: Roadmapping` with nested stages: `Discovering Work`, `Strategizing Milestones`, `Prioritizing Milestones`, `Coordinating Milestones`, `Integrating Plans`.
+
+
+### Domain Scope: Deployments
+
+**Resource:** Domain: Deployments
+
+**Path:** `$DOMAINS/deployments/`
+
+**Role:** Changes required.
+
+**Changes:**
+
+- Refactor `Workflow: Deploying` with nested stages and operations: `Preparing Deployment` (ops: `Building for Deployment`), `Executing Deployment` (ops: `Deploying`), `Finalizing Deployment`, `Verifying Deployment`.
+
+### Domain Scope: Tasks
+
+**Changes:**
+
+- Was "Domain: Tasks". Domain entirely removed.
+
+### Domain Scope: Engineering
+
+**Changes:**
+
+- Was "Domain: Engineering". Domain entirely removed, agent-mode records left for a later interation.
+
 ### Skill Scope: write-plan
 
 **Resource:** Skill: write-plan
@@ -196,74 +280,6 @@ This plan updates the write-plan skill and exercises the plan structures. The sc
 
 - New Skill
 
-### Domain Scope: Work
-
-**Resource:** Domain: Work
-
-**Path:** `$DOMAINS/work/`
-
-**Role:** Changes required.
-
-**Changes:**
-
-- Add Work Status enum (DRAFT, PLANNING, READY, WORKING, BLOCKED, DELIVERED, INTEGRATING, DONE).
-- Rewrite work-item-abstract.art with plan-level examples.
-- Add scope types (Project Scope, Repository Scope, Package Scope, Application Scope, Deployment Scope).
-- Add Work Phase type, Work Attachment type,
-- Add Workflow, Workflow Stage, and Operation structures.
-- Add types Commit and Commit Policy.
-
-### Domain Scope: Plans
-
-**Resource:** Domain: Plans
-
-**Path:** `$DOMAINS/plans/`
-
-**Role:** Changes required.
-
-**Changes:**
-
-- Move `planning.art` workflow to Work Domain (Workflow: Planning Work).
-- Refactor `plan.art` to:
-  - use Structure: Iteration and Structure: Commit to render iterations and commit tables.
-  - use inherited fields from Work Item (Abstract) and new scope/context model.
-  - abstract repetitions
-- Add Structure: Iteration (replaces `%plan.commits` via `%plan.iterations` alias).
-- Update `instructions.tart` and `instructions-report.tart`.
-
-### Domain Scope: Milestones
-
-**Resource:** Domain: Milestones
-
-**Path:** `$DOMAINS/roadmaps/`
-
-**Role:** Changes required.
-
-**Changes:**
-
-- Move Phases field from Milestone to Roadmap structure.
-- Refactor milestone.art and milestone.tart for new structure.
-- Add roadmaps/definitions/index.md.
-
-### Domain Scope: Deployments
-
-**Resource:** Domain: Deployments
-
-**Path:** `$DOMAINS/deployments/`
-
-**Role:** Changes required.
-
-**Changes:**
-
-- Refine Workflow: Deployment, define stages and ops, and express in nested records: `workflows/{workflow.name}/{stage.name}/ops/{operation.name}`.
-
-
-### Domain Scope: Tasks
-
-**Changes:**
-
-- Was "Domain: Tasks". Domain Entirely removed.
-
 ## Work
 
 ### Execution Context
@@ -272,26 +288,29 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 
 ### Items
 
-| Resource / Record                                | Status    |
-| ------------------------------------------------ | --------- |
-| Iteration: Add Work Domain                       | `DONE`    |
-| Iteration: Split Iterations From Commits         | `DONE`    |
-| Iteration: Convert Templates to Directive Syntax | `DONE`    |
-| Iteration: Rebuild Domain Indexes                | `DONE`    |
-| Iteration: Add Domain and Workflow Structure     | `DONE`    |
-| Iteration: Update Fundamentals File              | `DONE`    |
-| Iteration: Integrate Work Domain With Others     | `DONE`    |
-| Iteration: Initialize Domains Knowledge          | `DONE`    |
-| Iteration: Initialize Architecture Knowledge     | `DONE`    |
-| Iteration: Normalize Structure Extends           | `DONE`    |
-| Iteration: Add Work Operations                   | `READY`   |
-| Iteration: Update Stale references and examples  | `DRAFT`   |
-| Iteration: Declaring workflows in guides.        | `DRAFT`   |
-| Iteration: Formalize Iteration Commits Nesting   | `DRAFT`   |
-| Iteration: Update Write Work Skills              | `PLANNED` |
-| Iteration: Update Agent Modes                    | `PLANNED` |
-| Iteration: Refactor Domain Index Routines        | `PLANNED` |
-| Iteration: Integrate Specs Into Plans            | `PLANNED` |
+| Resource / Record                                    | Status  |
+| ---------------------------------------------------- | ------- |
+| Iteration: Add Work Domain                           | `DONE`  |
+| Iteration: Split Iterations From Commits             | `DONE`  |
+| Iteration: Convert Templates to Directive Syntax     | `DONE`  |
+| Iteration: Rebuild Domain Indexes                    | `DONE`  |
+| Iteration: Add Domain and Workflow Structure         | `DONE`  |
+| Iteration: Update Fundamentals File                  | `DONE`  |
+| Iteration: Integrate Work Domain With Others         | `DONE`  |
+| Iteration: Initialize Domains Knowledge              | `DONE`  |
+| Iteration: Initialize Architecture Knowledge         | `DONE`  |
+| Iteration: Normalize Structure Extends               | `DONE`  |
+| Iteration: Add Work Operations                       | `READY` |
+| Iteration: Collapse Work Scope to a Single Type      | `DRAFT` |
+| Iteration: Update and Create Write Work Skills       | `DRAFT` |
+| Iteration: Formalize Iteration Commits Nesting       | `DRAFT` |
+| Iteration: Declaring workflows in guides             | `DRAFT` |
+| Iteration: Update Templates and Migrate Active Plans | `DRAFT` |
+| Iteration: Update Stale references and examples      | `DRAFT` |
+| Iteration: Update Agent Modes                        | `DRAFT` |
+| Iteration: Refactor Domain Index Routines            | `DRAFT` |
+| Iteration: Integrate Specs Into Plans                | `DRAFT` |
+| Iteration: Update Domain Knowledge                   | `DRAFT` |
 
 #### Iteration: Add Work Domain
 
@@ -550,20 +569,23 @@ Major changes:
 - Add "Routine: Compose Work Operations"
 - Add "Routine: Compose Operating Instructions"
 
-Other changes:
-
-- Move `work.items` from inherited to Overrides in `plans/structures/plan.art`.
-- Add Aliases section for `iterations` in plan.art.
-
 **Instructions:** `./plan-workflows-make-work-flow/instructions/add-work-operations.md`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 ##### Commits:
 
-| ID                  | Repository / Checkout / Branch    | Policy             | Hash      | Status      |
-| ------------------- | --------------------------------- | ------------------ | --------- | ----------- |
-| `add-commit-policy` | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `da7c6d6` | `COMMITTED` |
+| ID                                | Repository / Checkout / Branch    | Policy             | Hash      | Status      |
+| --------------------------------- | --------------------------------- | ------------------ | --------- | ----------- |
+| `add-commit-policy`               | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `da7c6d6` | `COMMITTED` |
+| `fix-structural-and-formatting`   | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `4137c15` | `COMMITTED` |
+| `add-operation-and-instructions`  | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `271cbf7` | `COMMITTED` |
+| `refactor-workflow-nesting`       | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `3b098ea`  | `COMMITTED` |
+| `renames-domain-work`             | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `6b578d0`  | `COMMITTED` |
+| `knowledge-workspace`             | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `764e2e7`  | `COMMITTED` |
+| `chore-domain-work-templates`     | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `3b78d1d`  | `COMMITTED` |
+| `typos-domain-work`               | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `bce7adf`  | `COMMITTED` |
+| `update-domain-indexes`           | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `0e2697d`  | `COMMITTED` |
 
 ###### Commit: `add-commit-policy`
 
@@ -578,58 +600,129 @@ build(workflows-make-work-flow): add commit policy type and fields
 - Add ::READ directive for Commit Policy in commit.art
 ```
 
-#### Iteration: Update Stale references and examples
+###### Commit: `fix-structural-and-formatting`
 
-Note: Scope of update `.agents/` files only.
+**Message:**
 
-Move content of `.agents/domains/engineering/_guide.md` to `$AGENTS/work/_wip`.
+```
+build(workflows-make-work-flow): fix structural and formatting issues
 
-Update prose with workflow and stage examples to match renamed workflows:
+- Fix static-web-deployment extends to use Deployment structure
+- Fix npm-package-deployment extends punctuation
+- Fix iteration.art character encoding
+- Update instructions.tart workflow section naming
+- Update write-no-comply-entity-task skill procedure naming
+```
 
-- "Workflow: Planning" => "Workflow: Planning Work"
-- "Workflow: Implementing" => "Workflow: Executing Work"
-- "Workflow: Engineering" => "Workflow: Executing Work"
-- "Delivery Workflow" => "Workflow: Executing Work"
-- other cases of stale workflow names?
+###### Commit: `add-operation-and-instructions`
 
-Update prose with workflow stage examples to match renamed workflow stages:
+**Message:**
 
-- "Briefing, Problem, Solution, Plan, Contextualizing, Drafting, Refining" => "Planning Work Item, Validating Work Item, "Delegating Instructions"
-- other cases of stale workflow stage names?
+```
+build(workflows-make-work-flow): add operation and operating instructions types
 
-1. Renamed paths
+- Add Structure: Operation for workflow stage operations
+- Add Type: Operating Instructions for declaring operations in scope and knowledge resources
+- Extend Structure: Work Item (Abstract) with operating-instructions field
+- Update workflow-stage reference from types to structures
+```
 
-- `work/types/workflow-stage.art` to `work/structures/structures/workflow-stage.art`
-- `engineering/workflows/engineering.art` => `work/worflows/executing-work.art`
+###### Commit: `refactor-workflow-nesting`
 
-1. Hide engineering domain. Remove:
+**Message:**
 
-- `$DOMAINS/engineering/domain.art `
-- `$DOMAINS/engineering/index.md`
+```
+build(workflows-make-work-flow): Refactor workflows with nested stages and operations.
 
-Check for stale paths.
+- Remove `engineering` domain; replace with `work` workflows.
+- Move `workflow-stage` from types to structures.
+- Create `delegating-work`, `planning-work`, `executing-work`, `roadmapping`, `deploying` workflows with nested stages and operations.
+- Add examples to workflow operations.
+- Add `operating-instructions` and other inherited fields to `Structure: Milestone` and `Structure: Plan`.
+```
 
-#### Iteration: Declaring workflows in guides.
+###### Commit: `renames-domain-work`
 
-**id:** `workflows-in-guides`
+**Message:**
 
-Scan all guides for `# Workflows` or `# {something} Workflow`. Prose such as "Planning, delegation, and integration runs on", or "... the working agreements and agent modes defined in .." needs to be expressed as a "## Workflows" section with one "### Workflow: {name}" section per workflow and under it the prose "This project uses .. " with the local workflow artefact links such as `_backlog`. Authoritative guide is `$ART_DOMAINS/_gude`
+```
+renames(domain-work): Type: Workflow Stage changed to Structure; fix typos and field names.
 
-#### Iteration: Formalize Iteration Commits Nesting
+- Update to Structure: Workflow Stage in `work-item-abstract`, `workflow`, `skill-context`, and 2 more.
+- Rename `canonical-name` to `canonicalName` in `package-scope`.
+- Rename `target-version` to `targetVersion` in `package-scope`.
+- Fix typos in `workspace.art` and `_records/workspace.art`.
+- Remove duplicate fields in `workspace.art`.
+```
 
-**id:** `iteration-commit-nesting`
+###### Commit: `knowledge-workspace`
 
-**Purpose:** Make iterations more ergonomic, more readable, and easier to update.
+**Message:**
 
-**Description:** Add notes to commits and express them in a terse table, followed my commit messages and notes.
+```
+knowledge(workspace): Update `_guide.md` with workflow operations and add commit conventions.
+
+- Remove `Setup` and `Verification` sections (moved to workflow operations).
+- Add `knowledge/conventions/writing-commit-messages.art` with commit message format and rules.
+```
+
+###### Commit: `chore-domain-work-templates`
+
+**Message:**
+
+```
+chore(domain-work): Extract shared work item templates; add types to structures.
+
+- Create `work-item-context.tart` for shared context sections.
+- Create `work-item-coordination.tart` for shared coordination sections.
+- Update `plan.tart` and `milestone.tart` to use shared templates.
+- Add types to inherited fields in `plan.art` and `milestone.art`.
+```
+
+###### Commit: `typos-domain-work`
+
+**Message:**
+
+```
+typos(domain-work): Fix typos and update iteration and work item types.
+
+- Fix `::END READ` typos in `fundamentals.md`.
+- Add Inherits section to `iteration.art` with name, purpose, description fields.
+- Update `downstream-work-item.art` fields.
+- Simplify `work-phase.art` dependencies description.
+```
+
+###### Commit: `update-domain-indexes`
+
+**Message:**
+
+```
+build(domains): Update domain indexes.
+
+- Fix `deployments/index.md` structure paths and workflow path.
+- Fix `roadmaps/index.md` workflow path.
+- Add templates section to `work/index.md`.
+- Add Commit Policy type to `commits/index.md`.
+```
+
+#### Iteration: Collapse Work Scope to a Single Type
+
+**id:** `collapse-work-scope-types`
+
+**Purpose:** Make work item scope easier to update and domains easier to maintain.
+
+**Description:** Remove concrete types of Type: Work Scope Item (Abstract), rename it to Type: Work Scope Resource and make it carry a partial of the resource record.
+
+**Status:** `PLANNING`
 
 **Changes:**
 
-- Add `notes` field to Type: Commit.
-- Refactor `plan.tart` to render commits nested under itrations with `##### Commit:` section, containing a table of followed by a section for each commit `###### Commit: {id}` with their message and notes field.
-- Migrate (active) plans across all projects
+- Remove concrete types of Type: Work Scope Item (Abstract) across all domains.
+- Rename Type: Work Scope Item (Abstract) to Type: Work Scope Resource
+- Add field Partial — carries a partial of the resource record.
+- Update depdencies within `$DOMAINS` only (separate iteration will migrate active plans).
 
-#### Iteration: Update Write Work Skills
+#### Iteration: Update and Create Write Work Skills
 
 **id:** `update-write-work-skills`
 
@@ -662,6 +755,66 @@ This applies to all four writing skills. write-iteration and write-instructions 
 **Instructions:** `./plan-workflows-make-work-flow/instructions/update-write-work-skills.md`
 
 **Report:** `./plan-workflows-make-work-flow/instructions/update-write-work-skills__report.md`
+
+#### Iteration: Formalize Iteration Commits Nesting
+
+**id:** `iteration-commit-nesting`
+
+**Purpose:** Make iterations more ergonomic, more readable, and easier to update.
+
+**Description:** Add notes to commits and express them in a terse table, followed my commit messages and notes.
+
+**Changes:**
+
+- Add `notes` field to Type: Commit.
+- Refactor `plan.tart` to render commits nested under itrations with `##### Commit:` section, containing a table of followed by a section for each commit `###### Commit: {id}` with their message and notes field.
+- Migrate (active) plans across all projects
+
+#### Iteration: Declaring workflows in guides.
+
+**id:** `workflows-in-guides`
+
+**Changes:**
+
+Scan all guides for `# Workflows` or `# {something} Workflow`. Prose such as "Planning, delegation, and integration runs on", or "... the working agreements and agent modes defined in .." needs to be expressed as a "## Workflows" section with one "### Workflow: {name}" section per workflow and under it the prose "This project uses .. " with the local workflow artefact links such as `_backlog`. Authoritative guide is `$ART_DOMAINS/_gude`
+
+#### Iteration: Update Templates and Migrate Active Plans
+
+**id:** `migrate-active-plains`
+
+**Changes:** Apply new templates to existing plans/iterations/instructions that are not yet `DONE` across all reposistories.
+
+#### Iteration: Update Stale references and examples
+
+**Note:** Scope of update `.agents/` files only.
+
+Move content of `.agents/domains/engineering/_guide.md` to `$AGENTS/work/_wip`.
+
+Update prose with workflow and stage examples to match renamed workflows:
+
+- "Workflow: Planning" => "Workflow: Planning Work"
+- "Workflow: Implementing" => "Workflow: Executing Work"
+- "Workflow: Engineering" => "Workflow: Executing Work"
+- "Delivery Workflow" => "Workflow: Executing Work"
+- other cases of stale workflow names?
+
+Update prose with workflow stage examples to match renamed workflow stages:
+
+- "Briefing, Problem, Solution, Plan, Contextualizing, Drafting, Refining" => "Planning Work Item, Validating Work Item, "Delegating Instructions"
+- other cases of stale workflow stage names?
+
+1. Renamed paths
+
+- `work/types/workflow-stage.art` to `work/structures/structures/workflow-stage.art`
+- `engineering/workflows/engineering.art` => `work/worflows/executing-work/workflow.art`
+- `plans/workflows/planning.art` => `work/worflows/planning-work/workflow.art`
+
+1. Hide engineering domain. Remove:
+
+- `$DOMAINS/engineering/domain.art `
+- `$DOMAINS/engineering/index.md`
+
+Check for stale paths.
 
 #### Iteration: Update Agent Modes
 
@@ -718,6 +871,26 @@ This applies to all four writing skills. write-iteration and write-instructions 
 **Changes:**
 
 - Integrate Type: Spec (Abstract) into plan structure.
+- Update plan template for spec integration.
+
+**Instructions:** `./plan-workflows-make-work-flow/instructions/integrate-specs-into-plans.md`
+
+**Report:** `./plan-workflows-make-work-flow/instructions/integrate-specs-into-plans__report.md`
+
+#### Iteration: Update Domain Knowledge
+
+**id:** `update-domain-knowledge`
+
+**Purpose:** Document how domains work.
+
+**Description:** Update the `$ART_DOMAINS/archirecture` knowledge.
+
+**Status:** `DRAFT`
+
+**Changes:**
+
+- Update `reference-model.md`
+- Update `reference-workflows.md`
 - Update plan template for spec integration.
 
 **Instructions:** `./plan-workflows-make-work-flow/instructions/integrate-specs-into-plans.md`
