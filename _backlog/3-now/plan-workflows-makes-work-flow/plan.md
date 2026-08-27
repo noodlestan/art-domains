@@ -722,6 +722,27 @@ build(domains): Update domain indexes.
 - Add field Partial — carries a partial of the resource record.
 - Update depdencies within `$DOMAINS` only (separate iteration will migrate active plans).
 
+**Instructions:** `./plan-workflows-make-work-flow/instructions/collapse-work-scope-types.md`
+
+##### Commits:
+
+| ID                                | Repository / Checkout / Branch    | Policy             | Hash      | Status      |
+| --------------------------------- | --------------------------------- | ------------------ | --------- | ----------- |
+| `collapse-work-scope-types`       | Workspace / `$WORKSPACE` / `main` | BLOCKED            | TBD       | `PLANNING`  |
+
+###### Commit: `collapse-work-scope-types`
+
+**Message:**
+
+```
+build(domain-work): Simplify work scopes types.
+
+- Rename `Type: Work Scope Item (Abstract)` to `Type: Work Scope Resource`.
+- Remove concrete scope types (Project, Package, Repository, Deployment, Application).
+- Add `partial` field to carry resource record partial.
+- Update references in work-item-abstract and templates.
+```
+
 #### Iteration: Update and Create Write Work Skills
 
 **id:** `update-write-work-skills`
