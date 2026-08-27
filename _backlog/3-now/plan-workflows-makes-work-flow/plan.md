@@ -724,18 +724,20 @@ build(domains): Update domain indexes.
 
 **Instructions:** `./plan-workflows-make-work-flow/instructions/collapse-work-scope-types.md`
 
+**Status:** `DONE`
+
 ##### Commits:
 
 | ID                                | Repository / Checkout / Branch    | Policy             | Hash      | Status      |
 | --------------------------------- | --------------------------------- | ------------------ | --------- | ----------- |
-| `collapse-work-scope-types`       | Workspace / `$WORKSPACE` / `main` | BLOCKED            | TBD       | `PLANNING`  |
+| `collapse-work-scope-types`       | Workspace / `$WORKSPACE` / `main` | BLOCKED            | `418ce1a` | `COMMITTED` |
 
 ###### Commit: `collapse-work-scope-types`
 
 **Message:**
 
 ```
-build(domain-work): Simplify work scopes types.
+refactor(domains): Collapse work scope types into a single Work Scope Resource type.
 
 - Rename `Type: Work Scope Item (Abstract)` to `Type: Work Scope Resource`.
 - Remove concrete scope types (Project, Package, Repository, Deployment, Application).
