@@ -281,7 +281,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Collapse Work Scope to a Single Type      | `DONE`     |
 | Iteration: Update or Create Work Skills and Routines | `DONE` |
 | Iteration: Formalize Iteration Commits Nesting       | `READY`    |
-| Iteration: Declaring workflows in guides             | `PLANNING`    |
+| Iteration: Declaring workflows in guides             | `READY`    |
 | Iteration: Prompts for Migrating Active Plans        | `PLANNING`    |
 | Iteration: Update Stale references and examples      | `DRAFT`    |
 | Iteration: Update Agent Modes                        | `DRAFT`    |
@@ -847,9 +847,13 @@ Syntax:
 
 ### Iteration: Declaring workflows in guides.
 
+**Instructions:** `./plan-workflows-make-work-flow/instructions/workflows-in-guides.md`
+
+**Report:** `./plan-workflows-make-work-flow/instructions/workflows-in-guides__report.md`
+
 **id:** `workflows-in-guides`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Changes:**
 
