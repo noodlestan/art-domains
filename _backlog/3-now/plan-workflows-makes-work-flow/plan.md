@@ -975,23 +975,31 @@ Check for stale paths.
 - `domain-index.art` — Scans domain for structures, types, routines, templates and generates index.md
 - `domain-listing.art` — Generates listing of all domains for navigation
 
+
+### Iteration: Integrate Specs Into Plans
+
 **id:** `integrate-specs-into-plans`
 
-**Status:** `DRAFT`
+**Status:** `PLANNING`
 
-**Purpose:** Integrate specs into plans.
+**Purpose:** Integrate specification structures into plan workflow.
 
-**Description:** Integrate Type: Spec (Abstract) into plan structure and template.
+**Description:** Connect Type: Spec (Abstract) into plan structure and template for specification-driven planning.
 
 **Changes:**
 
-- Integrate Type: Spec (Abstract) into plan structure.
-- Update plan template for spec integration.
+- Add spec reference field to `$DOMAINS/plans/structures/plan.art`
+- Update `$DOMAINS/plans/templates/plan.tart` to render spec section
+- Add spec context type if needed for linking specs to plans
+- Update work-item-abstract.art to support spec references
 
-**Instructions:** `./plan-workflows-make-work-flow/instructions/integrate-specs-into-plans.md`
+**Scope:** `$DOMAINS/plans/` and `$DOMAINS/specs/` directories
 
-**Report:** `./plan-workflows-make-work-flow/instructions/integrate-specs-into-plans__report.md`
+**Key integration points:**
 
+- Plan structure gets optional `specs` field
+- Plan template renders spec references in context section
+- Specs become first-class resources in plan scope
 ### Iteration: Update Domain Knowledge
 
 **id:** `update-domain-knowledge`
