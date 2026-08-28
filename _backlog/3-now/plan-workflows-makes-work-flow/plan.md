@@ -925,28 +925,31 @@ Update prose with workflow stage examples to match renamed workflow stages:
 - `$DOMAINS/engineering/index.md`
 
 Check for stale paths.
-
 ### Iteration: Update Agent Modes
 
 **id:** `update-agent-modes`
 
-**Status:** `DRAFT`
+**Status:** `PLANNING`
 
-**Purpose:** Update agent modes: architect, planner, delegator, worker, backlog-manager.
+**Purpose:** Update agent modes to work with new plan structure and extracted routines.
 
-**Description:** Update agent mode definitions to work with new plan structure and skill.
+**Description:** Update agent mode definitions to reference the new work domain routines and follow updated conventions.
 
 **Changes:**
 
-- Update architect agent mode
-- Update planner agent mode
-- Update delegator agent mode
-- Update worker agent mode
-- Update backlog-manager agent mode
+- Update architect agent mode to reference new work routines
+- Update planner agent mode to reference new work routines
+- Update delegator agent mode to reference new work routines
+- Update worker agent mode to reference new work routines
+- Update backlog-manager agent mode to reference new work routines
 
-**Instructions:** `./plan-workflows-make-work-flow/instructions/update-agent-modes.md`
+**Scope:** `.agents/skills/agent-*/SKILL.md` files
 
-**Report:** `./plan-workflows-make-work-flow/instructions/update-agent-modes__report.md`
+**Key updates:**
+- Add `::READ` directives for work domain routines
+- Update skill alignment sections
+- Update mandatory reading sections
+- Ensure consistent reference patterns across all modes
 
 ### Iteration: Refactor Domain Index Routines
 
