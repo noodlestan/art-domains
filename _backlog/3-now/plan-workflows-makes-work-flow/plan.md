@@ -104,7 +104,7 @@ This plan updates the `write-milestone` and `write-plan` skills and refactors th
 
 ## Scope
 
-### Scope Repository: Art Domains
+### (Scope) Repository: Art Domains
 
 **Resource:** Repository: Art Domains
 
@@ -112,13 +112,14 @@ This plan updates the `write-milestone` and `write-plan` skills and refactors th
 
 **Record:** `$ARTIFICIAL/_records/repository.art`
 
-**Role:** Hosts this Plan. Some changes required.
+**Role:** Hosts this Plan and architecture knowledge. Some changes required.
 
 **Changes:**
 
 - List `Operating Instructions` in `_guide.md`.
+- Update `architecture/`.
 
-### Workspace Scope: Noodlestan
+### (Scope) Workspace: Noodlestan
 
 **Resource:** Workspace: Noodlestan
 
@@ -130,9 +131,11 @@ This plan updates the `write-milestone` and `write-plan` skills and refactors th
 
 **Changes:**
 
-- Domain definitions, agent modes, and shared context updated across iterations.
+- Major changes happen in `$DOMAINS/` where domain definitions, structures, templates and routines live.
+- Some changes to skills and agent modes, both under `$SKILLS/`.
+- List `Operating Instructions` in `_guide.md`.
 
-### Domain Scope: Work
+### (Scope) Domain: Work
 
 **Resource:** Domain: Work
 
@@ -158,7 +161,7 @@ This plan updates the `write-milestone` and `write-plan` skills and refactors th
 - Remove `engineering` domain; replace with `work` workflows.
 - Move `workflow-stage` from types to structures.
 
-### Domain Scope: Plans
+### (Scope) Domain: Plans
 
 **Resource:** Domain: Plans
 
@@ -176,7 +179,7 @@ This plan updates the `write-milestone` and `write-plan` skills and refactors th
 - Add Structure: Iteration (replaces `%plan.commits` via `%plan.iterations` alias).
 - Update `instructions.tart` and `instructions-report.tart`.
 
-### Domain Scope: Roadmaps
+### (Scope) Domain: Roadmaps
 
 **Resource:** Domain: Roadmaps
 
@@ -192,7 +195,7 @@ This plan updates the `write-milestone` and `write-plan` skills and refactors th
 - Refactor `Workflow: Roadmapping` with nested stages: `Discovering Work`, `Strategizing Milestones`, `Prioritizing Milestones`, `Coordinating Milestones`, `Integrating Plans`.
 
 
-### Domain Scope: Deployments
+### (Scope) Domain: Deployments
 
 **Resource:** Domain: Deployments
 
@@ -204,19 +207,19 @@ This plan updates the `write-milestone` and `write-plan` skills and refactors th
 
 - Refactor `Workflow: Deploying` with nested stages and operations: `Preparing Deployment` (ops: `Building for Deployment`), `Executing Deployment` (ops: `Deploying`), `Finalizing Deployment`, `Verifying Deployment`.
 
-### Domain Scope: Tasks
+### (Scope) Domain: Tasks
 
 **Changes:**
 
 - Was "Domain: Tasks". Domain entirely removed.
 
-### Domain Scope: Engineering
+### (Scope) Domain: Engineering
 
 **Changes:**
 
 - Was "Domain: Engineering". Domain entirely removed, agent-mode records left for a later interation.
 
-### Skill Scope: write-plan
+### (Scope) Skill: write-plan
 
 **Resource:** Skill: write-plan
 
@@ -236,7 +239,7 @@ This plan updates the `write-milestone` and `write-plan` skills and refactors th
 
 - Plan structure must be stable before skill update.
 
-### Skill Scope: write-milestone
+### (Scope) Skill: write-milestone
 
 **Resource:** Skill: write-milestone
 
@@ -258,7 +261,9 @@ This plan updates the `write-milestone` and `write-plan` skills and refactors th
 
 Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they are currently checked-in). Changes to knowledge are captured in `ARTIFICIAL`, both on the current branch.
 
-### Items
+## Items:
+
+This section lists the downstream work items produced, coordinated, or advanced by the plan, identifying blocking dependencies across resources of different owners.
 
 | Resource / Record                                    | Status     |
 | ---------------------------------------------------- | ---------- |
@@ -274,17 +279,17 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 | Iteration: Normalize Structure Extends               | `DONE`     |
 | Iteration: Add Work Operations                       | `DONE`     |
 | Iteration: Collapse Work Scope to a Single Type      | `DONE`     |
-| Iteration: Update or Create Work Skills and Routines | `PLANNING` |
-| Iteration: Formalize Iteration Commits Nesting       | `DRAFT`    |
-| Iteration: Declaring workflows in guides             | `DRAFT`    |
-| Iteration: Update Templates and Migrate Active Plans | `DRAFT`    |
+| Iteration: Update or Create Work Skills and Routines | `READY` |
+| Iteration: Formalize Iteration Commits Nesting       | `PLANNING`    |
+| Iteration: Declaring workflows in guides             | `PLANNING`    |
+| Iteration: Update Templates and Migrate Active Plans | `PLANNING`    |
 | Iteration: Update Stale references and examples      | `DRAFT`    |
 | Iteration: Update Agent Modes                        | `DRAFT`    |
 | Iteration: Refactor Domain Index Routines            | `DRAFT`    |
 | Iteration: Integrate Specs Into Plans                | `DRAFT`    |
 | Iteration: Update Domain Knowledge                   | `DRAFT`    |
 
-#### Iteration: Add Work Domain
+### Iteration: Add Work Domain
 
 **id:** `add-work-domain`
 
@@ -304,7 +309,7 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 - Create Work Phase type.
 - Define 6 core types.
 
-#### Iteration: Split Iterations From Commits
+### Iteration: Split Iterations From Commits
 
 **id:** `plan-iteration-commit-split`
 
@@ -321,7 +326,7 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 - Update Iteration to have changes/instructions/report/commits.
 - Update templates.
 
-#### Iteration: Convert Templates to Directive Syntax
+### Iteration: Convert Templates to Directive Syntax
 
 **id:** `templates-converted`
 
@@ -337,7 +342,7 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 - Create `plan.tart` from milestone template
 - Align TEMPLATE::READ lists
 
-#### Iteration: Rebuild Domain Indexes
+### Iteration: Rebuild Domain Indexes
 
 **id:** `domains-index-rebuilt`
 
@@ -353,7 +358,7 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 - Rebuild `domains/index.md` with 17 domains.
 - Remove Tasks domain.
 
-#### Iteration: Add Domain and Workflow Structure
+### Iteration: Add Domain and Workflow Structure
 
 **id:** `structures-domains-created`
 
@@ -369,7 +374,7 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 - Create domains/work/structures/workflow.art.
 - Create domain templates.
 
-#### Iteration: Update Fundamentals File
+### Iteration: Update Fundamentals File
 
 **id:** `update-fundamentals`
 
@@ -384,7 +389,7 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 - Update core definitions (domains, resources, records, fields, routines).
 - Merge duplicate Interpreting Mandatory Reading Sections.
 
-#### Iteration: Integrate Work Domain With Others
+### Iteration: Integrate Work Domain With Others
 
 **id:** `integrate-work-domain`
 
@@ -402,7 +407,7 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 - Review .agents for formatting: bullet points end with dot, examples use `checkouts/artificial/art-js/spec/grammar/constructs/inline/example-inline.art` format.
 - Wait for user review before committing.
 
-##### Commits:
+#### Commits:
 
 | ID                             | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
 | ------------------------------ | --------------------------------- | ------------ | --------- | ----------- |
@@ -410,7 +415,7 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 
 ##### Commit: `add-work-domain-and-refactor`
 
-**Repository:** Repository Scope: Workspace
+**Repository:** Repository: Workspace
 
 **Message:**
 
@@ -427,7 +432,7 @@ build(work): new work domain with item(s), context and scope abstractions
 - Update fundamentals, domains index, and templates
 ```
 
-#### Iteration: Initialize Domains Knowledge
+### Iteration: Initialize Domains Knowledge
 
 **id:** `initialize-domains-knowledge`
 
@@ -450,14 +455,14 @@ In `$ARTIFICIAL/art-domains` namespace:
 
 **Report:** `./plan-workflows-make-work-flow/instructions/initialize-domains-knowledge__report.md`
 
-##### Commits:
+#### Commits:
 
 | ID                                   | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
 | ------------------------------------ | --------------------------------- | ------------ | --------- | ----------- |
 | `add-domains-architecture-knowledge` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `f0c22a5` | `COMMITTED` |
 | `add-domains-design-adrs`            | Workspace / `$WORKSPACE` / `main` | `BLOCKED`    | `8f81148` | `COMMITTED` |
 
-###### Commit: `add-domains-architecture-knowledge`
+##### Commit: `add-domains-architecture-knowledge`
 
 **Message:**
 
@@ -471,7 +476,7 @@ knowledge(domains): Add reference model and workflow starting points.
 
 ##### Commit: `add-domains-design-adrs`
 
-**Repository:** Repository Scope: Artificial `$ARTIFICIAL`
+**Repository:** Repository: Art Domains `$ART_DOMAINS`
 
 **Message:**
 
@@ -486,7 +491,7 @@ knowledge(domains): Add domain design ADRs.
 
 **Note:** ADRs review by user and accepted before pushing.
 
-#### Iteration: Normalize Structure Extends
+### Iteration: Normalize Structure Extends
 
 **Id:** `normalize-structure-extends`
 
@@ -507,13 +512,13 @@ Normalize structure inheritance declarations across every domain:
 
 **Report:** `./plan-workflows-make-work-flow/instructions/normalize-structure-extends__report.md`
 
-##### Commits:
+#### Commits:
 
 | ID                            | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
 | ----------------------------- | --------------------------------- | ------------ | --------- | ----------- |
 | `normalize-structure-extends` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `04e933c` | `COMMITTED` |
 
-###### Commit: `normalize-structure-extends`
+##### Commit: `normalize-structure-extends`
 
 **Message:**
 
@@ -521,7 +526,7 @@ Normalize structure inheritance declarations across every domain:
 build(domains): normalize structure inheritance declarations
 ```
 
-#### Iteration: Add Work Operations
+### Iteration: Add Work Operations
 
 **id:** `add-work-operations`
 
@@ -545,7 +550,7 @@ Major changes:
 
 **Instructions:** `./plan-workflows-make-work-flow/instructions/add-work-operations.md`
 
-##### Commits:
+#### Commits:
 
 | ID                                | Repository / Checkout / Branch    | Policy             | Hash      | Status      |
 | --------------------------------- | --------------------------------- | ------------------ | --------- | ----------- |
@@ -559,7 +564,7 @@ Major changes:
 | `typos-domain-work`               | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `bce7adf`  | `COMMITTED` |
 | `update-domain-indexes`           | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `0e2697d`  | `COMMITTED` |
 
-###### Commit: `add-commit-policy`
+##### Commit: `add-commit-policy`
 
 **Message:**
 
@@ -572,7 +577,7 @@ build(workflows-make-work-flow): add commit policy type and fields
 - Add ::READ directive for Commit Policy in commit.art
 ```
 
-###### Commit: `fix-structural-and-formatting`
+##### Commit: `fix-structural-and-formatting`
 
 **Message:**
 
@@ -586,7 +591,7 @@ build(workflows-make-work-flow): fix structural and formatting issues
 - Update write-no-comply-entity-task skill procedure naming
 ```
 
-###### Commit: `add-operation-and-instructions`
+##### Commit: `add-operation-and-instructions`
 
 **Message:**
 
@@ -599,7 +604,7 @@ build(workflows-make-work-flow): add operation and operating instructions types
 - Update workflow-stage reference from types to structures
 ```
 
-###### Commit: `refactor-workflow-nesting`
+##### Commit: `refactor-workflow-nesting`
 
 **Message:**
 
@@ -613,7 +618,7 @@ build(workflows-make-work-flow): Refactor workflows with nested stages and opera
 - Add `operating-instructions` and other inherited fields to `Structure: Milestone` and `Structure: Plan`.
 ```
 
-###### Commit: `renames-domain-work`
+##### Commit: `renames-domain-work`
 
 **Message:**
 
@@ -627,7 +632,7 @@ renames(domain-work): Type: Workflow Stage changed to Structure; fix typos and f
 - Remove duplicate fields in `workspace.art`.
 ```
 
-###### Commit: `knowledge-workspace`
+##### Commit: `knowledge-workspace`
 
 **Message:**
 
@@ -638,7 +643,7 @@ knowledge(workspace): Update `_guide.md` with workflow operations and add commit
 - Add `knowledge/conventions/writing-commit-messages.art` with commit message format and rules.
 ```
 
-###### Commit: `chore-domain-work-templates`
+##### Commit: `chore-domain-work-templates`
 
 **Message:**
 
@@ -651,7 +656,7 @@ chore(domain-work): Extract shared work item templates; add types to structures.
 - Add types to inherited fields in `plan.art` and `milestone.art`.
 ```
 
-###### Commit: `typos-domain-work`
+##### Commit: `typos-domain-work`
 
 **Message:**
 
@@ -664,7 +669,7 @@ typos(domain-work): Fix typos and update iteration and work item types.
 - Simplify `work-phase.art` dependencies description.
 ```
 
-###### Commit: `update-domain-indexes`
+##### Commit: `update-domain-indexes`
 
 **Message:**
 
@@ -677,7 +682,7 @@ build(domains): Update domain indexes.
 - Add Commit Policy type to `commits/index.md`.
 ```
 
-#### Iteration: Collapse Work Scope to a Single Type
+### Iteration: Collapse Work Scope to a Single Type
 
 **id:** `collapse-work-scope-types`
 
@@ -696,13 +701,13 @@ build(domains): Update domain indexes.
 
 **Instructions:** `./plan-workflows-make-work-flow/instructions/collapse-work-scope-types.md`
 
-##### Commits:
+#### Commits:
 
 | ID                                | Repository / Checkout / Branch    | Policy             | Hash      | Status      |
 | --------------------------------- | --------------------------------- | ------------------ | --------- | ----------- |
 | `collapse-work-scope-types`       | Workspace / `$WORKSPACE` / `main` | AUTONOMOUS         | `c908e64` | `COMMITTED` |
 
-###### Commit: `collapse-work-scope-types`
+##### Commit: `collapse-work-scope-types`
 
 **Message:**
 
@@ -715,11 +720,11 @@ refactor(domains): Collapse work scope types into a single Work Scope Resource t
 - Update references in work-item-abstract and templates.
 ```
 
-#### Iteration: Update or Create Work Skills and Routines**
+### Iteration: Update or Create Work Skills and Routines**
 
 **Id:** `update-work-skills-and-routines`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Use the new Work abstractions and improved Milestone, Plan, Iteration and instructions when generating content.
 
@@ -736,124 +741,88 @@ refactor(domains): Collapse work scope types into a single Work Scope Resource t
 - Add "Routine: Compose Workflow Operations"
 - Add "Routine: Compose Operating Instructions"
 
+**Instructions:** `./plan-workflows-make-work-flow/instructions/update-work-skills-and-routines.md`
 
-**Notes on operating instructions:**
+**Report:** `./plan-workflows-make-work-flow/instructions/update-work-skills-and-routines__report.md`
 
-The writing skills (write-milestone, write-plan) will need to invoke Routine: Compose Workflow Operations and Routine: Identify Operating Instructions to discover operations from knowledge and scope resources. The routine receives workflows as input and returns List(Type: Operating Instructions). The caller filters by stage as needed. When writing instructions files, the skill should:
-
-1. Populate scope and context using Compose Work Scope and  Compose Work Context.
-1. Pass the work item's workflows to the routine.
-2. Receive the list of operating instructions.
-3. Render relevant operating instructions in the instruction file under the appropriate stage sections (Setting Up, Verifying, etc.).
-
-This applies to all four writing skills. write-iteration and write-instructions are new skills to be created.
-
-**Instructions:** `./plan-workflows-make-work-flow/instructions/update-write-work-skills.md`
-
-**Report:** `./plan-workflows-make-work-flow/instructions/update-write-work-skills__report.md`
-
-**Draft for instructions:**
-
-Create `$DOMAINS/work/routines/compose-workflow-operations.art` completing the READ directives (one per type used in the routine)
-
-```art
-# Module
-
-## Uses
-
-::READ (...) FROM ...
-
-## Routine: Compose Workflow Operations
-
-**Purpose:** Scan workflows for work operations executed with each stage.
-
-**Inputs:**
-
-- `workflows` — List(Structure: Workflow). All workflows involved in the work item. Examples: "Workflow: Planning Work", "Workflow: Executing Work".
-
-**Outputs:**
-
-- `%operations` — List(Structure: Operation). Discovered operations.
-
-**Steps:**
-
-1. Prepare a list of `%operations`.
-2. With each `%workflow` (Structure: Workflow) in `%work-item.workflows` scan its record for `%workflow.stages`.
-3. With each `%stage` (Type: Workflow Stage) in `%workflow.stages`, add all `%stage.operations` into the `%operations` list.
-4. For each `%operation` listed in `%operations` make sure it identifies the owning `workflow` and `stage`.
-5. Return list of Type: Operating Instructions.
-```
-
-Example of resource extracted:
-
-```md
-- name: Operation: Writing Commit Messages
-- workflow: Workflow: Planning Work
-- stage: Workflow Stage: Planning Work Item
-- source: `$PROJECT/_guide.md`
-```
-
-Create `$DOMAINS/work/routines/compose-operating-instructions.art` completing the READ directives (one per type used in the routine)
-
-```art
-# Module
-
-## Uses
-
-::READ (...) FROM ...
-
-## Routine: Compose Operating Instructions
-
-**Purpose:** Scan knowledge and scope resources for operating instructions.
-
-**Inputs:**
-
-- `%work-item` — Structure: Work Item (Abstract). Containing:
-  - `.workflows` — List(Structure: Workflow). All workflows involved in the work item. Examples: "Workflow: Planning Work", "Workflow: Executing Work".
-  - `.scope` — List(Type: Work Scope Item (Abstract)). Resources involved in the work, both existing and planned. Examples: "Project Scope: ...", "Repository Scope: ...".
-  - `.context.knowledge` — List(Type: Knowledge Context). Knowledge required for the different workflow stages. Examples: "ADR: ... for Planning", "Guide: ... for Verifying".
-
-**Outputs:**
-
-- `%operating-instructions` — List(Type: Operating Instructions). Discovered operating instructions.
-
-**Steps:**
-
-1. With the `%work-item.workflows` Execute **Routine: Compose Work Operations** to identify all `%operations`.
-1. With each `%operation` (Type: Operation) scan `%work-item.context.knowledge` (Type: Knowledge Context) for `%kwowledge` that is relevant for the `%stage`. Example stage: "Workflow Stage: Setting Up" of "Workflow: Planning Work".
-1. With each `%knowledge` scan their artefacts for matching operational instructions. Examples: `## Operating Instructions: Verifying`, `## Operating Instructions: Verifying`.
-3. With each operating instruction, scan `%work-item.scope` resources for matching sections Examples: `## Building`.
-4. Return deduplicated list of Type: Operating Instructions.
-```
-
-````
-Example of resource extracted:
-
-```md
-- name: Operating Instructions: Writing Commit Messages
-- workflow: Workflow: Planning Work
-- stage: Workflow Stage: Planning Work Item
-- source: `$PROJECT/_guide.md`
-- instructions: `Run from the repoository...`
-````
-
-#### Iteration: Formalize Iteration Commits Nesting
+### Iteration: Formalize Iteration Commits Nesting
 
 **id:** `iteration-commit-nesting`
 
 **Status:** `PLANNING`
 
-**Purpose:** Make iterations more ergonomic, more readable, and easier to update.
+**Purpose:** Make status of iterations more ergonomic, more readable, and easier to update.
 
-**Description:** Add notes to commits and express them in a terse table, followed my commit messages and notes.
+**Description:** Add notes to commits and express them in a terse table, followed by commit messages and notes.
 
 **Changes:**
 
 - Add `notes` field to Type: Commit.
-- Refactor `plan.tart` to render commits nested under itrations with `##### Commit:` section, containing a table of followed by a section for each commit `###### Commit: {id}` with their message and notes field.
-- Migrate (active) plans across all projects
+- Add "Template: Commit" in `$DOMAINS/commits/templates/commit.tart`
 
-#### Iteration: Declaring workflows in guides.
+Template based on `$DOMAINS/plans/templates/plan.tart` syntax, including the first 3 directives and containing
+
+````md
+::TEMPLATE::READ (Type: Commit) FROM `$DOMAINS/commits/types/commit.art`
+
+#### Commits:
+
+::TEMPLATE With each `%commit` in `%commits` — List (Type: Commit) — render a table with columns "ID", "Repository / Checkout / Branch", "Policy", "Hash", and "Status"
+
+::EXAMPLE
+
+```md
+| ID                             | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| ------------------------------ | --------------------------------- | ------------ | --------- | ----------- |
+| `add-work-domain-and-refactor` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `5a6b120` | `COMMITTED` |
+```
+
+::END
+
+::TEMPLATE(Commits) With each `%commit` in `%commits` — List (Type: Commit) — render an H5 section with format:
+
+##### Commit: {{%commit.id}}
+
+**Repository:** {{repository.name}}
+
+**Message:**
+
+{{commit.message}}
+
+**Notes:**
+
+{{commit.notes}}
+
+::END(Commits)
+
+::EXAMPLE
+```md
+##### Commit: `add-projects-command`
+
+**Repository:** Repository: Art Domains
+
+**Message:**
+
+```
+build(workspace-cli): Add `projects` command.
+
+- Add `records/` infrastructure for discovering projects and reading records.
+- Add `presentation/` report for listing projects.
+- Repeated duplicate test scenarios.
+```
+````
+
+- Update "Template: Plan" — `$DOMAINS/plans/templates/plan.tart` — to render the commits template before `::END(Iterations)`.
+
+Syntax:
+
+```md
+::TEMPLATE With `%iteration.commits` as `%commits` render the `$DOMAINS/commits/templates/commit.tart` template.
+```
+
+- Update `$DOMAINS/commits/index.md` with new Template.
+
+### Iteration: Declaring workflows in guides.
 
 **id:** `workflows-in-guides`
 
@@ -863,7 +832,7 @@ Example of resource extracted:
 
 Scan all guides for `# Workflows` or `# {something} Workflow`. Prose such as "Planning, delegation, and integration runs on", or "... the working agreements and agent modes defined in .." needs to be expressed as a "## Workflows" section with one "### Workflow: {name}" section per workflow and under it the prose "This project uses .. " with the local workflow artefact links such as `_backlog`. Authoritative guide is `$ART_DOMAINS/_gude`
 
-#### Iteration: Update Templates and Migrate Active Plans
+### Iteration: Update Templates and Migrate Active Plans
 
 **id:** `migrate-active-plains`
 
@@ -871,7 +840,7 @@ Scan all guides for `# Workflows` or `# {something} Workflow`. Prose such as "Pl
 
 **Changes:** Apply new templates to existing plans/iterations/instructions that are not yet `DONE` across all reposistories.
 
-#### Iteration: Update Stale references and examples
+### Iteration: Update Stale references and examples
 
 **Note:** Scope of update `.agents/` files only.
 
@@ -904,7 +873,7 @@ Update prose with workflow stage examples to match renamed workflow stages:
 
 Check for stale paths.
 
-#### Iteration: Update Agent Modes
+### Iteration: Update Agent Modes
 
 **id:** `update-agent-modes`
 
@@ -926,7 +895,7 @@ Check for stale paths.
 
 **Report:** `./plan-workflows-make-work-flow/instructions/update-agent-modes__report.md`
 
-#### Iteration: Refactor Domain Index Routines
+### Iteration: Refactor Domain Index Routines
 
 **id:** `refactor-domain-index-routines`
 
@@ -946,7 +915,7 @@ Check for stale paths.
 
 **Report:** `./plan-workflows-make-work-flow/instructions/refactor-domain-index-routines__report.md`
 
-#### Iteration: Integrate Specs Into Plans
+### Iteration: Integrate Specs Into Plans
 
 **id:** `integrate-specs-into-plans`
 
@@ -965,7 +934,7 @@ Check for stale paths.
 
 **Report:** `./plan-workflows-make-work-flow/instructions/integrate-specs-into-plans__report.md`
 
-#### Iteration: Update Domain Knowledge
+### Iteration: Update Domain Knowledge
 
 **id:** `update-domain-knowledge`
 
@@ -985,6 +954,8 @@ Check for stale paths.
 
 **Report:** `./plan-workflows-make-work-flow/instructions/integrate-specs-into-plans__report.md`
 
+## Coordination
+
 ### Next
 
 Build the plan file from draft content (current iteration). Then update the write-plan skill.
@@ -993,30 +964,23 @@ Build the plan file from draft content (current iteration). Then update the writ
 
 - None
 
-## Findings
+### Findings
 
-- The write-plan skill references `Structure: Plan Scope` and `Structure: Plan Context` which don't exist in the current domain graph.
-- The plan structure has `setting-up` and `verifying` as NaturalBlock fields, not injectable commands as the skill expects.
-- The DONE work in the draft can be modeled as iterations with status DONE for exercise purposes.
-- The planning workflow file (`plans/workflows/planning.art`) doesn't exist yet but is referenced in the domains index.
+- Structures and Types are the source of truth for the domain models, but `tart` templates are the authorative instructions for what to generate. Authoring agents must understand this relationship in order to never port outdated template assumptions back to newer structures.
 
-## Decisions
+### Decisions
 
-- The plan structure is the source of truth, not the skill.
-- DONE work will be modeled as iterations with status DONE to exercise the plan structure.
-- The skill must be updated to work with the plan structure's fields, not the other way around.
+- None
 
-## Documentation to Update
+### Knowledge to Update
 
-- Write-plan skill (primary target)
-- Write-milestone skill (similar issues, follow-up)
-- Domain index routines (refactor)
+- `$ART_DOMAINS/architecture/reference-model.md`
+- `$ART_DOMAINS/architecture/reference-workflows.md`
 
-## Follow Ups
+### Follow Ups
 
-- Update write-milestone skill (similar mapping issues)
-- Create planning workflow file (`plans/workflows/planning.art`)
-- Create engineering workflow file if needed
+- **Refactor Domain index routines**.
+- **Explicit Operating instructions rendering** The writing skills (`write-milestone`, `write-plan`) still need to invoke Routine: Compose Workflow Operations and Routine: Identify Operating Instructions to discover operations from knowledge and scope resources. The routine receives workflows as input and returns List(Type: Operating Instructions). The caller filters by stage as needed. When writing instructions files, the skill should: 1. Populate scope and context using Compose Work Scope and  Compose Work Context. 2. Pass the work item's workflows to the routine. 3. Receive the list of operating instructions. 4. Render relevant operating instructions in milestone, plan, and instruction files.
 
 ## Feedback
 

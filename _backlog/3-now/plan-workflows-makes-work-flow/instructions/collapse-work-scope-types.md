@@ -88,7 +88,7 @@ Update the content:
 Example of scope for a planned resource:
 
 ```md
-### (Resource) Package: Art JS Modules
+### (Scope) Package: Art JS Modules
 
 **Record:** To be created at: `$ART_JS/libs/modules/_records/package.art`.
 
@@ -112,7 +112,7 @@ Using `$ART_JS/libs/parser/ as an example:
 Example of existing record:
 
 ```md
-### (Resource) Package: Art JS Parser
+### (Scope) Package: Art JS Parser
 
 **Record:** `$ART_JS/libs/parser/_records/package.art`
 

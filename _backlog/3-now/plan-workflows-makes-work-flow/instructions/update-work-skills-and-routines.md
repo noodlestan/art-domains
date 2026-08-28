@@ -1,8 +1,8 @@
-# Instructions: `update-write-work-skills`
+# Instructions: `update-work-skills-and-routines`
 
 **Plan:** `workflows-make-work-flow`
 
-**Iteration Id:** `update-write-work-skills`
+**Iteration Id:** `update-work-skills-and-routines`
 
 ## Before you Start
 
@@ -58,7 +58,9 @@ npm ci # to install dependencies.
 
 Create the following routine files in `$DOMAINS/work/routines/`:
 
-#### 1.1 Create `$DOMAINS/work/routines/compose-work-scope.art`
+#### 1.1 Create "Routine: Compose Work Scope"
+
+In `$DOMAINS/work/routines/compose-work-scope.art`:
 
 ````art
 # Module
@@ -66,6 +68,7 @@ Create the following routine files in `$DOMAINS/work/routines/`:
 ## Uses
 
 ::READ (Type: Work Scope Resource) FROM `$DOMAINS/work/types/work-scope-resource.art`
+
 ::READ (Type: Path Ref) FROM `$DOMAINS/primitives/types/path-ref.art`
 
 ## Routine: Compose Work Scope
@@ -102,15 +105,21 @@ Create the following routine files in `$DOMAINS/work/routines/`:
 7. Return `%scope`.
 ````
 
-#### 1.2 Create `$DOMAINS/work/routines/compose-work-context.art`
+#### 1.2 Create "Routine: Compose Work Context"
+
+In `$DOMAINS/work/routines/compose-work-context.art`:
 
 ````art
 # Module
 
 ## Uses
 
+::READ (Structure: Work Item (Abstract)) FROM `$DOMAINS/work/structures/work-item-abstract.art`
+
 ::READ (Type: Upstream Work Context) FROM `$DOMAINS/work/types/upstream-work-context.art`
+
 ::READ (Type: Knowledge Context) FROM `$DOMAINS/work/types/knowledge-context.art`
+
 ::READ (Type: Skill Context) FROM `$DOMAINS/work/types/skill-context.art`
 
 ## Routine: Compose Work Context
@@ -149,7 +158,9 @@ Create the following routine files in `$DOMAINS/work/routines/`:
 7. Return `%context.upstream`, `%context.knowledge`, `%context.required-skills`.
 ````
 
-#### 1.3 Create `$DOMAINS/work/routines/compose-work-operations.art`
+#### 1.3 Create "Routine: Compose Work Operations"
+
+In `$DOMAINS/work/routines/compose-work-operations.art`:
 
 ````art
 # Module
@@ -182,7 +193,9 @@ Create the following routine files in `$DOMAINS/work/routines/`:
 5. Return list of Structure: Operation.
 ````
 
-#### 1.4 Create `$DOMAINS/work/routines/compose-operating-instructions.art`
+#### 1.4 Create "Routine: Compose Operating Instructions"
+
+In `$DOMAINS/work/routines/compose-operating-instructions.art`:
 
 ````art
 # Module
@@ -267,6 +280,16 @@ npm run lint:fix # to fix formatting issues automatically
 npm run lint # to report other formatting issues
 ```
 
-## How to Report Back
+## How to Report Back to the Delegator
 
-Render `$DOMAINS/plans/templates/instructions-report.tart` to produce the report. Write it next to this instruction file as `update-write-work-skills__report.md`.
+This section describes how to report back to the delegator after completing this instruction.
+
+1. Summarise the current context, asking: are you reporting completion or a BLOCKER?
+2. Gather the evidence of changes made and outcomes achieved, or the blocker error details.
+3. Use the **render-template** skill with the `.agents/domains/plans/templates/instructions-report.tart` to render your report and write it next to this instruction file: `plan-{%plan.id}/instructions/{%iteration.id}__report.md`. No separate delegation record is created.
+4. If your prompt included a `DIRECTIVE FEEDBACK:` include the feedback sections in the rendered report.
+5. Include an "Uncertain Matches" section in the report listing any files where you were unsure whether a match should be intervened — these were not changed.
+6. Generate the response and send it back to the delegator.
+7. Keep the response terse per the Working Agreements: happy face + up to 3 bullet points (done `%commit.id`, created `{artefacts}`, thumbs up). The full trail lives in the report file; never repeat it in chat.
+
+Thank you for your service.
