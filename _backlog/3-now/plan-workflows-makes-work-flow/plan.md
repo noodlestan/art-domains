@@ -1,6 +1,6 @@
 # Plan: Workflows Make Work Flow
 
-**ID:** `workflows-make-work-flow`
+**Id:** `workflows-make-work-flow`
 
 **Status:** `PLANNING`
 
@@ -288,11 +288,11 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 
 **id:** `add-work-domain`
 
+**Status:** `DONE`
+
 **Purpose:** Add new work domain: Work Status enum, work-item-abstract.art, scope types, core types.
 
 **Description:** Finalised Work Status enum, rewrote work-item-abstract.art with plan-level examples, created scope types and core types.
-
-**Status:** `DONE`
 
 **Changes:**
 
@@ -308,11 +308,11 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 
 **id:** `plan-iteration-commit-split`
 
+**Status:** `DONE`
+
 **Purpose:** Split Plan → Iteration → Commit: plans contain iterations, iteration.art created, commits domain created.
 
 **Description:** Plans now contain Iterations, created iteration.art and commits domain with Type: Commit.
-
-**Status:** `DONE`
 
 **Changes:**
 
@@ -325,11 +325,11 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 
 **id:** `templates-converted`
 
+**Status:** `DONE`
+
 **Purpose:** Convert templates to directive syntax.
 
 **Description:** Converted `milestone.tart` and `plan.tart` to ::TEMPLATE directives.
-
-**Status:** `DONE`
 
 **Changes:**
 
@@ -341,11 +341,11 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 
 **id:** `domains-index-rebuilt`
 
+**Status:** `DONE`
+
 **Purpose:** Rebuild domain indexes with 17 domains, definitions, structures, types, templates.
 
 **Description:** Rebuilt `domains/{domain}/index.md` for 17 domains and `domains/index.md`.
-
-**Status:** `DONE`
 
 **Changes:**
 
@@ -357,11 +357,11 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 
 **id:** `structures-domains-created`
 
+**Status:** `DONE`
+
 **Purpose:** Create Domain and Workflow structures.
 
 **Description:** Created domain.art, workflow.art, and domain templates.
-
-**Status:** `DONE`
 
 **Changes:**
 
@@ -373,11 +373,11 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 
 **id:** `update-fundamentals`
 
+**Status:** `DONE`
+
 **Purpose:** Update fundamentals with new definitions.
 
 **Description:** Update core definitions, remove duplicates.
-
-**Status:** `DONE`
 
 **Changes:**
 
@@ -388,11 +388,11 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 
 **id:** `integrate-work-domain`
 
+**Status:** `DONE`
+
 **Purpose:** Review and auto-fix .agents for typos, stale references, shortenable references, and formatting.
 
 **Description:** Scans .agents for typos, broken references, long-winded path examples, and formatting issues; auto-fixes all and waits for user review.
-
-**Status:** `DONE`
 
 **Changes:**
 
@@ -431,11 +431,11 @@ build(work): new work domain with item(s), context and scope abstractions
 
 **id:** `initialize-domains-knowledge`
 
+**Status:** `DONE`
+
 **Purpose:** Initialise domains architecture knowledge: reference model, workflows, and ADRs.
 
 **Description:** Created reference-model.md, reference-workflows.md, ADRs, and architecture index in `$ARTIFICIAL/art-domains`.
-
-**Status:** `DONE`
 
 **Changes:**
 
@@ -525,6 +525,8 @@ build(domains): normalize structure inheritance declarations
 
 **id:** `add-work-operations`
 
+**Status:** `DONE`
+
 **Purpose:** Make operating instructions classifiable and discoverable in scope and knowledge resources so that they are available to routines that need to select and consolidate operating instructions.
 
 **Description:** Model operations as members of workflow stages, and use them to scan knowledge and scope resources for operating instructions that match a certain workflow stage. This iteration lays the modeling and process ground work for the next iteration: rewriting work writing skills and routines.
@@ -542,8 +544,6 @@ Major changes:
 - Add "Routine: Compose Operating Instructions"
 
 **Instructions:** `./plan-workflows-make-work-flow/instructions/add-work-operations.md`
-
-**Status:** `DONE`
 
 ##### Commits:
 
@@ -681,6 +681,8 @@ build(domains): Update domain indexes.
 
 **id:** `collapse-work-scope-types`
 
+**Status:** `DONE`
+
 **Purpose:** Make work item scope easier to update and domains easier to maintain.
 
 **Description:** Remove concrete types of Type: Work Scope Item (Abstract), rename it to Type: Work Scope Resource and make it carry a partial of the resource record.
@@ -693,8 +695,6 @@ build(domains): Update domain indexes.
 - Update depdencies within `$DOMAINS` only (separate iteration will migrate active plans).
 
 **Instructions:** `./plan-workflows-make-work-flow/instructions/collapse-work-scope-types.md`
-
-**Status:** `DONE`
 
 ##### Commits:
 
@@ -719,11 +719,11 @@ refactor(domains): Collapse work scope types into a single Work Scope Resource t
 
 **Id:** `update-work-skills-and-routines`
 
+**Status:** `PLANNING`
+
 **Purpose:** Use the new Work abstractions and improved Milestone, Plan, Iteration and instructions when generating content.
 
 **Description:** Refactor `write-milestone`, `write-plan` skills so that they work with new work abstractions, abstracting the common routines to Domin: Work.
-
-**Status:** `PLANNING`
 
 **Changes:**
 
@@ -841,6 +841,8 @@ Example of resource extracted:
 
 **id:** `iteration-commit-nesting`
 
+**Status:** `PLANNING`
+
 **Purpose:** Make iterations more ergonomic, more readable, and easier to update.
 
 **Description:** Add notes to commits and express them in a terse table, followed my commit messages and notes.
@@ -855,6 +857,8 @@ Example of resource extracted:
 
 **id:** `workflows-in-guides`
 
+**Status:** `PLANNING`
+
 **Changes:**
 
 Scan all guides for `# Workflows` or `# {something} Workflow`. Prose such as "Planning, delegation, and integration runs on", or "... the working agreements and agent modes defined in .." needs to be expressed as a "## Workflows" section with one "### Workflow: {name}" section per workflow and under it the prose "This project uses .. " with the local workflow artefact links such as `_backlog`. Authoritative guide is `$ART_DOMAINS/_gude`
@@ -862,6 +866,8 @@ Scan all guides for `# Workflows` or `# {something} Workflow`. Prose such as "Pl
 #### Iteration: Update Templates and Migrate Active Plans
 
 **id:** `migrate-active-plains`
+
+**Status:** `PLANNING`
 
 **Changes:** Apply new templates to existing plans/iterations/instructions that are not yet `DONE` across all reposistories.
 
@@ -902,11 +908,11 @@ Check for stale paths.
 
 **id:** `update-agent-modes`
 
+**Status:** `DRAFT`
+
 **Purpose:** Update agent modes: architect, planner, delegator, worker, backlog-manager.
 
 **Description:** Update agent mode definitions to work with new plan structure and skill.
-
-**Status:** `DRAFT`
 
 **Changes:**
 
@@ -924,11 +930,11 @@ Check for stale paths.
 
 **id:** `refactor-domain-index-routines`
 
+**Status:** `DRAFT`
+
 **Purpose:** Refactor domain index routines to 2 routines: domain index and domain listing.
 
 **Description:** Simplify domain index routines, update domains-listing.tart and domain-table-of-contents.tart.
-
-**Status:** `DRAFT`
 
 **Changes:**
 
@@ -944,11 +950,11 @@ Check for stale paths.
 
 **id:** `integrate-specs-into-plans`
 
+**Status:** `DRAFT`
+
 **Purpose:** Integrate specs into plans.
 
 **Description:** Integrate Type: Spec (Abstract) into plan structure and template.
-
-**Status:** `DRAFT`
 
 **Changes:**
 
@@ -963,11 +969,11 @@ Check for stale paths.
 
 **id:** `update-domain-knowledge`
 
+**Status:** `DRAFT`
+
 **Purpose:** Document how domains work.
 
 **Description:** Update the `$ART_DOMAINS/archirecture` knowledge.
-
-**Status:** `DRAFT`
 
 **Changes:**
 
