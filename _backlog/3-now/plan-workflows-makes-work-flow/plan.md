@@ -723,7 +723,7 @@ refactor(domains): Collapse work scope types into a single Work Scope Resource t
 
 **Description:** Refactor `write-milestone`, `write-plan` skills so that they work with new work abstractions, abstracting the common routines to Domin: Work.
 
-**Status:** `DRAFT`
+**Status:** `PLANNING`
 
 **Changes:**
 
