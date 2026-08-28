@@ -65,21 +65,78 @@ Update the content:
 
 ## Type: Work Scope Resource
 
-**Purpose:** Describe one scoped resource participating in a work item and identify dependencies.
+**Purpose:** Describe one existing or planned resource that participates in the work item, identifying its role in the work and its dependencies with other work items or blocking resources.
 
-**Description:** Includes only dependencies not reflected by work items. Includes dependencies on changes to resources only, i.e., does not include dependencies on resource names, generic stages, phases, or steps.
+**Description:** Carries `record` location when record already exists for this resource. Describes role and changes, carries a partial of resource fields useful for planning and writing instructions, and planning dependencies.
+
+**Primitive:** Record
 
 **Shape:**
 
-- `kind` — ResourceKind. The kind of the scoped resource. Examples: "Project", "Package", "Repository", "Deployment", "Application".
-- `resource` — ResourceName. Full name of the scoped resource, including the `{Kind}: ` prefix. Example: "Package: Art JS Parser".
-- `path` — Path. Location of the resource (relative to a path variable, when applicable). Example: `$ART_JS/libs/parser/`.
+- `kind` — ResourceKind. The kind of resource in scope. Examples: "Project", "Package", "Repository", "Deployment", "Application".
+- `resource` — ResourceName. Full name of the scoped resource if already existing, including the `{Kind}: ` prefix. Example: "Package: Art JS Parser".
 - `record` — Path. Location of the resource record. Example: `$ART_JS/libs/parser/_records/package.art`.
-- `owner` — ResourceName. Full name of the resource that owns this scope resource, when applicable. Example: "Project: Art JS".
+- `owner` — ResourceName. Full name of the resource that owns this resource, when applicable. Example: "Project: Art JS".
 - `role` — NaturalExpression. Why the resource is involved in the work scope and/or how it contributes to the work item. Examples: "Changes required", "Deployment required".
-- `changes` — List(NaturalBlock). Bullet point list summary of changes to execute within the scope.
+- `partial` — NaturalBlock. A partial of the resource record. When the resource record already exists, includes only the fields relevant to the work item, including `owner` when different from the work item's project. When the resource is planned, includes as much information as possible.
+- `changes` — List(NaturalBlock). When applicable, bullet point list summary of changes to execute within the resource.
+- `operations` — List(NaturalBlock). When applicable, bullet point list summary of operations to execute in the resource.
 - `dependencies` — List(NaturalExpression). Describe changes to other resources required before changes in this resource can be executed. Example: "`ADR: Fixture Based Testing` not marked as ADOPTED, blocks refinement of new constructs.".
-- `partial` — NaturalBlock. A partial of the resource record, carrying only the fields relevant to the work item. Example: "**Version:** 0.1.0" for a package scope.
+
+**Examples:**
+
+Example of scope for a planned resource:
+
+```md
+### (Resource) Package: Art JS Modules
+
+**Record:** To be created at: `$ART_JS/libs/modules/_records/package.art`.
+
+**Role:** — Created by this plan.
+
+**Changes:**
+
+Using `$ART_JS/libs/parser/ as an example:
+
+— Create package, scaffold, create records,
+— Add stub entry point and unit test.
+
+**Partial:**
+
+- `owner` — Project: Art JS
+- `path` —`$ART_JS/libs/modules/`
+- `canonicalName` —`@art-js/modules`
+- `deployment` — NPM Package Deployment: Modules
+```
+
+Example of existing record:
+
+```md
+### (Resource) Package: Art JS Parser
+
+**Record:** `$ART_JS/libs/parser/_records/package.art`
+
+**Role:** — Changes required.
+
+**Changes:**
+
+— Add new Construct: Definition.
+
+**Operations:**
+
+— Bump minor version and publish.
+
+**Partial:**
+
+- `owner` — Project: Art JS
+- `path` —`$ART_JS/libs/parser/`
+- `deployment` — NPM Package Deployment: Parser
+
+**Dependencies:**
+
+- Knowledge in `$PACKAGE/architecture/pseudo.md` is stale, needs updating before planning.
+- `ADR: Fixture Based Testing` not marked as ADOPTED, blocks refinement of new constructs.
+```
 ````
 
 ### Step: Remove concrete scope types
