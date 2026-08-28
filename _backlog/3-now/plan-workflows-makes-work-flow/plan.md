@@ -279,10 +279,10 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Normalize Structure Extends               | `DONE`     |
 | Iteration: Add Work Operations                       | `DONE`     |
 | Iteration: Collapse Work Scope to a Single Type      | `DONE`     |
-| Iteration: Update or Create Work Skills and Routines | `READY` |
-| Iteration: Formalize Iteration Commits Nesting       | `PLANNING`    |
+| Iteration: Update or Create Work Skills and Routines | `DONE` |
+| Iteration: Formalize Iteration Commits Nesting       | `READY`    |
 | Iteration: Declaring workflows in guides             | `PLANNING`    |
-| Iteration: Update Templates and Migrate Active Plans | `PLANNING`    |
+| Iteration: Prompts for Migrating Active Plans        | `PLANNING`    |
 | Iteration: Update Stale references and examples      | `DRAFT`    |
 | Iteration: Update Agent Modes                        | `DRAFT`    |
 | Iteration: Refactor Domain Index Routines            | `DRAFT`    |
@@ -724,7 +724,7 @@ refactor(domains): Collapse work scope types into a single Work Scope Resource t
 
 **Id:** `update-work-skills-and-routines`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Use the new Work abstractions and improved Milestone, Plan, Iteration and instructions when generating content.
 
@@ -745,11 +745,34 @@ refactor(domains): Collapse work scope types into a single Work Scope Resource t
 
 **Report:** `./plan-workflows-make-work-flow/instructions/update-work-skills-and-routines__report.md`
 
+#### Commits:
+
+| ID | Repository / Checkout / Branch | Policy | Hash | Status |
+| --- | --- | --- | --- | --- |
+| `extract-work-routines` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `2d840b3` | `COMMITTED` |
+
+##### Commit: `extract-work-routines`
+
+**Message:**
+
+```
+refactor(skills): Extract work routines from write-plan and write-milestone skills
+
+- Extract compose-work-scope, compose-work-context, compose-work-operations, compose-operating-instructions routines to $DOMAINS/work/routines/
+- Update write-plan skill with ::READ directives for new routines
+- Update write-milestone skill with ::READ directives for new routines
+- Add Routines section to work domain index
+```
+
 ### Iteration: Formalize Iteration Commits Nesting
+
+**Instructions:** `./plan-workflows-make-work-flow/instructions/iteration-commit-nesting.md`
+
+**Report:** `./plan-workflows-make-work-flow/instructions/iteration-commit-nesting__report.md`
 
 **id:** `iteration-commit-nesting`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Make status of iterations more ergonomic, more readable, and easier to update.
 
@@ -832,13 +855,31 @@ Syntax:
 
 Scan all guides for `# Workflows` or `# {something} Workflow`. Prose such as "Planning, delegation, and integration runs on", or "... the working agreements and agent modes defined in .." needs to be expressed as a "## Workflows" section with one "### Workflow: {name}" section per workflow and under it the prose "This project uses .. " with the local workflow artefact links such as `_backlog`. Authoritative guide is `$ART_DOMAINS/_gude`
 
-### Iteration: Update Templates and Migrate Active Plans
+### Iteration: Prompts for Migrating Active Plans
 
-**id:** `migrate-active-plains`
+**id:** `migration-prompts`
 
 **Status:** `PLANNING`
 
-**Changes:** Apply new templates to existing plans/iterations/instructions that are not yet `DONE` across all reposistories.
+**Purpose:** Apply new templates to existing plans/iterations/instructions that are not yet `DONE` across all reposistories.
+
+**Description:** Generate a prompt for architects and planner working on other sessions to update their plan according to new structures. Prompt should instruct them
+
+**Changes:**
+
+- No Changes. Just 2 prompts recorded below where the `{output prompt here}` placeholder are (one prompt for milestones and another one for plans).
+
+**Prompts:**
+
+```md
+# Milestone Migration Prompt
+{output prompt here}
+```
+
+```md
+# Plan Migration Prompt
+{output prompt here}
+```
 
 ### Iteration: Update Stale references and examples
 
