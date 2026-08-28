@@ -282,7 +282,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Update or Create Work Skills and Routines | `DONE` |
 | Iteration: Formalize Iteration Commits Nesting       | `READY`    |
 | Iteration: Declaring workflows in guides             | `READY`    |
-| Iteration: Prompts for Migrating Active Plans        | `PLANNING`    |
+| Iteration: Prompts for Migrating Active Plans        | `READY`    |
 | Iteration: Update Stale references and examples      | `DRAFT`    |
 | Iteration: Update Agent Modes                        | `DRAFT`    |
 | Iteration: Refactor Domain Index Routines            | `DRAFT`    |
@@ -861,9 +861,13 @@ Scan all guides for `# Workflows` or `# {something} Workflow`. Prose such as "Pl
 
 ### Iteration: Prompts for Migrating Active Plans
 
+**Instructions:** `./plan-workflows-make-work-flow/instructions/migration-prompts.md`
+
+**Report:** `./plan-workflows-make-work-flow/instructions/migration-prompts__report.md`
+
 **id:** `migration-prompts`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Apply new templates to existing plans/iterations/instructions that are not yet `DONE` across all reposistories.
 
