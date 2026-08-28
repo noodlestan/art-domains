@@ -1000,26 +1000,31 @@ Check for stale paths.
 - Plan structure gets optional `specs` field
 - Plan template renders spec references in context section
 - Specs become first-class resources in plan scope
+
 ### Iteration: Update Domain Knowledge
 
 **id:** `update-domain-knowledge`
 
-**Status:** `DRAFT`
+**Status:** `PLANNING`
 
-**Purpose:** Document how domains work.
+**Purpose:** Document how domains work with new structures and workflows.
 
-**Description:** Update the `$ART_DOMAINS/archirecture` knowledge.
+**Description:** Update the architecture knowledge base to reflect new domain structures, workflows, and routines.
 
 **Changes:**
 
-- Update `reference-model.md`
-- Update `reference-workflows.md`
-- Update plan template for spec integration.
+- Update `$ART_DOMAINS/architecture/reference-model.md` with new domain boundaries
+- Update `$ART_DOMAINS/architecture/reference-workflows.md` with new workflow definitions
+- Update domain index documentation for all affected domains
+- Document new work domain structures and routines
 
-**Instructions:** `./plan-workflows-make-work-flow/instructions/integrate-specs-into-plans.md`
+**Scope:** `$ART_DOMAINS/architecture/` directory
 
-**Report:** `./plan-workflows-make-work-flow/instructions/integrate-specs-into-plans__report.md`
+**Key updates:**
 
+- Reference model reflects new work domain structures
+- Workflows documented with stages and operations
+- Domain indexes updated with new resources
 ## Coordination
 
 ### Next
