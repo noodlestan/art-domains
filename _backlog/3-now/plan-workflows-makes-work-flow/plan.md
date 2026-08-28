@@ -955,23 +955,25 @@ Check for stale paths.
 
 **id:** `refactor-domain-index-routines`
 
-**Status:** `DRAFT`
+**Status:** `PLANNING`
 
-**Purpose:** Refactor domain index routines to 2 routines: domain index and domain listing.
+**Purpose:** Simplify domain index routines into two reusable routines.
 
-**Description:** Simplify domain index routines, update domains-listing.tart and domain-table-of-contents.tart.
+**Description:** Consolidate the multiple domain index routines into two core routines: domain index and domain listing.
 
 **Changes:**
 
-- Simplify domain index routines.
-- Update domains-listing.tart.
-- Update domain-table-of-contents.tart.
+- Create `$DOMAINS/domains/routines/domain-index.art` — generates domain index from structures, types, routines, templates
+- Create `$DOMAINS/domains/routines/domain-listing.art` — generates domain listing for navigation
+- Update `$DOMAINS/domains/templates/domains-listing.tart` to use new routine
+- Update `$DOMAINS/domains/templates/domain-table-of-contents.tart` to use new routine
+- Remove redundant routines from individual domain directories
 
-**Instructions:** `./plan-workflows-make-work-flow/instructions/refactor-domain-index-routines.md`
+**Scope:** `$DOMAINS/domains/` directory
 
-**Report:** `./plan-workflows-make-work-flow/instructions/refactor-domain-index-routines__report.md`
-
-### Iteration: Integrate Specs Into Plans
+**Key routines:**
+- `domain-index.art` — Scans domain for structures, types, routines, templates and generates index.md
+- `domain-listing.art` — Generates listing of all domains for navigation
 
 **id:** `integrate-specs-into-plans`
 
