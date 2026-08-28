@@ -891,6 +891,10 @@ Scan all guides for `# Workflows` or `# {something} Workflow`. Prose such as "Pl
 
 ### Iteration: Update Stale references and examples
 
+**Instructions:** `./plan-workflows-make-work-flow/instructions/update-stale-references.md`
+
+**Report:** `./plan-workflows-make-work-flow/instructions/update-stale-references__report.md`
+
 **Note:** Scope of update `.agents/` files only.
 
 Move content of `.agents/domains/engineering/_guide.md` to `$AGENTS/work/_wip`.
