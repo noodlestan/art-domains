@@ -31,35 +31,9 @@ src/                — the CLI source (commands, config, shared, private)
 _records/           — repository and checkout records (discovered by Workspace CLI)
 ```
 
-## Setup
+## Workflows
 
-Run from repository root (monorepo):
-
-```bash
-npm ci # to install dependencies.
-npm run ci # to verify build is green before starting
-```
-
-## Verification
-
-Run from this package directory:
-
-```bash
-npm run lint:fix # to fix formatting issues automatically
-npm run lint # to report other issues (prettier, eslint, tsc --noEmit)
-npm run build
-npm run test
-```
-
-Runs on pre-commit hook from the repository root:
-
-```bash
-npm run ci # lint, build and test
-```
-
-## Planning Workflow
-
-This project plans its work with the plan workflow defined in `$WORKSPACE/.agents/domains/plans/index.md`.
+### Planning Work
 
 The short-term focus is captured in `_backlog/_parking-lot.md` — actionable items, pending questions, blockers, and follow-ups (no done items).
 
@@ -67,6 +41,37 @@ The requirements, use cases, and principles are captured in `_backlog/_architect
 
 The backlog lives at `_backlog/` with subdirectories such as `/3-now` (implementation in progress) and `/4-next/` (planned work not yet started) containg plan records following the structure defined in `$WORKSPACE/.agents/domains/plans/structures/plan.art`
 
-## Delivery Workflow
+## Operating Instructions
 
-Planning, delegation, and integration runs on the working agreements and agent modes defined in `$WORKSPACE/.agents/domains/engineering/_guide.md`.
+#### Operating Instructions: Setting Up
+
+**Instructions:**
+
+Run from the repository root (monorepo):
+
+```bash
+npm ci # to install dependencies.
+```
+
+#### Operating Instructions: Verifying Step
+
+**Instructions:**
+
+Run from this package directory:
+
+```bash
+npm run lint:fix # to fix formatting issues automatically
+npm run lint # to report other issues (prettier, eslint, tsc --noEmit)
+npm run test # to run all tests
+npm run build # to produce a full build
+```
+
+#### Operating Instructions: Verifying Completion
+
+**Instructions:**
+
+Run from this package directory:
+
+```bash
+npm run ci # lint, build and test
+```

@@ -30,24 +30,7 @@ artisans/           — (namespace) experiments
 | Art JS             | `art-js/_backlog/_parking-lot.md`      | `art-js/_backlog/`                           |
 | Art Domains        | `art-domains/_backlog/_parking-lot.md` | `art-domains/_backlog/_architect.md`         |
 
-## Seting Up
-
-Run at the root of the repository:
-
-```bash
-npm ci # to install dependencies.
-```
-
 ## Verififying
-
-Run per package modified:
-
-```bash
-npm run lint:fix # to fix formatting issues automatically
-npm run lint # to report other issues
-npm run build
-npm run test
-```
 
 ## Records Management
 
@@ -64,6 +47,45 @@ Records are co-located with the resources they describe in `_records/` directori
 
 This repository maintains an architecture reference at `architecture/index.md` and decision records at `architecture/records/adr`.
 
-## Planning Workflow
+## Workflows
 
-Each project manages its own backlog in a local `_backlog/` directory with a `_guide.md` entry point containing layout, references, verification, and workflows.
+Projects in this repository use the following workflows:
+
+| Workflow / Path                                                           | Purpose                                                                                           |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **Planning Work** `$AGENTS/work/workflows/planning-work/workflow.art`     | Create and manage work item lifecycles, collecting operational instructions according to context. |
+| **Delegating Work** `$AGENTS/work/workflows/delegating-work/workflow.art` | Organize work delegation to sub-agents with validation, execution, and verification.              |
+| **Executing Work** `$AGENTS/work/workflows/executing-work/workflow.art`   | Organize work execution by sub-agents to produce completed, verified outcomes and feedback.       |
+| **Deploying** `$AGENTS/work/workflows/executing-work/workflow.art`        | Organizes deployment of artefacts in operations.                                                  |
+
+## Operating Instructions
+
+#### Operating Instructions: Setting Up
+
+**Instructions:**
+
+Run from the repository root (monorepo):
+
+```bash
+npm ci # to install dependencies.
+```
+
+#### Operating Instructions: Verifying Commit
+
+**Instructions:**
+
+Runs automatically on pre-commit hook (from the repository root):
+
+```bash
+npm run ci # lint, build and test
+```
+
+#### Operating Instructions: Verifying Completion
+
+**Instructions:**
+
+Run from the repository root (monorepo):
+
+```bash
+npm run ci # lint, build and test
+```
