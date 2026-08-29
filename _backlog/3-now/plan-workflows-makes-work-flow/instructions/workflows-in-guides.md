@@ -29,7 +29,7 @@ The plan workflow runs on three working agreements:
 
 ## Goals
 
-Scan all guides for workflow references and express them as structured "## Workflows" sections with workflow artefact links.
+Scan all guides for workflow references or prose an replace them with a structured "## Workflows" sections with workflow artefact links.
 
 ## Mandatory Reading
 
@@ -40,6 +40,9 @@ Scan all guides for workflow references and express them as structured "## Workf
 ### Step 1: Identify guides to update
 
 Scan for guides containing workflow prose.
+
+- Scan `$WORKSPACE/checkout/*/_guide.md`  - the checkout's repository guide.
+- Scan `$WORKSPACE/checkout/**/_guide.md` - a nested guide wihtin the repository.
 
 ### Step 2: Update each guide
 
@@ -54,6 +57,16 @@ npm run lint:fix
 npm run lint
 ```
 
-## How to Report Back
+## How to Report Back to the Delegator
 
-Write report as `workflows-in-guides__report.md`.
+This section describes how to report back to the delegator after completing this instruction.
+
+1. Summarise the current context, asking: are you reporting completion or a BLOCKER?
+2. Gather the evidence of changes made and outcomes achieved, or the blocker error details.
+3. Use the **render-template** skill with the `.agents/domains/plans/templates/instructions-report.tart` to render your report and write it next to this instruction file: `plan-{%plan.id}/instructions/{%iteration.id}__report.md`. No separate delegation record is created.
+4. If your prompt included a `DIRECTIVE FEEDBACK:` include the feedback sections in the rendered report.
+5. Include an "Uncertain Matches" section in the report listing any files where you were unsure whether a match should be intervened — these were not changed.
+6. Generate the response and send it back to the delegator.
+7. Keep the response terse per the Working Agreements: happy face + up to 3 bullet points (done `%commit.id`, created `{artefacts}`, thumbs up). The full trail lives in the report file; never repeat it in chat.
+
+Thank you for your service.

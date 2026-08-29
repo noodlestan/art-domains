@@ -54,6 +54,8 @@ npm ci # to install dependencies.
 
 Update `$DOMAINS/commits/types/commit.art` to add a `notes` field to the shape.
 
+- `notes` — NaturalBlock. Bullet-point list of observations made by the user during or after execution.
+
 ### Step 2: Create Template: Commit
 
 Create `$DOMAINS/commits/templates/commit.tart` with:
@@ -83,10 +85,6 @@ Create `$DOMAINS/commits/templates/commit.tart` with:
 
 {{commit.message}}
 
-**Notes:**
-
-{{commit.notes}}
-
 ::END(Commits)
 ```
 
@@ -104,6 +102,25 @@ Add:
 
 Update `$DOMAINS/commits/index.md` to add the new Template: Commit.
 
+
+### Step 5: Commit
+
+**Policy:** BLOCKED — commit will be executed but not pushed. It will be reviewed by humans before pushing.
+
+Commit `add-commit-template` with message:
+
+```
+build(domains): Create template for rendering commits.
+
+- Add `notes` field to Type: Commit.
+- Add "Template: Commit"
+- Update "Template: Plan" to render the commits template before `::END(Iterations)`.
+- Update Domain: Commits index with new Template.
+```
+
+Push the commit.
+
+
 ## Verifying
 
 Execute from $WORKSPACE root:
@@ -113,6 +130,18 @@ npm run lint:fix # to fix formatting issues automatically
 npm run lint # to report other formatting issues
 ```
 
-## How to Report Back
+## How to Report Back to the Delegator
 
-Render `$DOMAINS/plans/templates/instructions-report.tart` to produce the report. Write it next to this instruction file as `iteration-commit-nesting__report.md`.
+This section describes how to report back to the delegator after completing this instruction.
+
+1. Summarise the current context, asking: are you reporting completion or a BLOCKER?
+2. Gather the evidence of changes made and outcomes achieved, or the blocker error details.
+3. Use the **render-template** skill with the `.agents/domains/plans/templates/instructions-report.tart` to render your report and write it next to this instruction file: `plan-{%plan.id}/instructions/{%iteration.id}__report.md`. No separate delegation record is created.
+4. If your prompt included a `DIRECTIVE FEEDBACK:` include the feedback sections in the rendered report.
+5. Include an "Uncertain Matches" section in the report listing any files where you were unsure whether a match should be intervened — these were not changed.
+6. Generate the response and send it back to the delegator.
+7. Keep the response terse per the Working Agreements: happy face + up to 3 bullet points (done `%commit.id`, created `{artefacts}`, thumbs up). The full trail lives in the report file; never repeat it in chat.
+
+Thank you for your service.
+
+
