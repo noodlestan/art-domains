@@ -41,7 +41,6 @@ This section lists the path variables used throughout the plan file and its down
 | `$WORKSPACE_TOOLING` | `$WORKSPACE/checkouts/workspace-tooling` | Requires updating `_guide.md`                                    |
 | `$NOODLESTAN_WEB`    | `$WORKSPACE/checkouts/noodlestan-web`    | Requires updating `_guide.md`                                    |
 
-
 ## Summary
 
 This plan updates the `write-milestone` and `write-plan` skills and refactors the milestone/plan structures and templates, abstracting structures, types, templatesm and routines to the Domain: Work. The scope covers the skill file, plan structure, plan template, and work domain types used by the skill. Commits happen in the Artificial repository and the Workspace repository.
@@ -206,7 +205,6 @@ This plan updates the `write-milestone` and `write-plan` skills and refactors th
 - Add roadmaps/definitions/index.md.
 - Refactor `Workflow: Roadmapping` with nested stages: `Discovering Work`, `Strategizing Milestones`, `Prioritizing Milestones`, `Coordinating Milestones`, `Integrating Plans`.
 
-
 ### (Scope) Domain: Deployments
 
 **Resource:** Domain: Deployments
@@ -338,8 +336,8 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Add Work Operations                         | `DONE`     |
 | Iteration: Collapse Work Scope to a Single Type        | `DONE`     |
 | Iteration: Update or Create Work Skills and Routines   | `DONE`     |
-| Iteration: Build Operations and Operating Instructions | `READY`    |
-| Iteration: Formalize Iteration Commits Nesting         | `PLANNING` |
+| Iteration: Build Operations and Operating Instructions | `DONE`     |
+| Iteration: Formalize Iteration Commits Nesting         | `READY`    |
 | Iteration: Declaring workflows in guides               | `PLANNING` |
 | Iteration: Prompts for Migrating Active Plans          | `PLANNING` |
 | Iteration: Update Stale references and examples        | `DRAFT`    |
@@ -611,17 +609,17 @@ Major changes:
 
 #### Commits:
 
-| ID                                | Repository / Checkout / Branch    | Policy             | Hash      | Status      |
-| --------------------------------- | --------------------------------- | ------------------ | --------- | ----------- |
-| `add-commit-policy`               | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `da7c6d6` | `COMMITTED` |
-| `fix-structural-and-formatting`   | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `4137c15` | `COMMITTED` |
-| `add-operation-and-instructions`  | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `271cbf7` | `COMMITTED` |
-| `refactor-workflow-nesting`       | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `3b098ea`  | `COMMITTED` |
-| `renames-domain-work`             | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `6b578d0`  | `COMMITTED` |
-| `knowledge-workspace`             | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `764e2e7`  | `COMMITTED` |
-| `chore-domain-work-templates`     | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `3b78d1d`  | `COMMITTED` |
-| `typos-domain-work`               | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `bce7adf`  | `COMMITTED` |
-| `update-domain-indexes`           | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `0e2697d`  | `COMMITTED` |
+| ID                               | Repository / Checkout / Branch    | Policy             | Hash      | Status      |
+| -------------------------------- | --------------------------------- | ------------------ | --------- | ----------- |
+| `add-commit-policy`              | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `da7c6d6` | `COMMITTED` |
+| `fix-structural-and-formatting`  | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `4137c15` | `COMMITTED` |
+| `add-operation-and-instructions` | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `271cbf7` | `COMMITTED` |
+| `refactor-workflow-nesting`      | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `3b098ea` | `COMMITTED` |
+| `renames-domain-work`            | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `6b578d0` | `COMMITTED` |
+| `knowledge-workspace`            | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `764e2e7` | `COMMITTED` |
+| `chore-domain-work-templates`    | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `3b78d1d` | `COMMITTED` |
+| `typos-domain-work`              | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `bce7adf` | `COMMITTED` |
+| `update-domain-indexes`          | Workspace / `$WORKSPACE` / `main` | (pair-programming) | `0e2697d` | `COMMITTED` |
 
 ##### Commit: `add-commit-policy`
 
@@ -762,9 +760,9 @@ build(domains): Update domain indexes.
 
 #### Commits:
 
-| ID                                | Repository / Checkout / Branch    | Policy             | Hash      | Status      |
-| --------------------------------- | --------------------------------- | ------------------ | --------- | ----------- |
-| `collapse-work-scope-types`       | Workspace / `$WORKSPACE` / `main` | AUTONOMOUS         | `c908e64` | `COMMITTED` |
+| ID                          | Repository / Checkout / Branch    | Policy     | Hash      | Status      |
+| --------------------------- | --------------------------------- | ---------- | --------- | ----------- |
+| `collapse-work-scope-types` | Workspace / `$WORKSPACE` / `main` | AUTONOMOUS | `c908e64` | `COMMITTED` |
 
 ##### Commit: `collapse-work-scope-types`
 
@@ -810,17 +808,16 @@ Rewritten routines (using work abstractions):
 - `Routine: Compose Work Scope` — `$DOMAINS/work/routines/compose-work-scope.art`. Removed `Path Ref` dependency. Added `autonomous` and `interactive` modes with review and interview steps. Added `owner` field handling.
 - `Routine: Compose Work Operations` — `$DOMAINS/work/routines/compose-work-operations.art`. Removed stale `Operating Instructions` read. Cleaned formatting. Returns `%operations` list directly.
 
-
 **Instructions:** `./plan-workflows-make-work-flow/instructions/update-work-skills-and-routines.md`
 
 **Report:** `./plan-workflows-make-work-flow/instructions/update-work-skills-and-routines__report.md`
 
 #### Commits:
 
-| ID | Repository / Checkout / Branch | Policy | Hash | Status |
-| --- | --- | --- | --- | --- |
-| `extract-work-routines` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `96046d4` | `COMMITTED` |
-| `clean-up-typos-and-rename-routines` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `601b7e9` | `COMMITTED` |
+| ID                                   | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| ------------------------------------ | --------------------------------- | ------------ | --------- | ----------- |
+| `extract-work-routines`              | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `96046d4` | `COMMITTED` |
+| `clean-up-typos-and-rename-routines` | Workspace / `$WORKSPACE` / `main` | `MANUAL`     | `601b7e9` | `COMMITTED` |
 
 ##### Commit: `extract-work-routines`
 
@@ -855,7 +852,7 @@ typos(domains): Clean up typos, stale references, and rename work routines
 
 **Id:** `build-operations-and-operating-instructions`
 
-**Status:** `PLANNING`
+**Status:** `DONE`
 
 **Purpose:** Compose Operational Instructions in work items to ensure they are included in downstream records. Use Case: Instructions in plans inform writing iterations and instruction files.
 
@@ -904,11 +901,11 @@ Guide updates:
 
 #### Commits:
 
-| ID | Repository / Checkout / Branch | Policy | Hash | Status |
-| --- | --- | --- | --- | --- |
+| ID                                  | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| ----------------------------------- | --------------------------------- | -------- | --------- | ----------- |
 | `remove-workflow-stage-abstraction` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `8ade51e` | `COMMITTED` |
-| `rename-stages-to-operations` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `0f1ee94` | `COMMITTED` |
-| `update-guide-for-operations` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `9c90f97` | `COMMITTED` |
+| `rename-stages-to-operations`       | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `0f1ee94` | `COMMITTED` |
+| `update-guide-for-operations`       | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `9c90f97` | `COMMITTED` |
 
 ##### Commit: `remove-workflow-stage-abstraction`
 
@@ -949,7 +946,7 @@ conventions(commits): reference "Writing Commit Messages" operational instructio
 
 **id:** `iteration-commit-nesting`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Make status of iterations more ergonomic, more readable, and easier to update.
 
@@ -957,26 +954,56 @@ conventions(commits): reference "Writing Commit Messages" operational instructio
 
 **Changes:**
 
-- Add `notes` field to Type: Commit.
 - Add "Template: Commit" in `$DOMAINS/commits/templates/commit.tart`
 - Update "Template: Plan" — `$DOMAINS/plans/templates/plan.tart` — to render the commits template before `::END(Iterations)`.
-- Update `$DOMAINS/commits/index.md` with new Template.
+- Add `notes` field to Type: Commit.
+- Add Type: Commit Status
+- Change "Type: Commit Policy" options: `CONTROLLED` => `NOPUSH` and `BLOCKED` => `NOCOMMIT`
+- Update "Agent: Worker" to handle new commit policies
+- Convert "Template: Instructions" to latest ::TEMPLATE directive syntax
+- Replace hardcoded Setup/Verification by rendering Operational Instructions template.
+- Convert "Template: Instructions" render loop to follow flat series of steps/commits
 
-#### Commmits:
+#### Commits:
 
-| ID | Repository / Checkout / Branch | Policy | Hash | Status |
-| --- | --- | --- | --- | --- |
-| `add-commit-template` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `TBD` | `READY` |
+| ID                             | Repository / Checkout / Branch    | Policy       | Hash  | Status     |
+| ------------------------------ | --------------------------------- | ------------ | ----- | ---------- |
+| `add-commit-template`          | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `TBD` | `AUTHORED` |
+| `change-commit-policy-options` | Workspace / `$WORKSPACE` / `main` | `BLOCKED`    | `TBD` | `AUTHORED` |
+| `operating-instructions-in-instructions-file` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | `TBD` | `AUTHORED` |
 
 ##### Commit: `add-commit-template`
 
 ```
-build(domains): Create template for rendering commits.
+build(domains): Render commits table and messages in plan iterations.
 
+- Add "Template: Commit"
+- Update "Template: Plan" to render the commits template.
+```
+
+##### Commit: `change-commit-policy-options`
+
+```
+build(domains): Render commits table and messages in plan iterations.
+
+- Add Type: Commit Status.
+- Change Type: Commit Policy — CONTROLLED becomes NOPUSH and BLOCKED becomes NOCOMMIT.
 - Add `notes` field to Type: Commit.
 - Add "Template: Commit"
-- Update "Template: Plan" to render the commits template before `::END(Iterations)`.
-- Update Domain: Commits index with new Template.
+- Update "Agent: Worker" to new commit policy names.
+```
+
+##### Commit: `operating-instructions-in-instructions-file`
+
+**Policy:** NOPUSH
+
+```
+build(domains): Render Operating Instructions in instruction files.
+
+- Upgrade operating-instructions.tart to ::TEMPLATE syntax, add conditional metadata rendering.
+- Convert instructions.tart to ::TEMPLATE syntax, render Operating Instructions after Mandatory Reading.
+- Flatten instruction steps, remove hardcoded Setup/Verification sections.
+- Rename writing-commit-messages to writing-commit-message in _guide and conventions.
 ```
 
 ### Iteration: Declaring workflows in guides.
@@ -995,20 +1022,20 @@ Scan all guides for `# Workflows` or `# {something} Workflow`. Prose such as "Pl
 
 #### Commmits:
 
-| ID | Repository / Checkout / Branch | Policy | Hash | Status |
-| --- | --- | --- | --- | --- |
-| `update-guide` | Artificials / `$ARTIFICIALS` / `main` | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Art JS / `$ART_JS` / `main` | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Artisans / `$ARTISANS` / `main` | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Conventions / `$CONVENTIONS` / `main` | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | No comply / `$NO_COMPLY` / `main` | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Ops / `$OPS` / `main` | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Purrception / `$PURRCEPTION` / `main` | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Purrfect / `$PURRFECT` / `main` | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Purrpose / `$PURRPOSE` / `main` | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Purrtrait / `$PURRTRAIT` / `main` | `CONTROLLED` | `TBD` | `READY` |
+| ID             | Repository / Checkout / Branch                    | Policy       | Hash  | Status  |
+| -------------- | ------------------------------------------------- | ------------ | ----- | ------- |
+| `update-guide` | Artificials / `$ARTIFICIALS` / `main`             | `CONTROLLED` | `TBD` | `READY` |
+| `update-guide` | Art JS / `$ART_JS` / `main`                       | `CONTROLLED` | `TBD` | `READY` |
+| `update-guide` | Artisans / `$ARTISANS` / `main`                   | `CONTROLLED` | `TBD` | `READY` |
+| `update-guide` | Conventions / `$CONVENTIONS` / `main`             | `CONTROLLED` | `TBD` | `READY` |
+| `update-guide` | No comply / `$NO_COMPLY` / `main`                 | `CONTROLLED` | `TBD` | `READY` |
+| `update-guide` | Ops / `$OPS` / `main`                             | `CONTROLLED` | `TBD` | `READY` |
+| `update-guide` | Purrception / `$PURRCEPTION` / `main`             | `CONTROLLED` | `TBD` | `READY` |
+| `update-guide` | Purrfect / `$PURRFECT` / `main`                   | `CONTROLLED` | `TBD` | `READY` |
+| `update-guide` | Purrpose / `$PURRPOSE` / `main`                   | `CONTROLLED` | `TBD` | `READY` |
+| `update-guide` | Purrtrait / `$PURRTRAIT` / `main`                 | `CONTROLLED` | `TBD` | `READY` |
 | `update-guide` | Workspace Tooling / `$WORKSPACE_TOOLING` / `main` | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Noodlestan Web / `$NOODLESTAN_WEB` / `main` | `CONTROLLED` | `TBD` | `READY` |
+| `update-guide` | Noodlestan Web / `$NOODLESTAN_WEB` / `main`       | `CONTROLLED` | `TBD` | `READY` |
 
 ##### Commit: `update-guide`
 
@@ -1040,11 +1067,13 @@ build(domains): Update Guide to follow conventions.
 
 ```md
 # Milestone Migration Prompt
+
 {output prompt here}
 ```
 
 ```md
 # Plan Migration Prompt
+
 {output prompt here}
 ```
 
@@ -1084,6 +1113,7 @@ Update prose with workflow stage examples to match renamed workflow stages:
 - `$DOMAINS/engineering/index.md`
 
 Check for stale paths.
+
 ### Iteration: Update Agent Modes
 
 **id:** `update-agent-modes`
@@ -1105,6 +1135,7 @@ Check for stale paths.
 **Scope:** `.agents/skills/agent-*/SKILL.md` files
 
 **Key updates:**
+
 - Add `::READ` directives for work domain routines
 - Update skill alignment sections
 - Update mandatory reading sections
@@ -1131,9 +1162,9 @@ Check for stale paths.
 **Scope:** `$DOMAINS/domains/` directory
 
 **Key routines:**
+
 - `domain-index.art` — Scans domain for structures, types, routines, templates and generates index.md
 - `domain-listing.art` — Generates listing of all domains for navigation
-
 
 ### Iteration: Integrate Specs Into Plans
 
@@ -1184,6 +1215,7 @@ Check for stale paths.
 - Reference model reflects new work domain structures
 - Workflows documented with stages and operations
 - Domain indexes updated with new resources
+
 ## Coordination
 
 ### Next
@@ -1210,7 +1242,7 @@ Build the plan file from draft content (current iteration). Then update the writ
 ### Follow Ups
 
 - **Refactor Domain index routines**.
-- **Explicit Operating instructions rendering** The writing skills (`write-milestone`, `write-plan`) still need to invoke Routine: Compose Workflow Operations and Routine: Identify Operating Instructions to discover operations from knowledge and scope resources. The routine receives workflows as input and returns List(Type: Operating Instructions). The caller filters by stage as needed. When writing instructions files, the skill should: 1. Populate scope and context using Compose Work Scope and  Compose Work Context. 2. Pass the work item's workflows to the routine. 3. Receive the list of operating instructions. 4. Render relevant operating instructions in milestone, plan, and instruction files.
+- **Explicit Operating instructions rendering** The writing skills (`write-milestone`, `write-plan`) still need to invoke Routine: Compose Workflow Operations and Routine: Identify Operating Instructions to discover operations from knowledge and scope resources. The routine receives workflows as input and returns List(Type: Operating Instructions). The caller filters by stage as needed. When writing instructions files, the skill should: 1. Populate scope and context using Compose Work Scope and Compose Work Context. 2. Pass the work item's workflows to the routine. 3. Receive the list of operating instructions. 4. Render relevant operating instructions in milestone, plan, and instruction files.
 
 ## Feedback
 
