@@ -1239,7 +1239,7 @@ This project plans its work with the workflow defined in `$DOMAINS/work/workflow
 | `update-guide` | Art JS / `$ART_JS` / `main`                       | `CONTROLLED` | `TBD`     | `READY`     |
 | `update-guide` | Artisans / `$ARTISANS` / `main`                   | `CONTROLLED` | `TBD`     | `READY`     |
 | `update-guide` | Conventions / `$CONVENTIONS` / `main`             | `CONTROLLED` | `fb2a74e` | `COMMITTED` |
-| `update-guide` | No comply / `$NO_COMPLY` / `main`                 | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | No comply / `$NO_COMPLY` / `main`                 | `CONTROLLED` | `e3a238a` | `COMMITTED` |
 | `update-guide` | Ops / `$OPS` / `main`                             | `CONTROLLED` | `TBD`     | `READY`     |
 | `update-guide` | Purrception / `$PURRCEPTION` / `main`             | `CONTROLLED` | `TBD`     | `READY`     |
 | `update-guide` | Purrfect / `$PURRFECT` / `main`                   | `CONTROLLED` | `TBD`     | `READY`     |
