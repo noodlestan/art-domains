@@ -1244,7 +1244,7 @@ This project plans its work with the workflow defined in `$DOMAINS/work/workflow
 | `update-guide` | Purrception / `$PURRCEPTION` / `main`             | `CONTROLLED` | `TBD`     | `READY`     |
 | `update-guide` | Purrfect / `$PURRFECT` / `main`                   | `CONTROLLED` | `TBD`     | `READY`     |
 | `update-guide` | Purrpose / `$PURRPOSE` / `main`                   | `CONTROLLED` | `TBD`     | `READY`     |
-| `update-guide` | Purrtrait / `$PURRTRAIT` / `main`                 | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Purrtrait / `$PURRTRAIT` / `main`                 | `CONTROLLED` | `c9be99c` | `COMMITTED` |
 | `update-guide` | Workspace Tooling / `$WORKSPACE_TOOLING` / `main` | `CONTROLLED` | `TBD`     | `READY`     |
 | `update-guide` | Noodlestan Web / `$NOODLESTAN_WEB` / `main`       | `CONTROLLED` | `TBD`     | `READY`     |
 
