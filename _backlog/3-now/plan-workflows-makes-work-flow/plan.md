@@ -340,7 +340,8 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Formalize Iteration Commits Nesting                 | `DONE`     |
 | Iteration: Use Work Routines and Operations in Write Plan      | `DONE`     |
 | Iteration: Use Work Routines and Operations in Write Milestone | `DONE`     |
-| Iteration: Declaring workflows in Guides                       | `PLANNING` |
+| Iteration: Replace execute-plan with delegate-plan             | `DONE`     |
+| Iteration: Declaring workflows in Guides                       | `DONE`     |
 | Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
 | Iteration: Update Domain Listing                               | `DONE`     |
 | Iteration: Update Agent Modes                                  | `PLANNING` |
@@ -1163,11 +1164,55 @@ Skill: write-milestone:
 | `add-milestone-routines`        | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `cb5f667` | `COMMITTED` |
 | `rewrite-write-milestone-skill` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `7741ad5` | `COMMITTED` |
 
+### Iteration: Replace execute-plan with delegate-plan
+
+**id:** `replace-execute-plan`
+
+**Status:** `DONE`
+
+**Purpose:** Clean up stale skills and replace execute-plan with the new delegate-plan skill.
+
+**Changes:**
+
+- Delete `$SKILLS/execute-plan/SKILL.md` — superseded by delegate-plan
+- Delete `$SKILLS/planning-workflow/SKILL.md` — superseded by delegate-plan
+- Add `$SKILLS/delegate-plan/SKILL.md` — new delegation skill
+- Update `$SKILLS/agent-delegator/SKILL.md` — references delegate-plan
+- Update `$SKILLS/agent-backlog-manager/SKILL.md` — minor updates
+- Fix trailing space in `finalizing-execution` path
+- Update fundamentals, agent-architect, and commit conventions
+
+**Commits:**
+
+| ID                                    | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| ------------------------------------- | --------------------------------- | -------- | --------- | ----------- |
+| `fix-trailing-space`                  | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `af99de6` | `COMMITTED` |
+| `replace-execute-plan`                | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `0e80cb5` | `COMMITTED` |
+| `update-fundamentals`                 | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `e85e7f2` | `COMMITTED` |
+
+##### Commit: `fix-trailing-space`
+
+```
+renames(domain-work): fix trailing space in finalizing-execution path
+```
+
+##### Commit: `replace-execute-plan`
+
+```
+refactor(skills): delete execute-plan and planning-workflow, add delegate-plan, update delegator and backlog-manager
+```
+
+##### Commit: `update-fundamentals`
+
+```
+fixes(domains): update fundamentals, agent-architect, and commit conventions
+```
+
 ### Iteration: Declaring workflows in Guides
 
 **id:** `workflows-in-guides`
 
-**Status:** `PLANNING`
+**Status:** `DONE`
 
 **Purpose:** Replace stale Setup/Verification/Workflow sections in all `_guide.md` files with the new Workflows and Operating Instructions sections.
 
@@ -1235,7 +1280,7 @@ This project plans its work with the workflow defined in `$DOMAINS/work/workflow
 
 | ID             | Repository / Checkout / Branch                    | Policy       | Hash      | Status      |
 | -------------- | ------------------------------------------------- | ------------ | --------- | ----------- |
-| `update-guide` | Management / `$MANAGEMENT` / `main`               | `CONTROLLED` | `298f930` | `COMMITTED` |
+| `update-guide` | Management / `$MANAGEMENT` / `main`               | `CONTROLLED` | `77d1382` | `COMMITTED` |
 | `update-guide` | Artificials / `$ARTIFICIALS` / `main`             | `CONTROLLED` | `f724122` | `COMMITTED` |
 | `update-guide` | Art JS / `$ART_JS` / `main`                       | `CONTROLLED` | `f49b722` | `COMMITTED` |
 | `update-guide` | Artisans / `$ARTISANS` / `main`                   | `CONTROLLED` | `ce15907` | `COMMITTED` |
