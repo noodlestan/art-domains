@@ -1160,7 +1160,7 @@ Skill: write-milestone:
 
 | ID                                    | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
 | ------------------------------------- | --------------------------------- | ------------ | --------- | ----------- |
-| `add-milestone-routines`              | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `TBD`     | `READY`     |
+| `add-milestone-routines`              | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `cb5f667` | `COMMITTED` |
 | `rewrite-write-milestone-skill`       | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `TBD`     | `READY`     |
 
 ### Iteration: Declaring workflows in guides.
