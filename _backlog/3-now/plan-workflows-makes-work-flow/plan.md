@@ -340,9 +340,9 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Formalize Iteration Commits Nesting                 | `DONE`     |
 | Iteration: Use Work Routines and Operations in Write Plan      | `DONE`     |
 | Iteration: Use Work Routines and Operations in Write Milestone | `DONE`     |
-| Iteration: Declaring workflows in guides                       | `PLANNING` |
+| Iteration: Declaring workflows in Guides                       | `PLANNING` |
 | Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
-| Iteration: Update Domain Listing                           | `DONE`     |
+| Iteration: Update Domain Listing                               | `DONE`     |
 | Iteration: Update Agent Modes                                  | `PLANNING` |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
 | Iteration: Integrate Specs Into Plans                          | `PLANNING` |
@@ -1163,57 +1163,101 @@ Skill: write-milestone:
 | `add-milestone-routines`        | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `cb5f667` | `COMMITTED` |
 | `rewrite-write-milestone-skill` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `7741ad5` | `COMMITTED` |
 
-### Iteration: Declaring workflows in guides.
-
-**Instructions:** `./plan-workflows-make-work-flow/instructions/workflows-in-guides.md`
-
-**Report:** `./plan-workflows-make-work-flow/instructions/workflows-in-guides__report.md`
+### Iteration: Declaring workflows in Guides
 
 **id:** `workflows-in-guides`
 
 **Status:** `PLANNING`
 
+**Purpose:** Replace stale Setup/Verification/Workflow sections in all `_guide.md` files with the new Workflows and Operating Instructions sections.
+
+**Description:** Scan all `_guide.md` files across checkouts. Replace `## Setup`, `## Verification`, `## Setting up`, `## Verifying`, `## Planning Workflow`, `## Delivery Workflow`, and similar sections with `## Workflows` and `## Operating Instructions` sections following the pattern established in `$ART_DOMAINS/_guide.md`.
+
 **Changes:**
 
-Isntructions for planner: Search ALL Guides under each checkout.
+Identify the `_guide.md` files to create or update:
 
-Most have a \_guide.md in the root. Some also have \_guide.md inside a project.
+- There must be a **repository guide** at the root of each checkout (`$REPOSITORY/_guide.md`).
+- There must be a **package guide** next to every nested `package.json` file (`$REPOSITORY/{path}/_guide.md`).
 
-Build a table here.
+For each `_guide.md` file to create or update:
 
-Changes to make
+1. **Remove** all `## Setup`, `## Verification`, `## Setting up`, `## Verifying`, `## Configuring`, `## Deploying`, `## Planning Workflow`, `## Delivery Workflow`, `## Workflow`, and `## {something} Workflow` sections.
 
-1. Under "## Recommended Reading" change: "Agents SHOULD scan these files for relevant clarifications when faced with ambiguity or omissions that may result from missing definitions." to "Agents SHOULD scan these files for definitions and resource locations when faced with uncertainty or ambiguity that may result from missing resources."
+2. **Update** the "Recommended Reading" prose: change "Agents SHOULD scan these files for relevant clarifications when faced with ambiguity or omissions that may result from missing definitions." to "Agents SHOULD scan these files for definitions and resource locations when faced with uncertainty or ambiguity that may result from missing resources."
 
-2. Replace the entire `# Workflows` or `# {something} Workflow` sections. Prose such as "Planning, delegation, and integration runs on", or "... the working agreements and agent modes defined in .." needs to be expressed as a "## Workflows" section with one "### Workflow: {name}" section per workflow and under it the prose "This project uses .. " with the local workflow artefact links such as `_backlog`. Authoritative guide is `$ART_DOMAINS/_gude`.
+3. **Add** a `## Workflows` section with a `### Planning Work` subsection — only if `_backlog/` exists in the repository or package, `_backlog.md` and/or `_roadmap/` only if they exist and listing `_backlog/_parking-lot.md` and `_backlog/_architect.md` only if they exist.
 
-For repository root guides all of the above cases get replaced by a "## Workflows" section similar to the one in `$ART_DOMAINS/_guide.md` - most will be EXACTLY the same thing, but some repos do not have `run ci`, they have only `run lint` and `lint:fix`
+```md
+## Workflows
 
-For package/application \_guides all of the above cases get replaced by a "## Workflows" section similar to the one in `$ART_DOMAINS/cli/workspace/_guide.md` - most will be EXACTLY the same thing, but do check if package.json as other scripts
+### Planning Work
+
+This project plans its work with the workflow defined in `$DOMAINS/work/workflows/planning-work/workflow.art`.
+
+- The roadmap lives at `_roadmap/` with subdirectories such as `/3-now` and `/4-next/`.
+- The backlog lives at `_backlog/` with subdirectories such as `/3-now` and `/4-next/`.
+- The short-term focus is captured in `_backlog/_parking-lot.md`.
+- The requirements, use cases, and principles are captured in `_backlog/_architect.md`.
+```
+
+4. **Add** an `## Operating Instructions` section — always. Consult `package.json` for available scripts. Use the same operating instructions across packages where applicable (Writing Commit Message, Setting Up, Verifying Completion).
+
+5. **Repository guide** — also ensure these sections exist (skip if not applicable):
+   - `## Repository Layout` — list key files only, and only those that exist, not all files. Good Examples:
+     ```
+     _guide.md           — this file
+     _backlog/           — plans, instructions, reports
+     _records/           — project and repository records
+     architecture/       — description, principles, ADRs
+     ```
+     Bad Examples: "LICENSE-MIT", "package.json", "README.md".
+   - `## Projects` — only if projects exist
+   - `## Records Management`
+   - `## Knowledge References`
+
+6. **Package guide** — also ensure these sections exist:
+   - `## Package Layout` — list key directories and files only, and only those that exist, not all files. Good example:
+     ```
+     _guide.md           — this file
+     _backlog/           — plans, instructions, reports
+     _records/           — project and repository records
+     architecture/       — description, principles, ADRs
+     src/                - source code
+     tests/              - integration tests
+     CHANGELOG.md
+     ```
+     Bad Examples: "LICENSE-MIT", "package.json", "README.md".
+   - `## Records Management` — derived from `_records/` directories
+   - `## Knowledge References` — derived from `architecture/`, `docs/`, `references/`
 
 #### Commmits:
 
-| ID             | Repository / Checkout / Branch                    | Policy       | Hash  | Status  |
-| -------------- | ------------------------------------------------- | ------------ | ----- | ------- |
-| `update-guide` | Artificials / `$ARTIFICIALS` / `main`             | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Art JS / `$ART_JS` / `main`                       | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Artisans / `$ARTISANS` / `main`                   | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Conventions / `$CONVENTIONS` / `main`             | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | No comply / `$NO_COMPLY` / `main`                 | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Ops / `$OPS` / `main`                             | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Purrception / `$PURRCEPTION` / `main`             | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Purrfect / `$PURRFECT` / `main`                   | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Purrpose / `$PURRPOSE` / `main`                   | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Purrtrait / `$PURRTRAIT` / `main`                 | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Workspace Tooling / `$WORKSPACE_TOOLING` / `main` | `CONTROLLED` | `TBD` | `READY` |
-| `update-guide` | Noodlestan Web / `$NOODLESTAN_WEB` / `main`       | `CONTROLLED` | `TBD` | `READY` |
+| ID             | Repository / Checkout / Branch                    | Policy       | Hash      | Status      |
+| -------------- | ------------------------------------------------- | ------------ | --------- | ----------- |
+| `update-guide` | Artificials / `$ARTIFICIALS` / `main`             | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Art JS / `$ART_JS` / `main`                       | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Artisans / `$ARTISANS` / `main`                   | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Conventions / `$CONVENTIONS` / `main`             | `CONTROLLED` | `fb2a74e` | `COMMITTED` |
+| `update-guide` | No comply / `$NO_COMPLY` / `main`                 | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Ops / `$OPS` / `main`                             | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Purrception / `$PURRCEPTION` / `main`             | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Purrfect / `$PURRFECT` / `main`                   | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Purrpose / `$PURRPOSE` / `main`                   | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Purrtrait / `$PURRTRAIT` / `main`                 | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Workspace Tooling / `$WORKSPACE_TOOLING` / `main` | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Noodlestan Web / `$NOODLESTAN_WEB` / `main`       | `CONTROLLED` | `TBD`     | `READY`     |
 
 ##### Commit: `update-guide`
 
 ```
-build(domains): Update Guide to follow conventions.
+docs(domains): Update guides to follow new conventions
 
-- Add "## Workflows" Section.
+- Remove Setup, Verification, Planning Workflow, Delivery Workflow sections
+- Add Workflows section with Planning Work subsection
+- Add Operating Instructions section with Writing Commit Message, Setting Up, Verifying Completion
+- Update Recommended Reading prose
+- Add _guide.md to every package (cli, lib, application)
 ```
 
 ### Iteration: Prompts for Migrating Active Plans
@@ -1266,10 +1310,10 @@ build(domains): Update Guide to follow conventions.
 
 **Commits:**
 
-| ID                                    | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
-| ------------------------------------- | --------------------------------- | -------- | --------- | ----------- |
-| `rewrite-domain-templates`            | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `92d4cae` | `COMMITTED` |
-| `rebuild-domain-indexes`              | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `9ed9bc7` | `COMMITTED` |
+| ID                         | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| -------------------------- | --------------------------------- | -------- | --------- | ----------- |
+| `rewrite-domain-templates` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `92d4cae` | `COMMITTED` |
+| `rebuild-domain-indexes`   | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `c04d00d` | `COMMITTED` |
 
 ### Iteration: Update Agent Modes
 

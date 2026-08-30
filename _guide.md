@@ -12,11 +12,9 @@ Agents SHOULD scan these files for relevant clarifications when faced with ambig
 
 ```
 _backlog/           — plans, instructions, reports
-ops/                — records (packages, namespaces, scripts)
-architecture/       — ADRs, index
-art-js/             — (namespace) parser, CLI, spec
-art-domains/        — (namespace) domain packages
-artisans/           — (namespace) experiments
+_records/           — records (project, repository, namespaces, scripts, scaffolding)
+architecture/       — index, ADRs, reference domain model and workfloes
+cli/                - Node.JS CLI packages.
 ```
 
 ## Projects
@@ -30,8 +28,6 @@ artisans/           — (namespace) experiments
 | Art JS             | `art-js/_backlog/_parking-lot.md`      | `art-js/_backlog/`                           |
 | Art Domains        | `art-domains/_backlog/_parking-lot.md` | `art-domains/_backlog/_architect.md`         |
 
-## Verififying
-
 ## Records Management
 
 Records are co-located with the resources they describe in `_records/` directories:
@@ -43,7 +39,7 @@ Records are co-located with the resources they describe in `_records/` directori
 - **NPM Deployments:** `{package-path}/_records/npm-deployment.art`
 - **APP Deployments:** `{app-path}/_records/spa-deployment.art`
 
-## References
+## Knowledge References
 
 This repository maintains an architecture reference at `architecture/index.md` and decision records at `architecture/records/adr`.
 
@@ -57,6 +53,12 @@ Projects in this repository use the following workflows:
 | **Delegating Work** `$AGENTS/work/workflows/delegating-work/workflow.art` | Organize work delegation to sub-agents with validation, execution, and verification.              |
 | **Executing Work** `$AGENTS/work/workflows/executing-work/workflow.art`   | Organize work execution by sub-agents to produce completed, verified outcomes and feedback.       |
 | **Deploying** `$AGENTS/work/workflows/executing-work/workflow.art`        | Organizes deployment of artefacts in operations.                                                  |
+
+### Planning Work
+
+- The backlog lives at `_backlog/` with subdirectories such as `/3-now` and `/4-next/`.
+- The short-term focus is captured in `_backlog/_parking-lot.md`.
+- The requirements, use cases, and principles are captured in `_backlog/_architect.md`.
 
 ## Operating Instructions
 

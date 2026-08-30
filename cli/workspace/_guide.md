@@ -22,28 +22,41 @@ Agents SHOULD scan these files for relevant clarifications when faced with ambig
 - `$WORKSPACE/.agents/domains/plans/templates/` — plan, instruction, and report templates.
 - `$WORKSPACE/.agents/domains/engineering/_guide.md` — working agreements and agent modes.
 
-## Repository Layout
+## Package Layout
 
 ```
 _backlog/           — parking lot, briefings, plans, instructions, reports
+_records/           —
 architecture/       — architecture index, topic docs, and decision records (records/adr)
 src/                — the CLI source (commands, config, shared, private)
-_records/           — repository and checkout records (discovered by Workspace CLI)
+CHANGELOG.md
 ```
+
+## Records Management
+
+Records are co-located with the resources they describe in `_records/` directories:
+
+- **Package:** `_records/package.art`
+- **Deployment:** - `_records/npm-deployment.art`
+
+## Knowledge References
+
+This package maintains:
+
+- an architecture reference at `architecture/index.md` describing commands, models, reports, configuration, and logs.
+- decision records at `architecture/records/adr`.
 
 ## Workflows
 
 ### Planning Work
 
-The short-term focus is captured in `_backlog/_parking-lot.md` — actionable items, pending questions, blockers, and follow-ups (no done items).
-
-The requirements, use cases, and principles are captured in `_backlog/_architect.md`, along with the forward-looking plan.
-
-The backlog lives at `_backlog/` with subdirectories such as `/3-now` (implementation in progress) and `/4-next/` (planned work not yet started) containg plan records following the structure defined in `$WORKSPACE/.agents/domains/plans/structures/plan.art`
+- The backlog lives at `_backlog/` with subdirectories such as `/3-now` and `/4-next/`.
+- The short-term focus is captured in `_backlog/_parking-lot.md` .
+- The requirements, use cases, and principles are captured in `_backlog/_architect.md`.
 
 ## Operating Instructions
 
-#### Operating Instructions: Setting Up
+### Operating Instructions: Setting Up
 
 **Instructions:**
 
@@ -53,7 +66,7 @@ Run from the repository root (monorepo):
 npm ci # to install dependencies.
 ```
 
-#### Operating Instructions: Verifying Step
+### Operating Instructions: Verifying Step
 
 **Instructions:**
 
@@ -66,7 +79,7 @@ npm run test # to run all tests
 npm run build # to produce a full build
 ```
 
-#### Operating Instructions: Verifying Completion
+### Operating Instructions: Verifying Completion
 
 **Instructions:**
 
