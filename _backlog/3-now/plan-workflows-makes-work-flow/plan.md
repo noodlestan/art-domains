@@ -339,7 +339,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Build Operations and Operating Instructions         | `DONE`     |
 | Iteration: Formalize Iteration Commits Nesting                 | `DONE`     |
 | Iteration: Use Work Routines and Operations in Write Plan      | `DONE`     |
-| Iteration: Use Work Routines and Operations in Write Milestone | `READY`    |
+| Iteration: Use Work Routines and Operations in Write Milestone | `DONE`     |
 | Iteration: Declaring workflows in guides                       | `PLANNING` |
 | Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
 | Iteration: Update Stale references and examples                | `DRAFT`    |
@@ -1125,7 +1125,7 @@ build(workflows-make-work-flow): Update agent-architect and agent-planner skills
 
 **Id:** `routines-and-ops-in-write-milestone`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Coordinate planning workflow operations via skills.
 
@@ -1161,7 +1161,7 @@ Skill: write-milestone:
 | ID                                    | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
 | ------------------------------------- | --------------------------------- | ------------ | --------- | ----------- |
 | `add-milestone-routines`              | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `cb5f667` | `COMMITTED` |
-| `rewrite-write-milestone-skill`       | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `TBD`     | `READY`     |
+| `rewrite-write-milestone-skill`       | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `7741ad5` | `COMMITTED` |
 
 ### Iteration: Declaring workflows in guides.
 
