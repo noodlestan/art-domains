@@ -1240,7 +1240,7 @@ This project plans its work with the workflow defined in `$DOMAINS/work/workflow
 | `update-guide` | Artisans / `$ARTISANS` / `main`                   | `CONTROLLED` | `ce15907` | `COMMITTED` |
 | `update-guide` | Conventions / `$CONVENTIONS` / `main`             | `CONTROLLED` | `90d418e` | `COMMITTED` |
 | `update-guide` | No comply / `$NO_COMPLY` / `main`                 | `CONTROLLED` | `e3a238a` | `COMMITTED` |
-| `update-guide` | Ops / `$OPS` / `main`                             | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Ops / `$OPS` / `main`                             | `CONTROLLED` | `23b7b4e` | `COMMITTED` |
 | `update-guide` | Purrception / `$PURRCEPTION` / `main`             | `CONTROLLED` | `23870fe` | `COMMITTED` |
 | `update-guide` | Purrfect / `$PURRFECT` / `main`                   | `CONTROLLED` | `1092c47` | `COMMITTED` |
 | `update-guide` | Purrpose / `$PURRPOSE` / `main`                   | `CONTROLLED` | `2f7c811` | `COMMITTED` |
