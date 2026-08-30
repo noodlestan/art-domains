@@ -343,10 +343,10 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Declaring workflows in guides                       | `PLANNING` |
 | Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
 | Iteration: Update Stale references and examples                | `DRAFT`    |
-| Iteration: Update Agent Modes                                  | `DRAFT`    |
-| Iteration: Refactor Domain Index Routines                      | `DRAFT`    |
-| Iteration: Integrate Specs Into Plans                          | `DRAFT`    |
-| Iteration: Update Domain Knowledge                             | `DRAFT`    |
+| Iteration: Update Agent Modes                                  | `PLANNING` |
+| Iteration: Refactor Domain Index Routines                      | `DONE`     |
+| Iteration: Integrate Specs Into Plans                          | `PLANNING` |
+| Iteration: Update Domain Knowledge                             | `PLANNING` |
 
 ### Iteration: Add Work Domain
 
@@ -1158,10 +1158,10 @@ Skill: write-milestone:
 
 #### Commits:
 
-| ID                                    | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
-| ------------------------------------- | --------------------------------- | ------------ | --------- | ----------- |
-| `add-milestone-routines`              | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `cb5f667` | `COMMITTED` |
-| `rewrite-write-milestone-skill`       | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `7741ad5` | `COMMITTED` |
+| ID                              | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| ------------------------------- | --------------------------------- | ------------ | --------- | ----------- |
+| `add-milestone-routines`        | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `cb5f667` | `COMMITTED` |
+| `rewrite-write-milestone-skill` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `7741ad5` | `COMMITTED` |
 
 ### Iteration: Declaring workflows in guides.
 
@@ -1302,26 +1302,30 @@ Check for stale paths.
 
 **id:** `refactor-domain-index-routines`
 
-**Status:** `PLANNING`
+**Status:** `DONE`
 
-**Purpose:** Simplify domain index routines into two reusable routines.
+**Purpose:** Simplify domain index generation into a single reusable routine and template.
 
-**Description:** Consolidate the multiple domain index routines into two core routines: domain index and domain listing.
+**Description:** Replace the old extract-domain-api routines and domain-table-of-contents template with a new build-domain-index routine and domain-index-file template. Rebuild all 13 domain indexes from domain.art files.
 
 **Changes:**
 
-- Create `$DOMAINS/domains/routines/domain-index.art` — generates domain index from structures, types, routines, templates
-- Create `$DOMAINS/domains/routines/domain-listing.art` — generates domain listing for navigation
-- Update `$DOMAINS/domains/templates/domains-listing.tart` to use new routine
-- Update `$DOMAINS/domains/templates/domain-table-of-contents.tart` to use new routine
-- Remove redundant routines from individual domain directories
+- Add `$DOMAINS/domains/routines/build-domain-index.art` — reads domain.art, scans resources, produces %domain and %resources
+- Add `$DOMAINS/domains/templates/domain-index-file.tart` — renders index.md from %domain and %resources
+- Delete `$DOMAINS/domains/routines/extract-domain-api.art`, `extract-domain-api-from-files.art`, `extract-domain-api-tree-from-files.art`
+- Delete `$DOMAINS/domains/templates/domain-table-of-contents.tart`
+- Update `$SKILLS/update-domains/SKILL.md` with 2 commands: Update Domain, Update All Domains
+- Rebuild all 13 domain indexes (domains with domain.art)
 
 **Scope:** `$DOMAINS/domains/` directory
 
-**Key routines:**
+**Commits:**
 
-- `domain-index.art` — Scans domain for structures, types, routines, templates and generates index.md
-- `domain-listing.art` — Generates listing of all domains for navigation
+| ID                               | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| -------------------------------- | --------------------------------- | -------- | --------- | ----------- |
+| `refactor-domain-index-routines` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `c7c4ac6` | `COMMITTED` |
+| `update-domains-skill`           | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `c7c4ac6` | `COMMITTED` |
+| `rebuild-all-domain-indexes`     | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `c7c4ac6` | `COMMITTED` |
 
 ### Iteration: Integrate Specs Into Plans
 
