@@ -321,30 +321,32 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 
 This section lists the downstream work items produced, coordinated, or advanced by the plan, identifying blocking dependencies across resources of different owners.
 
-| Resource / Record                                      | Status     |
-| ------------------------------------------------------ | ---------- |
-| Iteration: Add Work Domain                             | `DONE`     |
-| Iteration: Split Iterations From Commits               | `DONE`     |
-| Iteration: Convert Templates to Directive Syntax       | `DONE`     |
-| Iteration: Rebuild Domain Indexes                      | `DONE`     |
-| Iteration: Add Domain and Workflow Structure           | `DONE`     |
-| Iteration: Update Fundamentals File                    | `DONE`     |
-| Iteration: Integrate Work Domain With Others           | `DONE`     |
-| Iteration: Initialize Domains Knowledge                | `DONE`     |
-| Iteration: Initialize Architecture Knowledge           | `DONE`     |
-| Iteration: Normalize Structure Extends                 | `DONE`     |
-| Iteration: Add Work Operations                         | `DONE`     |
-| Iteration: Collapse Work Scope to a Single Type        | `DONE`     |
-| Iteration: Update or Create Work Skills and Routines   | `DONE`     |
-| Iteration: Build Operations and Operating Instructions | `DONE`     |
-| Iteration: Formalize Iteration Commits Nesting         | `READY`    |
-| Iteration: Declaring workflows in guides               | `PLANNING` |
-| Iteration: Prompts for Migrating Active Plans          | `PLANNING` |
-| Iteration: Update Stale references and examples        | `DRAFT`    |
-| Iteration: Update Agent Modes                          | `DRAFT`    |
-| Iteration: Refactor Domain Index Routines              | `DRAFT`    |
-| Iteration: Integrate Specs Into Plans                  | `DRAFT`    |
-| Iteration: Update Domain Knowledge                     | `DRAFT`    |
+| Resource / Record                                              | Status     |
+| -------------------------------------------------------------- | ---------- |
+| Iteration: Add Work Domain                                     | `DONE`     |
+| Iteration: Split Iterations From Commits                       | `DONE`     |
+| Iteration: Convert Templates to Directive Syntax               | `DONE`     |
+| Iteration: Rebuild Domain Indexes                              | `DONE`     |
+| Iteration: Add Domain and Workflow Structure                   | `DONE`     |
+| Iteration: Update Fundamentals File                            | `DONE`     |
+| Iteration: Integrate Work Domain With Others                   | `DONE`     |
+| Iteration: Initialize Domains Knowledge                        | `DONE`     |
+| Iteration: Initialize Architecture Knowledge                   | `DONE`     |
+| Iteration: Normalize Structure Extends                         | `DONE`     |
+| Iteration: Add Work Operations                                 | `DONE`     |
+| Iteration: Collapse Work Scope to a Single Type                | `DONE`     |
+| Iteration: Update or Create Work Skills and Routines           | `DONE`     |
+| Iteration: Build Operations and Operating Instructions         | `DONE`     |
+| Iteration: Formalize Iteration Commits Nesting                 | `DONE`     |
+| Iteration: Use Work Routines and Operations in Write Plan      | `DONE`     |
+| Iteration: Use Work Routines and Operations in Write Milestone | `PLANNING` |
+| Iteration: Declaring workflows in guides                       | `PLANNING` |
+| Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
+| Iteration: Update Stale references and examples                | `DRAFT`    |
+| Iteration: Update Agent Modes                                  | `DRAFT`    |
+| Iteration: Refactor Domain Index Routines                      | `DRAFT`    |
+| Iteration: Integrate Specs Into Plans                          | `DRAFT`    |
+| Iteration: Update Domain Knowledge                             | `DRAFT`    |
 
 ### Iteration: Add Work Domain
 
@@ -946,7 +948,7 @@ conventions(commits): reference "Writing Commit Messages" operational instructio
 
 **id:** `iteration-commit-nesting`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Make status of iterations more ergonomic, more readable, and easier to update.
 
@@ -966,11 +968,11 @@ conventions(commits): reference "Writing Commit Messages" operational instructio
 
 #### Commits:
 
-| ID                             | Repository / Checkout / Branch    | Policy       | Hash  | Status     |
-| ------------------------------ | --------------------------------- | ------------ | ----- | ---------- |
-| `add-commit-template`          | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `TBD` | `AUTHORED` |
-| `change-commit-policy-options` | Workspace / `$WORKSPACE` / `main` | `BLOCKED`    | `TBD` | `AUTHORED` |
-| `operating-instructions-in-instructions-file` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | `TBD` | `AUTHORED` |
+| ID                                            | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| --------------------------------------------- | --------------------------------- | ------------ | --------- | ----------- |
+| `add-commit-template`                         | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `dd8f814` | `COMMITTED` |
+| `change-commit-policy-options`                | Workspace / `$WORKSPACE` / `main` | `BLOCKED`    | `6065c85` | `COMMITTED` |
+| `operating-instructions-in-instructions-file` | Workspace / `$WORKSPACE` / `main` | `NOPUSH`     | `deebeaf` | `COMMITTED` |
 
 ##### Commit: `add-commit-template`
 
@@ -1005,6 +1007,135 @@ build(domains): Render Operating Instructions in instruction files.
 - Flatten instruction steps, remove hardcoded Setup/Verification sections.
 - Rename writing-commit-messages to writing-commit-message in _guide and conventions.
 ```
+
+### Iteration: Use Work Routines and Operations in Write Plan
+
+**Id:** `routines-and-ops-in-write-plan`
+
+**Status:** `WORKING`
+
+**Purpose:** Coordinate planning workflow operations via skills.
+
+**Description:** Rewrite the `write-plan` skill to delegate to the abstract work routines for scope, context, operations, and operating instructions. Replace the skill's inline routines with `::READ` directives to `$DOMAINS/work/routines/`. Simplify commands to match the actual planning workflow: create plan, draft iterations, plan iterations (define commits), create/update instructions.
+
+**Changes:**
+
+Domain: Work — Routines:
+
+- Add `recompose-work-item.art`, `compact-work-item.art`, `integrate-work-upstream.art`, `integrate-work-downstream.art`, `validate-work-item.art`.
+- Fix `compose-work-scope.art`, `compose-work-context.art`, `compose-work-operations.art`, `compose-operating-instructions.art`, `compose-path-variables.art`.
+- Fix `create-or-update-work-item.art` broken Workflow read and variable names.
+- Update `work-item-abstract.art`, `workflow.art`, `work-item-context.tart`.
+
+Domain: Plans — Routines:
+
+- Add `create-or-update-plan.art`, `draft-iterations.art`, `plan-iterations.art`, `write-instructions.art`.
+- Add `validate-plan.md`, `validate-instructions.art`, `compact-plan.art`.
+- Add `integrate-plan-upstream.art`, `integrate-plan-instructions.art`, `integrate-plan-reports.art`.
+- Remove `create-or-update-instructions.art` (superseded by `write-instructions` + `instructions.tart`).
+- Update `plan.art`, `instructions.tart`, `plan.tart`, `milestone.art`.
+
+Skill: write-plan:
+
+- Replace inline procedures with routine delegation for Create Plan, Validate Plan, Write Instructions.
+- Add commands: Add Iteration Drafts, Plan Iterations, Integrate Upstream, Integrate Plan Instructions, Compact Plan.
+- Add Command: Review or Save Plan to centralise render/save/present pattern.
+
+Skill: agent-architect, agent-planner:
+
+- Update to reference new work and plan routines.
+
+**Instructions:** `./plan-workflows-make-work-flow/instructions/routines-and-ops-in-write-plan.md`
+
+**Scope:** `$SKILLS/write-plan/SKILL.md`
+
+#### Commits:
+
+| ID                                   | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| ------------------------------------ | --------------------------------- | ------------ | --------- | ----------- |
+| `flatten-executing-work`             | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `6de57a0` | `COMMITTED` |
+| `add-work-routines`                  | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `9971db2` | `COMMITTED` |
+| `add-plan-routines`                  | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `c13d69a` | `COMMITTED` |
+| `rewrite-write-plan-skill`           | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `9d82b39` | `COMMITTED` |
+| `update-agent-architect-and-planner` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `5d347b8` | `COMMITTED` |
+
+##### Commit: `flatten-executing-work`
+
+**Message:**
+
+```
+build(domain-work): flatten Workflow: Executing Work; remove redundant operation
+```
+
+##### Commit: `add-work-routines`
+
+**Message:**
+
+```
+build(workflows-make-work-flow): Add new work routines for upstream/downstream integration and recomposition
+
+- Add recompose-work-item, compact-work-item, integrate-work-upstream, integrate-work-downstream, validate-work-item routines
+- Fix compose-work-scope, compose-work-context, compose-work-operations, compose-operating-instructions, compose-path-variables routines
+- Fix create-or-update-work-item routine broken Workflow read and variable names
+- Update work-item-abstract.art with full field definitions
+- Update workflow.art and work-item-context.tart for new operations model
+```
+
+##### Commit: `add-plan-routines`
+
+**Message:**
+
+```
+build(workflows-make-work-flow): Add plan routines for plan lifecycle and validation
+
+- Add create-or-update-plan, draft-iterations, plan-iterations, write-instructions routines
+- Add validate-plan, validate-instructions, compact-plan routines
+- Add integrate-plan-upstream, integrate-plan-instructions, integrate-plan-reports routines
+- Remove create-or-update-instructions (superseded by write-instructions + instructions.tart)
+- Update plan.art, instructions.tart, plan.tart, milestone.art for new structure
+```
+
+##### Commit: `rewrite-write-plan-skill`
+
+**Message:**
+
+```
+build(workflows-make-work-flow): Rewrite write-plan skill with routine-delegating commands
+
+- Replace inline procedures with routine delegation for Create Plan, Validate Plan, Write Instructions
+- Add commands: Add Iteration Drafts, Plan Iterations, Integrate Upstream, Integrate Plan Instructions, Compact Plan
+- Add Command: Review or Save Plan to centralise render/save/present pattern
+- Fix all commands to use autonomous/interactive presentation modes
+- Remove WIP commands and stale inline routines
+```
+
+##### Commit: `update-agent-architect-and-planner`
+
+**Message:**
+
+```
+build(workflows-make-work-flow): Update agent-architect and agent-planner skills
+
+- Update agent-architect to reference new work routines for Work Graph and Work Table commands
+- Update agent-planner to reference new plan routines for planning workflow
+- Remove stale references to deleted routines
+```
+
+### Iteration: Use Work Routines and Operations in Write Milestone
+
+**Id:** `routines-and-ops-in-write-milestone`
+
+**Status:** `DRAFT`
+
+**Purpose:** Coordinate planning workflow operations via skills.
+
+**Description:** TBD — rewrite `write-milestone` skill to delegate to abstract work routines, mirroring the write-plan refactoring.
+
+**Changes:**
+
+- TBD
+
+**Scope:** `$SKILLS/write-milestone/SKILL.md`
 
 ### Iteration: Declaring workflows in guides.
 
@@ -1246,4 +1377,8 @@ Build the plan file from draft content (current iteration). Then update the writ
 
 ## Feedback
 
-None.
+### Iteration: Formalize Iteration Commits Nesting
+
+- **Commit 1 (`add-commit-template`) not pushed** — Policy was AUTONOMOUS, which requires pushing. Worker committed locally but did not push to remote.
+- **Report file not created** — Instructions required creating `iteration-commit-nesting__report.md` using the report template. Worker did not generate this file.
+- **All code changes correct** — All 3 commits contain the correct file changes and commit messages.
