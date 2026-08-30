@@ -14,8 +14,8 @@ export const tempDirs: string[] = [];
 
 const makeRecordFile = (filename: string) => createRecordFile(dirname(filename), filename);
 
-afterEach(() => {
-	removeTempDirs(tempDirs);
+afterEach(async () => {
+	await removeTempDirs(tempDirs);
 	vi.restoreAllMocks();
 });
 
