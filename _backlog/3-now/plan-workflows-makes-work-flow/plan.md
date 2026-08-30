@@ -339,7 +339,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Build Operations and Operating Instructions         | `DONE`     |
 | Iteration: Formalize Iteration Commits Nesting                 | `DONE`     |
 | Iteration: Use Work Routines and Operations in Write Plan      | `DONE`     |
-| Iteration: Use Work Routines and Operations in Write Milestone | `PLANNING` |
+| Iteration: Use Work Routines and Operations in Write Milestone | `READY`    |
 | Iteration: Declaring workflows in guides                       | `PLANNING` |
 | Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
 | Iteration: Update Stale references and examples                | `DRAFT`    |
@@ -1125,17 +1125,43 @@ build(workflows-make-work-flow): Update agent-architect and agent-planner skills
 
 **Id:** `routines-and-ops-in-write-milestone`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Coordinate planning workflow operations via skills.
 
-**Description:** TBD — rewrite `write-milestone` skill to delegate to abstract work routines, mirroring the write-plan refactoring.
+**Description:** Rewrite the `write-milestone` skill to delegate to the abstract work routines for scope, context, operations, and operating instructions. Replace the skill's inline routines with `::READ` directives to `$DOMAINS/work/routines/`. Simplify commands to match the actual planning workflow: create milestone, validate, integrate upstream/downstream, compact. Milestones differ from plans: they have phases instead of iterations, and no instructions files — downstream is just work items.
 
 **Changes:**
 
-- TBD
+Domain: Roadmaps — Routines:
+
+- Add `create-or-update-milestone.art` — delegates to Create OR Update Work Item + Validate Milestone.
+- Add `validate-milestone.md` — validates milestone phases (ordered, items belong to phase, phases table lists all known items), refs, and paths.
+- Add `compact-milestone.art` — reduces verbosity, keeps essential info.
+- Add `integrate-milestone-upstream.art` — analyses drift between upstream and milestone.
+- Add `integrate-milestone-downstream.art` — integrates findings from downstream work items.
+
+Domain: Roadmaps — Templates:
+
+- Fix `milestone.tart` — ensure phases table and items table are consistent with validation.
+
+Skill: write-milestone:
+
+- Fix stale refs (plan→milestone, .md→.art) and typos.
+- Rewrite commands to delegate to routines.
+- Add Command: Review or Save Milestone.
+- Remove WIP commands and stale inline routines.
+
+**Instructions:** `./plan-workflows-make-work-flow/instructions/routines-and-ops-in-write-milestone.md`
 
 **Scope:** `$SKILLS/write-milestone/SKILL.md`
+
+#### Commits:
+
+| ID                                    | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| ------------------------------------- | --------------------------------- | ------------ | --------- | ----------- |
+| `add-milestone-routines`              | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `TBD`     | `READY`     |
+| `rewrite-write-milestone-skill`       | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `TBD`     | `READY`     |
 
 ### Iteration: Declaring workflows in guides.
 
