@@ -1241,7 +1241,7 @@ This project plans its work with the workflow defined in `$DOMAINS/work/workflow
 | `update-guide` | Conventions / `$CONVENTIONS` / `main`             | `CONTROLLED` | `fb2a74e` | `COMMITTED` |
 | `update-guide` | No comply / `$NO_COMPLY` / `main`                 | `CONTROLLED` | `e3a238a` | `COMMITTED` |
 | `update-guide` | Ops / `$OPS` / `main`                             | `CONTROLLED` | `TBD`     | `READY`     |
-| `update-guide` | Purrception / `$PURRCEPTION` / `main`             | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Purrception / `$PURRCEPTION` / `main`             | `CONTROLLED` | `23870fe` | `COMMITTED` |
 | `update-guide` | Purrfect / `$PURRFECT` / `main`                   | `CONTROLLED` | `TBD`     | `READY`     |
 | `update-guide` | Purrpose / `$PURRPOSE` / `main`                   | `CONTROLLED` | `TBD`     | `READY`     |
 | `update-guide` | Purrtrait / `$PURRTRAIT` / `main`                 | `CONTROLLED` | `c9be99c` | `COMMITTED` |
