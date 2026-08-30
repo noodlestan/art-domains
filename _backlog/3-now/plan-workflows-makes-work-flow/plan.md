@@ -342,7 +342,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Use Work Routines and Operations in Write Milestone | `DONE`     |
 | Iteration: Replace execute-plan with delegate-plan             | `DONE`     |
 | Iteration: Declaring workflows in Guides                       | `DONE`     |
-| Iteration: Create Guide Templates and Routines                 | `PLANNING` |
+| Iteration: Create Guide Templates and Routines                 | `READY` |
 | Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
 | Iteration: Update Domain Listing                               | `DONE`     |
 | Iteration: Review and Refactor Agent Modes                    | `PLANNING` |
@@ -1307,26 +1307,99 @@ docs(domains): Update guides to follow new conventions
 - Add _guide.md to every package (cli, lib, application)
 ```
 
-### Iteration: Create Guide Templates and Commands
+### Iteration: Create Guide Templates and Routines
 
 **id:** `create-guide-templates`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
-**Purpose:** Capture the guide creation pattern as reusable command/template pairs in the noodlestan domain.
+**Purpose:** Capture the guide creation pattern as reusable routine/template pairs in the noodlestan domain, so `_guide.md` files can be generated consistently for repositories and packages.
 
-**Description:** Create two command/template pairs in `$DOMAINS/noodlestan/` for generating `_guide.md` files: one for project (repository root) guides and one for package guides. Inspired by the write-instructions pattern and the instructions.tart template.
+**Description:** Create the `$DOMAINS/noodlestan/` domain with two routine/template pairs for generating `_guide.md` files — one for repository root (project) guides and one for package guides. Inspired by the write-instructions pattern and the instructions.tart template.
+
+**Instructions:** `./plan-workflows-makes-work-flow/instructions/create-guide-templates.md`
 
 **Changes:**
 
 Create `$DOMAINS/noodlestan/` domain:
 
-- `$DOMAINS/noodlestan/commands/create-project-guide.art` — command that reads project-guide.tart and renders a root `_guide.md` for a repository
-- `$DOMAINS/noodlestan/commands/create-package-guide.art` — command that reads package-guide.tart and renders a `_guide.md` for a package (next to `package.json`)
-- `$DOMAINS/noodlestan/templates/project-guide.tart` — template for repository root guides (Recommended Reading, Repository Layout, Projects, Records Management, Knowledge References, Workflows, Operating Instructions)
-- `$DOMAINS/noodlestan/templates/package-guide.tart` — template for package guides (Recommended Reading, Package Layout, Records Management, Knowledge References, Workflows, Operating Instructions)
+- `$DOMAINS/noodlestan/domain.art` — Domain: Noodlestan record.
+- `$DOMAINS/noodlestan/templates/project-guide.tart` — template for repository root guides (Recommended Reading, Repository Layout, Projects, Records Management, Knowledge References, Workflows, Operating Instructions).
+- `$DOMAINS/noodlestan/templates/package-guide.tart` — template for package guides (Recommended Reading, Package Layout, Records Management, Knowledge References, Workflows, Operating Instructions).
+- `$DOMAINS/noodlestan/routines/create-project-guide.art` — Routine: Create Project Guide. Reads `project-guide.tart` and renders a root `_guide.md` for a repository.
+- `$DOMAINS/noodlestan/routines/create-package-guide.art` — Routine: Create Package Guide. Reads `package-guide.tart` and renders a `_guide.md` for a package (next to `package.json`).
+- `$DOMAINS/noodlestan/index.md` — domain index (created last, after all resources exist).
+- Register Noodlestan in `$DOMAINS/index.md` domains listing (created last).
+
+**Reference templates:**
+
+- `$ART_DOMAINS/_guide.md` — repository root (project) guide example to model `project-guide.tart` after.
+- `$ART_DOMAINS/cli/workspace/_guide.md` — package guide example to model `package-guide.tart` after.
+- `$WORKSPACE/_guide.md` — workspace root guide (out of scope for these templates, but shows the `Path Variables` and `Workspace CLI` sections).
+
+**Directives syntax:**
+
+- Both templates MUST use the `::TEMPLATE` directive syntax (as in `$DOMAINS/plans/templates/instructions.tart`): `::TEMPLATE` instructions for the rendering agent, `::TEMPLATE::READ` for reading structures/types, `::EXAMPLE`/`::END` blocks, and conditional rendering for optional sections (Projects, Knowledge References, Workflows).
 
 **Scope:** `$DOMAINS/noodlestan/` directory
+
+**Purpose/Description drafts:**
+
+- **Domain: Noodlestan** — Purpose: Provides reusable routines and templates for generating `_guide.md` files — repository root (project) guides and package guides — so that guides are created consistently across repositories and packages. Description: Provides the Create Project Guide and Create Package Guide routines and the project-guide and package-guide templates for rendering `_guide.md` files with Recommended Reading, Layout, Projects, Records Management, Knowledge References, Workflows, and Operating Instructions sections.
+- **Routine: Create Project Guide** — Purpose: Generate a repository root `_guide.md` file for a repository, rendering the project-guide template with the repository's layout, projects, records, knowledge references, workflows, and operating instructions.
+- **Routine: Create Package Guide** — Purpose: Generate a `_guide.md` file for a package (next to `package.json`), rendering the package-guide template with the package's layout, records, knowledge references, workflows, and operating instructions.
+
+#### Commits:
+
+| ID | Repository / Checkout / Branch | Policy | Hash | Status |
+| -- | ------------------------------ | ------ | ---- | ------ |
+| `add-noodlestan-domain` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
+| `add-guide-templates` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
+| `add-guide-routines` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
+| `add-noodlestan-index` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
+
+##### Commit: `add-noodlestan-domain`
+
+**Message:**
+
+```
+build(domains): add noodlestan domain record
+
+- Create $DOMAINS/noodlestan/domain.art
+```
+
+##### Commit: `add-guide-templates`
+
+**Message:**
+
+```
+build(domains): add project and package guide templates
+
+- Create $DOMAINS/noodlestan/templates/project-guide.tart
+- Create $DOMAINS/noodlestan/templates/package-guide.tart
+```
+
+##### Commit: `add-guide-routines`
+
+**Message:**
+
+```
+build(domains): add create-project-guide and create-package-guide routines
+
+- Create $DOMAINS/noodlestan/routines/create-project-guide.art
+- Create $DOMAINS/noodlestan/routines/create-package-guide.art
+```
+
+##### Commit: `add-noodlestan-index`
+
+**Message:**
+
+```
+build(domains): add noodlestan domain index and register in domains listing
+
+- Create $DOMAINS/noodlestan/index.md
+- Register Noodlestan in $DOMAINS/index.md domains listing
+```
 
 ### Iteration: Prompts for Migrating Active Plans
 
