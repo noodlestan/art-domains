@@ -1236,7 +1236,7 @@ This project plans its work with the workflow defined in `$DOMAINS/work/workflow
 | ID             | Repository / Checkout / Branch                    | Policy       | Hash      | Status      |
 | -------------- | ------------------------------------------------- | ------------ | --------- | ----------- |
 | `update-guide` | Artificials / `$ARTIFICIALS` / `main`             | `CONTROLLED` | `TBD`     | `READY`     |
-| `update-guide` | Art JS / `$ART_JS` / `main`                       | `CONTROLLED` | `TBD`     | `READY`     |
+| `update-guide` | Art JS / `$ART_JS` / `main`                       | `CONTROLLED` | `f49b722` | `COMMITTED` |
 | `update-guide` | Artisans / `$ARTISANS` / `main`                   | `CONTROLLED` | `TBD`     | `READY`     |
 | `update-guide` | Conventions / `$CONVENTIONS` / `main`             | `CONTROLLED` | `90d418e` | `COMMITTED` |
 | `update-guide` | No comply / `$NO_COMPLY` / `main`                 | `CONTROLLED` | `e3a238a` | `COMMITTED` |
