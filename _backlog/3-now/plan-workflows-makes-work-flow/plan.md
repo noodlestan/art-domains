@@ -342,6 +342,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Use Work Routines and Operations in Write Milestone | `DONE`     |
 | Iteration: Replace execute-plan with delegate-plan             | `DONE`     |
 | Iteration: Declaring workflows in Guides                       | `DONE`     |
+| Iteration: Create Guide Templates and Commands                | `DRAFT`    |
 | Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
 | Iteration: Update Domain Listing                               | `DONE`     |
 | Iteration: Update Agent Modes                                  | `PLANNING` |
@@ -1305,6 +1306,27 @@ docs(domains): Update guides to follow new conventions
 - Update Recommended Reading prose
 - Add _guide.md to every package (cli, lib, application)
 ```
+
+### Iteration: Create Guide Templates and Commands
+
+**id:** `create-guide-templates`
+
+**Status:** `DRAFT`
+
+**Purpose:** Capture the guide creation pattern as reusable command/template pairs in the noodlestan domain.
+
+**Description:** Create two command/template pairs in `$DOMAINS/noodlestan/` for generating `_guide.md` files: one for project (repository root) guides and one for package guides. Inspired by the write-instructions pattern and the instructions.tart template.
+
+**Changes:**
+
+Create `$DOMAINS/noodlestan/` domain:
+
+- `$DOMAINS/noodlestan/commands/create-project-guide.art` — command that reads project-guide.tart and renders a root `_guide.md` for a repository
+- `$DOMAINS/noodlestan/commands/create-package-guide.art` — command that reads package-guide.tart and renders a `_guide.md` for a package (next to `package.json`)
+- `$DOMAINS/noodlestan/templates/project-guide.tart` — template for repository root guides (Recommended Reading, Repository Layout, Projects, Records Management, Knowledge References, Workflows, Operating Instructions)
+- `$DOMAINS/noodlestan/templates/package-guide.tart` — template for package guides (Recommended Reading, Package Layout, Records Management, Knowledge References, Workflows, Operating Instructions)
+
+**Scope:** `$DOMAINS/noodlestan/` directory
 
 ### Iteration: Prompts for Migrating Active Plans
 
