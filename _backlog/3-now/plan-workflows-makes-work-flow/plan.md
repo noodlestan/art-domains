@@ -342,7 +342,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Use Work Routines and Operations in Write Milestone | `DONE`     |
 | Iteration: Declaring workflows in guides                       | `PLANNING` |
 | Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
-| Iteration: Update Stale references and examples                | `DRAFT`    |
+| Iteration: Update Domain Listing                           | `DONE`     |
 | Iteration: Update Agent Modes                                  | `PLANNING` |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
 | Iteration: Integrate Specs Into Plans                          | `PLANNING` |
@@ -1175,7 +1175,21 @@ Skill: write-milestone:
 
 **Changes:**
 
-Scan all guides for `# Workflows` or `# {something} Workflow`. Prose such as "Planning, delegation, and integration runs on", or "... the working agreements and agent modes defined in .." needs to be expressed as a "## Workflows" section with one "### Workflow: {name}" section per workflow and under it the prose "This project uses .. " with the local workflow artefact links such as `_backlog`. Authoritative guide is `$ART_DOMAINS/_gude`
+Isntructions for planner: Search ALL Guides under each checkout.
+
+Most have a \_guide.md in the root. Some also have \_guide.md inside a project.
+
+Build a table here.
+
+Changes to make
+
+1. Under "## Recommended Reading" change: "Agents SHOULD scan these files for relevant clarifications when faced with ambiguity or omissions that may result from missing definitions." to "Agents SHOULD scan these files for definitions and resource locations when faced with uncertainty or ambiguity that may result from missing resources."
+
+2. Replace the entire `# Workflows` or `# {something} Workflow` sections. Prose such as "Planning, delegation, and integration runs on", or "... the working agreements and agent modes defined in .." needs to be expressed as a "## Workflows" section with one "### Workflow: {name}" section per workflow and under it the prose "This project uses .. " with the local workflow artefact links such as `_backlog`. Authoritative guide is `$ART_DOMAINS/_gude`.
+
+For repository root guides all of the above cases get replaced by a "## Workflows" section similar to the one in `$ART_DOMAINS/_guide.md` - most will be EXACTLY the same thing, but some repos do not have `run ci`, they have only `run lint` and `lint:fix`
+
+For package/application \_guides all of the above cases get replaced by a "## Workflows" section similar to the one in `$ART_DOMAINS/cli/workspace/_guide.md` - most will be EXACTLY the same thing, but do check if package.json as other scripts
 
 #### Commmits:
 
@@ -1234,42 +1248,28 @@ build(domains): Update Guide to follow conventions.
 {output prompt here}
 ```
 
-### Iteration: Update Stale references and examples
+### Iteration: Update Domain Listing
 
-**Instructions:** `./plan-workflows-make-work-flow/instructions/update-stale-references.md`
+**id:** `update-domain-listing`
 
-**Report:** `./plan-workflows-make-work-flow/instructions/update-stale-references__report.md`
+**Status:** `DONE`
 
-**Note:** Scope of update `.agents/` files only.
+**Purpose:** Update domain index template to render operations as a table, regenerate all domain indexes, update domain listing routine and template, regenerate listing.
 
-Move content of `.agents/domains/engineering/_guide.md` to `$AGENTS/work/_wip`.
+**Changes:**
 
-Update prose with workflow and stage examples to match renamed workflows:
+- Update `$DOMAINS/domains/templates/domain-index-file.tart` — reorder sections (Definitions, Structures, Operations, Workflows, Routines, Types, Templates, Files), render operations as table with "Workflow" and "Operation – File" columns
+- Regenerate all 13 domain indexes with correct section order and operations table
+- Update `$DOMAINS/domains/routines/generate-domain-listing.art` — rewrite based on build-domain-index.art, collect %resources per domain
+- Update `$DOMAINS/domains/templates/domains-listing.tart` — new directive syntax, add operations table, reorder sections
+- Regenerate `$DOMAINS/index.md` domains listing
 
-- "Workflow: Planning" => "Workflow: Planning Work"
-- "Workflow: Implementing" => "Workflow: Executing Work"
-- "Workflow: Engineering" => "Workflow: Executing Work"
-- "Delivery Workflow" => "Workflow: Executing Work"
-- other cases of stale workflow names?
+**Commits:**
 
-Update prose with workflow stage examples to match renamed workflow stages:
-
-- "Contextualizing, Drafting, Refining, Setting up, Verifying, Committing" => "Planning Work Item, Verifying Execution"
-- "Briefing, Problem, Solution, Plan, Contextualizing, Drafting, Refining" => "Planning Work Item, Validating Work Item, "Delegating Instructions"
-- other cases of stale workflow stage names?
-
-1. Renamed paths
-
-- `work/types/workflow-stage.art` to `work/structures/structures/workflow-stage.art`
-- `engineering/workflows/engineering.art` => `work/worflows/executing-work/workflow.art`
-- `plans/workflows/planning.art` => `work/worflows/planning-work/workflow.art`
-
-1. Hide engineering domain. Remove:
-
-- `$DOMAINS/engineering/domain.art `
-- `$DOMAINS/engineering/index.md`
-
-Check for stale paths.
+| ID                                    | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| ------------------------------------- | --------------------------------- | -------- | --------- | ----------- |
+| `rewrite-domain-templates`            | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `92d4cae` | `COMMITTED` |
+| `rebuild-domain-indexes`              | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `9ed9bc7` | `COMMITTED` |
 
 ### Iteration: Update Agent Modes
 
