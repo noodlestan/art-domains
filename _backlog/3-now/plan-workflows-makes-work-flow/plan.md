@@ -342,7 +342,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Use Work Routines and Operations in Write Milestone | `DONE`     |
 | Iteration: Replace execute-plan with delegate-plan             | `DONE`     |
 | Iteration: Declaring workflows in Guides                       | `DONE`     |
-| Iteration: Create Guide Templates and Commands                | `DRAFT`    |
+| Iteration: Create Guide Templates and Routines                 | `PLANNING` |
 | Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
 | Iteration: Update Domain Listing                               | `DONE`     |
 | Iteration: Review and Refactor Agent Modes                    | `PLANNING` |
@@ -1387,38 +1387,26 @@ Create `$DOMAINS/noodlestan/` domain:
 
 **id:** `review-refactor-agent-modes`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Review agent modes for correct skill links and refactor delegate-plan skill to match write-plan standards.
 
-**Description:** Audit architect, planner, delegator, and worker agent modes to ensure they link to the correct required skills with proper commands. Refactor the delegate-plan skill: extract routines from inline procedures, simplify commands to the standard pattern (input → delegation → save/present), and align with the write-plan skill conventions.
-
 **Changes:**
 
-Agent mode review (4 modes):
+- Review 4 agent modes (architect, planner, delegator, worker) for correct skill links
+- Extract prepare-delegation and delegate-instructions routines from delegate-plan
+- Rewrite Delegate Plan(s) command to delegate to routine
+- Add Record Delegation command replacing Step 3 + Integrate Delegation
+- Remove Delegate Plans and Integrate Delegation commands
 
-- **architect** — Required skills: `write-plan`, `write-milestone`. Verify skill alignment references planning-work workflow. Verify mandatory reading includes plan and roadmap domains.
-- **planner** — Required skills: `write-plan`. Verify skill alignment references planning-work workflow. Verify mandatory reading includes plan domain.
-- **delegator** — Required skills: `delegate-plan`. Verify skill alignment references delegating-work workflow. Verify mandatory reading includes delegating-work workflow and plan definitions.
-- **worker** — Required skills: `agent-worker`. Verify skill alignment references executing-work workflow.
-
-Delegate-plan skill refactor:
-
-- Extract `$SKILLS/delegate-plan/procedures/prepare-delegation.art` from "Before executing" + Step 1 — validates task files, marks plan as WORKING
-- Extract `$SKILLS/delegate-plan/procedures/delegate-instructions.art` from Step 2 — launches worker agents, relays questions/answers, handles blocked tasks
-- Rewrite `Command: Delegate Plan(s)` to delegate to Routine: Delegate Instructions
-- Rewrite `Command: Record Delegation` (replaces Step 3) — updates commit status, applies feedback, stages and commits, reports next relay prompt
-- Remove `Command: Integrate Delegation` — merged into Record Delegation
-- Remove `Command: Delegate Plans` — replaced by Delegate Plan(s) with Routine: Delegate Instructions
-
-**Scope:** `.agents/skills/agent-architect/SKILL.md`, `.agents/skills/agent-planner/SKILL.md`, `.agents/skills/agent-delegator/SKILL.md`, `.agents/skills/agent-worker/SKILL.md`, `.agents/skills/delegate-plan/SKILL.md`
+**Instructions:** `./plan-workflows-make-work-flow/instructions/review-refactor-agent-modes.md`
 
 **Commits:**
 
 | ID                                    | Repository / Checkout / Branch    | Policy   | Hash  | Status  |
 | ------------------------------------- | --------------------------------- | -------- | ----- | ------- |
 | `review-agent-modes`                  | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
-| `refactor-delegate-plan`              | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
+| `refactor-delegate-plan`              | Workspace / `$WORKSPACE` / `main` | `BLOCKED` | `TBD` | `READY` |
 
 ### Iteration: Refactor Domain Index Routines
 
