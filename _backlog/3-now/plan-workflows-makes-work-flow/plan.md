@@ -345,7 +345,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Create Guide Templates and Commands                | `DRAFT`    |
 | Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
 | Iteration: Update Domain Listing                               | `DONE`     |
-| Iteration: Update Agent Modes                                  | `PLANNING` |
+| Iteration: Review and Refactor Agent Modes                    | `PLANNING` |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
 | Iteration: Integrate Specs Into Plans                          | `PLANNING` |
 | Iteration: Update Domain Knowledge                             | `PLANNING` |
@@ -1383,32 +1383,42 @@ Create `$DOMAINS/noodlestan/` domain:
 | `rewrite-domain-templates` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `92d4cae` | `COMMITTED` |
 | `rebuild-domain-indexes`   | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `c04d00d` | `COMMITTED` |
 
-### Iteration: Update Agent Modes
+### Iteration: Review and Refactor Agent Modes
 
-**id:** `update-agent-modes`
+**id:** `review-refactor-agent-modes`
 
 **Status:** `PLANNING`
 
-**Purpose:** Update agent modes to work with new plan structure and extracted routines.
+**Purpose:** Review agent modes for correct skill links and refactor delegate-plan skill to match write-plan standards.
 
-**Description:** Update agent mode definitions to reference the new work domain routines and follow updated conventions.
+**Description:** Audit architect, planner, delegator, and worker agent modes to ensure they link to the correct required skills with proper commands. Refactor the delegate-plan skill: extract routines from inline procedures, simplify commands to the standard pattern (input → delegation → save/present), and align with the write-plan skill conventions.
 
 **Changes:**
 
-- Update architect agent mode to reference new work routines
-- Update planner agent mode to reference new work routines
-- Update delegator agent mode to reference new work routines
-- Update worker agent mode to reference new work routines
-- Update backlog-manager agent mode to reference new work routines
+Agent mode review (4 modes):
 
-**Scope:** `.agents/skills/agent-*/SKILL.md` files
+- **architect** — Required skills: `write-plan`, `write-milestone`. Verify skill alignment references planning-work workflow. Verify mandatory reading includes plan and roadmap domains.
+- **planner** — Required skills: `write-plan`. Verify skill alignment references planning-work workflow. Verify mandatory reading includes plan domain.
+- **delegator** — Required skills: `delegate-plan`. Verify skill alignment references delegating-work workflow. Verify mandatory reading includes delegating-work workflow and plan definitions.
+- **worker** — Required skills: `agent-worker`. Verify skill alignment references executing-work workflow.
 
-**Key updates:**
+Delegate-plan skill refactor:
 
-- Add `::READ` directives for work domain routines
-- Update skill alignment sections
-- Update mandatory reading sections
-- Ensure consistent reference patterns across all modes
+- Extract `$SKILLS/delegate-plan/procedures/prepare-delegation.art` from "Before executing" + Step 1 — validates task files, marks plan as WORKING
+- Extract `$SKILLS/delegate-plan/procedures/delegate-instructions.art` from Step 2 — launches worker agents, relays questions/answers, handles blocked tasks
+- Rewrite `Command: Delegate Plan(s)` to delegate to Routine: Delegate Instructions
+- Rewrite `Command: Record Delegation` (replaces Step 3) — updates commit status, applies feedback, stages and commits, reports next relay prompt
+- Remove `Command: Integrate Delegation` — merged into Record Delegation
+- Remove `Command: Delegate Plans` — replaced by Delegate Plan(s) with Routine: Delegate Instructions
+
+**Scope:** `.agents/skills/agent-architect/SKILL.md`, `.agents/skills/agent-planner/SKILL.md`, `.agents/skills/agent-delegator/SKILL.md`, `.agents/skills/agent-worker/SKILL.md`, `.agents/skills/delegate-plan/SKILL.md`
+
+**Commits:**
+
+| ID                                    | Repository / Checkout / Branch    | Policy   | Hash  | Status  |
+| ------------------------------------- | --------------------------------- | -------- | ----- | ------- |
+| `review-agent-modes`                  | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
+| `refactor-delegate-plan`              | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
 
 ### Iteration: Refactor Domain Index Routines
 
