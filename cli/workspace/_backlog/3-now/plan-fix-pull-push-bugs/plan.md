@@ -55,7 +55,7 @@ Fix unreliable behind detection, incorrect workspace state reporting, and missin
 ::READ `_backlog/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
 ::READ `architecture/commands.md` (Design) — Command behaviour and BDD scenarios. Relevant for Planning Work Item.
 ::READ `architecture/_pseudo.md` (Pseudo-code) — Pseudo-code contracts. Relevant for Planning Work Item.
-::READ `$PACKAGE/_backlog/4-next/plan-fix-pull-push-bugs/plan__bugs.md` (Bugs) — Bug scenarios and evidence. Relevant for Planning Work Item.
+::READ `$PACKAGE/_backlog/3-now/plan-fix-pull-push-bugs/plan__bugs.md` (Bugs) — Bug scenarios and evidence. Relevant for Planning Work Item.
 
 ## Scope
 
@@ -65,7 +65,7 @@ Fix behind detection in `src/private/git/` and `src/private/scan/`. Fix workspac
 
 ### Next
 
-Refine iteration `fix-pull-push-false-evaluations` from DRAFT to PLANNING.
+Delegate the next `READY` iteration `fix-pull-push-false-evaluations`.
 
 ### Blockers
 
@@ -120,17 +120,17 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions                   | Status     |
-| ------------------------------------------ | ---------- |
-| Iteration: Fix Pull Push False Evaluations | `PLANNING` |
-| Iteration: Fix Workspace State Detection   | `DRAFT`    |
-| Iteration: Sync Workspace Too              | `DRAFT`    |
+| Iteration / Instructions                   | Status  |
+| ------------------------------------------ | ------- |
+| Iteration: Fix Pull Push False Evaluations | `READY` |
+| Iteration: Fix Workspace State Detection   | `READY` |
+| Iteration: Sync Workspace Too              | `READY` |
 
 ### Iteration: Fix Pull Push False Evaluations
 
 **Id:** `fix-pull-push-false-evaluations`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Fix the behind detection system so it accurately reports behind/ahead state on all checkouts, eliminating both false positives (behind when clean) and false negatives (not behind when actually behind).
 
@@ -151,11 +151,43 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 - None.
 
+#### Commits:
+
+| ID                        | Repository / Checkout / Branch      | Policy   | Hash  | Status     |
+| ------------------------- | ----------------------------------- | -------- | ----- | ---------- |
+| `fix-behind-detection`    | Workspace CLI / `$PROJECT` / `main` | `NOPUSH` | (TBD) | `AUTHORED` |
+| `update-behind-knowledge` | Workspace CLI / `$PROJECT` / `main` | `NOPUSH` | (TBD) | `AUTHORED` |
+
+##### Commit: `fix-behind-detection`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+fix(workspace-cli): fix behind detection false positives and false negatives.
+
+- Fix root cause in `getBehindCount`, `getRemoteBranch`, `scanCheckoutState`.
+- Update existing tests to cover both false positive and false negative scenarios.
+```
+
+##### Commit: `update-behind-knowledge`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+arch(workspace-cli): update behind detection knowledge.
+
+- Update `architecture/commands.md` and `architecture/_pseudo.md` if signatures or command behaviour changed.
+```
+
 ### Iteration: Fix Workspace State Detection
 
 **Id:** `fix-workspace-state-detection`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Fix the workspace report showing "unknown project" incorrectly and improve workspace state presentation.
 
@@ -173,11 +205,31 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 - `fix-pull-push-false-evaluations` — should land after the behind detection fix.
 
+#### Commits:
+
+| ID                              | Repository / Checkout / Branch      | Policy   | Hash  | Status     |
+| ------------------------------- | ----------------------------------- | -------- | ----- | ---------- |
+| `fix-workspace-state-detection` | Workspace CLI / `$PROJECT` / `main` | `NOPUSH` | (TBD) | `AUTHORED` |
+
+##### Commit: `fix-workspace-state-detection`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+fix(workspace-cli): fix workspace state detection and presentation.
+
+- Filter inapplicable issues (e.g. "unknown project") in workspace scan.
+- Convert workspace output from table to field list (remote, path, branch, issues).
+- Add/update tests for workspace state detection.
+```
+
 ### Iteration: Sync Workspace Too
 
 **Id:** `sync-workspace-too`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Make pull, push, sync, and sanity --auto all apply their pull/push logic to the workspace root consistently.
 
@@ -194,6 +246,26 @@ All steps MUST pass. No `it.todo()` tests may remain.
 **Dependencies:**
 
 - `fix-workspace-state-detection` — workspace state detection should be fixed first.
+
+#### Commits:
+
+| ID                   | Repository / Checkout / Branch      | Policy   | Hash  | Status     |
+| -------------------- | ----------------------------------- | -------- | ----- | ---------- |
+| `sync-workspace-too` | Workspace CLI / `$PROJECT` / `main` | `NOPUSH` | (TBD) | `AUTHORED` |
+
+##### Commit: `sync-workspace-too`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+build(workspace-cli): apply pull/push/sync logic to the workspace root.
+
+- Extend `runPull`, `runPush`, `runSync` to operate on the workspace root.
+- Extract shared workspace root scan/operation logic from `runSanity`.
+- Add/update tests covering workspace root pull/push/sync for all commands.
+```
 
 ---
 
