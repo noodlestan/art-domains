@@ -343,9 +343,10 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Replace execute-plan with delegate-plan             | `DONE`     |
 | Iteration: Declaring workflows in Guides                       | `DONE`     |
 | Iteration: Create Guide Templates and Routines                 | `DONE`     |
-| Iteration: Create Migration Routines                          | `DONE`     |
+| Iteration: Create Migration Routines                           | `DONE`     |
 | Iteration: Update Domain Listing                               | `DONE`     |
 | Iteration: Review and Refactor Agent Modes                     | `DONE`     |
+| Iteration: Fix Broken References                              | `PLANNING` |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
 | Iteration: Integrate Specs Into Plans                          | `PLANNING` |
 | Iteration: Update Domain Knowledge                             | `PLANNING` |
@@ -1420,9 +1421,9 @@ build(domains): add noodlestan domain index and register in domains listing
 
 **Commits:**
 
-| ID                                    | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
-| ------------------------------------- | --------------------------------- | -------- | --------- | ----------- |
-| `add-migration-routines`              | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `8608a50` | `COMMITTED` |
+| ID                       | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| ------------------------ | --------------------------------- | -------- | --------- | ----------- |
+| `add-migration-routines` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `8608a50` | `COMMITTED` |
 
 ##### Commit: `add-migration-routines`
 
@@ -1481,6 +1482,33 @@ build(noodlestan): Add migration routines for milestones and plans
 | ------------------------ | --------------------------------- | --------- | --------- | ----------- |
 | `review-agent-modes`     | Workspace / `$WORKSPACE` / `main` | `MANUAL`  | `e893ceb` | `COMMITTED` |
 | `refactor-delegate-plan` | Workspace / `$WORKSPACE` / `main` | `BLOCKED` | `9baaac6` | `COMMITTED` |
+
+### Iteration: Fix Broken References
+
+**id:** `fix-broken-references`
+
+**Status:** `PLANNING`
+
+**Purpose:** Fix broken `.md` references that should point to `.art` files across skills and routines.
+
+**Description:** An agent tried to read `create-work-table.md` which doesn't exist — the file is `create-work-table.art`. Several skills and routines reference `.md` files that were renamed to `.art` during the domain refactor.
+
+**Broken references found:**
+
+- `domains/plans/routines/create-or-update-plan.art` → `$DOMAINS/plans/routines/create-or-update-plan.md` (should be `.art`)
+- `domains/work/routines/create-work-graph.md` — referenced in agent-backlog-manager, agent-delegator, agent-architect, agent-planner (should be `.art`)
+- `domains/work/routines/create-work-table.md` — referenced in agent-backlog-manager, agent-delegator, agent-architect, agent-planner (should be `.art`)
+- `domains/_artificials/fundamentals.md` → `$DOMAINS/plans/routines/create-or-update-plan.md` (should be `.art`)
+
+**Note:** `validate-milestone.md` and `validate-plan.md` are intentionally `.md` files — not broken.
+
+**Scope:** `.agents/skills/agent-*/SKILL.md`, `.agents/domains/*/routines/*.art`, `.agents/domains/_artificials/fundamentals.md`
+
+**Commits:**
+
+| ID                                    | Repository / Checkout / Branch    | Policy   | Hash  | Status  |
+| ------------------------------------- | --------------------------------- | -------- | ----- | ------- |
+| `fix-broken-references`               | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
 
 ### Iteration: Refactor Domain Index Routines
 
@@ -1586,13 +1614,8 @@ Build the plan file from draft content (current iteration). Then update the writ
 
 ### Follow Ups
 
-- **Refactor Domain index routines**.
-- **Explicit Operating instructions rendering** The writing skills (`write-milestone`, `write-plan`) still need to invoke Routine: Compose Workflow Operations and Routine: Identify Operating Instructions to discover operations from knowledge and scope resources. The routine receives workflows as input and returns List(Type: Operating Instructions). The caller filters by stage as needed. When writing instructions files, the skill should: 1. Populate scope and context using Compose Work Scope and Compose Work Context. 2. Pass the work item's workflows to the routine. 3. Receive the list of operating instructions. 4. Render relevant operating instructions in milestone, plan, and instruction files.
+- None
 
 ## Feedback
 
-### Iteration: Formalize Iteration Commits Nesting
-
-- **Commit 1 (`add-commit-template`) not pushed** — Policy was AUTONOMOUS, which requires pushing. Worker committed locally but did not push to remote.
-- **Report file not created** — Instructions required creating `iteration-commit-nesting__report.md` using the report template. Worker did not generate this file.
-- **All code changes correct** — All 3 commits contain the correct file changes and commit messages.
+- None.
