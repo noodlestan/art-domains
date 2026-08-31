@@ -343,7 +343,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Replace execute-plan with delegate-plan             | `DONE`     |
 | Iteration: Declaring workflows in Guides                       | `DONE`     |
 | Iteration: Create Guide Templates and Routines                 | `DONE`     |
-| Iteration: Create Migration Routines                          | `DRAFT`    |
+| Iteration: Create Migration Routines                          | `DONE`     |
 | Iteration: Update Domain Listing                               | `DONE`     |
 | Iteration: Review and Refactor Agent Modes                     | `DONE`     |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
@@ -1405,7 +1405,7 @@ build(domains): add noodlestan domain index and register in domains listing
 
 **id:** `create-migration-routines`
 
-**Status:** `DRAFT`
+**Status:** `DONE`
 
 **Purpose:** Allow projects to migrate their milestones and plans/instructions to the new format.
 
@@ -1417,6 +1417,22 @@ build(domains): add noodlestan domain index and register in domains listing
 - Add `$DOMAINS/noodlestan/routines/migrate-plan.art` — migrates old plan to new format
 
 **Scope:** `$DOMAINS/noodlestan/routines/` directory
+
+**Commits:**
+
+| ID                                    | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| ------------------------------------- | --------------------------------- | -------- | --------- | ----------- |
+| `add-migration-routines`              | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `8608a50` | `COMMITTED` |
+
+##### Commit: `add-migration-routines`
+
+```
+build(noodlestan): Add migration routines for milestones and plans
+
+- Add migrate-milestone.art: converts old milestone format to new format with phases, work sections, and coordination
+- Add migrate-plan.art: converts old plan format to new format with iterations, operating instructions, and work sections
+- Both routines include mandatory reading, verification steps, and save via Review or Save commands
+```
 
 ### Iteration: Update Domain Listing
 
