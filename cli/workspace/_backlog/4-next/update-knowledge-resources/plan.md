@@ -2,161 +2,295 @@
 
 **ID:** `update-knowledge-resources`
 
-**Status:** `PREPARING`
+**Status:** `DRAFT`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
 **Skill:** `write-plan`
 
+**Purpose:** Update the workspace CLI architecture knowledge resources to reflect implemented commands and planned changes.
+
+**Description:** The architecture docs currently describe an earlier state of the codebase; this plan brings them current with the actual `src/` structure, completed plans, and planned changes.
+
+## Mandatory Reading
+
+::READ `$DOMAINS/plans/structures/plan.art` (Structure) — Describe the work-item changes through a series of iterations and commits with detailed instructions.
+
+---
+
+## Path Variables
+
+| Variable     | Resolved Path             | Purpose                               |
+| ------------ | ------------------------- | ------------------------------------- |
+| `$WORKSPACE` | Current working directory | Workspace root directory              |
+| `$PROJECT`   | Provided with prompt      | Where work execution is taking place. |
+
 ## Summary
 
-Update the workspace CLI architecture knowledge resources to reflect implemented commands (pull, push, sync), planned configuration changes (dynamic record discovery, top-level checkouts), and updated function signatures (data-first `saveCheckoutRecord`). The architecture docs currently describe an earlier state of the codebase; this plan brings them current with the actual `src/` structure, completed plans, and planned changes.
+Update 8 architecture knowledge resource files to reflect implemented commands (pull, push, sync), planned configuration changes, and updated function signatures.
 
-## Source Tasks
+## Context
 
-- Milestone: `_backlog/3-now/milestone-one/milestone.md` — defines this plan as part of the Complete Workspace CLI milestone.
+### Upstream Work
 
-## Files to Update
+| Kind        | Path                                                 | Role                                                               |
+| ----------- | ---------------------------------------------------- | ------------------------------------------------------------------ |
+| Parking Lot | `$PROJECT/_backlog/_parking-lot.md`                  | Tracks short-term actionables, pending questions, and blockers.    |
+| Milestone   | `$PROJECT/_backlog/3-now/milestone-one/milestone.md` | Defines this plan as part of the Complete Workspace CLI milestone. |
 
-### 1. `architecture/index.md`
+### Required Skills
 
-**Current state:** References a stale plan (`plan-workspace-cli/plan.md`). Lists `pull`, `push`, `sync`, `link`, `unlink`, `publish` as commands without distinguishing implemented from planned.
+- `write-plan` — Writes execution plans and implementation instructions. Required for Planning Work Item.
+- `render-template` — Renders plan and instruction artefacts. Required for Drafting, Refining.
 
-**Update strategy:**
+### Domains
+
+| Domain / Path                           | Description                                                                        |
+| --------------------------------------- | ---------------------------------------------------------------------------------- |
+| Domain: Plans `$DOMAINS/plans/index.md` | Planning lifecycle for contextualising, drafting, planning, and integrating plans. |
+
+### Knowledge
+
+::READ `$PROJECT/architecture/index.md` (Architecture) — CLI execution model and data model. Relevant for Planning Work Item.
+::READ `$PROJECT/architecture/config.md` (Config) — WorkspaceConfig interface. Relevant for Planning Work Item.
+::READ `$PROJECT/architecture/context-model.md` (Model) — Reader organization and record functions. Relevant for Planning Work Item.
+::READ `$PROJECT/architecture/commands.md` (Commands) — Command surface and implementation status. Relevant for Planning Work Item.
+::READ `$PROJECT/architecture/operations-log.md` (Operations) — Operation kinds. Relevant for Planning Work Item.
+::READ `$PROJECT/architecture/_pseudo.md` (Pseudo) — Pseudo-code contracts. Relevant for Planning Work Item.
+::READ `$PROJECT/architecture/reports.md` (Reports) — Report formats. Relevant for Planning Work Item.
+
+## Scope
+
+Update 8 architecture files in `$PROJECT/architecture/` to reflect the current state of the codebase.
+
+## Work
+
+### Next
+
+Delegate the first `DRAFT` iteration: `update-architecture-index`.
+
+### Blockers
+
+- None.
+
+---
+
+## Operating Instructions
+
+### Writing Commit Message
+
+**Purpose:** Write standardized message according to context conventions. Operation of Workflow: Planning Work, defined in `$DOMAINS/work/workflows/planning-work/ops/writing-commit-message.art`.
+
+**Instructions:** (From `$WORKSPACE/_guide.md`)
+
+1. Read commit message conventions from `$WORKSPACE/knowledge/conventions/writing-commit-message.art`.
+2. Write the commit message following: the rules defined there.
+
+---
+
+## Items:
+
+| Iteration / Instructions             | Status  |
+| ------------------------------------ | ------- |
+| Iteration: Update Architecture Index | `DRAFT` |
+| Iteration: Update Config             | `DRAFT` |
+| Iteration: Update Context Model      | `DRAFT` |
+| Iteration: Update Commands           | `DRAFT` |
+| Iteration: Update Operations Log     | `DRAFT` |
+| Iteration: Update Pseudo Code        | `DRAFT` |
+| Iteration: Update Reports            | `DRAFT` |
+
+### Iteration: Update Architecture Index
+
+**Id:** `update-architecture-index`
+
+**Status:** `DRAFT`
+
+**Purpose:** Update `architecture/index.md` to reflect implemented commands and current milestone.
+
+**Description:** Replace stale plan reference with current milestone, update CLI execution model to show implemented vs planned commands, review data model consistency.
+
+**Instructions:** `./update-knowledge-resources/instructions/update-architecture-index.md`
+
+**Changes:**
 
 - Replace the stale plan reference with the current milestone reference (`milestone-one/milestone.md`).
-- Update the "CLI Execution Model" section to reflect that `pull`, `push`, and `sync` are now implemented alongside `clone`, `branch`, `repo`, and `sanity`.
+- Update the "CLI Execution Model" section to reflect that `pull`, `push`, and `sync` are now implemented.
 - Clarify that `link`, `unlink`, and `publish` remain designed/draft.
-- Review the "Data Model" section against `context-model.md` updates — ensure consistency on `CheckoutStore` semantics and record-mutation pattern.
+- Review the "Data Model" section against `context-model.md` updates.
 
-**Evidence to consult:**
+**Dependencies:**
 
-- `$PROJECT/art-domains/cli/workspace/src/commands/` — directory listing shows `pull/`, `push/`, `sync/` alongside `clone/`, `branch/`, `repo/`, `sanity/`.
-- `$PROJECT/art-domains/cli/workspace/src/index.ts` — registered command list.
+- None.
 
-### 2. `architecture/config.md`
+### Iteration: Update Config
 
-**Current state:** The `WorkspaceConfig` interface shows `records.repositories.path` and `records.checkouts.{path,template}`. The authoring example uses this old shape. Does not reflect the planned restructuring from `plan-discover-records`.
+**Id:** `update-config`
 
-**Update strategy:**
+**Status:** `DRAFT`
 
-- Update the `WorkspaceConfig` interface to show the planned shape: top-level `checkouts.path` and `checkouts.template`, and `records.pattern` (defaulting to `*.art`). Keep the current shape documented as "current" until the plan lands, or document both as "current" and "planned".
+**Purpose:** Update `architecture/config.md` to reflect planned WorkspaceConfig restructuring.
+
+**Description:** Update the WorkspaceConfig interface to show the planned shape, update authoring example, add transition note.
+
+**Instructions:** `./update-knowledge-resources/instructions/update-config.md`
+
+**Changes:**
+
+- Update the `WorkspaceConfig` interface to show the planned shape: top-level `checkouts.path` and `checkouts.template`, and `records.pattern`.
 - Update the authoring example to match the new config shape.
-- Add a note that `records.checkouts` is being restructured to top-level `checkouts` — reference `plan-discover-records` for the transition.
-- Verify the "Source of Truth" section still accurately describes the records-first philosophy.
+- Add a note about the `records.checkouts` restructuring.
 
-**Evidence to consult:**
+**Dependencies:**
 
-- `$PROJECT/art-domains/cli/workspace/_backlog/3-now/plan-discover-records/plan.md` — "Decisions and Assumptions" section defines the new config shape.
-- `$PROJECT/art-domains/cli/workspace/src/config/` — actual `WorkspaceConfig` type and `defineConfig` to verify current vs planned state.
+- None.
 
-### 3. `architecture/context-model.md`
+### Iteration: Update Context Model
 
-**Current state:** The reader organization shows a flat structure without `shared/` or `checkout/private/` subdirectories. `loadProjectGraph` signature is `(checkoutPath)` without `config`. `saveCheckoutRecord` uses the old `(config, name, record)` signature. No mention of `filename` on checkout records or `findRecordFiles`.
+**Id:** `update-context-model`
 
-**Update strategy:**
+**Status:** `DRAFT`
 
-- Update the "Reader Organization" directory tree to match the actual `src/private/records/` structure, including `shared/findRecordFiles.ts` and `checkout/private/` if they exist.
-- Update `saveCheckoutRecord` signature to data-first: `saveCheckoutRecord(config, data, filename?)`. Document that loaded records call `saveCheckoutRecord(config, record.record, record.filename)` and new records call `saveCheckoutRecord(config, data)`.
-- Add `filename` field to `RepositoryCheckoutRecord` (or note it is planned via `plan-discover-records`).
-- Update `loadProjectGraph` to show it will accept `(config, checkoutPath)` once dynamic discovery lands.
-- Update `loadCheckoutRecords` to show it pairs records with repository records.
-- Review `hydrateStoreFromRecords` against the actual implementation.
-- Ensure the `Checkout` interface matches `src/private/store/createCheckout.ts` — verify `isBehind` is documented.
+**Purpose:** Update `architecture/context-model.md` to reflect actual reader organization and function signatures.
 
-**Evidence to consult:**
+**Description:** Update directory tree, saveCheckoutRecord signature, loadProjectGraph, and Checkout interface.
 
-- `$PROJECT/art-domains/cli/workspace/src/private/records/` — actual directory structure.
-- `$PROJECT/art-domains/cli/workspace/src/private/records/checkout/saveCheckoutRecord.ts` — current signature.
-- `$PROJECT/art-domains/cli/workspace/src/private/store/createCheckout.ts` — `Checkout` interface.
-- `$PROJECT/art-domains/cli/workspace/_backlog/3-now/plan-discover-records/plan.md` — planned changes to records layer.
+**Instructions:** `./update-knowledge-resources/instructions/update-context-model.md`
 
-### 4. `architecture/commands.md`
+**Changes:**
 
-**Current state:** Command surface table lists `pull`, `push`, `sync` as `planned`. The `repo` command status is `implemented` but the bottom "Implementation Status" section is stale. BDD scenarios for `pull`, `push`, `sync` are already present and accurate.
+- Update the "Reader Organization" directory tree to match the actual `src/private/records/` structure.
+- Update `saveCheckoutRecord` signature to data-first: `saveCheckoutRecord(config, data, filename?)`.
+- Add `filename` field to `RepositoryCheckoutRecord`.
+- Update `loadProjectGraph` to show it will accept `(config, checkoutPath)`.
+- Review `hydrateStoreFromRecords` against actual implementation.
+- Ensure `Checkout` interface matches `src/private/store/createCheckout.ts`.
 
-**Update strategy:**
+**Dependencies:**
+
+- None.
+
+### Iteration: Update Commands
+
+**Id:** `update-commands`
+
+**Status:** `DRAFT`
+
+**Purpose:** Update `architecture/commands.md` to reflect implemented command status.
+
+**Description:** Update command surface table and implementation status section.
+
+**Instructions:** `./update-knowledge-resources/instructions/update-commands.md`
+
+**Changes:**
 
 - Update the command surface table: `pull`, `push`, `sync` → `implemented`.
-- Update the "Implementation Status" section at the bottom to reflect all implemented commands: `clone`, `sanity`, `branch`, `repo`, `pull`, `push`, `sync`.
-- Note that `link`, `unlink`, `publish` remain `designed` (stubbed entry points).
-- Verify BDD scenarios for `pull`, `push`, `sync` against actual test files — they should already match since they were the source of truth during implementation.
-- Add any edge cases discovered during implementation feedback (e.g., `git fetch` needed for behind detection in tests, `simple-git` blocks `git config` writes).
+- Update the "Implementation Status" section to reflect all implemented commands.
+- Note that `link`, `unlink`, `publish` remain `designed`.
+- Verify BDD scenarios for `pull`, `push`, `sync` against actual test files.
 
-**Evidence to consult:**
+**Dependencies:**
 
-- `$PROJECT/art-domains/cli/workspace/src/commands/` — directory listing for implemented commands.
-- `$PROJECT/art-domains/cli/workspace/_backlog/1-done/plan-implement-pull-push-sync/plan.md` — Feedback section documents implementation learnings.
+- None.
 
-### 5. `architecture/operations-log.md`
+### Iteration: Update Operations Log
 
-**Current state:** Lists operation kinds as `clone`, `push`, `publish`, `branch created`, `linked`, `unlink`. Missing `pull`.
+**Id:** `update-operations-log`
 
-**Update strategy:**
+**Status:** `DRAFT`
+
+**Purpose:** Update `architecture/operations-log.md` to include `pull` operation kind.
+
+**Description:** Add pull to operation kinds and verify operation factory exports.
+
+**Instructions:** `./update-knowledge-resources/instructions/update-operations-log.md`
+
+**Changes:**
 
 - Add `pull` to the operation kinds list.
-- Verify the `Operation` kind field matches what `src/private/operations/` actually exports (e.g., `createPullSuccess`, `createPullFailure`).
-- Confirm no other new operation kinds were introduced during `pull`/`push`/`sync` implementation.
+- Verify the `Operation` kind field matches what `src/private/operations/` actually exports.
+- Confirm no other new operation kinds were introduced.
 
-**Evidence to consult:**
+**Dependencies:**
 
-- `$PROJECT/art-domains/cli/workspace/src/private/operations/` — actual operation factory files.
+- None.
 
-### 6. `architecture/_pseudo.md`
+### Iteration: Update Pseudo Code
 
-**Current state:** `saveCheckoutRecord` uses old signature `(config, name, record)`. `loadCheckoutRecords` takes `(config, repos)`. `loadRepositoryRecords` takes `(config)`. Missing `resolveCheckoutByName` (was added during `fix-repo-command-issues`). Missing `pull` command pseudo-code. `pull`, `push`, `sync` pseudo-code references functions that may have shifted.
+**Id:** `update-pseudo-code`
 
-**Update strategy:**
+**Status:** `DRAFT`
 
-- Add `resolveCheckoutByName(store, input)` function (already landed in `fix-repo-command-issues`).
-- Update `saveCheckoutRecord` to data-first signature: `saveCheckoutRecord(config, data, filename?)`.
+**Purpose:** Update `architecture/_pseudo.md` to reflect current function signatures and add missing pseudo-code.
+
+**Description:** Add resolveCheckoutByName, update saveCheckoutRecord, add pull command pseudo-code, review pull/push/sync pseudo-code.
+
+**Instructions:** `./update-knowledge-resources/instructions/update-pseudo-code.md`
+
+**Changes:**
+
+- Add `resolveCheckoutByName(store, input)` function.
+- Update `saveCheckoutRecord` to data-first signature.
 - Update `loadCheckoutRecords` to show it pairs records with repository records.
-- Add the `pull` command pseudo-code if not already present (verify — it may already be there from the `pull-push-sync` plan).
-- Review `pull`, `push`, `sync` pseudo-code against the actual implementations in `src/commands/pull/`, `src/commands/push/`, `src/commands/sync/` — ensure function names and flow match.
-- Update operation kind factories list to include `createPullSuccess`, `createPullFailure`.
-- Note any auxiliary functions added during implementation (e.g., `isCleanCheckout`, `pullCheckout`).
+- Add the `pull` command pseudo-code if not already present.
+- Review `pull`, `push`, `sync` pseudo-code against actual implementations.
+- Update operation kind factories list.
 
-**Evidence to consult:**
+**Dependencies:**
 
-- `$PROJECT/art-domains/cli/workspace/src/commands/pull/runPull.ts` — actual pull implementation.
-- `$PROJECT/art-domains/cli/workspace/src/commands/push/runPush.ts` — actual push implementation.
-- `$PROJECT/art-domains/cli/workspace/src/commands/sync/runSync.ts` — actual sync implementation.
-- `$PROJECT/art-domains/cli/workspace/src/private/git/pullCheckout.ts` — pull checkout helper.
-- `$PROJECT/art-domains/cli/workspace/src/private/scan/isCleanCheckout.ts` — clean checkout check.
+- None.
 
-### 7. `architecture/reports.md`
+### Iteration: Update Reports
 
-**Current state:** Reports documentation appears accurate based on the implemented commands.
+**Id:** `update-reports`
 
-**Update strategy:**
+**Status:** `DRAFT`
 
-- Verify that the Workspace Report, Checkout Report, Operations Report, Extraneous Report, Package State Report, and Symlink Report match actual presentation code in `src/private/present/`.
+**Purpose:** Verify `architecture/reports.md` matches actual presentation code.
+
+**Description:** Verify report formats match `src/private/present/` implementations.
+
+**Instructions:** `./update-knowledge-resources/instructions/update-reports.md`
+
+**Changes:**
+
+- Verify that all report formats match actual presentation code in `src/private/present/`.
 - Check if any report columns or formatting changed during implementation.
 - This file may need no changes — verify and confirm.
 
-**Evidence to consult:**
+**Dependencies:**
 
-- `$PROJECT/art-domains/cli/workspace/src/private/present/` — actual presentation functions.
+- None.
 
-### 8. `architecture/records/adr/` (if ADRs exist)
+---
 
-**Current state:** Referenced in `config.md` and `_pseudo.md` but not inspected.
+## Coordination
 
-**Update strategy:**
+### Not In Scope
 
-- List files in `architecture/records/adr/`.
-- For each ADR, verify its status (proposed, accepted, superseded) reflects actual implementation decisions.
-- Update any ADR that references old function signatures or config shapes.
+- None.
 
-## Commits
+### Evidence
 
-Draft — commit strategy and implementation instructions to be defined during planning.
+- None.
 
-## Follow-ups
+### Findings
 
-- After this plan lands, the architecture docs will reflect the current state. Future plans (`plan-discover-records`, `plan-implement-link`, etc.) should update the docs as part of their own commits rather than creating separate knowledge-update plans.
+- None.
+
+### Decisions
+
+- None.
+
+### Knowledge to Update
+
+- None.
+
+### Follow Ups
+
+- After this plan lands, the architecture docs will reflect the current state. Future plans should update the docs as part of their own commits rather than creating separate knowledge-update plans.
 - Consider adding a "last verified" timestamp or commit hash to each architecture file so staleness is easier to detect.
 
-## Feedback
+### Feedback
 
-No implementation feedback yet.
+- No implementation feedback yet.

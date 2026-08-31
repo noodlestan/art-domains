@@ -8,28 +8,81 @@
 
 **Skill:** `write-plan`
 
-## Summary
+**Purpose:** Implement `art-workspace link <location> <package> [<target>]` for `@art-domains/workspace-cli`.
 
-Implement `art-workspace link <location> <package> [<target>]` for `@art-domains/workspace-cli`: symlink a source package from a repo checkout into a target `node_modules` for local development, replacing the stub at `src/commands/link/runLink.ts`.
-
-## Source Tasks
-
-- [Taken from Architect Briefing: Workspace CLI](_backlog/_architect.md) → Milestone 1 — `link` was listed under "Later".
+**Description:** Symlink a source package from a repo checkout into a target `node_modules` for local development, replacing the stub at `src/commands/link/runLink.ts`.
 
 ## Mandatory Reading
 
-- `_backlog/_architect.md` — workspace principles, NFRs, milestones.
-- `architecture/commands.md` → `## Link` — designed behaviour and BDD scenarios.
-- `architecture/_pseudo.md` → `### Command: link` — pseudo-code contract.
-- `architecture/context-model.md` — `WorkspaceContext`, `CheckoutStore`, project records.
-- `architecture/reports.md` — Operations Report.
-- `$WORKSPACE/.agents/domains/plans/definitions/index.md` — plan and instruction definitions.
+::READ `$DOMAINS/plans/structures/plan.art` (Structure) — Describe the work-item changes through a series of iterations and commits with detailed instructions.
 
-## SETUP
+---
 
-Before starting work, execute the setup steps defined in `_guide.md`:
+## Path Variables
 
-Run from repository root (monorepo):
+| Variable     | Resolved Path             | Purpose                               |
+| ------------ | ------------------------- | ------------------------------------- |
+| `$WORKSPACE` | Current working directory | Workspace root directory              |
+| `$PROJECT`   | Provided with prompt      | Where work execution is taking place. |
+
+## Summary
+
+Implement the link command for local package symlinking, supporting scoped packages, custom targets, and edge case handling.
+
+## Context
+
+### Upstream Work
+
+| Kind                  | Path                                                 | Role                                                               |
+| --------------------- | ---------------------------------------------------- | ------------------------------------------------------------------ |
+| Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                  | Tracks short-term actionables, pending questions, and blockers.    |
+| Architecture Briefing | `_backlog/_architect.md`                             | Workspace principles, NFRs, milestones.                            |
+| Milestone             | `$PROJECT/_backlog/3-now/milestone-one/milestone.md` | Coordinates this plan within the Complete Workspace CLI milestone. |
+
+### Required Skills
+
+- `write-plan` — Writes execution plans and implementation instructions. Required for Planning Work Item.
+- `render-template` — Renders plan and instruction artefacts. Required for Drafting, Refining.
+
+### Domains
+
+| Domain / Path                           | Description                                                                        |
+| --------------------------------------- | ---------------------------------------------------------------------------------- |
+| Domain: Plans `$DOMAINS/plans/index.md` | Planning lifecycle for contextualising, drafting, planning, and integrating plans. |
+
+### Knowledge
+
+::READ `_backlog/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
+::READ `architecture/commands.md` (Design) — Designed behaviour and BDD scenarios for Link. Relevant for Planning Work Item.
+::READ `architecture/_pseudo.md` (Pseudo-code) — Pseudo-code contract for link command. Relevant for Planning Work Item.
+::READ `architecture/context-model.md` (Model) — WorkspaceContext, CheckoutStore, project records. Relevant for Planning Work Item.
+::READ `architecture/reports.md` (Reports) — Operations Report format. Relevant for Planning Work Item.
+
+## Scope
+
+Implement link command in `$PROJECT/src/commands/link/` with tests, operation factories, and commander wiring.
+
+## Work
+
+### Next
+
+Delegate the first `DRAFT` iteration: `implement-link-command`.
+
+### Blockers
+
+- None.
+
+---
+
+## Operating Instructions
+
+### Setting Up
+
+**Purpose:** Prepare the execution environment. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/setting-up.art`.
+
+**Instructions:** (From `$WORKSPACE/_guide.md`)
+
+Run from the `$WORKSPACE` root:
 
 ```bash
 npm ci # to install dependencies.
@@ -38,43 +91,22 @@ npm run ci # to verify build is green before starting
 
 If any of these fail, resolve the issue before proceeding with implementation.
 
-## Iterations
+### Writing Commit Message
 
-### `implement-link-command` - `DRAFT`
+**Purpose:** Write standardized message according to context conventions. Operation of Workflow: Planning Work, defined in `$DOMAINS/work/workflows/planning-work/ops/writing-commit-message.art`.
 
-**Commit Message:** `feat(workspace-cli): implement link command`
+**Instructions:** (From `$WORKSPACE/_guide.md`)
 
-Implement `art-workspace link <location> <package> [<target>]` end-to-end, tests first.
+1. Read commit message conventions from `$WORKSPACE/knowledge/conventions/writing-commit-message.art`.
+2. Write the commit message following: the rules defined there.
 
-**Use case:**
+### Verifying Completion
 
-- `art-workspace link Artificial @artisans/art-mantras` → symlink at workspace root `node_modules/@artisans/art-mantras` pointing to the resolved package path in checkout "Artificial".
-- `art-workspace link Artificial @artisans/art-mantras Purrception` → symlink at `checkouts/purrception/node_modules/@artisans/art-mantras`.
+**Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Responsibilities:**
+**Instructions:** (From `$PROJECT/_guide.md`)
 
-- Resolve source checkout by `<location>`; resolve package via existing `readProjectRecords` + `findPackage` (already implemented for the `repo` command).
-- Resolve `packagePath` and `linkTarget` per the pseudo contract; `ensureDir` scoped `@scope` directories; remove existing symlink or npm-installed dir; create the symlink.
-- Add `createLinkedSuccess` / `createLinkedFailure` operation factories in `src/private/operations/`; log outcomes; present Operations Report.
-- Wire `<location> <package> [<target>]` args in `src/index.ts` (currently `link` takes no args).
-- Write tests first — no `it.todo()` left at the end (lesson from `plan-implement-pull-push-sync`).
-
-**Edge cases:**
-
-- Unknown location → `linked` failure "unknown location {location}".
-- Unknown package → `linked` failure "unknown package".
-- Existing symlink or npm-installed directory at `linkTarget` → replace.
-- Scoped name needs intermediate `@scope` directory → ensure it before creating the basename link.
-
-**BDD:** `architecture/commands.md` → `## Link`.
-
-**Pseudo:** `architecture/_pseudo.md` → `### Command: link`.
-
-## Final Verification
-
-After implementation, execute the verification steps defined in `_guide.md`:
-
-Run from this package directory:
+Run from the package directory:
 
 ```bash
 npm run lint:fix # to fix formatting issues automatically
@@ -83,36 +115,68 @@ npm run build
 npm run test
 ```
 
-Runs on pre-commit hook from the repository root:
-
-```bash
-npm run ci # lint, build and test
-```
-
 All steps MUST pass. No `it.todo()` tests may remain.
 
-## Architect Prompt
+---
 
-This DRAFT is a self-contained slice. Launch one architect per slice to refine it to `READY` (write-plan skill), generate the implementation instruction, and hand off for delegation.
+## Items:
 
-**Self-contained prompt:**
+| Iteration / Instructions          | Status  |
+| --------------------------------- | ------- |
+| Iteration: Implement Link Command | `DRAFT` |
 
-```prompt
-::boot
-You are working on `art-domains/cli/workspace/_backlog/4-next/plan-implement-link/plan.md` (ID `implement-link`) — Milestone 1 slice of `art-domains/cli/workspace/_backlog/_architect.md`.
+### Iteration: Implement Link Command
 
-Goal: implement the `art-workspace link <location> <package> [<target>]` command for `@art-domains/workspace-cli`, replacing the stub at `src/commands/link/runLink.ts`.
+**Id:** `implement-link-command`
 
-Use the **write-plan** skill to refine this DRAFT into a READY plan:
-1. Compose scope and context: workspace `ops-workspace` (managed by `@art-domains/workspace-cli`); repository `artificial` at `$WORKSPACE/checkouts/artificial/art-domains/cli/workspace`; package `@art-domains/workspace-cli`.
-2. Validate guides have setup/verification (`_guide.md` does).
-3. Group work into commit(s), write the plan file, and generate instruction file(s) in this plan directory.
-4. Enforce the project lesson: tests implemented first, no `it.todo()` left.
-5. When READY, update `_backlog/_architect.md` → Milestone 1 status for this slice.
+**Status:** `DRAFT`
 
-Report back: refined plan file path, commit blueprints, and the delegation prompt to relay.
-```
+**Purpose:** Implement `art-workspace link <location> <package> [<target>]` end-to-end, tests first.
 
-## Follow ups
+**Description:** Implement the full link command with source checkout resolution, package resolution, symlink creation, operation logging, and commander wiring.
+
+**Instructions:** `./plan-implement-link/instructions/implement-link-command.md`
+
+**Changes:**
+
+- Resolve source checkout by `<location>`; resolve package via existing `readProjectRecords` + `findPackage`.
+- Resolve `packagePath` and `linkTarget` per the pseudo contract; `ensureDir` scoped `@scope` directories; remove existing symlink or npm-installed dir; create the symlink.
+- Add `createLinkedSuccess` / `createLinkedFailure` operation factories in `src/private/operations/`; log outcomes; present Operations Report.
+- Wire `<location> <package> [<target>]` args in `src/index.ts`.
+- Write tests first — no `it.todo()` left at the end.
+
+**Dependencies:**
+
+- None.
+
+---
+
+## Coordination
+
+### Not In Scope
+
+- None.
+
+### Evidence
+
+- None.
+
+### Findings
+
+- None.
+
+### Decisions
+
+- None.
+
+### Knowledge to Update
+
+- None.
+
+### Follow Ups
 
 - `link` is the base capability for `links` and `unlink` — shared helpers (package resolution, target resolution, symlink ops) should be reused.
+
+### Feedback
+
+- None.

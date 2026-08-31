@@ -8,30 +8,82 @@
 
 **Skill:** `write-plan`
 
-## Summary
+**Purpose:** Implement `art-workspace publish [--auto]` for `@art-domains/workspace-cli`.
 
-Implement `art-workspace publish [--auto]` for `@art-domains/workspace-cli`: push repos and publish unpublished packages to npm, replacing the stub at `src/commands/publish/runPublish.ts`. Depends on the `push` capabilities from `plan-implement-pull-push-sync` (`shouldPushCheckout`, `pushCheckout`) and on the project-record reading already implemented for the `repo` command.
-
-## Source Tasks
-
-- [Taken from Architect Briefing: Workspace CLI](_backlog/_architect.md) → Milestone 1 — `publish` was listed under "Later".
-- ADR: `architecture/records/adr/publish.art` — publish-then-symlink pattern, npm registry, workspace-level symlinks.
+**Description:** Push repos and publish unpublished packages to npm, replacing the stub at `src/commands/publish/runPublish.ts`. Depends on the `push` capabilities from `plan-implement-pull-push-sync` and on the project-record reading already implemented for the `repo` command.
 
 ## Mandatory Reading
 
-- `_backlog/_architect.md` — workspace principles, NFRs, milestones.
-- `architecture/commands.md` → `## Publish` — designed behaviour and BDD scenarios.
-- `architecture/_pseudo.md` → `### Command: publish` — pseudo-code contract.
-- `architecture/records/adr/publish.art` — publish decisions.
-- `architecture/context-model.md` — `WorkspaceContext`, `CheckoutStore`, project records.
-- `architecture/reports.md` — Operations Report.
-- `$WORKSPACE/.agents/domains/plans/definitions/index.md` — plan and instruction definitions.
+::READ `$DOMAINS/plans/structures/plan.art` (Structure) — Describe the work-item changes through a series of iterations and commits with detailed instructions.
 
-## SETUP
+---
 
-Before starting work, execute the setup steps defined in `_guide.md`:
+## Path Variables
 
-Run from repository root (monorepo):
+| Variable     | Resolved Path             | Purpose                               |
+| ------------ | ------------------------- | ------------------------------------- |
+| `$WORKSPACE` | Current working directory | Workspace root directory              |
+| `$PROJECT`   | Provided with prompt      | Where work execution is taking place. |
+
+## Summary
+
+Implement the publish command for pushing repos and publishing unpublished packages to npm, reusing pushCheckout from the pull-push-sync work.
+
+## Context
+
+### Upstream Work
+
+| Kind                  | Path                                                 | Role                                                               |
+| --------------------- | ---------------------------------------------------- | ------------------------------------------------------------------ |
+| Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                  | Tracks short-term actionables, pending questions, and blockers.    |
+| Architecture Briefing | `_backlog/_architect.md`                             | Workspace principles, NFRs, milestones.                            |
+| Milestone             | `$PROJECT/_backlog/3-now/milestone-one/milestone.md` | Coordinates this plan within the Complete Workspace CLI milestone. |
+
+### Required Skills
+
+- `write-plan` — Writes execution plans and implementation instructions. Required for Planning Work Item.
+- `render-template` — Renders plan and instruction artefacts. Required for Drafting, Refining.
+
+### Domains
+
+| Domain / Path                           | Description                                                                        |
+| --------------------------------------- | ---------------------------------------------------------------------------------- |
+| Domain: Plans `$DOMAINS/plans/index.md` | Planning lifecycle for contextualising, drafting, planning, and integrating plans. |
+
+### Knowledge
+
+::READ `_backlog/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
+::READ `architecture/commands.md` (Design) — Designed behaviour and BDD scenarios for Publish. Relevant for Planning Work Item.
+::READ `architecture/_pseudo.md` (Pseudo-code) — Pseudo-code contract for publish command and auxiliary `shouldPushCheckout`/`pushCheckout`. Relevant for Planning Work Item.
+::READ `architecture/records/adr/publish.art` (ADR) — Publish decisions. Relevant for Planning Work Item.
+::READ `architecture/context-model.md` (Model) — WorkspaceContext, CheckoutStore, project records. Relevant for Planning Work Item.
+::READ `architecture/reports.md` (Reports) — Operations Report format. Relevant for Planning Work Item.
+
+## Scope
+
+Implement publish command in `$PROJECT/src/commands/publish/` with tests, npm registry check, operation factories, and commander wiring.
+
+## Work
+
+### Next
+
+Delegate the first `DRAFT` iteration: `implement-publish-command`.
+
+### Blockers
+
+- None.
+
+---
+
+## Operating Instructions
+
+### Setting Up
+
+**Purpose:** Prepare the execution environment. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/setting-up.art`.
+
+**Instructions:** (From `$WORKSPACE/_guide.md`)
+
+Run from the `$WORKSPACE` root:
 
 ```bash
 npm ci # to install dependencies.
@@ -40,46 +92,22 @@ npm run ci # to verify build is green before starting
 
 If any of these fail, resolve the issue before proceeding with implementation.
 
-## Iterations
+### Writing Commit Message
 
-### `implement-publish-command` - `DRAFT`
+**Purpose:** Write standardized message according to context conventions. Operation of Workflow: Planning Work, defined in `$DOMAINS/work/workflows/planning-work/ops/writing-commit-message.art`.
 
-**Commit Message:** `feat(workspace-cli): implement publish command`
+**Instructions:** (From `$WORKSPACE/_guide.md`)
 
-Implement `art-workspace publish [--auto]` end-to-end, tests first.
+1. Read commit message conventions from `$WORKSPACE/knowledge/conventions/writing-commit-message.art`.
+2. Write the commit message following: the rules defined there.
 
-**Use case:**
+### Verifying Completion
 
-- `art-workspace publish --auto` → for each checkout: push clean unpushed repos (reuse `shouldPushCheckout` / `pushCheckout` from the pull-push-sync work), read project records, check each package's npm published version, publish unpublished packages, present Checkout Report + Operations Report.
+**Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Responsibilities:**
+**Instructions:** (From `$PROJECT/_guide.md`)
 
-- Resolve packages per checkout via existing `readProjectRecords` (project → namespaces → packages); reuse `presentPackageStateReport` if it fits, otherwise read `package.json` directly per the pseudo contract.
-- Implement `npmIsPublished(canonicalName, version)` (npm registry lookup) and the `npm publish --access public` step in the package dir; skip `private` packages.
-- Add `createPublishSuccess` / `createPublishFailure` operation factories in `src/private/operations/`; log push and publish outcomes; present Operations Report.
-- Wire `--auto` option in `src/index.ts` (already parsed; keep behaviour).
-- Write tests first — no `it.todo()` left at the end (lesson from `plan-implement-pull-push-sync`).
-
-**Edge cases:**
-
-- Repo not cloned → skip with warning.
-- No remote configured → skip push, log issue.
-- Package already published → skip.
-- `npm publish` fails → log `publish` failure, continue with other packages.
-- OTP required → error if `--auto`.
-- Registry unreachable / never published → treat as unpublished per the pseudo contract.
-
-**BDD:** `architecture/commands.md` → `## Publish`.
-
-**Pseudo:** `architecture/_pseudo.md` → `### Command: publish` and auxiliary `shouldPushCheckout` / `pushCheckout`.
-
-**Dependency note:** this slice consumes `pushCheckout` and `shouldPushCheckout` landed in `plan-implement-pull-push-sync` (commit `ef8a2cf`). Reuse those functions — do not scaffold them.
-
-## Final Verification
-
-After implementation, execute the verification steps defined in `_guide.md`:
-
-Run from this package directory:
+Run from the package directory:
 
 ```bash
 npm run lint:fix # to fix formatting issues automatically
@@ -88,38 +116,68 @@ npm run build
 npm run test
 ```
 
-Runs on pre-commit hook from the repository root:
-
-```bash
-npm run ci # lint, build and test
-```
-
 All steps MUST pass. No `it.todo()` tests may remain.
 
-## Architect Prompt
+---
 
-This DRAFT is a self-contained slice. Launch one architect per slice to refine it to `READY` (write-plan skill), generate the implementation instruction, and hand off for delegation.
+## Items:
 
-**Self-contained prompt:**
+| Iteration / Instructions             | Status  |
+| ------------------------------------ | ------- |
+| Iteration: Implement Publish Command | `DRAFT` |
 
-```prompt
-::boot
-You are working on `art-domains/cli/workspace/_backlog/4-next/plan-implement-publish/plan.md` (ID `implement-publish`) — Milestone 1 slice of `art-domains/cli/workspace/_backlog/_architect.md`.
+### Iteration: Implement Publish Command
 
-Goal: implement the `art-workspace publish [--auto]` command for `@art-domains/workspace-cli`, replacing the stub at `src/commands/publish/runPublish.ts`. It pushes clean unpushed repos and publishes unpublished packages to npm.
+**Id:** `implement-publish-command`
 
-Context: this slice depends on `shouldPushCheckout`/`pushCheckout` landed in `plan-implement-pull-push-sync` (commit `ef8a2cf`) and reuses `readProjectRecords` from the `repo` command.
+**Status:** `DRAFT`
 
-Use the **write-plan** skill to refine this DRAFT into a READY plan:
-1. Compose scope and context: workspace `ops-workspace` (managed by `@art-domains/workspace-cli`); repository `artificial` at `$WORKSPACE/checkouts/artificial/art-domains/cli/workspace`; package `@art-domains/workspace-cli`.
-2. Validate guides have setup/verification (`_guide.md` does).
-3. Group work into commit(s), write the plan file, and generate instruction file(s) in this plan directory.
-4. Enforce the project lesson: tests implemented first, no `it.todo()` left.
-5. When READY, update `_backlog/_architect.md` → Milestone 1 status for this slice.
+**Purpose:** Implement `art-workspace publish [--auto]` end-to-end, tests first.
 
-Report back: refined plan file path, commit blueprints, and the delegation prompt to relay.
-```
+**Description:** Implement the full publish command with package resolution, npm registry check, npm publish step, operation logging, and commander wiring. Reuses `shouldPushCheckout`/`pushCheckout` from pull-push-sync.
 
-## Follow ups
+**Instructions:** `./plan-implement-publish/instructions/implement-publish-command.md`
+
+**Changes:**
+
+- Resolve packages per checkout via existing `readProjectRecords` (project → namespaces → packages).
+- Implement `npmIsPublished(canonicalName, version)` (npm registry lookup) and the `npm publish --access public` step in the package dir; skip `private` packages.
+- Add `createPublishSuccess` / `createPublishFailure` operation factories in `src/private/operations/`; log push and publish outcomes; present Operations Report.
+- Wire `--auto` option in `src/index.ts`.
+- Write tests first — no `it.todo()` left at the end.
+
+**Dependencies:**
+
+- `plan-implement-pull-push-sync` — consumes `pushCheckout` and `shouldPushCheckout` landed in commit `ef8a2cf`. Reuse those functions — do not scaffold them.
+
+---
+
+## Coordination
+
+### Not In Scope
+
+- None.
+
+### Evidence
+
+- None.
+
+### Findings
+
+- None.
+
+### Decisions
+
+- None.
+
+### Knowledge to Update
+
+- None.
+
+### Follow Ups
 
 - `publish` completes the publish-then-symlink loop with `link`/`unlink`; the Formalized Publishing Workflow follow-up in `_backlog/_architect.md` should be revisited once this lands.
+
+### Feedback
+
+- None.
