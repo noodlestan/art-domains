@@ -342,10 +342,10 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Use Work Routines and Operations in Write Milestone | `DONE`     |
 | Iteration: Replace execute-plan with delegate-plan             | `DONE`     |
 | Iteration: Declaring workflows in Guides                       | `DONE`     |
-| Iteration: Create Guide Templates and Routines                 | `READY` |
-| Iteration: Prompts for Migrating Active Plans                  | `PLANNING` |
+| Iteration: Create Guide Templates and Routines                 | `DONE`     |
+| Iteration: Create Migration Routines                          | `DRAFT`    |
 | Iteration: Update Domain Listing                               | `DONE`     |
-| Iteration: Review and Refactor Agent Modes                    | `PLANNING` |
+| Iteration: Review and Refactor Agent Modes                     | `DONE`     |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
 | Iteration: Integrate Specs Into Plans                          | `PLANNING` |
 | Iteration: Update Domain Knowledge                             | `PLANNING` |
@@ -785,7 +785,7 @@ refactor(domains): Collapse work scope types into a single Work Scope Resource t
 
 **Id:** `update-work-skills-and-routines`
 
-**Status:** `WORKING`
+**Status:** `DONE`
 
 **Purpose:** Use the new Work abstractions and improved Milestone, Plan, Iteration and instructions when generating content.
 
@@ -1014,7 +1014,7 @@ build(domains): Render Operating Instructions in instruction files.
 
 **Id:** `routines-and-ops-in-write-plan`
 
-**Status:** `WORKING`
+**Status:** `DONE`
 
 **Purpose:** Coordinate planning workflow operations via skills.
 
@@ -1185,11 +1185,11 @@ Skill: write-milestone:
 
 **Commits:**
 
-| ID                                    | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
-| ------------------------------------- | --------------------------------- | -------- | --------- | ----------- |
-| `fix-trailing-space`                  | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `af99de6` | `COMMITTED` |
-| `replace-execute-plan`                | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `0e80cb5` | `COMMITTED` |
-| `update-fundamentals`                 | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `e85e7f2` | `COMMITTED` |
+| ID                     | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| ---------------------- | --------------------------------- | -------- | --------- | ----------- |
+| `fix-trailing-space`   | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `af99de6` | `COMMITTED` |
+| `replace-execute-plan` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `0e80cb5` | `COMMITTED` |
+| `update-fundamentals`  | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `e85e7f2` | `COMMITTED` |
 
 ##### Commit: `fix-trailing-space`
 
@@ -1351,12 +1351,12 @@ Create `$DOMAINS/noodlestan/` domain:
 
 #### Commits:
 
-| ID | Repository / Checkout / Branch | Policy | Hash | Status |
-| -- | ------------------------------ | ------ | ---- | ------ |
+| ID                      | Repository / Checkout / Branch    | Policy       | Hash  | Status   |
+| ----------------------- | --------------------------------- | ------------ | ----- | -------- |
 | `add-noodlestan-domain` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
-| `add-guide-templates` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
-| `add-guide-routines` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
-| `add-noodlestan-index` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
+| `add-guide-templates`   | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
+| `add-guide-routines`    | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
+| `add-noodlestan-index`  | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
 
 ##### Commit: `add-noodlestan-domain`
 
@@ -1401,37 +1401,22 @@ build(domains): add noodlestan domain index and register in domains listing
 - Register Noodlestan in $DOMAINS/index.md domains listing
 ```
 
-### Iteration: Prompts for Migrating Active Plans
+### Iteration: Create Migration Routines
 
-**Instructions:** `./plan-workflows-make-work-flow/instructions/migration-prompts.md`
+**id:** `create-migration-routines`
 
-**Report:** `./plan-workflows-make-work-flow/instructions/migration-prompts__report.md`
+**Status:** `DRAFT`
 
-**id:** `migration-prompts`
+**Purpose:** Allow projects to migrate their milestones and plans/instructions to the new format.
 
-**Status:** `PLANNING`
-
-**Purpose:** Apply new templates to existing plans/iterations/instructions that are not yet `DONE` across all reposistories.
-
-**Description:** Generate a prompt for architects and planner working on other sessions to update their plan according to new structures. Prompt should instruct them
+**Description:** Create migration routines that convert old-format milestones and plans to the new structure with phases, iterations, operating instructions, and work sections. The routines receive old records and produce new-format records, with verification steps to ensure completeness.
 
 **Changes:**
 
-- No Changes. Just 2 prompts recorded below where the `{output prompt here}` placeholder are (one prompt for milestones and another one for plans).
+- Add `$DOMAINS/noodlestan/routines/migrate-milestone.art` — migrates old milestone to new format
+- Add `$DOMAINS/noodlestan/routines/migrate-plan.art` — migrates old plan to new format
 
-**Prompts:**
-
-```md
-# Milestone Migration Prompt
-
-{output prompt here}
-```
-
-```md
-# Plan Migration Prompt
-
-{output prompt here}
-```
+**Scope:** `$DOMAINS/noodlestan/routines/` directory
 
 ### Iteration: Update Domain Listing
 
@@ -1460,7 +1445,7 @@ build(domains): add noodlestan domain index and register in domains listing
 
 **id:** `review-refactor-agent-modes`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Review agent modes for correct skill links and refactor delegate-plan skill to match write-plan standards.
 
@@ -1476,10 +1461,10 @@ build(domains): add noodlestan domain index and register in domains listing
 
 **Commits:**
 
-| ID                                    | Repository / Checkout / Branch    | Policy   | Hash  | Status  |
-| ------------------------------------- | --------------------------------- | -------- | ----- | ------- |
-| `review-agent-modes`                  | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
-| `refactor-delegate-plan`              | Workspace / `$WORKSPACE` / `main` | `BLOCKED` | `TBD` | `READY` |
+| ID                       | Repository / Checkout / Branch    | Policy    | Hash      | Status      |
+| ------------------------ | --------------------------------- | --------- | --------- | ----------- |
+| `review-agent-modes`     | Workspace / `$WORKSPACE` / `main` | `MANUAL`  | `e893ceb` | `COMMITTED` |
+| `refactor-delegate-plan` | Workspace / `$WORKSPACE` / `main` | `BLOCKED` | `9baaac6` | `COMMITTED` |
 
 ### Iteration: Refactor Domain Index Routines
 
