@@ -2,9 +2,9 @@
 
 ## Repository: Art Domains
 
-**Purpose:** Domains source code, CLIs, and workspace tooling.
+**Purpose:** Extends agentic working environments with structured instructions projected from stable sources of truth.
 
-**Description:** Standalone repository extracted from Artificial, owning the Workspace CLI and domain architecture.
+**Description:** Distributable artificial resources within knowledge and work domains: agent instructions, structures, processes, CLIs, and tools.
 
 **Owner:** Project: Art Domains
 

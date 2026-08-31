@@ -1,23 +1,8 @@
-# ARt Domains
+# Art Domains
 
-> Generate and manage (Art)ificial Driven Development environments.
+> Extends agentic working environments with structured instructions projected from stable sources of truth.
 
-A collection of tools and resources to generate and manage agent instructions. Includes the Art Language, and a (reactive) pipeline for bundling, compiling, validating, parsing, and locating resources.
-
-## Packages
-
-| namespace | dir                | package              | description                            |
-| --------- | ------------------ | -------------------- | -------------------------------------- |
-| `@art-js` | `spec/`            | `@art-js/spec`       | Art Language specification             |
-| `@art-js` | `libs/primitives/` | `@art-js/primitives` | Foundational types and utilities       |
-| `@art-js` | `libs/parser/`     | `@art-js/parser`     | Parses context files and art modules   |
-| `@art-js` | `libs/validator/`  | `@art-js/validator`  | Validates parsed modules               |
-| `@art-js` | `libs/bundler/`    | `@art-js/bundler`    | Bundles Art modules                    |
-| `@art-js` | `libs/program/`    | `@art-js/program`    | Executes parsed Art modules            |
-| `@art-js` | `cli/bin/`         | `@art-js/bin`        | CLI for pipeline commands              |
-| `@art-js` | `cli/dev-server/`  | `@art-js/dev-server` | Local dev server for Art modules       |
-| `@art-js` | `cli/watcher/`     | `@art-js/watcher`    | Watches for changes, triggers rebuilds |
-| `@art-js` | `cli/poc-parse/`   | `@art-js/poc-parse`  | POC parser spike                       |
+Distributable artificial resources within knowledge and work domains: agent instructions, structures, processes, CLIs, and tools.
 
 ## Scripts
 

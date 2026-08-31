@@ -1,7 +1,7 @@
 {
   "name": "noodlestan/art-domains",
   "version": "0.0.1",
-  "description": "A collection of tools and resources to generate and manage agent instructions. Includes the Art Language, and a (reactive) pipeline for bundling, compiling, validating, parsing, and locating resources.",
+  "description": "Extends agentic working environments with structured instructions projected from stable sources of truth.",
   "author": "Noodlestan",
   "license": "MIT",
   "private": true,

@@ -2,9 +2,9 @@
 
 ## Project: Art Domains
 
-**Purpose:** Domains source code, CLIs, and workspace tooling.
+**Purpose:** Manage Art Domains knowledge resources and work streams.
 
-**Description:** Owns the Workspace CLI, domain architecture, and related tooling.
+**Description:** Hosts Art Domains roadmap and backlog and the domain architecture knowledge and ADRs.
 
 **Owner:** Project: Artificials
 
