@@ -346,7 +346,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Create Migration Routines                           | `DONE`     |
 | Iteration: Update Domain Listing                               | `DONE`     |
 | Iteration: Review and Refactor Agent Modes                     | `DONE`     |
-| Iteration: Fix Broken References                              | `PLANNING` |
+| Iteration: Fix Broken References                               | `READY`    |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
 | Iteration: Integrate Specs Into Plans                          | `PLANNING` |
 | Iteration: Update Domain Knowledge                             | `PLANNING` |
@@ -1312,13 +1312,15 @@ docs(domains): Update guides to follow new conventions
 
 **id:** `create-guide-templates`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Capture the guide creation pattern as reusable routine/template pairs in the noodlestan domain, so `_guide.md` files can be generated consistently for repositories and packages.
 
 **Description:** Create the `$DOMAINS/noodlestan/` domain with two routine/template pairs for generating `_guide.md` files — one for repository root (project) guides and one for package guides. Inspired by the write-instructions pattern and the instructions.tart template.
 
 **Instructions:** `./plan-workflows-makes-work-flow/instructions/create-guide-templates.md`
+
+**Report:** `./plan-workflows-makes-work-flow/instructions/create-guide-templates__report.md`
 
 **Changes:**
 
@@ -1352,12 +1354,12 @@ Create `$DOMAINS/noodlestan/` domain:
 
 #### Commits:
 
-| ID                      | Repository / Checkout / Branch    | Policy       | Hash  | Status   |
-| ----------------------- | --------------------------------- | ------------ | ----- | -------- |
-| `add-noodlestan-domain` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
-| `add-guide-templates`   | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
-| `add-guide-routines`    | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
-| `add-noodlestan-index`  | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | AUTHORED |
+| ID                      | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| ----------------------- | --------------------------------- | ------------ | --------- | ----------- |
+| `add-noodlestan-domain` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `07acc57` | `COMMITTED` |
+| `add-guide-templates`   | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `2b1bba3` | `COMMITTED` |
+| `add-guide-routines`    | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `0cd3039` | `COMMITTED` |
+| `add-noodlestan-index`  | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `c195c78` | `COMMITTED` |
 
 ##### Commit: `add-noodlestan-domain`
 
@@ -1499,16 +1501,55 @@ build(noodlestan): Add migration routines for milestones and plans
 - `domains/work/routines/create-work-graph.md` — referenced in agent-backlog-manager, agent-delegator, agent-architect, agent-planner (should be `.art`)
 - `domains/work/routines/create-work-table.md` — referenced in agent-backlog-manager, agent-delegator, agent-architect, agent-planner (should be `.art`)
 - `domains/_artificials/fundamentals.md` → `$DOMAINS/plans/routines/create-or-update-plan.md` (should be `.art`)
+- `domains/plans/routines/validate-plan.md` — routine file is `.md` but should be `.art`
+- `domains/roadmaps/routines/validate-milestone.md` — routine file is `.md` but should be `.art`
 
-**Note:** `validate-milestone.md` and `validate-plan.md` are intentionally `.md` files — not broken.
+**Note:** Knowledge files (`_architect.md`, `_parking-lot.md`, `archive-plans.md`, `fundamentals.md`) are intentionally `.md` — not broken.
+
+**Changes:**
+
+- Rename `domains/plans/routines/validate-plan.md` to `.art` and update references in `create-or-update-plan.art` and `write-plan/SKILL.md`
+- Rename `domains/roadmaps/routines/validate-milestone.md` to `.art` and update references in `create-or-update-milestone.art` and `write-milestone/SKILL.md`
+- Fix `create-or-update-plan.art` reference: `.md` → `.art`
+- Fix `domains/_artificials/fundamentals.md` reference: `.md` → `.art`
+- Fix `create-work-graph.md` references in agent-backlog-manager, agent-delegator, agent-architect, agent-planner → `.art`
+- Fix `create-work-table.md` references in agent-backlog-manager, agent-delegator, agent-architect, agent-planner → `.art`
 
 **Scope:** `.agents/skills/agent-*/SKILL.md`, `.agents/domains/*/routines/*.art`, `.agents/domains/_artificials/fundamentals.md`
 
+**Instructions:** `./plan-workflows-make-work-flow/instructions/fix-broken-references.md`
+
 **Commits:**
 
-| ID                                    | Repository / Checkout / Branch    | Policy   | Hash  | Status  |
-| ------------------------------------- | --------------------------------- | -------- | ----- | ------- |
-| `fix-broken-references`               | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
+| ID                          | Repository / Checkout / Branch    | Policy   | Hash  | Status  |
+| --------------------------- | --------------------------------- | -------- | ----- | ------- |
+| `rename-routines-md-to-art` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
+| `fix-references-md-to-art`  | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
+
+##### Commit: `rename-routines-md-to-art`
+
+```
+renames(domains): Rename 2 routines from `.md` to `.art` extension
+
+- Rename plans/routines/validate-plan.md to .art
+- Rename roadmaps/routines/validate-milestone.md to .art
+```
+
+##### Commit: `fix-references-md-to-art`
+
+```
+refs(domains): Fix broken references using `.md` extension where it should be `.art`
+
+- Fix create-or-update-plan.art reference to validate-plan.md → .art
+- Fix fundamentals.md reference to create-or-update-plan.md → .art
+- Fix create-work-graph.md references in 4 agent skills → .art
+- Fix create-work-table.md references in 4 agent skills → .art
+- Fix write-plan/SKILL.md reference to validate-plan.md → .art
+- Fix write-milestone/SKILL.md reference to validate-milestone.md → .art
+- Fix create-or-update-milestone.art reference to validate-milestone.md → .art
+```
+
+**Scope:** `.agents/skills/agent-*/SKILL.md`, `.agents/domains/*/routines/*.art`, `.agents/domains/_artificials/fundamentals.md`
 
 ### Iteration: Refactor Domain Index Routines
 
