@@ -1,0 +1,229 @@
+# Plan: Fix Pull Push Bugs
+
+**ID:** `fix-pull-push-bugs`
+
+**Status:** `PLANNING`
+
+**Template:** `.agents/domains/plans/templates/plan.tart`
+
+**Skill:** `write-plan`
+
+**Purpose:** Fix behind detection bugs (false positives and false negatives) in pull/sync/sanity, fix workspace state detection, and extend pull/push/sync logic to the workspace root.
+
+**Description:** Three related fixes: (1) behind detection is unreliable — shows behind on clean checkouts and misses behind on dirty ones, (2) workspace report shows "unknown project" incorrectly, (3) pull/push/sync commands don't apply their logic to the workspace root (only sanity --auto does).
+
+## Mandatory Reading
+
+::READ `$DOMAINS/plans/structures/plan.art` (Structure) — Describe the work-item changes through a series of iterations and commits with detailed instructions.
+
+---
+
+## Path Variables
+
+| Variable     | Resolved Path             | Purpose                               |
+| ------------ | ------------------------- | ------------------------------------- |
+| `$WORKSPACE` | Current working directory | Workspace root directory              |
+| `$PROJECT`   | Provided with prompt      | Where work execution is taking place. |
+
+## Summary
+
+Fix unreliable behind detection, incorrect workspace state reporting, and missing workspace-root pull/push/sync support across the workspace CLI.
+
+## Context
+
+### Upstream Work
+
+| Kind                  | Path                                                 | Role                                                               |
+| --------------------- | ---------------------------------------------------- | ------------------------------------------------------------------ |
+| Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                  | Tracks short-term actionables, pending questions, and blockers.    |
+| Architecture Briefing | `_backlog/_architect.md`                             | Workspace principles, NFRs, milestones.                            |
+| Milestone             | `$PROJECT/_backlog/3-now/milestone-one/milestone.md` | Coordinates this plan within the Complete Workspace CLI milestone. |
+
+### Required Skills
+
+- `write-plan` — Writes execution plans and implementation instructions. Required for Planning Work Item.
+- `render-template` — Renders plan and instruction artefacts. Required for Drafting, Refining.
+
+### Domains
+
+| Domain / Path                           | Description                                                                        |
+| --------------------------------------- | ---------------------------------------------------------------------------------- |
+| Domain: Plans `$DOMAINS/plans/index.md` | Planning lifecycle for contextualising, drafting, planning, and integrating plans. |
+
+### Knowledge
+
+::READ `_backlog/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
+::READ `architecture/commands.md` (Design) — Command behaviour and BDD scenarios. Relevant for Planning Work Item.
+::READ `architecture/_pseudo.md` (Pseudo-code) — Pseudo-code contracts. Relevant for Planning Work Item.
+::READ `$PACKAGE/_backlog/4-next/plan-fix-pull-push-bugs/plan__bugs.md` (Bugs) — Bug scenarios and evidence. Relevant for Planning Work Item.
+
+## Scope
+
+Fix behind detection in `src/private/git/` and `src/private/scan/`. Fix workspace state detection. Extend pull/push/sync to workspace root. Affects `pull`, `push`, `sync`, and `sanity` commands.
+
+## Work
+
+### Next
+
+Refine iteration `fix-pull-push-false-evaluations` from DRAFT to PLANNING.
+
+### Blockers
+
+- None.
+
+---
+
+## Operating Instructions
+
+### Setting Up
+
+**Purpose:** Prepare the execution environment. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/setting-up.art`.
+
+**Instructions:** (From `$WORKSPACE/_guide.md`)
+
+Run from the `$WORKSPACE` root:
+
+```bash
+npm ci # to install dependencies.
+npm run ci # to verify build is green before starting
+```
+
+If any of these fail, resolve the issue before proceeding with implementation.
+
+### Writing Commit Message
+
+**Purpose:** Write standardized message according to context conventions. Operation of Workflow: Planning Work, defined in `$DOMAINS/work/workflows/planning-work/ops/writing-commit-message.art`.
+
+**Instructions:** (From `$WORKSPACE/_guide.md`)
+
+1. Read commit message conventions from `$WORKSPACE/knowledge/conventions/writing-commit-message.art`.
+2. Write the commit message following: the rules defined there.
+
+### Verifying Completion
+
+**Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
+
+**Instructions:** (From `$PROJECT/_guide.md`)
+
+Run from the package directory:
+
+```bash
+npm run lint:fix # to fix formatting issues automatically
+npm run lint # to report other issues (prettier, eslint, tsc --noEmit)
+npm run build
+npm run test
+```
+
+All steps MUST pass. No `it.todo()` tests may remain.
+
+---
+
+## Items:
+
+| Iteration / Instructions                   | Status     |
+| ------------------------------------------ | ---------- |
+| Iteration: Fix Pull Push False Evaluations | `PLANNING` |
+| Iteration: Fix Workspace State Detection   | `DRAFT`    |
+| Iteration: Sync Workspace Too              | `DRAFT`    |
+
+### Iteration: Fix Pull Push False Evaluations
+
+**Id:** `fix-pull-push-false-evaluations`
+
+**Status:** `PLANNING`
+
+**Purpose:** Fix the behind detection system so it accurately reports behind/ahead state on all checkouts, eliminating both false positives (behind when clean) and false negatives (not behind when actually behind).
+
+**Description:** Investigate and fix the root cause of unreliable behind detection in `getBehindCount`, `getRemoteBranch`, and `scanCheckoutState`. Update existing tests to cover both false positive and false negative scenarios. The fix should resolve bugs `pull-behind-false-positive` and `pull-behind-false-negative`.
+
+**Instructions:** `./plan-fix-pull-push-bugs/instructions/fix-pull-push-false-evaluations.md`
+
+**Changes:**
+
+- Investigate false negative: trace why behind count doesn't show when checkout IS behind (priority: early in step sequence).
+- Investigate false positive: trace why behind count shows when checkout is NOT behind.
+- Fix root cause in `getBehindCount.ts`, `getRemoteBranch.ts`, or `scanCheckoutState.ts`.
+- Update existing tests to cover both scenarios — add assertions to existing test cases where the use case is already exercised (happy path). Only add new test scenarios if absolutely necessary.
+- Commit fix and tests.
+- Update knowledge (`architecture/commands.md`, `architecture/_pseudo.md`) if the fix changes function signatures or command behaviour. Commit knowledge changes only if needed.
+
+**Dependencies:**
+
+- None.
+
+### Iteration: Fix Workspace State Detection
+
+**Id:** `fix-workspace-state-detection`
+
+**Status:** `DRAFT`
+
+**Purpose:** Fix the workspace report showing "unknown project" incorrectly and improve workspace state presentation.
+
+**Description:** The workspace report uses a normal checkout structure but the workspace root has `repo: undefined`, which triggers the "unknown project" issue. Filter out inapplicable issues and convert the workspace output from table to a list of fields.
+
+**Instructions:** `./plan-fix-pull-push-bugs/instructions/fix-workspace-state-detection.md`
+
+**Changes:**
+
+- In `workspace.scan?.issues().join`, filter out "unknown project" (and other inapplicable issues).
+- Convert workspace output from table to list of fields: remote, path, branch, issues.
+- Add/update tests for workspace state detection.
+
+**Dependencies:**
+
+- `fix-pull-push-false-evaluations` — should land after the behind detection fix.
+
+### Iteration: Sync Workspace Too
+
+**Id:** `sync-workspace-too`
+
+**Status:** `DRAFT`
+
+**Purpose:** Make pull, push, sync, and sanity --auto all apply their pull/push logic to the workspace root consistently.
+
+**Description:** Currently only `sanity --auto` handles the workspace root (via `pullWorkspaceCheckout`). The `pull`, `push`, and `sync` commands only operate on store checkouts. All four commands should apply their pull/push logic to the workspace root as well.
+
+**Instructions:** `./plan-fix-pull-push-bugs/instructions/sync-workspace-too.md`
+
+**Changes:**
+
+- Extend `runPull`, `runPush`, `runSync` to scan and operate on the workspace root (like `runSanity` does).
+- Reuse or extract the workspace root scan/operation logic from `runSanity` into a shared helper.
+- Add/update tests covering workspace root pull/push/sync for all commands.
+
+**Dependencies:**
+
+- `fix-workspace-state-detection` — workspace state detection should be fixed first.
+
+---
+
+## Coordination
+
+### Not In Scope
+
+- None.
+
+### Evidence
+
+- None.
+
+### Findings
+
+- The parking lot items "Fix behind count not showing" and "Fix workspace report shows 'unknown project'" are captured by this plan.
+- The pull/push/sync commands and sanity --auto share the same scan flow via `scanAllCheckoutsStates` and `scanCheckoutState`. Fixing the scan fixes all commands.
+
+### Decisions
+
+- None.
+
+### Knowledge to Update
+
+- None.
+
+### Follow Ups
+
+- None.
+
+### Feedback
+
+- None.

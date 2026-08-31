@@ -13,12 +13,10 @@ None current.
 ### ACTIONABLE
 
 - **Fix `--version` showing stale version** — `npm run workspace -- --version` shows `0.0.9` but package is at `0.0.14`. Investigate why version is not being read from package.json correctly.
-- **Add `checkouts` param to pull/push/sync commands** — follow-up from `plan-implement-pull-push-sync`: allow pull/push/sync on specific checkouts.
-- **Fix "behind" count not showing in checkout reports** — when a checkout is behind the remote, the behind count does not appear in checkout reports. Also, `sync` does not attempt to pull (probably same root cause). Investigate scan state population and sync command flow.
 - **Fix operations log shows repo name instead of checkout** — investigate if all operations add a checkout - it's possible that a clone operation failure logs only the repository name or (unnknown) and bails out without determining a loggable checkout name - change report to present 2 columns repo and "checkout" - ALSO: change the checkouts column "location" to be "checkout" as well.
-- **Fix workspace report shows "unknown project** — workspace report uses a normal checkout structure - in `workspace.scan?.issues().join` do also `filter()` to filter out "unknown project" (when refining the bug fix, inespect other possible issues and filter any that don't apply). Also in the fix: convert output from table to list of fields (one per line under Workspace:) remote (the git remote of the workspace), path: {the absolute path}, branch, issues.
 - **Implement checkout name resolution** — `resolveCheckoutByName` is designed in `architecture/_pseudo.md` (commit `040b07e`) but `src/commands/repo/runRepo.ts` still calls `getCheckoutByName` directly; the `repo` command still doesn't accept checkout names.
 - **Verify remaining bugs** — check if other bugs in the BUGS table are still valid (clone edge cases, extraneous items, etc.)
+- **Add `checkouts` param to pull/push/sync commands** — follow-up from `plan-implement-pull-push-sync`: allow pull/push/sync on specific checkouts.
 
 ### PENDING
 
