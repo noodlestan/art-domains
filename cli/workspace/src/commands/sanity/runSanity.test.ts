@@ -244,6 +244,31 @@ describe('sanity command', () => {
 		expect(ops.length).toEqual(0);
 	});
 
+	it('filters "unknown project" from workspace report output', async () => {
+		const tempDir = makeTempDir(tempDirs);
+		const bareDir = makeTempDir(tempDirs);
+		const ctx = await createMockCommandContext(tempDir);
+
+		const repoDir = join(tempDir, ctx.config.clone.path, 'green');
+		await initWorkingRepoTest(repoDir, bareDir);
+		await commitFileTest(repoDir, 'file.txt');
+		const git = simpleGit(repoDir);
+		await git.push('origin', 'main', ['--set-upstream']);
+
+		writeRepoMockRecord(tempDir, 'Green', bareDir);
+		writeCheckoutMockRecord(tempDir, 'Green', 'Green', 'green');
+
+		const spy = vi.spyOn(console, 'info').mockImplementation(() => {});
+
+		await runSanity(ctx, { auto: false });
+
+		const output = spy.mock.calls.map(c => c[0]).join('\n');
+		const workspaceSection = output.split('Workspace:')[1]?.split('Checkouts:')[0] || '';
+		expect(workspaceSection).not.toContain('unknown project');
+
+		vi.restoreAllMocks();
+	});
+
 	it('reports "unknown project" for a checkout with missing repo record', async () => {
 		const tempDir = makeTempDir(tempDirs);
 		const bareDir = makeTempDir(tempDirs);

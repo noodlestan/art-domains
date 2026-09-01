@@ -1,23 +1,20 @@
 import type { Checkout } from '../store/types';
 
-import { formatTable } from './formatTable';
-
 export function presentWorkspaceReport(workspace?: Checkout): void {
 	if (!workspace) {
 		return;
 	}
 
-	const headers = ['repo', 'location', 'branch', 'states'];
-	const rows = [
-		[
-			workspace.repo?.name || '-',
-			'.',
-			workspace.scan?.state('remote').branch || workspace.record.branch,
-			workspace.scan?.issues().join('; ') || '-',
-		],
-	];
+	const remote = workspace.scan?.state('remote').hasRemote
+		? workspace.scan.state('remote').branch || workspace.record.branch
+		: undefined;
+	const issues = workspace.scan?.issues().join('; ');
+	const branch = workspace.scan?.state('remote').branch || workspace.record.branch;
 
 	console.info('Workspace:');
-	console.info(formatTable(rows, headers));
+	console.info(`  remote: ${remote ?? 'none'}`);
+	console.info(`  path:   ${workspace.path}`);
+	console.info(`  branch: ${branch}`);
+	console.info(`  issues: ${issues || '-'}`);
 	console.info('');
 }

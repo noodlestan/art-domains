@@ -34,7 +34,21 @@ export async function runSanity(ctx: WorkspaceContext, options: { auto: boolean 
 
 	const extraneous = await scanExtraneousCheckouts(ctx.config, ctx.store);
 
-	presentWorkspaceReport(ctx.workspace);
+	const workspaceIssues = ctx.workspace?.scan
+		? ctx.workspace.scan
+				.issues()
+				.filter(i => i !== 'unknown project' && i !== 'no remote' && i !== 'wrong remote')
+		: [];
+	const filteredWorkspace = ctx.workspace
+		? {
+				...ctx.workspace,
+				scan: ctx.workspace.scan
+					? { ...ctx.workspace.scan, issues: () => workspaceIssues }
+					: undefined,
+			}
+		: undefined;
+
+	presentWorkspaceReport(filteredWorkspace);
 	presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts());
 	presentExtraneousReport(extraneous);
 	presentOperationsReport(ctx.log);
