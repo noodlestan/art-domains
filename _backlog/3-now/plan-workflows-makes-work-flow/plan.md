@@ -347,6 +347,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Update Domain Listing                               | `DONE`     |
 | Iteration: Review and Refactor Agent Modes                     | `DONE`     |
 | Iteration: Fix Broken References                               | `DONE`     |
+| Iteration: Rewrite Delegate Plan Skill                        | `PLANNING` |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
 | Iteration: Integrate Specs Into Plans                          | `PLANNING` |
 | Iteration: Update Domain Knowledge                             | `PLANNING` |
@@ -1552,6 +1553,44 @@ refs(domains): Fix broken references using `.md` extension where it should be `.
 ```
 
 **Scope:** `.agents/skills/agent-*/SKILL.md`, `.agents/domains/*/routines/*.art`, `.agents/domains/_artificials/fundamentals.md`
+
+### Iteration: Rewrite Delegate Plan Skill
+
+**id:** `rewrite-delegate-plan`
+
+**Status:** `PLANNING`
+
+**Purpose:** Streamline delegation interactions by moving routines to canon locations, removing task references, and simplifying commands.
+
+**Description:** Move delegate-plan procedures from `$SKILLS/delegate-plan/procedures/` to `$DOMAINS/plans/routines/`. Rewrite routines using canon syntax (see integrate-plan-upstream.art). Simplify the skill to minimal commands that delegate to routines. Add a new `delegate {instructions}` command for targeted delegation.
+
+**Changes:**
+
+Move routines to canon locations:
+- Move `$SKILLS/delegate-plan/procedures/prepare-delegation.art` → `$DOMAINS/plans/routines/prepare-delegation.art`
+- Move `$SKILLS/delegate-plan/procedures/delegate-instructions.art` → `$DOMAINS/plans/routines/delegate-instructions.art`
+
+Rewrite prepare-delegation.art:
+- Add inputs `%maybe-plan` and `%maybe-instructions`
+- If `%instructions` provided, load them, resolve the plan file, load it
+- Verify that the iteration the plan refers to is marked as READY and all commits are AUTHORED
+- ::READ and execute routine validate-plan
+- If problems ALERT the user and STOP processing instructions
+
+Rewrite delegate-instructions.art:
+- Add input `%instructions`
+- Execute what STEP2 currently says: launch worker agents, relay questions/answers, handle blocked tasks
+- Nothing else
+
+Rewrite SKILL.md:
+- Rename h1 to `Delegate Plan`
+- Simplify `Command: Delegate Plan` — 1 input `%plan`, discard all other logic
+- Flatten all commands, no bolds
+- All invocations preceded by `::READ` routine file
+- Invoke routines using "With input execute **Routine: ...** to ..."
+- Add `Command: Delegate Instructions` — with instructions, execute prepare-delegation to identify plan and validate; if problem ALERT and STOP; if no problem execute Delegate Instructions, report blocker or success, confirm commits, check pushed, check report file, check plan updated; present unstaged files and table with commit id, policy, hash, pushed
+
+**Scope:** `$DOMAINS/plans/routines/`, `$SKILLS/delegate-plan/`
 
 ### Iteration: Refactor Domain Index Routines
 
