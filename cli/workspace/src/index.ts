@@ -22,7 +22,7 @@ export type { WorkspaceConfig } from './config';
 
 const program = new Command();
 
-program.name('art-workspace').description('Workspace orchestration CLI').version('0.0.9');
+program.name('art-workspace').description('Workspace orchestration CLI').version('0.0.18');
 
 program
 	.command('sanity')

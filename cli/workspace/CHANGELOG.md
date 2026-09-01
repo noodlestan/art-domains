@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 0.0.18
+
+### Added
+
+- **Workspace State:** Show workspace root status in `sanity` report.
+- **Sync commands:** Apply pull/push/sync logic to the workspace root in `pull`, `push`, `sync`, and `sanity` commands.
+
+### Fixed
+
+- **Behind detection:** Fix false positives and false negatives by fetching the remote branch before computing the behind count in `getBehindCount`.
+
 ## 0.0.17
 
 ### Added
