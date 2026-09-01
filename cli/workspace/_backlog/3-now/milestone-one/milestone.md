@@ -10,7 +10,7 @@
 
 **Purpose:** Complete the workspace CLI with remaining commands and infrastructure.
 
-**Description:** This milestone delivers the full command surface (pull, push, sync, link, links, unlink, publish) and critical infrastructure (repository-command bug fixes, regression test coverage, dynamic record discovery, and knowledge/code quality improvements).
+**Description:** This milestone delivers the full workspace CLI command surface and infrastructure across 3 phases: establish the CLI baseline, implement the remaining commands, and consolidate the CLI into its own repo and shared libraries.
 
 ## Mandatory Reading
 
@@ -27,7 +27,7 @@
 
 ## Summary
 
-Complete the workspace CLI with remaining commands and infrastructure across 16 phases, delivering the full command surface and critical infrastructure improvements.
+Complete the workspace CLI across 3 phases: establish the CLI baseline, implement the remaining commands, and consolidate the CLI into its own repo and shared libraries.
 
 ## Context
 
@@ -36,7 +36,7 @@ Complete the workspace CLI with remaining commands and infrastructure across 16 
 | Kind        | Path                                | Role                                                            |
 | ----------- | ----------------------------------- | --------------------------------------------------------------- |
 | Parking Lot | `$PROJECT/_backlog/_parking-lot.md` | Tracks short-term actionables, pending questions, and blockers. |
-| Source      | `_backlog/_architect.md`            | Architect Briefing: Workspace CLI (Milestone 1)                 |
+| Source      | `$PROJECT/_backlog/_architect.md`   | Architect Briefing: Workspace CLI (Milestone 1)                 |
 
 ### Required Skills
 
@@ -58,239 +58,130 @@ Complete the workspace CLI with remaining commands and infrastructure across 16 
 
 ## Phases
 
-| Index | Name                          | Status      |
-| ----- | ----------------------------- | ----------- |
-| 0     | Workspace split               | `ARCHIVED`  |
-| 1     | Workspace sanity clone branch | `ARCHIVED`  |
-| 2     | Refactor conventions          | `ARCHIVED`  |
-| 3     | Implement command repo        | `ARCHIVED`  |
-| 4     | Implement sanity report       | `ARCHIVED`  |
-| 5     | Fix repo command issues       | `ARCHIVED`  |
-| 6     | Implement pull/push/sync      | `ARCHIVED`  |
-| 7     | Cleaner code                  | `ARCHIVED`  |
-| 8     | Discover records dynamically  | `DONE`      |
-| 9     | Fix reported bugs             | `ARCHIVED`  |
-| 10    | Implement link                | `DRAFT`     |
-| 11    | Implement links               | `DRAFT`     |
-| 12    | Implement publish             | `DRAFT`     |
-| 13    | Implement unlink              | `DRAFT`     |
-| 14    | Fixes and test coverage       | `DONE`      |
-| 15    | Update knowledge resources    | `PREPARING` |
+| Index | Name                    | Status    |
+| ----- | ----------------------- | --------- |
+| 1     | Establish CLI baseline  | `DONE`    |
+| 2     | Implement more commands | `WORKING` |
+| 3     | Consolidate             | `DRAFT`   |
 
-### Phase: 0 — Workspace split
+### Phase: 1 — Establish CLI baseline
 
-**Goal:** Split workspace into manageable structure.
+**Goal:** Deliver the core workspace CLI command surface and infrastructure.
 
-**Description:** Initial workspace reorganisation.
+**Description:** Workspace split; sanity, clone, branch, and repo commands; sanity report; pull/push/sync; dynamic record discovery; fixes and test coverage.
 
-**Status:** `ARCHIVED`
+**Status:** `DONE`
 
 **Dependencies:**
 
 - None.
 
-### Phase: 1 — Workspace sanity clone branch
+### Phase: 2 — Implement more commands
 
-**Goal:** Implement workspace sanity, clone, and branch commands.
+**Goal:** Deliver the remaining command surface.
 
-**Description:** Core workspace operations for repository management.
+**Description:** Link, links, publish, and unlink commands; update knowledge resources.
 
-**Status:** `ARCHIVED`
-
-**Dependencies:**
-
-- Phase 0.
-
-### Phase: 2 — Refactor conventions
-
-**Goal:** Refactor project conventions.
-
-**Description:** Clean up conventions and standards.
-
-**Status:** `ARCHIVED`
+**Status:** `WORKING`
 
 **Dependencies:**
 
-- Phase 1.
+- None.
 
-### Phase: 3 — Implement command repo
+### Phase: 3 — Consolidate
 
-**Goal:** Implement the repo command.
+**Goal:** Consolidate the CLI into its own repo and shared libraries, and plan the art-cli ecosystem.
 
-**Description:** Repository inspection and reporting.
-
-**Status:** `ARCHIVED`
-
-**Dependencies:**
-
-- Phase 2.
-
-### Phase: 4 — Implement sanity report
-
-**Goal:** Implement workspace sanity report.
-
-**Description:** Cross-repository status reporting.
-
-**Status:** `ARCHIVED`
-
-**Dependencies:**
-
-- Phase 3.
-
-### Phase: 5 — Fix repo command issues
-
-**Goal:** Fix reported repository command issues.
-
-**Description:** Bug fixes and edge case handling.
-
-**Status:** `ARCHIVED`
-
-**Dependencies:**
-
-- Phase 4.
-
-### Phase: 6 — Implement pull/push/sync
-
-**Goal:** Implement pull, push, and sync commands.
-
-**Description:** Git operation commands for workspace management.
-
-**Status:** `ARCHIVED`
-
-**Dependencies:**
-
-- Phase 5.
-
-### Phase: 7 — Cleaner code
-
-**Goal:** Improve code quality and cleanliness.
-
-**Description:** Refactoring and code quality improvements.
-
-**Status:** `ARCHIVED`
-
-**Dependencies:**
-
-- Phase 6.
-
-### Phase: 8 — Discover records dynamically
-
-**Goal:** Implement dynamic record discovery.
-
-**Description:** Replace static record paths with dynamic discovery.
-
-**Status:** `DONE`
-
-**Dependencies:**
-
-- Phase 7.
-
-### Phase: 9 — Fix reported bugs
-
-**Goal:** Fix bugs sourced from reported issues.
-
-**Description:** Bug fixes including clone checkout report scanning.
-
-**Status:** `ARCHIVED`
-
-**Dependencies:**
-
-- Phase 8.
-
-### Phase: 10 — Implement link
-
-**Goal:** Implement the link command.
-
-**Description:** Symlink source packages into target node_modules for local development.
+**Description:** Move code and project to a new repo; extract record units to a shared records lib; generate the art-cli roadmap.
 
 **Status:** `DRAFT`
 
 **Dependencies:**
 
-- Phase 8 (record discovery).
-
-### Phase: 11 — Implement links
-
-**Goal:** Implement the links command.
-
-**Description:** Scan workspace for symlinks and present the Symlink Report.
-
-**Status:** `DRAFT`
-
-**Dependencies:**
-
-- Phase 10 (link command for shared helpers).
-
-### Phase: 12 — Implement publish
-
-**Goal:** Implement the publish command.
-
-**Description:** Push repos and publish unpublished packages to npm.
-
-**Status:** `DRAFT`
-
-**Dependencies:**
-
-- Phase 6 (push capabilities from pull-push-sync).
-
-### Phase: 13 — Implement unlink
-
-**Goal:** Implement the unlink command.
-
-**Description:** Remove package symlinks and restore published versions.
-
-**Status:** `DRAFT`
-
-**Dependencies:**
-
-- Phase 10 (link command for shared resolution helpers).
-
-### Phase: 14 — Fixes and test coverage
-
-**Goal:** Fix reported bugs and add regression test coverage.
-
-**Description:** Repository command fixes and comprehensive tests.
-
-**Status:** `DONE`
-
-**Dependencies:**
-
-- Phase 9.
-
-### Phase: 15 — Update knowledge resources
-
-**Goal:** Update architecture knowledge resources.
-
-**Description:** Bring architecture docs current with implemented commands and planned changes.
-
-**Status:** `PREPARING`
-
-**Dependencies:**
-
-- Phase 8 (dynamic record discovery).
+- None.
 
 ---
 
 ## Items:
 
-| Phase | Resource / Record                                                              | Status      |
-| ----- | ------------------------------------------------------------------------------ | ----------- |
-| 0     | `_backlog/0-archive/2026-08-10-plan-workspace-split/plan.md`                   | `ARCHIVED`  |
-| 1     | `_backlog/0-archive/2026-08-12-plan-workspace-sanity-clone-branch/plan.md`     | `ARCHIVED`  |
-| 2     | `_backlog/0-archive/2026-08-13-plan-refactor-conventions/plan.md`              | `ARCHIVED`  |
-| 3     | `_backlog/0-archive/2026-08-14-plan-implement-command-repo/plan.md`            | `ARCHIVED`  |
-| 4     | `_backlog/0-archive/2026-08-14-plan-implement-sanity-workspace-report/plan.md` | `ARCHIVED`  |
-| 5     | `_backlog/0-archive/2026-08-18-plan-fix-repo-command-issues/plan.md`           | `ARCHIVED`  |
-| 6     | `_backlog/0-archive/2026-08-18-plan-implement-pull-push-sync/plan.md`          | `ARCHIVED`  |
-| 7     | `_backlog/0-archive/2026-08-18-plan-cleaner-code/plan.md`                      | `ARCHIVED`  |
-| 8     | `_backlog/1-done/plan-discover-records/plan.md`                                | `DONE`      |
-| 9     | `_backlog/0-archive/2026-08-19-plan-fix-reported-bugs/plan.md`                 | `ARCHIVED`  |
-| 10    | `_backlog/4-next/plan-implement-link/plan.md`                                  | `DRAFT`     |
-| 11    | `_backlog/4-next/plan-implement-links/plan.md`                                 | `DRAFT`     |
-| 12    | `_backlog/4-next/plan-implement-publish/plan.md`                               | `DRAFT`     |
-| 13    | `_backlog/4-next/plan-implement-unlink/plan.md`                                | `DRAFT`     |
-| 14    | `_backlog/1-done/plan-repo-command-fixes-and-tests/plan.md`                    | `DONE`      |
-| 15    | `_backlog/4-next/update-knowledge-resources/plan.md`                           | `PREPARING` |
+| Phase | Resource / Record                                                                                                            | Status      |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| 1     | Plan: Workspace Split `_backlog/0-archive/2026-08-10-plan-workspace-split/plan.md`                                           | `ARCHIVED`  |
+| 1     | Plan: Workspace CLI — Sanity, Clone, Branch `_backlog/0-archive/2026-08-12-plan-workspace-sanity-clone-branch/plan.md`       | `ARCHIVED`  |
+| 1     | Plan: Refactor Conventions `_backlog/0-archive/2026-08-13-plan-refactor-conventions/plan.md`                                 | `ARCHIVED`  |
+| 1     | Plan: Workspace CLI — Repo Command `_backlog/0-archive/2026-08-14-plan-implement-command-repo/plan.md`                       | `ARCHIVED`  |
+| 1     | Plan: Workspace CLI — Sanity Workspace Report `_backlog/0-archive/2026-08-14-plan-implement-sanity-workspace-report/plan.md` | `ARCHIVED`  |
+| 1     | Plan: Fix Repo Command Issues `_backlog/0-archive/2026-08-18-plan-fix-repo-command-issues/plan.md`                           | `ARCHIVED`  |
+| 1     | Plan: Workspace CLI — Pull, Push, Sync Commands `_backlog/0-archive/2026-08-18-plan-implement-pull-push-sync/plan.md`        | `ARCHIVED`  |
+| 1     | Plan: Workspace CLI — Cleaner Code `_backlog/0-archive/2026-08-18-plan-cleaner-code/plan.md`                                 | `ARCHIVED`  |
+| 1     | Plan: Discover Records Dynamically `_backlog/1-done/plan-discover-records/plan.md`                                           | `DONE`      |
+| 1     | Plan: Workspace CLI — Fix Reported Bugs `_backlog/0-archive/2026-08-19-plan-fix-reported-bugs/plan.md`                       | `ARCHIVED`  |
+| 1     | Plan: Workspace CLI — Fixes and Test Coverage `_backlog/1-done/plan-repo-command-fixes-and-tests/plan.md`                    | `DONE`      |
+| -     |                                                                                                                              |             |
+| 2     | Plan: Workspace CLI — Link Command `_backlog/4-next/plan-implement-link/plan.md`                                             | `DRAFT`     |
+| 2     | Plan: Workspace CLI — Links Command `_backlog/4-next/plan-implement-links/plan.md`                                           | `DRAFT`     |
+| 2     | Plan: Workspace CLI — Publish Command `_backlog/4-next/plan-implement-publish/plan.md`                                       | `DRAFT`     |
+| 2     | Plan: Workspace CLI — Unlink Command `_backlog/4-next/plan-implement-unlink/plan.md`                                         | `DRAFT`     |
+| 2     | Plan: Update Knowledge Resources `_backlog/4-next/update-knowledge-resources/plan.md`                                        | `PREPARING` |
+| -     |                                                                                                                              |             |
+| 3     | Plan: Move Code and Project to New Repo                                                                                      | `DRAFT`     |
+| 3     | Plan: Extract Record Units to Lib-Records                                                                                    | `DRAFT`     |
+| 3     | Plan: Generate Art-CLI Roadmap                                                                                               | `DRAFT`     |
+
+The following items are not yet captured in a work item document.
+
+### Plan: Move Code and Project to New Repo
+
+**Status:** `DRAFT`
+
+**Purpose:** Move the workspace CLI into its own repository.
+
+**Description:** Moves workspace-cli and its roadmap/backlog and its knowledge to new repo `noodlestan/art-cli` (with project, repo, namespace = `@art-cli`); update art-domains project record and guide (no longer owns workspace-cli, art-cli does); add art-cli to owner project record (in artificials repo); add guide to art-cli; update README, knowledge, stale checks (in artificials, art-domains, and art-js); publish new workspace-cli version (to new canonical name `@art-cli/workspace`); test in `$WORKSPACE`.
+
+**Changes:**
+
+- Move workspace-cli and its roadmap/backlog and knowledge to `noodlestan/art-cli` (`@art-cli`).
+- Update art-domains project record and guide; add art-cli to owner project record (artificials repo).
+- Update README, knowledge, and stale checks in artificials, art-domains, and art-js.
+- Publish new workspace-cli version as `@art-cli/workspace`; test in `$WORKSPACE`.
+
+**Dependencies:**
+
+- None.
+
+### Plan: Extract Record Units to Lib-Records
+
+**Status:** `DRAFT`
+
+**Purpose:** Extract generic record read/write modules into a shared library.
+
+**Description:** Extract generic record read/write modules and their tests to a lib in `art-js/libs/records` canonical `@art-js/records`, register lib in art-js project record, publish lib, consume in workspace-cli; update knowledge in art-js and art-cli; publish new workspace-cli version; test in `$WORKSPACE`.
+
+**Changes:**
+
+- Extract generic record read/write modules and their tests to `art-js/libs/records` (`@art-js/records`).
+- Register lib in art-js project record; publish lib; consume in workspace-cli.
+- Update knowledge in art-js and art-cli; publish new workspace-cli version; test in `$WORKSPACE`.
+
+**Dependencies:**
+
+- None.
+
+### Plan: Generate Art-CLI Roadmap
+
+**Status:** `DRAFT`
+
+**Purpose:** Generate the art-cli roadmap notes for the future roadmap.
+
+**Description:** Generate art-cli roadmap notes for the future roadmap: `@art-cli/art` (globally installed tool, commands: init, bind (discovers installed clis, updates snapshot); get (discovers available clis from directory, installs them); catch-all (routes commands to other clis); `@art-cli/parser` (md => json); `@art-cli/modules` (install, list); `@art-cli/linter` (depends on project Art Linter, new repo, new namespace `@art-linter`); `@art-cli/projection` (bundler/compiler).
+
+**Changes:**
+
+- Generate roadmap notes for the future art-cli ecosystem (`@art-cli/art`, `@art-cli/parser`, `@art-cli/modules`, `@art-cli/linter`, `@art-cli/projection`).
+
+**Dependencies:**
+
+- None.
 
 ---
 
@@ -298,7 +189,7 @@ Complete the workspace CLI with remaining commands and infrastructure across 16 
 
 ### Next
 
-Phase 10 — execute `plan-implement-link`.
+Phase 2 — execute `plan-implement-link`.
 
 ### Blockers
 
@@ -343,9 +234,7 @@ Phase 10 — execute `plan-implement-link`.
 
 ### Follow Ups
 
-- `plan-fix-reported-bugs` — bug fixes sourced from reported bugs (first bug: `clone` presents Checkout Report without scanning checkouts). See `_backlog/4-next/plan-fix-reported-bugs/plan.md`.
-- `plan-implement-publish` — depends on `pull`/`push` from `plan-implement-pull-push-sync`. See `_backlog/4-next/plan-implement-publish/plan.md`.
-- Each DRAFT plan embeds a self-contained **Architect Prompt** — copy it to launch one architect per slice.
+- None.
 
 ### Feedback
 
