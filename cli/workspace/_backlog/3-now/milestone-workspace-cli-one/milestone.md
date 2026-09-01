@@ -1,6 +1,6 @@
-# Milestone: Complete Workspace CLI
+# Milestone: Workspace CLI One
 
-**ID:** `complete-workspace-cli`
+**ID:** `workspace-cli-one`
 
 **Status:** `WORKING`
 

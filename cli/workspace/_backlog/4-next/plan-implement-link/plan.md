@@ -33,11 +33,11 @@ Implement the link command for local package symlinking, supporting scoped packa
 
 ### Upstream Work
 
-| Kind                  | Path                                                 | Role                                                               |
-| --------------------- | ---------------------------------------------------- | ------------------------------------------------------------------ |
-| Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                  | Tracks short-term actionables, pending questions, and blockers.    |
-| Architecture Briefing | `_backlog/_architect.md`                             | Workspace principles, NFRs, milestones.                            |
-| Milestone             | `$PROJECT/_backlog/3-now/milestone-one/milestone.md` | Coordinates this plan within the Complete Workspace CLI milestone. |
+| Kind                  | Path                                                               | Role                                                            |
+| --------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------- |
+| Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers. |
+| Architecture Briefing | `_backlog/_architect.md`                                           | Workspace principles, NFRs, milestones.                         |
+| Milestone             | `$PROJECT/_backlog/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan within the Workspace CLI One milestone.   |
 
 ### Required Skills
 

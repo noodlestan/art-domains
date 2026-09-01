@@ -33,10 +33,10 @@ Update 8 architecture knowledge resource files to reflect implemented commands (
 
 ### Upstream Work
 
-| Kind        | Path                                                 | Role                                                               |
-| ----------- | ---------------------------------------------------- | ------------------------------------------------------------------ |
-| Parking Lot | `$PROJECT/_backlog/_parking-lot.md`                  | Tracks short-term actionables, pending questions, and blockers.    |
-| Milestone   | `$PROJECT/_backlog/3-now/milestone-one/milestone.md` | Defines this plan as part of the Complete Workspace CLI milestone. |
+| Kind        | Path                                                               | Role                                                            |
+| ----------- | ------------------------------------------------------------------ | --------------------------------------------------------------- |
+| Parking Lot | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers. |
+| Milestone   | `$PROJECT/_backlog/3-now/milestone-workspace-cli-one/milestone.md` | Defines this plan as part of the Workspace CLI One milestone.   |
 
 ### Required Skills
 
@@ -114,7 +114,7 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 
 **Changes:**
 
-- Replace the stale plan reference with the current milestone reference (`milestone-one/milestone.md`).
+- Replace the stale plan reference with the current milestone reference (`milestone-workspace-cli-one/milestone.md`).
 - Update the "CLI Execution Model" section to reflect that `pull`, `push`, and `sync` are now implemented.
 - Clarify that `link`, `unlink`, and `publish` remain designed/draft.
 - Review the "Data Model" section against `context-model.md` updates.
