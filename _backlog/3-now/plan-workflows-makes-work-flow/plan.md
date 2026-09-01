@@ -2,7 +2,7 @@
 
 **Id:** `workflows-make-work-flow`
 
-**Status:** `PLANNING`
+**Status:** `WORKING`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -348,7 +348,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Review and Refactor Agent Modes                     | `DONE`     |
 | Iteration: Fix Broken References                               | `DONE`     |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
-| Iteration: Rewrite Delegate Plan Skill                         | `READY`     |
+| Iteration: Rewrite Delegate Plan Skill                         | `DONE`     |
 | Iteration: Integrate Specs Into Plans                          | `PLANNING` |
 | Iteration: Update Domain Knowledge                             | `PLANNING` |
 
@@ -1587,7 +1587,7 @@ refs(domains): Fix broken references using `.md` extension where it should be `.
 
 **id:** `rewrite-delegate-plan`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Streamline delegation interactions by moving routines to canon locations, removing task references, and simplifying commands.
 
@@ -1602,35 +1602,40 @@ refs(domains): Fix broken references using `.md` extension where it should be `.
 
 **Instructions:** `./plan-workflows-make-work-flow/instructions/rewrite-delegate-plan.md`
 
+**Report:** `./plan-workflows-make-work-flow/instructions/rewrite-delegate-plan__report.md`
+
 **Commits:**
 
-| ID                          | Repository / Checkout / Branch    | Policy   | Hash  | Status        |
-| --------------------------- | --------------------------------- | -------- | ----- | ------------- |
-| `rewrite-delegation-routines` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `AUTHORED` |
-| `rewrite-delegate-skill`     | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `AUTHORED` |
+| ID                            | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| ----------------------------- | --------------------------------- | ------------ | --------- | ----------- |
+| `rewrite-delegation-routines` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `1bfb8fa` | `COMMITTED` |
+| `rewrite-delegate-skill`      | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `3eec116` | `COMMITTED` |
 
 ##### Commit: `rewrite-delegation-routines`
 
 ```
-refactor(workflows-make-work-flow): Rewrite delegation routines in plans domain
+refactor(workflows-make-work-flow): Rewrite delegation routines and add new types
 
 - Move prepare-delegation and delegate-instructions to plans/routines/
 - Rewrite prepare-delegation with %maybe-plan and %maybe-instructions inputs
 - Verify iteration READY and commits AUTHORED, validate plan, ALERT on problems
 - Rewrite delegate-instructions with %instructions input, keep worker launch and outcome identification
+- Add Type: Commit Made and Type: Delegation Outcome
+- Add routines compose-delegation-outcome and integrate-delegation
 - Remove all task references from both routines
 ```
 
 ##### Commit: `rewrite-delegate-skill`
 
 ```
-refactor(workflows-make-work-flow): Rewrite delegate-plan skill to match write-plan standards
+refactor(workflows-make-work-flow): Rewrite delegate-plan skill and update domain indexes
 
 - Rename h1 to Delegate Plan
 - Simplify Delegate Plan command to single %plan input
 - Add Delegate Instructions command for targeted delegation
-- Rewrite Record Delegation command with %maybe-instructions and %maybe-report inputs
+- Rewrite Record Delegation command to compose and integrate delegation outcomes
 - Flatten all commands, invoke routines with ::READ pattern
+- Update commits and plans domain indexes
 ```
 
 ### Iteration: Integrate Specs Into Plans
