@@ -1,5 +1,7 @@
 import { doPullCheckout } from '../../private/commands/checkouts/doPullCheckout';
 import { doPushCheckout } from '../../private/commands/checkouts/doPushCheckout';
+import { pushWorkspaceCheckout } from '../../private/commands/workspaces/pushWorkspaceCheckout';
+import { scanWorkspaceCheckout } from '../../private/commands/workspaces/scanWorkspaceCheckout';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
 import { presentCheckoutReport } from '../../private/present/presentCheckoutReport';
 import { presentOperationsReport } from '../../private/present/presentOperationsReport';
@@ -24,6 +26,9 @@ export async function runPush(ctx: WorkspaceContext): Promise<void> {
 			await doPushCheckout(ctx, current);
 		}
 	}
+
+	await scanWorkspaceCheckout(ctx);
+	await pushWorkspaceCheckout(ctx);
 
 	presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts());
 	presentOperationsReport(ctx.log);

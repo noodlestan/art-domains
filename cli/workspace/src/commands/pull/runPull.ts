@@ -1,4 +1,6 @@
 import { doPullCheckout } from '../../private/commands/checkouts/doPullCheckout';
+import { pullWorkspaceCheckout } from '../../private/commands/workspaces/pullWorkspaceCheckout';
+import { scanWorkspaceCheckout } from '../../private/commands/workspaces/scanWorkspaceCheckout';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
 import { presentCheckoutReport } from '../../private/present/presentCheckoutReport';
 import { presentOperationsReport } from '../../private/present/presentOperationsReport';
@@ -19,6 +21,9 @@ export async function runPull(ctx: WorkspaceContext): Promise<void> {
 			await doPullCheckout(ctx, checkout);
 		}
 	}
+
+	await scanWorkspaceCheckout(ctx);
+	await pullWorkspaceCheckout(ctx);
 
 	presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts());
 	presentOperationsReport(ctx.log);

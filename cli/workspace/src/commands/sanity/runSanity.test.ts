@@ -8,6 +8,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createMockCommandContext } from '../../test/helpers/context/createMockCommandContext';
 import { commitFileTest } from '../../test/helpers/git/commitFileTest';
 import { initWorkingRepoTest } from '../../test/helpers/git/initWorkingRepoTest';
+import { makeWorkspaceRootBehindTest } from '../../test/helpers/git/makeWorkspaceRootBehindTest';
 import { writeCheckoutMockRecord } from '../../test/helpers/records/writeCheckoutMockRecord';
 import { writeRepoMockRecord } from '../../test/helpers/records/writeRepoMockRecord';
 import { makeTempDir } from '../../test/helpers/tempDirs/makeTempDir';
@@ -21,22 +22,6 @@ afterEach(async () => {
 	await removeTempDirs(tempDirs);
 	vi.restoreAllMocks();
 });
-
-async function makeWorkspaceRootBehind(tempDir: string, bareDir: string): Promise<void> {
-	await initWorkingRepoTest(tempDir, bareDir);
-	const git = simpleGit(tempDir);
-	await git.push('origin', 'main', ['--set-upstream']);
-
-	const advDir = makeTempDir(tempDirs);
-	await git.clone(bareDir, advDir);
-	const advGit = simpleGit(advDir);
-	await advGit.addConfig('user.email', 'test@example.com');
-	await advGit.addConfig('user.name', 'Test');
-	await commitFileTest(advDir, 'origin-advance.txt');
-	await advGit.push('origin', 'main');
-
-	await git.fetch('origin', 'main');
-}
 
 describe('sanity command', () => {
 	it('reports "not cloned" for a missing checkout', async () => {
@@ -339,7 +324,7 @@ describe('sanity command', () => {
 		const tempDir = makeTempDir(tempDirs);
 		const bareDir = makeTempDir(tempDirs);
 		const ctx = await createMockCommandContext(tempDir);
-		await makeWorkspaceRootBehind(tempDir, bareDir);
+		await makeWorkspaceRootBehindTest(tempDir, bareDir, tempDirs);
 
 		await runSanity(ctx, { auto: false });
 
@@ -352,7 +337,7 @@ describe('sanity command', () => {
 		const tempDir = makeTempDir(tempDirs);
 		const bareDir = makeTempDir(tempDirs);
 		const ctx = await createMockCommandContext(tempDir);
-		await makeWorkspaceRootBehind(tempDir, bareDir);
+		await makeWorkspaceRootBehindTest(tempDir, bareDir, tempDirs);
 
 		await runSanity(ctx, { auto: true });
 
@@ -369,7 +354,7 @@ describe('sanity command', () => {
 		const tempDir = makeTempDir(tempDirs);
 		const bareDir = makeTempDir(tempDirs);
 		const ctx = await createMockCommandContext(tempDir);
-		await makeWorkspaceRootBehind(tempDir, bareDir);
+		await makeWorkspaceRootBehindTest(tempDir, bareDir, tempDirs);
 		writeFileSync(join(tempDir, 'dirty.txt'), 'dirty');
 
 		await runSanity(ctx, { auto: true });
@@ -384,7 +369,7 @@ describe('sanity command', () => {
 		const tempDir = makeTempDir(tempDirs);
 		const bareDir = makeTempDir(tempDirs);
 		const ctx = await createMockCommandContext(tempDir);
-		await makeWorkspaceRootBehind(tempDir, bareDir);
+		await makeWorkspaceRootBehindTest(tempDir, bareDir, tempDirs);
 
 		const checkoutBare = makeTempDir(tempDirs);
 		const repoDir = join(tempDir, ctx.config.clone.path, 'autopush');

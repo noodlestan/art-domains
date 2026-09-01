@@ -7,6 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createMockCommandContext } from '../../test/helpers/context/createMockCommandContext';
 import { initWorkingRepoTest } from '../../test/helpers/git/initWorkingRepoTest';
 import { makeOriginAheadTest } from '../../test/helpers/git/makeOriginAheadTest';
+import { makeWorkspaceRootBehindTest } from '../../test/helpers/git/makeWorkspaceRootBehindTest';
 import { writeCheckoutMockRecord } from '../../test/helpers/records/writeCheckoutMockRecord';
 import { writeRepoMockRecord } from '../../test/helpers/records/writeRepoMockRecord';
 import { makeTempDir } from '../../test/helpers/tempDirs/makeTempDir';
@@ -121,5 +122,23 @@ describe('pull command', () => {
 		expect(checkout?.scan?.state('exists').exists).toBe(false);
 		expect(checkout?.scan?.issues()).toEqual(['not cloned']);
 		expect(ctx.log.all()).toHaveLength(0);
+	});
+
+	it('pulls the workspace root when it is behind and clean', async () => {
+		const tempDir = makeTempDir(tempDirs);
+		const bareDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+		await makeWorkspaceRootBehindTest(tempDir, bareDir, tempDirs);
+
+		await runPull(ctx);
+
+		expect(ctx.workspace).toBeDefined();
+		expect(ctx.workspace?.scan?.state('sync').behind).toBe(0);
+		expect(existsSync(join(tempDir, 'origin-advance.txt'))).toBe(true);
+
+		const ops = ctx.log.all();
+		expect(ops).toHaveLength(1);
+		expect(ops[0].operation).toBe('pull');
+		expect(ops[0].outcome).toBe('success');
 	});
 });

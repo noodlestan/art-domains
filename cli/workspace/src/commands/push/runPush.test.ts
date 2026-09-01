@@ -139,4 +139,22 @@ describe('push command', () => {
 		expect(checkout?.scan?.issues()).toEqual(['not cloned']);
 		expect(ctx.log.all()).toHaveLength(0);
 	});
+
+	it('pushes the workspace root when it is ahead and clean', async () => {
+		const tempDir = makeTempDir(tempDirs);
+		const bareDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+		await initWorkingRepoTest(tempDir, bareDir);
+		await commitFileTest(tempDir, 'ahead.txt');
+
+		await runPush(ctx);
+
+		expect(ctx.workspace).toBeDefined();
+		expect(ctx.workspace?.scan?.state('sync').ahead).toBe(0);
+		expect(ctx.log.all()).toHaveLength(1);
+
+		const verifyDir = makeTempDir(tempDirs);
+		await simpleGit(verifyDir).clone(bareDir, verifyDir);
+		expect(existsSync(join(verifyDir, 'ahead.txt'))).toBe(true);
+	});
 });

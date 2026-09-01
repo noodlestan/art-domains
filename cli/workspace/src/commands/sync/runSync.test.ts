@@ -8,6 +8,7 @@ import { createMockCommandContext } from '../../test/helpers/context/createMockC
 import { commitFileTest } from '../../test/helpers/git/commitFileTest';
 import { initWorkingRepoTest } from '../../test/helpers/git/initWorkingRepoTest';
 import { makeOriginAheadTest } from '../../test/helpers/git/makeOriginAheadTest';
+import { makeWorkspaceRootBehindTest } from '../../test/helpers/git/makeWorkspaceRootBehindTest';
 import { writeCheckoutMockRecord } from '../../test/helpers/records/writeCheckoutMockRecord';
 import { writeRepoMockRecord } from '../../test/helpers/records/writeRepoMockRecord';
 import { makeTempDir } from '../../test/helpers/tempDirs/makeTempDir';
@@ -138,5 +139,26 @@ describe('sync command', () => {
 		const checkout = ctx.store.getCheckoutOfRepo('Current');
 		expect(checkout?.scan?.state('sync').delta).toBe(0);
 		expect(checkout?.scan?.issues()).toEqual([]);
+	});
+
+	it('syncs the workspace root (pulls when behind and pushes when ahead)', async () => {
+		const tempDir = makeTempDir(tempDirs);
+		const bareDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+		await makeWorkspaceRootBehindTest(tempDir, bareDir, tempDirs);
+		await commitFileTest(tempDir, 'ahead.txt');
+
+		await runSync(ctx);
+
+		expect(ctx.workspace).toBeDefined();
+		expect(ctx.workspace?.scan?.state('sync').delta).toBe(0);
+		expect(existsSync(join(tempDir, 'origin-advance.txt'))).toBe(true);
+
+		const ops = ctx.log.all();
+		expect(ops).toHaveLength(2);
+		expect(ops[0].operation).toBe('pull');
+		expect(ops[0].outcome).toBe('success');
+		expect(ops[1].operation).toBe('push');
+		expect(ops[1].outcome).toBe('success');
 	});
 });

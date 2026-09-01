@@ -1,4 +1,5 @@
 import { pullWorkspaceCheckout } from '../../private/commands/workspaces/pullWorkspaceCheckout';
+import { scanWorkspaceCheckout } from '../../private/commands/workspaces/scanWorkspaceCheckout';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
 import { presentCheckoutReport } from '../../private/present/presentCheckoutReport';
 import { presentExtraneousReport } from '../../private/present/presentExtraneousReport';
@@ -6,8 +7,6 @@ import { presentOperationsReport } from '../../private/present/presentOperations
 import { presentWorkspaceReport } from '../../private/present/presentWorkspaceReport';
 import { loadCheckoutRecords } from '../../private/resources/checkout/loadCheckoutRecords';
 import { loadRepositoryRecords } from '../../private/resources/repository/loadRepositoryRecords';
-import { scanCheckoutState } from '../../private/scan/scanCheckoutState';
-import { createCheckout } from '../../private/store/createCheckout';
 import { hydrateStoreFromRecords } from '../../private/store/hydrateStoreFromRecords';
 import { scanAllCheckoutsStates } from '../../private/store/scanAllCheckoutsStates';
 
@@ -19,12 +18,7 @@ export async function runSanity(ctx: WorkspaceContext, options: { auto: boolean 
 	const records = await loadCheckoutRecords(ctx.config, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
 
-	const workspaceCheckout = {
-		...createCheckout(ctx.config, '.', undefined, 'main', 'Workspace'),
-		path: ctx.config.root.path,
-	};
-	const workspace = await scanCheckoutState(workspaceCheckout);
-	ctx.workspace = workspace;
+	await scanWorkspaceCheckout(ctx);
 
 	await scanAllCheckoutsStates(ctx.store);
 	if (options.auto) {
