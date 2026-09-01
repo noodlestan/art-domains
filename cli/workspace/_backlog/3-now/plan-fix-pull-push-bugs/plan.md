@@ -65,7 +65,7 @@ Fix behind detection in `src/private/git/` and `src/private/scan/`. Fix workspac
 
 ### Next
 
-Delegate the next `READY` iteration `fix-pull-push-false-evaluations`.
+Delegate the next `READY` iteration `fix-workspace-state-detection`.
 
 ### Blockers
 
@@ -122,7 +122,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 | Iteration / Instructions                   | Status  |
 | ------------------------------------------ | ------- |
-| Iteration: Fix Pull Push False Evaluations | `READY` |
+| Iteration: Fix Pull Push False Evaluations | `DONE`  |
 | Iteration: Fix Workspace State Detection   | `READY` |
 | Iteration: Sync Workspace Too              | `READY` |
 
@@ -130,7 +130,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 **Id:** `fix-pull-push-false-evaluations`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Fix the behind detection system so it accurately reports behind/ahead state on all checkouts, eliminating both false positives (behind when clean) and false negatives (not behind when actually behind).
 
@@ -151,12 +151,13 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 - None.
 
+**Report:** `./plan-fix-pull-push-bugs/instructions/fix-pull-push-false-evaluations__report.md`
+
 #### Commits:
 
-| ID                        | Repository / Checkout / Branch      | Policy   | Hash  | Status     |
-| ------------------------- | ----------------------------------- | -------- | ----- | ---------- |
-| `fix-behind-detection`    | Workspace CLI / `$PROJECT` / `main` | `NOPUSH` | (TBD) | `AUTHORED` |
-| `update-behind-knowledge` | Workspace CLI / `$PROJECT` / `main` | `NOPUSH` | (TBD) | `AUTHORED` |
+| ID                     | Repository / Checkout / Branch      | Policy   | Hash    | Status      |
+| ---------------------- | ----------------------------------- | -------- | ------- | ----------- |
+| `fix-behind-detection` | Workspace CLI / `$PROJECT` / `main` | `NOPUSH` | 06b98b9 | `COMMITTED` |
 
 ##### Commit: `fix-behind-detection`
 
@@ -173,7 +174,7 @@ fix(workspace-cli): fix behind detection false positives and false negatives.
 
 ##### Commit: `update-behind-knowledge`
 
-**Repository:** Workspace CLI
+**Status:** SKIPPED — no contract changes needed.
 
 **Message:**
 
@@ -277,12 +278,13 @@ build(workspace-cli): apply pull/push/sync logic to the workspace root.
 
 ### Evidence
 
-- None.
+- Behind detection root cause: `getBehindCount` computed against stale local tracking ref; fix fetches before counting. (Commit `06b98b9`)
 
 ### Findings
 
 - The parking lot items "Fix behind count not showing" and "Fix workspace report shows 'unknown project'" are captured by this plan.
 - The pull/push/sync commands and sanity --auto share the same scan flow via `scanAllCheckoutsStates` and `scanCheckoutState`. Fixing the scan fixes all commands.
+- Behind detection fix: `getBehindCount` now runs `git fetch origin <branch>` before computing the count; falls back to local ref on fetch failure.
 
 ### Decisions
 
