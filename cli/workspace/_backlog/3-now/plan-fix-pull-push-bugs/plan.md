@@ -2,7 +2,7 @@
 
 **ID:** `fix-pull-push-bugs`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
