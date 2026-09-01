@@ -1593,29 +1593,39 @@ refs(domains): Fix broken references using `.md` extension where it should be `.
 
 **Changes:**
 
-Move routines to canon locations:
+Step 1 — Move routines to canon locations:
 - Move `$SKILLS/delegate-plan/procedures/prepare-delegation.art` -> `$DOMAINS/plans/routines/prepare-delegation.art`
 - Move `$SKILLS/delegate-plan/procedures/delegate-instructions.art` -> `$DOMAINS/plans/routines/delegate-instructions.art`
+- Delete `$SKILLS/delegate-plan/procedures/` directory
 
-Rewrite prepare-delegation.art:
-- Add inputs `%maybe-plan` and `%maybe-instructions`
-- If `%instructions` provided, load them, resolve the plan file, load it
-- Verify that the iteration the plan refers to is marked as READY and all commits are AUTHORED
-- ::READ and execute routine validate-plan
-- If problems ALERT the user and STOP processing instructions
+Step 2 — Rewrite `$DOMAINS/plans/routines/prepare-delegation.art` using canon routine syntax (reference: `$DOMAINS/plans/routines/integrate-plan-upstream.art`):
+- Keep `# Module` header and `## Routine: Prepare Delegation` heading
+- Add **Inputs:** `%maybe-plan` and `%maybe-instructions`
+- Add **Output:** `%plan` — the plan to delegate
+- Replace the "### Before executing" task-file RULEs with:
+  - If `%instructions` provided: load them, resolve the plan file, load it
+  - Verify that the iteration the plan refers to is marked as `READY` and all commits are `AUTHORED`
+  - ::READ `$DOMAINS/plans/routines/validate-plan.art` and execute **Routine: Validate Plan** with `%plan`
+  - If problems ALERT the user and STOP processing instructions
+- Keep Step 1: Set execution state (mark plan as WORKING per Plan Record rules)
+- Remove all task references (`task-{task.id}/task.md`, `specifications/{specification.id}.md`)
 
-Rewrite delegate-instructions.art:
-- Add input `%instructions`
-- Execute what STEP2 currently says: launch worker agents, relay questions/answers, handle blocked tasks
-- Nothing else
+Step 3 — Rewrite `$DOMAINS/plans/routines/delegate-instructions.art`:
+- Add **Inputs:** `%instructions`
+- Keep only the Step 2 content: launch a `worker` agent per instruction file, pass the implementation instruction as stored, do not modify prompts
+- Keep sub-agent interaction: relay questions/answers verbatim, do not interpret
+- Keep blocked tasks handling: update task to Blocked, add blocker to plan, continue remaining tasks in batch
+- Remove task references where they refer to old task files; use plan/instruction terminology
 
-Rewrite SKILL.md:
-- Rename h1 to `Delegate Plan`
-- Simplify `Command: Delegate Plan` -- 1 input `%plan`, discard all other logic
+Step 4 — Rewrite `$SKILLS/delegate-plan/SKILL.md`:
+- Rename h1 from `Skill: Execute Plan` to `Skill: Delegate Plan`
+- Update Routines section: ::READ `$DOMAINS/plans/routines/prepare-delegation.art` and `$DOMAINS/plans/routines/delegate-instructions.art`
+- Simplify `Command: Delegate Plan` — 1 input `%plan`, discard `%maybe-guide`, multi-plan logic, and mode branches
+- Add `Command: Delegate Instructions` — with instructions, execute prepare-delegation to identify plan and validate; if problem ALERT and STOP; if no problem execute Delegate Instructions, report blocker or success, confirm commits, check pushed, check report file, check plan updated; present unstaged files and table with commit id, policy, hash, pushed
 - Flatten all commands, no bolds
 - All invocations preceded by `::READ` routine file
-- Invoke routines using "With input execute Routine: ... to ..."
-- Add `Command: Delegate Instructions` -- with instructions, execute prepare-delegation to identify plan and validate; if problem ALERT and STOP; if no problem execute Delegate Instructions, report blocker or success, confirm commits, check pushed, check report file, check plan updated; present unstaged files and table with commit id, policy, hash, pushed
+- Invoke routines using "With input execute **Routine: ...** to ..."
+- Keep Success Criteria (all READY instruction files executed via delegation, plan record reflects only status-level progress, no task content duplicated)
 
 **Scope:** `$DOMAINS/plans/routines/`, `$SKILLS/delegate-plan/`
 
@@ -1623,18 +1633,30 @@ Rewrite SKILL.md:
 
 **Commits:**
 
-| ID                                    | Repository / Checkout / Branch    | Policy   | Hash  | Status  |
-| ------------------------------------- | --------------------------------- | -------- | ----- | ------- |
-| `rewrite-delegate-plan`               | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
+| ID                          | Repository / Checkout / Branch    | Policy   | Hash  | Status        |
+| --------------------------- | --------------------------------- | -------- | ----- | ------------- |
+| `rewrite-delegation-routines` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `PLACEHOLDER` |
+| `rewrite-delegate-skill`     | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `PLACEHOLDER` |
 
-##### Commit: `rewrite-delegate-plan`
+##### Commit: `rewrite-delegation-routines`
+
+```
+refactor(domains): Rewrite delegation routines in plans domain
+
+- Move prepare-delegation and delegate-instructions to plans/routines/
+- Rewrite prepare-delegation with %maybe-plan and %maybe-instructions inputs
+- Verify iteration READY and commits AUTHORED, validate plan, ALERT on problems
+- Rewrite delegate-instructions with %instructions input, keep worker launch and relay
+- Remove all task references from both routines
+```
+
+##### Commit: `rewrite-delegate-skill`
 
 ```
 refactor(skills): Rewrite delegate-plan skill to match write-plan standards
 
-- Move prepare-delegation and delegate-instructions to plans/routines/
-- Remove all task references from routines
-- Rename h1 to Delegate Plan, simplify Delegate Plan command
+- Rename h1 to Delegate Plan
+- Simplify Delegate Plan command to single %plan input
 - Add Delegate Instructions command for targeted delegation
 - Flatten all commands, invoke routines with ::READ pattern
 ```
