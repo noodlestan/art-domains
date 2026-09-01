@@ -1,6 +1,6 @@
-# Noodlestan Artificial
+# Art Domains
 
-A collection of tools and resources to generate and manage agent instructions. Includes the Art Language, and a (reactive) pipeline for bundling instructions.
+Manage Art Domains knowledge resources and work streams.
 
 ## Recommended Reading
 
@@ -13,7 +13,7 @@ Agents SHOULD scan these files for relevant clarifications when faced with ambig
 ```
 _backlog/           — plans, instructions, reports
 _records/           — records (project, repository, namespaces, scripts, scaffolding)
-architecture/       — index, ADRs, reference domain model and workfloes
+architecture/       — index, ADRs, reference domain model and workflows
 cli/                - Node.JS CLI packages.
 ```
 
@@ -21,7 +21,7 @@ cli/                - Node.JS CLI packages.
 
 | Project            | Guide                     | Backlog                   |
 | ------------------ | ------------------------- | ------------------------- |
-| Art Domains (root) | `_guide.md`               | `_backlog_`               |
+| Art Domains (root) | `_guide.md`               | `_backlog/`               |
 | Workspace CLI      | `cli/workspace/_guide.md` | `cli/workspace/_backlog/` |
 
 ## Records Management
@@ -29,7 +29,7 @@ cli/                - Node.JS CLI packages.
 Records are co-located with the resources they describe in `_records/` directories:
 
 - **Project:** `_records/project.art`
-- **Repository:** - `_records/repository.art`
+- **Repository:** `_records/repository.art`
 - **Namespaces:** `{namespace}/_records/namespace.art`
 - **Packages:** `{package-path}/_records/package.art`
 - **NPM Deployments:** `{package-path}/_records/npm-deployment.art`
@@ -58,7 +58,7 @@ Projects in this repository use the following workflows:
 
 ## Operating Instructions
 
-#### Operating Instructions: Setting Up
+### Operating Instructions: Setting Up
 
 **Instructions:**
 
@@ -68,7 +68,7 @@ Run from the repository root (monorepo):
 npm ci # to install dependencies.
 ```
 
-#### Operating Instructions: Verifying Commit
+### Operating Instructions: Verifying Commit
 
 **Instructions:**
 
@@ -78,7 +78,7 @@ Runs automatically on pre-commit hook (from the repository root):
 npm run ci # lint, build and test
 ```
 
-#### Operating Instructions: Verifying Completion
+### Operating Instructions: Verifying Completion
 
 **Instructions:**
 

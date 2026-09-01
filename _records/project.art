@@ -12,10 +12,14 @@
 
 **Repository:** Repository: Art Domains
 
+**Code:** https://github.com/noodlestan/art-domains
+
 **Resources:**
 
 - Package: Workspace CLI
 
 **Private:** `false`
+
+**Management:** Uses Workflow: Planning Work with a backlog at `_backlog/`.
 
 **License:** License: Noodlestan 2026 MIT
