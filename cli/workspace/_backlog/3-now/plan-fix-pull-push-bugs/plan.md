@@ -2,7 +2,7 @@
 
 **ID:** `fix-pull-push-bugs`
 
-**Status:** `WORKING`
+**Status:** `DONE`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -65,7 +65,7 @@ Fix behind detection in `src/private/git/` and `src/private/scan/`. Fix workspac
 
 ### Next
 
-Delegate the next `READY` iteration `sync-workspace-too`.
+All iterations are DONE. Plan complete.
 
 ### Blockers
 
@@ -120,11 +120,11 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions                   | Status  |
-| ------------------------------------------ | ------- |
-| Iteration: Fix Pull Push False Evaluations | `DONE`  |
-| Iteration: Fix Workspace State Detection   | `DONE`  |
-| Iteration: Sync Workspace Too              | `READY` |
+| Iteration / Instructions                   | Status |
+| ------------------------------------------ | ------ |
+| Iteration: Fix Pull Push False Evaluations | `DONE` |
+| Iteration: Fix Workspace State Detection   | `DONE` |
+| Iteration: Sync Workspace Too              | `DONE` |
 
 ### Iteration: Fix Pull Push False Evaluations
 
@@ -232,7 +232,7 @@ fix(workspace-cli): fix workspace state detection and presentation.
 
 **Id:** `sync-workspace-too`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Make pull, push, sync, and sanity --auto all apply their pull/push logic to the workspace root consistently.
 
@@ -250,11 +250,13 @@ fix(workspace-cli): fix workspace state detection and presentation.
 
 - `fix-workspace-state-detection` — workspace state detection should be fixed first.
 
+**Report:** `./plan-fix-pull-push-bugs/instructions/sync-workspace-too__report.md`
+
 #### Commits:
 
-| ID                   | Repository / Checkout / Branch      | Policy   | Hash  | Status     |
-| -------------------- | ----------------------------------- | -------- | ----- | ---------- |
-| `sync-workspace-too` | Workspace CLI / `$PROJECT` / `main` | `NOPUSH` | (TBD) | `AUTHORED` |
+| ID                   | Repository / Checkout / Branch      | Policy   | Hash    | Status      |
+| -------------------- | ----------------------------------- | -------- | ------- | ----------- |
+| `sync-workspace-too` | Workspace CLI / `$PROJECT` / `main` | `NOPUSH` | 090a69b | `COMMITTED` |
 
 ##### Commit: `sync-workspace-too`
 
@@ -279,6 +281,8 @@ build(workspace-cli): apply pull/push/sync logic to the workspace root.
 - None.
 
 ### Evidence
+
+- Workspace root sync: extracted shared `scanWorkspaceCheckout`/`pushWorkspaceCheckout` helpers; extended `pull`, `push`, `sync` to operate on the workspace root. (Commit `090a69b`)
 
 - Behind detection root cause: `getBehindCount` computed against stale local tracking ref; fix fetches before counting. (Commit `06b98b9`)
 - Workspace state detection: filtered inapplicable issues ("unknown project", "no remote", "wrong remote") and converted workspace output to field list (remote, path, branch, issues). (Commit `23c5ed2`)
