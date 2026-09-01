@@ -68,15 +68,12 @@ Run from the repository root (monorepo):
 npm ci # to install dependencies.
 ```
 
-### Operating Instructions: Verifying Step
+### Operating Instructions: Verifying Completion
 
 **Instructions:**
 
-Run from this package directory:
+Runs automatically on pre-commit hook (from the repository root):
 
 ```bash
-npm run lint:fix # to fix formatting issues automatically
-npm run lint # to report other issues (prettier, eslint, tsc --noEmit)
-npm run test # to run all tests
-npm run build # to produce a full build
+npm run ci # lint, test and build
 ```
