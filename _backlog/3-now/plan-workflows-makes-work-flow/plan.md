@@ -346,7 +346,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Create Migration Routines                           | `DONE`     |
 | Iteration: Update Domain Listing                               | `DONE`     |
 | Iteration: Review and Refactor Agent Modes                     | `DONE`     |
-| Iteration: Fix Broken References                               | `READY`    |
+| Iteration: Fix Broken References                               | `DONE`     |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
 | Iteration: Integrate Specs Into Plans                          | `PLANNING` |
 | Iteration: Update Domain Knowledge                             | `PLANNING` |
@@ -1489,7 +1489,7 @@ build(noodlestan): Add migration routines for milestones and plans
 
 **id:** `fix-broken-references`
 
-**Status:** `PLANNING`
+**Status:** `DONE`
 
 **Purpose:** Fix broken `.md` references that should point to `.art` files across skills and routines.
 
@@ -1519,12 +1519,14 @@ build(noodlestan): Add migration routines for milestones and plans
 
 **Instructions:** `./plan-workflows-make-work-flow/instructions/fix-broken-references.md`
 
+**Report:** `./plan-workflows-make-work-flow/instructions/fix-broken-references__report.md`
+
 **Commits:**
 
-| ID                          | Repository / Checkout / Branch    | Policy   | Hash  | Status  |
-| --------------------------- | --------------------------------- | -------- | ----- | ------- |
-| `rename-routines-md-to-art` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
-| `fix-references-md-to-art`  | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `READY` |
+| ID                          | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| --------------------------- | --------------------------------- | -------- | --------- | ----------- |
+| `rename-routines-md-to-art` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `e29d09d` | `COMMITTED` |
+| `fix-references-md-to-art`  | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `7eb4994` | `COMMITTED` |
 
 ##### Commit: `rename-routines-md-to-art`
 
