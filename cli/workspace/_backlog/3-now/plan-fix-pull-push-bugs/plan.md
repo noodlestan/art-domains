@@ -303,7 +303,8 @@ build(workspace-cli): apply pull/push/sync logic to the workspace root.
 
 ### Follow Ups
 
-- None.
+- `getBehindCount` now fetches per branch on every scan, slowing `sanity`/`pull`/`sync`. Consider fetching once per remote, or making the fetch opt-in / cached with a TTL.
+- Make `sanity`/`pull`/`push`/`sync` process checkouts in parallel to reduce wall-clock time.
 
 ### Feedback
 
