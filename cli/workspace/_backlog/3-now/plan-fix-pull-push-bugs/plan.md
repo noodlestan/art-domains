@@ -65,7 +65,7 @@ Fix behind detection in `src/private/git/` and `src/private/scan/`. Fix workspac
 
 ### Next
 
-Delegate the next `READY` iteration `fix-workspace-state-detection`.
+Delegate the next `READY` iteration `sync-workspace-too`.
 
 ### Blockers
 
@@ -123,7 +123,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 | Iteration / Instructions                   | Status  |
 | ------------------------------------------ | ------- |
 | Iteration: Fix Pull Push False Evaluations | `DONE`  |
-| Iteration: Fix Workspace State Detection   | `READY` |
+| Iteration: Fix Workspace State Detection   | `DONE`  |
 | Iteration: Sync Workspace Too              | `READY` |
 
 ### Iteration: Fix Pull Push False Evaluations
@@ -206,11 +206,13 @@ arch(workspace-cli): update behind detection knowledge.
 
 - `fix-pull-push-false-evaluations` — should land after the behind detection fix.
 
+**Report:** `./plan-fix-pull-push-bugs/instructions/fix-workspace-state-detection__report.md`
+
 #### Commits:
 
-| ID                              | Repository / Checkout / Branch      | Policy   | Hash  | Status     |
-| ------------------------------- | ----------------------------------- | -------- | ----- | ---------- |
-| `fix-workspace-state-detection` | Workspace CLI / `$PROJECT` / `main` | `NOPUSH` | (TBD) | `AUTHORED` |
+| ID                              | Repository / Checkout / Branch      | Policy   | Hash    | Status      |
+| ------------------------------- | ----------------------------------- | -------- | ------- | ----------- |
+| `fix-workspace-state-detection` | Workspace CLI / `$PROJECT` / `main` | `NOPUSH` | 23c5ed2 | `COMMITTED` |
 
 ##### Commit: `fix-workspace-state-detection`
 
@@ -279,6 +281,7 @@ build(workspace-cli): apply pull/push/sync logic to the workspace root.
 ### Evidence
 
 - Behind detection root cause: `getBehindCount` computed against stale local tracking ref; fix fetches before counting. (Commit `06b98b9`)
+- Workspace state detection: filtered inapplicable issues ("unknown project", "no remote", "wrong remote") and converted workspace output to field list (remote, path, branch, issues). (Commit `23c5ed2`)
 
 ### Findings
 
