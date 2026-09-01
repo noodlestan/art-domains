@@ -60,6 +60,31 @@ describe('sync command', () => {
 		expect(existsSync(join(verifyDir, 'origin.txt'))).toBe(true);
 	});
 
+	it('pulls when behind without a prior fetch (false negative)', async () => {
+		const tempDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+		const bareDir = makeTempDir(tempDirs);
+		const repoDir = join(tempDir, ctx.config.clone.path, 'behindsync');
+		await initWorkingRepoTest(repoDir, bareDir);
+		await makeOriginAheadTest(bareDir, tempDirs);
+
+		writeRepoMockRecord(tempDir, 'BehindSync', bareDir);
+		writeCheckoutMockRecord(tempDir, 'BehindSync', 'BehindSync', 'behindsync');
+
+		await runSync(ctx);
+
+		const ops = ctx.log.all();
+		expect(ops).toHaveLength(1);
+		expect(ops[0].operation).toBe('pull');
+		expect(ops[0].outcome).toBe('success');
+
+		const checkout = ctx.store.getCheckoutOfRepo('BehindSync');
+		expect(checkout?.scan?.state('sync').behind).toBe(0);
+		expect(checkout?.scan?.issues()).toEqual([]);
+
+		expect(existsSync(join(repoDir, 'origin.txt'))).toBe(true);
+	});
+
 	it('skips dirty checkouts', async () => {
 		const tempDir = makeTempDir(tempDirs);
 		const ctx = createMockCommandContext(tempDir);

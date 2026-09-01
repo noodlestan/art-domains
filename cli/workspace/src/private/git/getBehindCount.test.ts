@@ -39,8 +39,6 @@ describe('getBehindCount', () => {
 		await otherGit.commit('origin change');
 		await otherGit.push('origin', 'main');
 
-		await git.fetch('origin', 'main');
-
 		const count = await getBehindCount(dir, 'origin/main');
 
 		expect(count).toBe(1);
@@ -66,6 +64,48 @@ describe('getBehindCount', () => {
 		const dir = makeTempDir(tempDirs);
 		await initGitRepoTest(dir);
 		await commitFileTest(dir, 'file.txt');
+
+		const count = await getBehindCount(dir, 'origin/main');
+
+		expect(count).toBe(0);
+	});
+
+	it('detects behind when local tracking ref is stale (false negative scenario)', async () => {
+		const dir = makeTempDir(tempDirs);
+		await initGitRepoTest(dir);
+		const bareDir = makeTempDir(tempDirs);
+		const bareGit = simpleGit(bareDir);
+		await bareGit.init(true);
+		const git = simpleGit(dir);
+		await git.addRemote('origin', bareDir);
+		await commitFileTest(dir, 'file.txt');
+		await git.push('origin', 'main', ['--set-upstream']);
+
+		const otherDir = makeTempDir(tempDirs);
+		await simpleGit(otherDir).clone(bareDir, otherDir);
+		const otherGit = simpleGit(otherDir);
+		await otherGit.addConfig('user.email', 'test@example.com');
+		await otherGit.addConfig('user.name', 'Test');
+		writeFileSync(join(otherDir, 'origin.txt'), 'origin');
+		await otherGit.add('.');
+		await otherGit.commit('origin change');
+		await otherGit.push('origin', 'main');
+
+		const count = await getBehindCount(dir, 'origin/main');
+
+		expect(count).toBe(1);
+	});
+
+	it('returns 0 when genuinely up to date despite stale tracking ref (false positive scenario)', async () => {
+		const dir = makeTempDir(tempDirs);
+		await initGitRepoTest(dir);
+		const bareDir = makeTempDir(tempDirs);
+		const bareGit = simpleGit(bareDir);
+		await bareGit.init(true);
+		const git = simpleGit(dir);
+		await git.addRemote('origin', bareDir);
+		await commitFileTest(dir, 'file.txt');
+		await git.push('origin', 'main', ['--set-upstream']);
 
 		const count = await getBehindCount(dir, 'origin/main');
 

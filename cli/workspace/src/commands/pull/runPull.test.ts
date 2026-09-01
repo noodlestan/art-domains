@@ -27,14 +27,13 @@ afterEach(async () => {
 });
 
 describe('pull command', () => {
-	it('pulls clean checkouts that are behind', async () => {
+	it('pulls clean checkouts that are behind without a prior fetch (false negative)', async () => {
 		const tempDir = makeTempDir(tempDirs);
 		const ctx = createMockCommandContext(tempDir);
 		const bareDir = makeTempDir(tempDirs);
 		const repoDir = join(tempDir, ctx.config.clone.path, 'behind');
 		await initWorkingRepoTest(repoDir, bareDir);
 		await makeOriginAheadTest(bareDir, tempDirs);
-		await simpleGit(repoDir).fetch('origin', 'main');
 
 		writeRepoMockRecord(tempDir, 'Behind', bareDir);
 		writeCheckoutMockRecord(tempDir, 'Behind', 'Behind', 'behind');
@@ -42,7 +41,7 @@ describe('pull command', () => {
 		await runPull(ctx);
 
 		const checkout = ctx.store.getCheckoutOfRepo('Behind');
-		expect(checkout?.scan?.state('sync').delta).toBe(0);
+		expect(checkout?.scan?.state('sync').behind).toBe(0);
 		expect(checkout?.scan?.issues()).toEqual([]);
 
 		const ops = ctx.log.all();
@@ -88,6 +87,24 @@ describe('pull command', () => {
 
 		const checkout = ctx.store.getCheckoutOfRepo('Current');
 		expect(checkout?.scan?.state('sync').delta).toBe(0);
+		expect(ctx.log.all()).toHaveLength(0);
+	});
+
+	it('reports no issue and performs no pull on a clean checkout up to date with origin (false positive)', async () => {
+		const tempDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+		const bareDir = makeTempDir(tempDirs);
+		const repoDir = join(tempDir, ctx.config.clone.path, 'uptodate');
+		await initWorkingRepoTest(repoDir, bareDir);
+
+		writeRepoMockRecord(tempDir, 'UpToDate', bareDir);
+		writeCheckoutMockRecord(tempDir, 'UpToDate', 'UpToDate', 'uptodate');
+
+		await runPull(ctx);
+
+		const checkout = ctx.store.getCheckoutOfRepo('UpToDate');
+		expect(checkout?.scan?.state('sync').behind).toBe(0);
+		expect(checkout?.scan?.issues()).toEqual([]);
 		expect(ctx.log.all()).toHaveLength(0);
 	});
 
