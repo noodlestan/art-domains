@@ -348,7 +348,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Review and Refactor Agent Modes                     | `DONE`     |
 | Iteration: Fix Broken References                               | `DONE`     |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
-| Iteration: Rewrite Delegate Plan Skill                         | `PLANNING` |
+| Iteration: Rewrite Delegate Plan Skill                         | `READY`     |
 | Iteration: Integrate Specs Into Plans                          | `PLANNING` |
 | Iteration: Update Domain Knowledge                             | `PLANNING` |
 
@@ -1587,16 +1587,16 @@ refs(domains): Fix broken references using `.md` extension where it should be `.
 
 **id:** `rewrite-delegate-plan`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Streamline delegation interactions by moving routines to canon locations, removing task references, and simplifying commands.
 
 **Changes:**
 
 - Move `prepare-delegation.art` and `delegate-instructions.art` from `$SKILLS/delegate-plan/procedures/` to `$DOMAINS/plans/routines/`
-- Rewrite both routines using canon syntax (see `integrate-plan-upstream.art`): prepare-delegation gains `%maybe-plan`/`%maybe-instructions` inputs and validates iteration READY + commits AUTHORED via validate-plan; delegate-instructions gains `%instructions` input and keeps only worker launch/relay/blocked handling
+- Rewrite both routines using canon syntax (see `integrate-plan-upstream.art`): prepare-delegation gains `%maybe-plan`/`%maybe-instructions` inputs and validates iteration READY + commits AUTHORED via validate-plan; delegate-instructions gains `%instructions` input and keeps only worker launch and outcome identification
 - Remove all task references from both routines
-- Rewrite `$SKILLS/delegate-plan/SKILL.md`: rename h1 to `Delegate Plan`, simplify `Command: Delegate Plan` to 1 input `%plan`, add `Command: Delegate Instructions`, flatten commands, ::READ before every routine invocation
+- Rewrite `$SKILLS/delegate-plan/SKILL.md`: rename h1 to `Delegate Plan`, simplify `Command: Delegate Plan` to 1 input `%plan`, add `Command: Delegate Instructions`, rewrite `Command: Record Delegation` with `%maybe-instructions`/`%maybe-report` inputs, flatten commands, ::READ before every routine invocation
 
 **Scope:** `$DOMAINS/plans/routines/`, `$SKILLS/delegate-plan/`
 
@@ -1606,29 +1606,30 @@ refs(domains): Fix broken references using `.md` extension where it should be `.
 
 | ID                          | Repository / Checkout / Branch    | Policy   | Hash  | Status        |
 | --------------------------- | --------------------------------- | -------- | ----- | ------------- |
-| `rewrite-delegation-routines` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `PLACEHOLDER` |
-| `rewrite-delegate-skill`     | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `PLACEHOLDER` |
+| `rewrite-delegation-routines` | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `AUTHORED` |
+| `rewrite-delegate-skill`     | Workspace / `$WORKSPACE` / `main` | `MANUAL` | `TBD` | `AUTHORED` |
 
 ##### Commit: `rewrite-delegation-routines`
 
 ```
-refactor(domains): Rewrite delegation routines in plans domain
+refactor(workflows-make-work-flow): Rewrite delegation routines in plans domain
 
 - Move prepare-delegation and delegate-instructions to plans/routines/
 - Rewrite prepare-delegation with %maybe-plan and %maybe-instructions inputs
 - Verify iteration READY and commits AUTHORED, validate plan, ALERT on problems
-- Rewrite delegate-instructions with %instructions input, keep worker launch and relay
+- Rewrite delegate-instructions with %instructions input, keep worker launch and outcome identification
 - Remove all task references from both routines
 ```
 
 ##### Commit: `rewrite-delegate-skill`
 
 ```
-refactor(skills): Rewrite delegate-plan skill to match write-plan standards
+refactor(workflows-make-work-flow): Rewrite delegate-plan skill to match write-plan standards
 
 - Rename h1 to Delegate Plan
 - Simplify Delegate Plan command to single %plan input
 - Add Delegate Instructions command for targeted delegation
+- Rewrite Record Delegation command with %maybe-instructions and %maybe-report inputs
 - Flatten all commands, invoke routines with ::READ pattern
 ```
 

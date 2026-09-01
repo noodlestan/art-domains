@@ -74,12 +74,12 @@ The two delegation routines currently live inside the skill at `$SKILLS/delegate
 #### Commit: `rewrite-delegation-routines`
 
 ```
-refactor(domains): Rewrite delegation routines in plans domain
+refactor(workflows-make-work-flow): Rewrite delegation routines in plans domain
 
 - Move prepare-delegation and delegate-instructions to plans/routines/
 - Rewrite prepare-delegation with %maybe-plan and %maybe-instructions inputs
 - Verify iteration READY and commits AUTHORED, validate plan, ALERT on problems
-- Rewrite delegate-instructions with %instructions input, keep worker launch and relay
+- Rewrite delegate-instructions with %instructions input, keep worker launch and outcome identification
 - Remove all task references from both routines
 ```
 
@@ -127,20 +127,27 @@ This routine is the execution half of delegation. It declares a single input:
 - `%instructions` — The instruction files to delegate.
 ```
 
-Keep only the current Step 2 content — the routine does nothing else:
+Keep only the Step 2 content — the routine does nothing else:
 
-- For each instruction file, launch a `worker` agent and pass the implementation instruction as stored in the instruction file. Do not modify prompts.
-- Sub-agent interaction: relay questions verbatim, relay answers verbatim, do not interpret.
-- Blocked tasks: update the task to "Blocked", add the blocker to the plan, and continue the remaining tasks in the batch.
+```md
+**Procedure:**
 
-Remove task references where they refer to old task files; use plan and instruction terminology instead.
+1. Launch a `worker` sub-agent and pass the implementation `%instructions` as stored in the instruction file. Do not modify prompts.
+2. When the sub-agent completes, identify:
+   1. Delegation outcome: successful or did it report a BLOCKER?
+   2. Commits made.
+   3. Uncommitted files.
+   4. The delegation report file created by the sub-agent and whether it was committed or not.
+   5. Evidence and Feedback sections in the delegation report.
+   6. Updates made to plan file.
+```
 
 ### Step 4: Rewrite `$SKILLS/delegate-plan/SKILL.md`
 
 The skill becomes a thin shell over the two domain routines, matching the shape of `$SKILLS/write-plan/SKILL.md`.
 
 - Rename the h1 from `Skill: Execute Plan` to `Skill: Delegate Plan`.
-- Update the Routines section so both `::READ` directives point at the new canon locations:
+- Update the Routines section so both `::READ` directives point at the new canon locations.
 
 ```markdown
 ## Routines
@@ -150,30 +157,86 @@ The skill becomes a thin shell over the two domain routines, matching the shape 
 ::READ `$DOMAINS/plans/routines/delegate-instructions.art` — Execute delegations by launching worker agents with instruction files.
 ```
 
+Keep the Success Criteria: all READY instruction files are executed via delegation, the plan record reflects only status-level progress, and no content from delegation reports - other than feedback - was duplicated in the plan record.
+
+Every routine invocation must be preceded by `::READ` of the routine file.
+
 - Simplify `Command: Delegate Plan` to a single input `%plan`. Discard `%maybe-guide`, the multi-plan logic, and the `%mode` branches — the command just reads the routine and executes it:
 
-```markdown
+```md
 **Procedure:**
 
 1. ::READ `$DOMAINS/plans/routines/prepare-delegation.art`.
 2. Execute the **Routine: Prepare Delegation** with `%plan` to validate delegation prerequisites and set execution state.
-3. ::READ `$DOMAINS/plans/routines/delegate-instructions.art`.
-4. Execute the **Routine: Delegate Instructions** with `%plan` to launch worker agents with the instruction files.
+3. Identify next delegatable `%iterations` within the plan:
+   1. The next delegatable iteration is either the first one, or follows iterations which are all DONE
+   2. Marked as READY, has an instructions file, all commits are AUTHORED
+4. With each READY `%iteration` in `%iterations`
+   1. Execute **Command: Delegate Instructions**
+   2. If the delegation did not complete successfully, STOP and ALERT USER.
+   3. If `%mode` is `autonomous`, go back to step 3: Identify next delegatable `%iterations` within the plan.
 ```
 
-- Add `Command: Delegate Instructions` for targeted delegation: with `%instructions`, execute prepare-delegation to identify the plan and validate; if problems are found, STOP and ALERT USER; if no problems, execute Delegate Instructions, report blocker or success, confirm commits were made, check they were pushed, check the report file, check the plan was updated; present unstaged files and a table with commit id, policy, hash, pushed.
-- Flatten all commands — no bolds in command bodies.
-- Every routine invocation must be preceded by `::READ` of the routine file.
-- Keep the Success Criteria: all READY instruction files are executed via delegation, the plan record reflects only status-level progress, and no task content is duplicated into the plan record.
+- Add `Command: Delegate Instructions` for targeted delegation with inputs `%instructions` and `%mode`.
+
+```md
+**Procedure:**
+
+1. ::READ `$DOMAINS/plans/routines/prepare-delegation.art`.
+2. Execute the **Routine: Prepare Delegation** with `%instructions` to identify the plan and validate delegation prerequisites.
+3. If issues are found, STOP and ALERT USER.
+4. Otherwise:
+   1. ::READ `$DOMAINS/plans/routines/delegate-instructions.art`.
+   2. Execute the **Routine: Delegate Instructions** with `%instructions` to launch worker agents with the instruction files.
+   3. If the delegation did not complete successfully, STOP and ALERT USER.
+   4. Otherwise:
+      1. If `%mode` is `autonomous`:
+         1. Execute the **Command: Record Delegation** with `%instructions`.
+      2. Otherwise:
+         1. Present the outcome to the user, including:
+            - outcome: success or blocker
+            - commits: table of commits made: "repository path", "hash", "policy", "message", "pushed?"
+            - report: path to report file if one was created
+            - instructions: path to delegated instructions file
+            - plan: path to plan file
+            - git status: whether there are uncommitted files in any of the repositories
+```
+
+- Rewrite `Command: Record Delegation` with inputs `%maybe-instructions` and `%maybe-report`.
+
+Use the following pseudo code, complete it, use canon syntax and idioms.
+
+```pseudo
+**Procedure:**
+
+resolve input to `%instructions` and its owning `%plan`
+identify:
+   1. Delegation outcome: successful or did it report a BLOCKER?
+   2. Commits made.
+   3. Uncommitted files.
+   4. The delegation report file created by the sub-agent and whether it was committed or not.
+   5. Evidence and Feedback sections in the delegation report.
+   6. Updates made to plan file.
+Determine the delta, i.e., what still needs to be committed and updated.
+If the delegation reported a BLOCKER or an inconsistency is found (other than stale statuses in the plan file), STOP and ALERT USER.
+Otherwise, perform all operations that apply:
+   1. in the plan:
+      1. update iteration status to DONE, both in its section and eventual tables that list iterations with statuses.
+      2. update commit statuses to COMMITTED, both in their sections and eventual tables that list commits with statuses.
+   2. stage uncommitted artefacts, such as the delegation report, and eventual source code not committed by agent
+   3. commit "integrate({scope}): iteration `{iteration.id}` DONE".
+
+```
 
 #### Commit: `rewrite-delegate-skill`
 
 ```
-refactor(skills): Rewrite delegate-plan skill to match write-plan standards
+refactor(workflows-make-work-flow): Rewrite delegate-plan skill to match write-plan standards
 
 - Rename h1 to Delegate Plan
 - Simplify Delegate Plan command to single %plan input
 - Add Delegate Instructions command for targeted delegation
+- Rewrite Record Delegation command with %maybe-instructions and %maybe-report inputs
 - Flatten all commands, invoke routines with ::READ pattern
 ```
 
