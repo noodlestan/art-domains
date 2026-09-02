@@ -66,7 +66,7 @@ Update the operation type model and logging/presentation in `$PROJECT/src/privat
 
 ### Next
 
-Delegate the next `READY` iteration: `add-pending-operation-types`.
+Delegate the next `READY` iteration: `stream-pending-operations-live`.
 
 ### Blockers
 
@@ -123,20 +123,22 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 | Iteration / Instructions                  | Status  |
 | ----------------------------------------- | ------- |
-| Iteration: Add Pending Operation Types    | `READY` |
+| Iteration: Add Pending Operation Types    | `DONE`  |
 | Iteration: Stream Pending Operations Live | `READY` |
 
 ### Iteration: Add Pending Operation Types
 
 **Id:** `add-pending-operation-types`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Extend the operation type model with a `pending` outcome and per-operation pending types so operations can be logged before they complete.
 
 **Description:** Add `pending` to `OperationOutcome`; introduce `OperationPending` and a pending variant for each operation kind; rename `branch created` to `branch`; reorder types to match the export order; extend the `Operation` union with all pending types.
 
 **Instructions:** `./plan-log-process-as-it-happens/instructions/add-pending-operation-types.md`
+
+**Report:** `./plan-log-process-as-it-happens/instructions/add-pending-operation-types__report.md`
 
 **Changes:**
 
@@ -152,14 +154,18 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 #### Commits:
 
-| ID                            | Repository / Checkout / Branch      | Policy       | Hash  | Status     |
-| ----------------------------- | ----------------------------------- | ------------ | ----- | ---------- |
-| `add-pending-operation-types` | Workspace CLI / `$PROJECT` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `rename-branch-created`       | Workspace CLI / `$PROJECT` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                            | Repository / Checkout / Branch                                | Policy       | Hash      | Status      |
+| ----------------------------- | ------------------------------------------------------------- | ------------ | --------- | ----------- |
+| `add-pending-operation-types` | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | `19cd900` | `COMMITTED` |
+| `rename-branch-created`       | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | `6058533` | `COMMITTED` |
 
 ##### Commit: `add-pending-operation-types`
 
 **Repository:** Workspace CLI
+
+**Hash:** `19cd900`
+
+**Status:** `COMMITTED`
 
 **Message:**
 
@@ -174,6 +180,10 @@ build(workspace-cli): add pending operation types.
 ##### Commit: `rename-branch-created`
 
 **Repository:** Workspace CLI
+
+**Hash:** `6058533`
+
+**Status:** `COMMITTED`
 
 **Message:**
 
