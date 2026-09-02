@@ -1,6 +1,10 @@
-# Art Domains
+# Guide: Art Domains
 
-Manage Art Domains knowledge resources and work streams.
+> Host and manage the Art Domains packages and tools, and their planning artefacts.
+
+Monorepo containing the Art Domains roadmap, architecture knowledge, domain libraries source code and their backlogs.
+
+Uses Workflow: Planning Work with one backlog per package, coordinating with Workflow: Roadmapping from one project-wide roadmap.
 
 ## Recommended Reading
 

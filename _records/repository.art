@@ -2,9 +2,9 @@
 
 ## Repository: Art Domains
 
-**Purpose:** Extends agentic working environments with structured instructions projected from stable sources of truth.
+**Purpose:** Host and manage the Art Domains packages and tools, and their planning artefacts.
 
-**Description:** Distributable artificial resources within knowledge and work domains: agent instructions, structures, processes, CLIs, and tools.
+**Description:** Monorepo containing the Art Domains roadmap, architecture knowledge, domain libraries source code and their backlogs.
 
 **Owner:** Project: Art Domains
 

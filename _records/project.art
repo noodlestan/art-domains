@@ -2,9 +2,9 @@
 
 ## Project: Art Domains
 
-**Purpose:** Manage Art Domains knowledge resources and work streams.
+**Purpose:** Extends agentic working environments with structured instructions projected from stable sources of truth.
 
-**Description:** Hosts Art Domains roadmap and backlog and the domain architecture knowledge and ADRs.
+**Description:** Distributable artificial resources within knowledge and work domains: structures, templates, processes, agent instructions, modes, and skills.
 
 **Owner:** Project: Artificials
 
@@ -20,6 +20,6 @@
 
 **Private:** `false`
 
-**Management:** Uses Workflow: Planning Work with a backlog at `_backlog/`.
+**Management:** Uses Workflow: Planning Work with one backlog per package, coordinating with Workflow: Roadmapping from one project-wide roadmap.
 
 **License:** License: Noodlestan 2026 MIT

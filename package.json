@@ -1,7 +1,7 @@
 {
   "name": "noodlestan/art-domains",
   "version": "0.0.1",
-  "description": "Extends agentic working environments with structured instructions projected from stable sources of truth.",
+  "description": "Distributable artificial resources within knowledge and work domains: agent instructions, structures, processes, CLIs, and tools.",
   "author": "Noodlestan",
   "license": "MIT",
   "private": true,
