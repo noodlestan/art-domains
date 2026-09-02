@@ -1667,7 +1667,7 @@ refactor(workflows-make-work-flow): Rewrite delegate-plan skill and update domai
 
 **id:** `update-domain-knowledge`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Document how domains work with new structures and workflows.
 
@@ -1687,6 +1687,26 @@ refactor(workflows-make-work-flow): Rewrite delegate-plan skill and update domai
 - Reference model reflects new work domain structures
 - Workflows documented with stages and operations
 - Domain indexes updated with new resources
+
+**Instructions:** `./plan-workflows-make-work-flow/instructions/update-domain-knowledge.md`
+
+**Report:** `./plan-workflows-make-work-flow/instructions/update-domain-knowledge__report.md`
+
+**Commits:**
+
+| ID                        | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| ------------------------- | --------------------------------- | ------------ | --------- | ----------- |
+| `update-domain-knowledge` | Art Domains / `$ART_DOMAINS` / `main` | `AUTONOMOUS` |           | `AUTHORED`  |
+
+##### Commit: `update-domain-knowledge`
+
+```
+docs(art-domains): Align architecture with canonical domain landscape
+
+- Rewrite reference-model.md with the 14 canonical domain boundaries
+- Rewrite reference-workflows.md with the 5 workflows and their operations
+- Update index.md with corrected domain and workflow counts
+```
 
 ## Coordination
 
