@@ -2,7 +2,7 @@ import { existsSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import simpleGit from 'simple-git';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { createMockCommandContext } from '../../../test/helpers/context/createMockCommandContext';
 import { initWorkingRepoTest } from '../../../test/helpers/git/initWorkingRepoTest';
@@ -97,5 +97,51 @@ describe('doPullCheckout', () => {
 		expect(result).toBeNull();
 		expect(ctx.log.all()).toHaveLength(1);
 		expect(ctx.log.all()[0].outcome).toBe('failure');
+	});
+
+	it('emits a pending pull before the pull side effect', async () => {
+		const tempDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+		const bareDir = makeTempDir(tempDirs);
+		const repoDir = join(tempDir, ctx.config.clone.path, 'pending-pull');
+		await initWorkingRepoTest(repoDir, bareDir);
+
+		// Point remote to a non-existent path so pull fails
+		const git = simpleGit(repoDir);
+		await git.remote(['set-url', 'origin', join(tempDir, 'missing-origin')]);
+
+		const checkout = createCheckout(ctx.config, 'pending-pull', {
+			name: 'PendingPull',
+			remote: 'git@example.com:pending-pull.git',
+		});
+		checkout.scan = createCheckoutScan([
+			createRepoState(true),
+			createExistsState(true),
+			createRemoteState('main', 'main', true),
+			createSyncState(-1, 0, 1),
+			createCommittedState(true),
+			createNoConflictsState(true),
+			createNoDetachedState(true),
+		]);
+
+		let pendingEmitted = false;
+		const spy = vi.fn(() => {
+			pendingEmitted = true;
+		});
+
+		const originalLog = ctx.log;
+		const pendingLog = {
+			...originalLog,
+			log(op: unknown) {
+				if ((op as { outcome?: string }).outcome === 'pending') spy();
+				originalLog.log(op as never);
+			},
+		};
+		(ctx as unknown as { log: typeof pendingLog }).log = pendingLog;
+
+		const result = await doPullCheckout(ctx, checkout);
+
+		expect(result).toBeNull();
+		expect(pendingEmitted).toBe(true);
 	});
 });

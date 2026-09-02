@@ -4,6 +4,7 @@ import type { WorkspaceContext } from '../../context/createWorkspaceContext';
 import { scanCheckoutState } from '../../scan/scanCheckoutState';
 import { type Checkout } from '../../store/createCheckout';
 import { createPushFailure } from '../operations/createPushFailure';
+import { createPushPending } from '../operations/createPushPending';
 import { createPushSuccess } from '../operations/createPushSuccess';
 
 export async function doPushCheckout(
@@ -12,6 +13,7 @@ export async function doPushCheckout(
 ): Promise<Checkout | null> {
 	const git = simpleGit(checkout.path);
 	try {
+		ctx.log.log(createPushPending(checkout, checkout.record.branch));
 		await git.push('origin', checkout.record.branch);
 		const updated = await scanCheckoutState(checkout);
 		ctx.store.updateCheckout(updated);
