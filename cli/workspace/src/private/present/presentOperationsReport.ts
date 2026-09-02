@@ -1,9 +1,9 @@
 import type { OperationsLog } from '../log/createOperationsLog';
-import type { Operation } from '../operations/types';
+import type { OperationBase } from '../operations/types';
 
 import { formatTable } from './formatTable';
 
-export function makeOperationLogLine(op: Operation): string[] {
+export function makeOperationLogLine(op: OperationBase): string[] {
 	return [
 		op.outcome === 'pending' ? '⏳' : op.outcome === 'success' ? '🟢' : '🔴',
 		op.checkout?.repo?.name || 'unknown',
