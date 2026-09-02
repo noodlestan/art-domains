@@ -66,7 +66,7 @@ Update the operation type model and logging/presentation in `$PROJECT/src/privat
 
 ### Next
 
-Delegate the next `READY` iteration: `stream-pending-operations-live`.
+All iterations are `DONE`.
 
 ### Blockers
 
@@ -121,10 +121,10 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions                  | Status  |
-| ----------------------------------------- | ------- |
-| Iteration: Add Pending Operation Types    | `DONE`  |
-| Iteration: Stream Pending Operations Live | `READY` |
+| Iteration / Instructions                  | Status |
+| ----------------------------------------- | ------ |
+| Iteration: Add Pending Operation Types    | `DONE` |
+| Iteration: Stream Pending Operations Live | `DONE` |
 
 ### Iteration: Add Pending Operation Types
 
@@ -198,13 +198,15 @@ renames(workspace-cli): rename branch created operation to branch.
 
 **Id:** `stream-pending-operations-live`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Stream pending operations through the logger as they are issued, and present a `doing:` line for each.
 
 **Description:** Pass a logger into `createOperationsLog`; when a `pending` operation is logged, call the logger and do not append it to the store; extract a shared `makeOperationLogLine` presenter handling ⏳/🟢/🔴; wire a live logger in `src/index.ts`.
 
 **Instructions:** `./plan-log-process-as-it-happens/instructions/stream-pending-operations-live.md`
+
+**Report:** `./plan-log-process-as-it-happens/instructions/stream-pending-operations-live__report.md`
 
 **Changes:**
 
@@ -219,14 +221,18 @@ renames(workspace-cli): rename branch created operation to branch.
 
 #### Commits:
 
-| ID                          | Repository / Checkout / Branch      | Policy       | Hash  | Status     |
-| --------------------------- | ----------------------------------- | ------------ | ----- | ---------- |
-| `stream-pending-operations` | Workspace CLI / `$PROJECT` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `wire-live-logger`          | Workspace CLI / `$PROJECT` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                          | Repository / Checkout / Branch                                | Policy       | Hash      | Status      |
+| --------------------------- | ------------------------------------------------------------- | ------------ | --------- | ----------- |
+| `stream-pending-operations` | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | `6d6458f` | `COMMITTED` |
+| `wire-live-logger`          | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | `0b004f7` | `COMMITTED` |
 
 ##### Commit: `stream-pending-operations`
 
 **Repository:** Workspace CLI
+
+**Hash:** `6d6458f`
+
+**Status:** `COMMITTED`
 
 **Message:**
 
@@ -241,6 +247,10 @@ build(workspace-cli): stream pending operations through the log.
 ##### Commit: `wire-live-logger`
 
 **Repository:** Workspace CLI
+
+**Hash:** `0b004f7`
+
+**Status:** `COMMITTED`
 
 **Message:**
 
@@ -260,7 +270,9 @@ build(workspace-cli): wire live operation logger in index.
 
 ### Evidence
 
-- None.
+- Iteration `add-pending-operation-types`: `pending` outcome, `OperationPending` and 7 per-operation pending types added; `branch created` renamed to `branch`; `Operation` union extended with `Pending | Success | Failure` per kind. Commits `19cd900`, `6058533`.
+- Iteration `stream-pending-operations-live`: optional logger in `createOperationsLog`; `makeOperationLogLine` presenter with ⏳/🟢/🔴; live logger wired in `src/index.ts`. Commits `6d6458f`, `0b004f7`.
+- All 243 tests pass; lint and build green.
 
 ### Findings
 
@@ -282,4 +294,6 @@ build(workspace-cli): wire live operation logger in index.
 
 ### Feedback
 
-- None.
+- Planner: no deviations from instruction intent; two in-scope adjustments — `console.log` → `console.info` (eslint `no-console`) and `makeOperationLogLine` param typed `OperationBase` (pending types not assignable to the `Operation` union).
+- Technical writers: `architecture/operations-log.md` does not yet document `pending` as an outcome or the streaming/logger concept; consider updating.
+- Crew: no issues.
