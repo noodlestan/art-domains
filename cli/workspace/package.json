@@ -14,6 +14,16 @@
   "bin": {
     "art-workspace": "./dist/index.js"
   },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "import": "./dist/config/index.js"
+    }
+  },
   "files": [
     "dist",
     "LICENSE-MIT",
