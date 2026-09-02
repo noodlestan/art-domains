@@ -2,7 +2,7 @@ import type { Checkout } from '../store/createCheckout';
 
 export type CheckoutOp = 'clone' | 'push' | 'pull' | 'branch';
 
-export type OperationOutcome = 'success' | 'failure';
+export type OperationOutcome = 'pending' | 'success' | 'failure';
 
 export interface OperationBase {
 	operation: string;
@@ -10,6 +10,10 @@ export interface OperationBase {
 	checkout?: Checkout;
 	outcome: OperationOutcome;
 	message: () => string;
+}
+
+export interface OperationPending extends OperationBase {
+	outcome: 'pending';
 }
 
 export interface OperationSuccess extends OperationBase {
@@ -22,13 +26,38 @@ export interface OperationFailure extends OperationBase {
 	errorSerialized: () => string;
 }
 
+export interface ClonePending extends OperationPending {
+	operation: 'clone';
+	location: string;
+}
+
 export interface CloneSuccess extends OperationSuccess {
 	operation: 'clone';
 	location: string;
 }
 
+export interface CloneFailure extends OperationFailure {
+	operation: 'clone';
+	location: string;
+}
+
+export interface PushPending extends OperationPending {
+	operation: 'push';
+	branch: string;
+}
+
 export interface PushSuccess extends OperationSuccess {
 	operation: 'push';
+	branch: string;
+}
+
+export interface PushFailure extends OperationFailure {
+	operation: 'push';
+	branch: string;
+}
+
+export interface PullPending extends OperationPending {
+	operation: 'pull';
 	branch: string;
 }
 
@@ -37,37 +66,21 @@ export interface PullSuccess extends OperationSuccess {
 	branch: string;
 }
 
-export interface PublishSuccess extends OperationSuccess {
+export interface PullFailure extends OperationFailure {
+	operation: 'pull';
+	branch: string;
+}
+
+export interface PublishPending extends OperationPending {
 	operation: 'publish';
 	package: string;
 	version: string;
 }
 
-export interface BranchSuccess extends OperationSuccess {
-	operation: 'branch created';
-	branch: string;
-}
-
-export interface LinkedSuccess extends OperationSuccess {
-	operation: 'linked';
+export interface PublishSuccess extends OperationSuccess {
+	operation: 'publish';
 	package: string;
-	target: string;
-}
-
-export interface UnlinkSuccess extends OperationSuccess {
-	operation: 'unlink';
-	package: string;
-	source: string;
-}
-
-export interface PushFailure extends OperationFailure {
-	operation: 'push';
-	branch: string;
-}
-
-export interface PullFailure extends OperationFailure {
-	operation: 'pull';
-	branch: string;
+	version: string;
 }
 
 export interface PublishFailure extends OperationFailure {
@@ -76,9 +89,31 @@ export interface PublishFailure extends OperationFailure {
 	version: string;
 }
 
+export interface BranchPending extends OperationPending {
+	operation: 'branch created';
+	branch: string;
+}
+
+export interface BranchSuccess extends OperationSuccess {
+	operation: 'branch created';
+	branch: string;
+}
+
 export interface BranchFailure extends OperationFailure {
 	operation: 'branch created';
 	branch: string;
+}
+
+export interface LinkedPending extends OperationPending {
+	operation: 'linked';
+	package: string;
+	target: string;
+}
+
+export interface LinkedSuccess extends OperationSuccess {
+	operation: 'linked';
+	package: string;
+	target: string;
 }
 
 export interface LinkedFailure extends OperationFailure {
@@ -87,29 +122,43 @@ export interface LinkedFailure extends OperationFailure {
 	target: string;
 }
 
+export interface UnlinkPending extends OperationPending {
+	operation: 'unlink';
+	package: string;
+	source: string;
+}
+
+export interface UnlinkSuccess extends OperationSuccess {
+	operation: 'unlink';
+	package: string;
+	source: string;
+}
+
 export interface UnlinkFailure extends OperationFailure {
 	operation: 'unlink';
 	package: string;
 	source: string;
 }
 
-export interface CloneFailure extends OperationFailure {
-	operation: 'clone';
-	location: string;
-}
-
 export type Operation =
+	| ClonePending
 	| CloneSuccess
 	| CloneFailure
+	| PushPending
 	| PushSuccess
 	| PushFailure
+	| PullPending
 	| PullSuccess
 	| PullFailure
+	| PublishPending
 	| PublishSuccess
 	| PublishFailure
+	| BranchPending
 	| BranchSuccess
 	| BranchFailure
+	| LinkedPending
 	| LinkedSuccess
 	| LinkedFailure
+	| UnlinkPending
 	| UnlinkSuccess
 	| UnlinkFailure;
