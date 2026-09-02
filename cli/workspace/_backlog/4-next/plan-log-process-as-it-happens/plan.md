@@ -37,7 +37,7 @@ Add `pending` operations to the type model, stream them live through the operati
 | --------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------- |
 | Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers. |
 | Architecture Briefing | `_backlog/_architect.md`                                           | Workspace principles, NFRs, milestones.                         |
-| Milestone             | `$PROJECT/_backlog/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan within the Workspace CLI One milestone.   |
+| Milestone             | `$PROJECT/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan within the Workspace CLI One milestone.   |
 
 ### Required Skills
 
@@ -66,7 +66,7 @@ Update the operation type model and logging/presentation in `$PROJECT/src/privat
 
 ### Next
 
-Delegate the next `READY` iteration: `output-pending-operations`.
+Delegate the next `READY` iteration: `glob-option-a`.
 
 ### Blockers
 
@@ -121,11 +121,12 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions                  | Status  |
-| ----------------------------------------- | ------- |
-| Iteration: Add Pending Operation Types    | `DONE`  |
-| Iteration: Stream Pending Operations Live | `DONE`  |
-| Iteration: Output Pending Operations      | `READY` |
+| Iteration / Instructions                  | Status    |
+| ----------------------------------------- | --------- |
+| Iteration: Add Pending Operation Types    | `DONE`    |
+| Iteration: Stream Pending Operations Live | `DONE`    |
+| Iteration: Output Pending Operations      | `WORKING` |
+| Iteration: Glob Option A                  | `READY`   |
 
 ### Iteration: Add Pending Operation Types
 
@@ -319,6 +320,62 @@ build(workspace-cli): emit pending scan operations.
 
 - Log a pending operation when scanning a checkout so supporting work is visible.
 - Only pending scans are reported; no success/failure scan operations.
+```
+
+### Iteration: Glob Option A
+
+**Id:** `glob-option-a`
+
+**Status:** `READY`
+
+**Purpose:** Speed up record discovery by moving string `ignored` patterns and a baseline of always-excluded directories into the glob's `exclude` option, and express `included` overrides as separate positive globs unioned with the main results.
+
+**Description:** Refactor `findCandidateFiles`/`findRecordFiles` so the glob itself skips `node_modules`, `.git`, `dist` and the string `ignored` patterns, and `included` string patterns are globbed separately and unioned in (Option A). RegExp patterns and the `git check-ignore` post-filter remain for the parts glob cannot express.
+
+**Instructions:** `./plan-log-process-as-it-happens/instructions/glob-option-a.md`
+
+**Changes:**
+
+- In `src/private/records/private/findCandidateFiles.ts`, accept an `exclude` list and pass it to `globSync`; add a baseline exclude of `node_modules`, `.git`, `dist`.
+- In `src/private/records/findRecordFiles.ts`, build the glob `exclude` from the baseline plus the string `ignored` patterns; run the main glob with those excludes.
+- Union `included` string patterns as separate positive globs so `included` overrides gitignore.
+- Keep RegExp `ignored`/`included` patterns and the `git check-ignore` post-filter for the parts glob cannot express.
+
+**Dependencies:**
+
+- None.
+
+#### Commits:
+
+| ID                     | Repository / Checkout / Branch                                | Policy       | Hash  | Status     |
+| ---------------------- | ------------------------------------------------------------- | ------------ | ----- | ---------- |
+| `glob-exclude-ignored` | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| `glob-include-union`   | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+
+##### Commit: `glob-exclude-ignored`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+build(workspace-cli): pass ignored patterns and baseline dirs to glob exclude.
+
+- Add `exclude` to `globSync` for `node_modules`, `.git`, `dist`.
+- Pass string `ignored` patterns through to the glob `exclude`.
+```
+
+##### Commit: `glob-include-union`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+build(workspace-cli): union included patterns as positive globs.
+
+- Glob each string `included` pattern separately and union with the main results.
+- Keep RegExp patterns and the git check-ignore post-filter.
 ```
 
 ---
