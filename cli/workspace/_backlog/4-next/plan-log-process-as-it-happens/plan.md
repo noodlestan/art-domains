@@ -265,13 +265,15 @@ build(workspace-cli): wire live operation logger in index.
 
 **Id:** `output-pending-operations`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Purpose:** Emit pending operations before starting commands and supporting operations, so `doing:` lines stream immediately and supporting work is visible.
 
 **Description:** Add `create*Pending` factories and log a pending operation before each command's side effect; emit pending scan operations so supporting work is visible for performance planning.
 
 **Instructions:** `./plan-log-process-as-it-happens/instructions/output-pending-operations.md`
+
+**Report:** `./plan-log-process-as-it-happens/instructions/output-pending-operations__report.md`
 
 **Changes:**
 
@@ -284,14 +286,18 @@ build(workspace-cli): wire live operation logger in index.
 
 #### Commits:
 
-| ID                        | Repository / Checkout / Branch                                | Policy       | Hash  | Status     |
-| ------------------------- | ------------------------------------------------------------- | ------------ | ----- | ---------- |
-| `emit-pending-operations` | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `emit-scan-operations`    | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `MANUAL`     | (TBD) | `AUTHORED` |
+| ID                        | Repository / Checkout / Branch                                | Policy       | Hash      | Status      |
+| ------------------------- | ------------------------------------------------------------- | ------------ | --------- | ----------- |
+| `emit-pending-operations` | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | `e6f46ff` | `COMMITTED` |
+| `emit-scan-operations`    | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `MANUAL`     | (TBD)     | `AUTHORED`  |
 
 ##### Commit: `emit-pending-operations`
 
 **Repository:** Workspace CLI
+
+**Hash:** `e6f46ff`
+
+**Status:** `COMMITTED`
 
 **Message:**
 
@@ -327,7 +333,8 @@ build(workspace-cli): emit pending scan operations.
 
 - Iteration `add-pending-operation-types`: `pending` outcome, `OperationPending` and 7 per-operation pending types added; `branch created` renamed to `branch`; `Operation` union extended with `Pending | Success | Failure` per kind. Commits `19cd900`, `6058533`.
 - Iteration `stream-pending-operations-live`: optional logger in `createOperationsLog`; `makeOperationLogLine` presenter with ⏳/🟢/🔴; live logger wired in `src/index.ts`. Commits `6d6458f`, `0b004f7`.
-- All 243 tests pass; lint and build green.
+- Iteration `output-pending-operations` (commit 1): 7 `create*Pending` factories added; every command emits a pending operation before its side effect; tests added. Commit `e6f46ff`. Commit 2 `emit-scan-operations` (MANUAL) pending.
+- All 245 tests pass; lint and build green.
 
 ### Findings
 
