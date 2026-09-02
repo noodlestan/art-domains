@@ -188,7 +188,7 @@ arch(workspace-cli): update behind detection knowledge.
 
 **Id:** `fix-workspace-state-detection`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Fix the workspace report showing "unknown project" incorrectly and improve workspace state presentation.
 

@@ -117,6 +117,7 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 1     | Plan: Discover Records Dynamically `_backlog/1-done/plan-discover-records/plan.md`                                           | `DONE`      |
 | 1     | Plan: Workspace CLI — Fix Reported Bugs `_backlog/0-archive/2026-08-19-plan-fix-reported-bugs/plan.md`                       | `ARCHIVED`  |
 | 1     | Plan: Workspace CLI — Fixes and Test Coverage `_backlog/1-done/plan-repo-command-fixes-and-tests/plan.md`                    | `DONE`      |
+| 1     | Plan: Fix Pull Push Bugs `_backlog/1-done/plan-fix-pull-push-bugs/plan.md`                                                   | `DONE`      |
 | -     |                                                                                                                              |             |
 | 2     | Plan: Workspace CLI — Link Command `_backlog/4-next/plan-implement-link/plan.md`                                             | `DRAFT`     |
 | 2     | Plan: Workspace CLI — Links Command `_backlog/4-next/plan-implement-links/plan.md`                                           | `DRAFT`     |
