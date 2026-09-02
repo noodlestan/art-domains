@@ -2,7 +2,7 @@
 
 **ID:** `log-process-as-it-happens`
 
-**Status:** `DONE`
+**Status:** `WORKING`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -66,7 +66,7 @@ Update the operation type model and logging/presentation in `$PROJECT/src/privat
 
 ### Next
 
-All iterations are `DONE`.
+Delegate the next `READY` iteration: `output-pending-operations`.
 
 ### Blockers
 
@@ -121,10 +121,11 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions                  | Status |
-| ----------------------------------------- | ------ |
-| Iteration: Add Pending Operation Types    | `DONE` |
-| Iteration: Stream Pending Operations Live | `DONE` |
+| Iteration / Instructions                  | Status  |
+| ----------------------------------------- | ------- |
+| Iteration: Add Pending Operation Types    | `DONE`  |
+| Iteration: Stream Pending Operations Live | `DONE`  |
+| Iteration: Output Pending Operations      | `READY` |
 
 ### Iteration: Add Pending Operation Types
 
@@ -258,6 +259,60 @@ build(workspace-cli): stream pending operations through the log.
 build(workspace-cli): wire live operation logger in index.
 
 - Log pending operations as `doing: {operation} {repo} {details}` via `makeOperationLogLine`.
+```
+
+### Iteration: Output Pending Operations
+
+**Id:** `output-pending-operations`
+
+**Status:** `READY`
+
+**Purpose:** Emit pending operations before starting commands and supporting operations, so `doing:` lines stream immediately and supporting work is visible.
+
+**Description:** Add `create*Pending` factories and log a pending operation before each command's side effect; emit pending scan operations so supporting work is visible for performance planning.
+
+**Instructions:** `./plan-log-process-as-it-happens/instructions/output-pending-operations.md`
+
+**Changes:**
+
+- Make all commands emit a pending operation before starting their side effect (pull, push, sync, branch, clone, link, unlink, publish).
+- Emit pending scan operations when scanning a checkout, reporting only pending scans (no success/failure scan operations).
+
+**Dependencies:**
+
+- `stream-pending-operations-live` — pending types, logger, and presenter must exist before emission.
+
+#### Commits:
+
+| ID                        | Repository / Checkout / Branch                                | Policy       | Hash  | Status     |
+| ------------------------- | ------------------------------------------------------------- | ------------ | ----- | ---------- |
+| `emit-pending-operations` | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| `emit-scan-operations`    | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `MANUAL`     | (TBD) | `AUTHORED` |
+
+##### Commit: `emit-pending-operations`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+build(workspace-cli): emit pending operations before starting commands.
+
+- Add `create*Pending` factories and log a pending operation before each command's side effect.
+- Wire pending emission in pull/push/sync/branch/clone command handlers.
+```
+
+##### Commit: `emit-scan-operations`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+build(workspace-cli): emit pending scan operations.
+
+- Log a pending operation when scanning a checkout so supporting work is visible.
+- Only pending scans are reported; no success/failure scan operations.
 ```
 
 ---
