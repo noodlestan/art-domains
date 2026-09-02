@@ -350,7 +350,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
 | Iteration: Rewrite Delegate Plan Skill                         | `DONE`     |
 | Iteration: Integrate Specs Into Plans                          | `PLANNING` |
-| Iteration: Update Domain Knowledge                             | `PLANNING` |
+| Iteration: Update Domain Knowledge                             | `READY`    |
 
 ### Iteration: Add Work Domain
 
@@ -1694,9 +1694,9 @@ refactor(workflows-make-work-flow): Rewrite delegate-plan skill and update domai
 
 **Commits:**
 
-| ID                        | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
-| ------------------------- | --------------------------------- | ------------ | --------- | ----------- |
-| `update-domain-knowledge` | Art Domains / `$ART_DOMAINS` / `main` | `AUTONOMOUS` |           | `AUTHORED`  |
+| ID                        | Repository / Checkout / Branch        | Policy       | Hash | Status     |
+| ------------------------- | ------------------------------------- | ------------ | ---- | ---------- |
+| `update-domain-knowledge` | Art Domains / `$ART_DOMAINS` / `main` | `AUTONOMOUS` |      | `AUTHORED` |
 
 ##### Commit: `update-domain-knowledge`
 
