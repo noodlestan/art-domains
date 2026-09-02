@@ -291,6 +291,8 @@ build(workspace-cli): wire live operation logger in index.
 ### Follow Ups
 
 - Create the pending operation (with `details`) in each command before the side effect is executed, so every operation streams a `doing:` line immediately — this plan lays the type/log/presenter groundwork; per-command emission is a follow-up.
+- Reduce redundant scanning in `pull`/`push`/`sync`: each `scanCheckoutState` spawns ~9 git subprocesses and `getBehindCount` does a network `git fetch` per checkout; `runSync` re-scans each pulled+pushed checkout up to 3× (initial + after pull + after push), plus workspace re-scans. Consider caching scan results and/or batching the fetch.
+- Add a `[checkouts...]` argument to `pull`/`push`/`sync` (like `branch`/`repo`) so the operation can be scoped to one or more checkout locations instead of always iterating `getAllCheckouts()`.
 
 ### Feedback
 
