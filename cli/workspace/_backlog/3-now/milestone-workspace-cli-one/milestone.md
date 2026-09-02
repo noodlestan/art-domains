@@ -119,19 +119,20 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 1     | Plan: Workspace CLI — Fixes and Test Coverage `_backlog/1-done/plan-repo-command-fixes-and-tests/plan.md`                    | `DONE`      |
 | 1     | Plan: Fix Pull Push Bugs `_backlog/1-done/plan-fix-pull-push-bugs/plan.md`                                                   | `DONE`      |
 | -     |                                                                                                                              |             |
+| 2     | Plan: Log Process as it Happens `_backlog/4-next/plan-log-process-as-it-happens/plan.md`                                     | `DRAFT`     |
 | 2     | Plan: Workspace CLI — Link Command `_backlog/4-next/plan-implement-link/plan.md`                                             | `DRAFT`     |
 | 2     | Plan: Workspace CLI — Links Command `_backlog/4-next/plan-implement-links/plan.md`                                           | `DRAFT`     |
 | 2     | Plan: Workspace CLI — Publish Command `_backlog/4-next/plan-implement-publish/plan.md`                                       | `DRAFT`     |
 | 2     | Plan: Workspace CLI — Unlink Command `_backlog/4-next/plan-implement-unlink/plan.md`                                         | `DRAFT`     |
 | 2     | Plan: Update Knowledge Resources `_backlog/4-next/update-knowledge-resources/plan.md`                                        | `PREPARING` |
 | -     |                                                                                                                              |             |
-| 3     | Plan: Move Code and Project to New Repo                                                                                      | `DRAFT`     |
+| 3     | Plan: Extract Workspace CLI to Repository: Art CLI (New)Repo                                                                 | `DRAFT`     |
 | 3     | Plan: Extract Record Units to Lib-Records                                                                                    | `DRAFT`     |
 | 3     | Plan: Generate Art-CLI Roadmap                                                                                               | `DRAFT`     |
 
 The following items are not yet captured in a work item document.
 
-### Plan: Move Code and Project to New Repo
+### Plan: Move Code and Project to Repository: Art CLI (New)
 
 **Status:** `DRAFT`
 
@@ -190,7 +191,7 @@ The following items are not yet captured in a work item document.
 
 ### Next
 
-Phase 2 — execute `plan-implement-link`.
+Phase 2 — draft and execute `plan-log-process-as-it-happens`.
 
 ### Blockers
 

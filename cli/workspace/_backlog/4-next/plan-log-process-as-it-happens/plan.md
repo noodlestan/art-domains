@@ -1,0 +1,208 @@
+# Plan: Log Process as it Happens
+
+**ID:** `log-process-as-it-happens`
+
+**Status:** `DRAFT`
+
+**Template:** `.agents/domains/plans/templates/plan.tart`
+
+**Skill:** `write-plan`
+
+**Purpose:** Stream operations through the operations log as they happen, so pending operations show immediately as `...doing: {operation} {repo} {details}` before they complete.
+
+**Description:** Introduce a `pending` outcome and per-operation pending types, rename `branch created` to `branch`, extract a shared `makeOperationLogLine` presenter with ⏳/🟢/🔴 rendering, pass a live logger into `createOperationsLog`, and wire it in `src/index.ts`.
+
+## Mandatory Reading
+
+::READ `$DOMAINS/plans/structures/plan.art` (Structure) — Describe the work-item changes through a series of iterations and commits with detailed instructions.
+
+---
+
+## Path Variables
+
+| Variable     | Resolved Path             | Purpose                               |
+| ------------ | ------------------------- | ------------------------------------- |
+| `$WORKSPACE` | Current working directory | Workspace root directory              |
+| `$PROJECT`   | Provided with prompt      | Where work execution is taking place. |
+
+## Summary
+
+Add `pending` operations to the type model, stream them live through the operations log, and present `doing:` lines as operations are issued (before they complete), while keeping completed/failed reporting intact.
+
+## Context
+
+### Upstream Work
+
+| Kind                  | Path                                                               | Role                                                            |
+| --------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------- |
+| Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers. |
+| Architecture Briefing | `_backlog/_architect.md`                                           | Workspace principles, NFRs, milestones.                         |
+| Milestone             | `$PROJECT/_backlog/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan within the Workspace CLI One milestone.   |
+
+### Required Skills
+
+- `write-plan` — Writes execution plans and implementation instructions. Required for Planning Work Item.
+- `render-template` — Renders plan and instruction artefacts. Required for Drafting, Refining.
+
+### Domains
+
+| Domain / Path                           | Description                                                                        |
+| --------------------------------------- | ---------------------------------------------------------------------------------- |
+| Domain: Plans `$DOMAINS/plans/index.md` | Planning lifecycle for contextualising, drafting, planning, and integrating plans. |
+
+### Knowledge
+
+::READ `_backlog/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
+::READ `architecture/operations-log.md` (Model) — OperationsLog and Operation semantics. Read-only reference; do not edit. Relevant for Planning Work Item.
+::READ `architecture/_pseudo.md` (Pseudo-code) — Operation kinds. Relevant for Planning Work Item.
+::READ `architecture/commands.md` (Design) — Designed behaviour and BDD scenarios for the branch operation. Relevant for Planning Work Item.
+::READ `architecture/reports.md` (Reports) — Operations Report format. Relevant for Planning Work Item.
+
+## Scope
+
+Update the operation type model and logging/presentation in `$PROJECT/src/private/` and `$PROJECT/src/index.ts`, and rename `branch created` to `branch` across the package (excluding `_backlog`).
+
+## Work
+
+### Next
+
+Refine the first `DRAFT` iteration: `add-pending-operation-types`.
+
+### Blockers
+
+- None.
+
+---
+
+## Operating Instructions
+
+### Setting Up
+
+**Purpose:** Prepare the execution environment. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/setting-up.art`.
+
+**Instructions:** (From `$WORKSPACE/_guide.md`)
+
+Run from the `$WORKSPACE` root:
+
+```bash
+npm ci # to install dependencies.
+npm run ci # to verify build is green before starting
+```
+
+If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+
+### Writing Commit Message
+
+**Purpose:** Write standardized message according to context conventions. Operation of Workflow: Planning Work, defined in `$DOMAINS/work/workflows/planning-work/ops/writing-commit-message.art`.
+
+**Instructions:** (From `$WORKSPACE/_guide.md`)
+
+1. Read commit message conventions from `$WORKSPACE/knowledge/conventions/writing-commit-message.art`.
+2. Write the commit message following: the rules defined there.
+
+### Verifying Completion
+
+**Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
+
+**Instructions:** (From `$PROJECT/_guide.md`)
+
+Run from the package directory:
+
+```bash
+npm run lint:fix # to fix formatting issues automatically
+npm run lint # to report other issues (prettier, eslint, tsc --noEmit)
+npm run build
+npm run test
+```
+
+All steps MUST pass. No `it.todo()` tests may remain.
+
+---
+
+## Items:
+
+| Iteration / Instructions                  | Status  |
+| ----------------------------------------- | ------- |
+| Iteration: Add Pending Operation Types    | `DRAFT` |
+| Iteration: Stream Pending Operations Live | `DRAFT` |
+
+### Iteration: Add Pending Operation Types
+
+**Id:** `add-pending-operation-types`
+
+**Status:** `DRAFT`
+
+**Purpose:** Extend the operation type model with a `pending` outcome and per-operation pending types.
+
+**Description:** Add `pending` to `OperationOutcome`; introduce `OperationPending` and a pending variant for each operation kind; rename `branch created` to `branch`; reorder types to match the export order; extend the `Operation` union with all pending types.
+
+**Instructions:** `./plan-log-process-as-it-happens/instructions/add-pending-operation-types.md`
+
+**Changes:**
+
+- In `src/private/operations/types.ts`, change `OperationOutcome` to `'pending' | 'success' | 'failure'`.
+- Add `OperationPending extends OperationBase { outcome: 'pending' }`, then a per-operation pending type (e.g. `ClonePending extends OperationPending { operation: 'clone'; location: string }`) for each kind — clone, push, pull, publish, branch, linked, unlink — carrying the same kind-specific fields as the matching success/failure types.
+- Rename `branch created` to `branch` everywhere in the package, excluding `_backlog`: `types.ts`, `createBranchSuccess.ts`, `createBranchFailure.ts`, `runBranch.test.ts`, and the `architecture/` knowledge docs (`_pseudo.md`, `commands.md`, `index.md`, `operations-log.md` — note the latter is read-only and must be mirrored rather than edited).
+- Reorder the type declarations in `types.ts` to match the order used in the `Operation` union export.
+- Extend the `Operation` union so each kind lists `Pending | Success | Failure` (e.g. `| ClonePending | CloneSuccess | CloneFailure`).
+
+**Dependencies:**
+
+- None.
+
+### Iteration: Stream Pending Operations Live
+
+**Id:** `stream-pending-operations-live`
+
+**Status:** `DRAFT`
+
+**Purpose:** Stream pending operations through the logger as they are issued, and present a `doing:` line for each.
+
+**Description:** Pass a logger into `createOperationsLog`; when a `pending` operation is logged, call the logger and do not append it to the store; extract a shared `makeOperationLogLine` presenter handling ⏳/🟢/🔴; wire a live logger in `src/index.ts`.
+
+**Instructions:** `./plan-log-process-as-it-happens/instructions/stream-pending-operations-live.md`
+
+**Changes:**
+
+- In `src/private/log/createOperationsLog.ts`, accept a `logger: (op: OperationPending) => void` parameter (optional, default no-op so existing callers and test helpers still compile). In `log(operation)`, before pushing: when `operation.outcome === 'pending'`, call `logger(operation)` and return without pushing.
+- In `src/private/present/presentOperationsReport.ts`, extract the `rows = operations.map(...)` logic into `makeOperationLogLine(op: Operation): string[]`, rendering `⏳` for `pending`, `🟢` for `success`, `🔴` for `failure` in the leading column, with repo, operation, message columns. Reuse it in `presentOperationsReport`.
+- Add simple tests for `makeOperationLogLine` covering all three outcomes (pending, success, failure) and for the logger streaming a pending operation in `createOperationsLog`.
+- In `src/index.ts`, build `const logger = (op: OperationPending) => { console.log(makeOperationLogLine(op)) }` and pass it into the command handlers' `createOperationsLog(logger)` so pending operations print `...doing: {operation} {repo} {details}` as they are issued.
+
+**Dependencies:**
+
+- `add-pending-operation-types` — pending types must exist before streaming them.
+
+---
+
+## Coordination
+
+### Not In Scope
+
+- None.
+
+### Evidence
+
+- None.
+
+### Findings
+
+- `createOperationsLog()` is constructed per-command in `src/index.ts` (8 call sites) and in test helpers; the logger param must be optional (or all call sites updated) to keep the build green.
+- `architecture/operations-log.md` is read-only — its `operation` enumeration lists `branch created` and must be mirrored in the code/docs, not edited in place.
+
+### Decisions
+
+- None.
+
+### Knowledge to Update
+
+- `architecture/operations-log.md` — add the `pending` outcome to the model (mirrored where read-only constraints apply).
+- `architecture/_pseudo.md`, `architecture/commands.md`, `architecture/index.md` — `branch created` → `branch`.
+
+### Follow Ups
+
+- Create the pending operation (with `details`) in each command before the side effect is executed, so every operation streams a `doing:` line immediately — this plan lays the type/log/presenter groundwork; per-command emission is a follow-up.
+
+### Feedback
+
+- None.
