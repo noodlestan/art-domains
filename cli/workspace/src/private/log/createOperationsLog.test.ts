@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { makeMockConfig } from '../../test/helpers/context/makeMockConfig';
 import { createCloneSuccess } from '../commands/operations/createCloneSuccess';
@@ -10,6 +10,19 @@ function makeCheckout(name: string) {
 	const config = makeMockConfig('.');
 	const repo = { name, remote: `git@example.com:${name}.git` };
 	return createCheckout(config, repo.name, repo, 'main');
+}
+
+function makePendingOperation() {
+	return {
+		ts: new Date(),
+		checkout: undefined,
+		outcome: 'pending' as const,
+		operation: 'clone' as const,
+		location: 'checkouts/my-repo',
+		message() {
+			return 'cloning my-repo';
+		},
+	};
 }
 
 describe('createOperationsLog', () => {
@@ -53,5 +66,15 @@ describe('createOperationsLog', () => {
 		expect(ops).toHaveLength(2);
 		expect(ops[0].checkout?.repo?.name).toBe('b');
 		expect(ops[1].checkout?.repo?.name).toBe('c');
+	});
+
+	it('streams a pending operation to the logger without storing it', () => {
+		const logger = vi.fn();
+		const operations = createOperationsLog(logger);
+
+		operations.log(makePendingOperation());
+
+		expect(logger).toHaveBeenCalledTimes(1);
+		expect(operations.all()).toEqual([]);
 	});
 });
