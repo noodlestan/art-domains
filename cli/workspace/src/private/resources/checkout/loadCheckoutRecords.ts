@@ -1,19 +1,22 @@
-import { WorkspaceConfig } from '../../../config';
+import { WorkspaceContext } from '../../context/createWorkspaceContext';
+import { createOperationPending } from '../../context/operations/createOperationPending';
 import { findRecordFiles } from '../../records/findRecordFiles';
 import { RepositoryCheckoutRecord, RepositoryRecord } from '../types';
 
 import { readCheckoutRecord } from './readCheckoutRecord';
 
 export async function loadCheckoutRecords(
-	config: WorkspaceConfig,
+	ctx: WorkspaceContext,
 	repos: RepositoryRecord[],
 ): Promise<RepositoryCheckoutRecord[]> {
-	const searchPath = config.root.path;
+	const searchPath = ctx.config.root.path;
+	ctx.log.log(createOperationPending('load-checkout-records', searchPath));
+
 	const recordFiles = await findRecordFiles(
 		searchPath,
-		config.records.pattern,
+		ctx.config.records.pattern,
 		['Checkout'],
-		config.records,
+		ctx.config.records,
 	);
 	const checkouts = await Promise.all(
 		recordFiles.map(async file => {

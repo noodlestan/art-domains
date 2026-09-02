@@ -7,7 +7,7 @@ export async function cloneIfMissing(
 	ctx: WorkspaceContext,
 	checkout: Checkout,
 ): Promise<Checkout | null> {
-	const scanned = await scanCheckoutState(checkout);
+	const scanned = await scanCheckoutState(ctx, checkout);
 	if (!scanned.scan?.should?.('clone')) {
 		return scanned;
 	}

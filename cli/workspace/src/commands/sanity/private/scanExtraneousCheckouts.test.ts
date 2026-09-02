@@ -3,8 +3,7 @@ import { join } from 'node:path';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { createCheckoutStore } from '../../../private/store/createCheckoutStore';
-import { makeMockConfig } from '../../../test/helpers/context/makeMockConfig';
+import { createMockCommandContext } from '../../../test/helpers/context/createMockCommandContext';
 import { makeTempDir } from '../../../test/helpers/tempDirs/makeTempDir';
 import { removeTempDirs } from '../../../test/helpers/tempDirs/removeTempDirs';
 
@@ -19,21 +18,21 @@ afterEach(async () => {
 describe('scanExtraneousCheckouts', () => {
 	it('empty checkouts dir returns no extraneous entries', async () => {
 		const tempDir = makeTempDir(tempDirs);
-		const config = makeMockConfig(tempDir);
-		mkdirSync(join(tempDir, config.clone.path), { recursive: true });
-		const store = createCheckoutStore();
+		const ctx = createMockCommandContext(tempDir);
+		mkdirSync(join(tempDir, ctx.config.clone.path), { recursive: true });
+		const store = ctx.store;
 
-		const extraneous = await scanExtraneousCheckouts(config, store);
+		const extraneous = await scanExtraneousCheckouts(ctx, store);
 
 		expect(extraneous).toHaveLength(0);
 	});
 
 	it('does not flag known checkouts as extraneous', async () => {
 		const tempDir = makeTempDir(tempDirs);
-		const config = makeMockConfig(tempDir);
-		const checkoutsPath = join(tempDir, config.clone.path);
+		const ctx = createMockCommandContext(tempDir);
+		const checkoutsPath = join(tempDir, ctx.config.clone.path);
 		mkdirSync(checkoutsPath, { recursive: true });
-		const store = createCheckoutStore();
+		const store = ctx.store;
 
 		// Create a known checkout directory
 		const knownLocation = 'known-repo';
@@ -49,7 +48,7 @@ describe('scanExtraneousCheckouts', () => {
 		};
 		store.addCheckout(checkout);
 
-		const extraneous = await scanExtraneousCheckouts(config, store);
+		const extraneous = await scanExtraneousCheckouts(ctx, store);
 
 		expect(extraneous).toHaveLength(0);
 	});

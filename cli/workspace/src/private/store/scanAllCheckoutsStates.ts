@@ -1,10 +1,11 @@
+import { WorkspaceContext } from '../context/createWorkspaceContext';
+import { createOperationPending } from '../context/operations/createOperationPending';
 import { scanCheckoutState } from '../scan/scanCheckoutState';
 
-import type { CheckoutStore } from './createCheckoutStore';
-
-export async function scanAllCheckoutsStates(store: CheckoutStore): Promise<void> {
-	for (const checkout of store.getAllCheckouts()) {
-		const updated = await scanCheckoutState(checkout);
-		store.updateCheckout(updated);
+export async function scanAllCheckoutsStates(ctx: WorkspaceContext): Promise<void> {
+	ctx.log.log(createOperationPending('scan-all-checkouts'));
+	for (const checkout of ctx.store.getAllCheckouts()) {
+		const updated = await scanCheckoutState(ctx, checkout);
+		ctx.store.updateCheckout(updated);
 	}
 }

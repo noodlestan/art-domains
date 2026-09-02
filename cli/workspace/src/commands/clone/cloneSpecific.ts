@@ -58,7 +58,7 @@ export async function cloneSpecific(
 		await cloneIfMissing(ctx, created);
 	}
 
-	await scanAllCheckoutsStates(ctx.store);
+	await scanAllCheckoutsStates(ctx);
 	presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts());
 	presentOperationsReport(ctx.log);
 }

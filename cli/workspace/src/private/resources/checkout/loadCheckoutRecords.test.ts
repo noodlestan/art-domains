@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { makeMockConfig } from '../../../test/helpers/context/makeMockConfig';
+import { createMockCommandContext } from '../../../test/helpers/context/createMockCommandContext';
 import { writeCheckoutMockRecord } from '../../../test/helpers/records/writeCheckoutMockRecord';
 import { makeTempDir } from '../../../test/helpers/tempDirs/makeTempDir';
 import { removeTempDirs } from '../../../test/helpers/tempDirs/removeTempDirs';
@@ -20,6 +20,7 @@ afterEach(async () => {
 describe('loadCheckouts', () => {
 	it('loads checkouts with repos resolved by name', async () => {
 		const tempDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
 
 		const repoA = { name: 'A', remote: 'git@example.com:a.git' };
 		const repoB = { name: 'B', remote: 'git@example.com:b.git' };
@@ -27,8 +28,7 @@ describe('loadCheckouts', () => {
 		writeCheckoutMockRecord(tempDir, 'A', 'A', 'a', 'dev');
 		writeCheckoutMockRecord(tempDir, 'B', 'B', 'b', 'main');
 
-		const config = makeMockConfig(tempDir);
-		const checkouts = await loadCheckoutRecords(config, repos);
+		const checkouts = await loadCheckoutRecords(ctx, repos);
 
 		expect(checkouts).toHaveLength(2);
 		expect(checkouts[0].repo?.name).toBe('A');
@@ -41,14 +41,15 @@ describe('loadCheckouts', () => {
 
 	it('includes an extraneous checkout for an unknown repo', async () => {
 		const tempDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+
 		const repoA = { name: 'A', remote: 'git@example.com:a.git' };
 		const repoB = { name: 'B', remote: 'git@example.com:b.git' };
 		const repos = [repoA, repoB];
 		writeCheckoutMockRecord(tempDir, 'A', 'A', 'a');
 		writeCheckoutMockRecord(tempDir, 'Unknown', 'Unknown', 'unknown');
 
-		const config = makeMockConfig(tempDir);
-		const checkouts = await loadCheckoutRecords(config, repos);
+		const checkouts = await loadCheckoutRecords(ctx, repos);
 
 		expect(checkouts).toHaveLength(2);
 		const unknown = checkouts[1];
@@ -62,13 +63,14 @@ describe('loadCheckouts', () => {
 
 	it('skips a checkout record with an empty name', async () => {
 		const tempDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+
 		const dir = join(tempDir, '_records');
 		mkdirSync(dir, { recursive: true });
 		writeFileSync(join(dir, 'unnamed.art'), '# Module\n\n## Checkout: \n');
 
 		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-		const config = makeMockConfig(tempDir);
-		const checkouts = await loadCheckoutRecords(config, []);
+		const checkouts = await loadCheckoutRecords(ctx, []);
 
 		expect(checkouts).toEqual([]);
 		expect(warn).toHaveBeenCalledWith(expect.stringContaining('skipped'));
@@ -76,20 +78,22 @@ describe('loadCheckouts', () => {
 
 	it('returns an empty list for an empty checkouts dir', async () => {
 		const tempDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+
 		mkdirSync(join(tempDir, '_records'), { recursive: true });
 
-		const config = makeMockConfig(tempDir);
-		const checkouts = await loadCheckoutRecords(config, []);
+		const checkouts = await loadCheckoutRecords(ctx, []);
 
 		expect(checkouts).toEqual([]);
 	});
 
 	it('returns the source file path as filename for each loaded record', async () => {
 		const tempDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+
 		writeCheckoutMockRecord(tempDir, 'Foo', 'Foo', 'foo');
 
-		const config = makeMockConfig(tempDir);
-		const checkouts = await loadCheckoutRecords(config, []);
+		const checkouts = await loadCheckoutRecords(ctx, []);
 
 		expect(checkouts).toHaveLength(1);
 		expect(checkouts[0].filename).toBe(join(tempDir, '_records/foo-checkout.art'));

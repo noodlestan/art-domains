@@ -8,7 +8,7 @@ export async function scanWorkspaceCheckout(ctx: WorkspaceContext): Promise<Chec
 		...createCheckout(ctx.config, '.', undefined, 'main', 'Workspace'),
 		path: ctx.config.root.path,
 	};
-	const workspace = await scanCheckoutState(workspaceCheckout);
+	const workspace = await scanCheckoutState(ctx, workspaceCheckout);
 	ctx.workspace = workspace;
 	return workspace;
 }

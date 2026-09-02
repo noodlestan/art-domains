@@ -3,6 +3,6 @@ import { presentCheckoutReport } from '../../private/present/presentCheckoutRepo
 import { scanAllCheckoutsStates } from '../../private/store/scanAllCheckoutsStates';
 
 export async function cloneStatus(ctx: WorkspaceContext): Promise<void> {
-	await scanAllCheckoutsStates(ctx.store);
+	await scanAllCheckoutsStates(ctx);
 	presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts());
 }

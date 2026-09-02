@@ -53,7 +53,7 @@ describe('cloneIfMissing', () => {
 		writeRepoMockRecord(tempDir, 'FeatureRepo', bareDir);
 		const { loadRepositoryRecords } =
 			await import('../../../private/resources/repository/loadRepositoryRecords');
-		const repos = await loadRepositoryRecords(ctx.config);
+		const repos = await loadRepositoryRecords(ctx);
 		const repo = repos.find(r => r.name === 'FeatureRepo');
 		expect(repo).toBeDefined();
 
@@ -96,7 +96,7 @@ describe('cloneIfMissing', () => {
 		writeRepoMockRecord(tempDir, 'FallbackRepo', bareDir);
 		const { loadRepositoryRecords } =
 			await import('../../../private/resources/repository/loadRepositoryRecords');
-		const repos = await loadRepositoryRecords(ctx.config);
+		const repos = await loadRepositoryRecords(ctx);
 		const repo = repos.find(r => r.name === 'FallbackRepo');
 		expect(repo).toBeDefined();
 

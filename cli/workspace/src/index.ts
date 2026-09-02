@@ -14,9 +14,10 @@ import { runSync } from './commands/sync/runSync';
 import { runUnlink } from './commands/unlink/runUnlink';
 import { loadWorkspaceConfig } from './config/loadWorkspaceConfig';
 import { createWorkspaceContext } from './private/context/createWorkspaceContext';
+import { createOperationPending } from './private/context/operations/createOperationPending';
 import { createOperationsLog } from './private/log/createOperationsLog';
-import type { OperationPending } from './private/operations/types';
-import { makeOperationLogLine } from './private/present/presentOperationsReport';
+import type { Operation } from './private/operations/types';
+import { makeOperationLogLine } from './private/present/makeOperationLogLine';
 import { createCheckoutStore } from './private/store/createCheckoutStore';
 
 export { defineConfig, loadWorkspaceConfig } from './config';
@@ -24,8 +25,8 @@ export type { WorkspaceConfig } from './config';
 
 const program = new Command();
 
-const logger = (op: OperationPending) => {
-	console.info(makeOperationLogLine(op));
+const logger = (op: Operation) => {
+	console.info(...makeOperationLogLine(op));
 };
 
 program.name('art-workspace').description('Workspace orchestration CLI').version('0.0.18');
@@ -36,6 +37,7 @@ program
 	.option('--auto', 'push clean unpushed repos')
 	.action(async (options: { auto?: boolean }) => {
 		const root = process.cwd();
+		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
@@ -58,6 +60,7 @@ program
 			options: { all?: boolean },
 		) => {
 			const root = process.cwd();
+			logger(createOperationPending('boot'));
 			const config = await loadWorkspaceConfig(root);
 			const store = createCheckoutStore();
 			const log = createOperationsLog(logger);
@@ -74,10 +77,12 @@ program
 	.argument('[checkouts...]', 'checkouts to branch (default: all checkouts)')
 	.action(async (branch: string, checkoutLocations: string[]) => {
 		const root = process.cwd();
+		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
+
 		await runBranch(ctx, { branch, checkoutLocations });
 	});
 
@@ -86,10 +91,12 @@ program
 	.description('Pull clean checkouts that are behind')
 	.action(async () => {
 		const root = process.cwd();
+		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
+
 		await runPull(ctx);
 	});
 
@@ -98,10 +105,12 @@ program
 	.description('Push clean checkouts that are ahead')
 	.action(async () => {
 		const root = process.cwd();
+		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
+
 		await runPush(ctx);
 	});
 
@@ -110,10 +119,12 @@ program
 	.description('Pull and push clean checkouts')
 	.action(async () => {
 		const root = process.cwd();
+		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
+
 		await runSync(ctx);
 	});
 
@@ -123,10 +134,12 @@ program
 	.argument('[checkouts...]', 'checkout locations to list (default: all checkouts)')
 	.action(async (locations: string[]) => {
 		const root = process.cwd();
+		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
+
 		await runRepo(ctx, { locations });
 	});
 
@@ -135,10 +148,12 @@ program
 	.description('Link packages for local dev')
 	.action(async () => {
 		const root = process.cwd();
+		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
+
 		await runLink(ctx, { root });
 	});
 
@@ -147,10 +162,12 @@ program
 	.description('Unlink packages')
 	.action(async () => {
 		const root = process.cwd();
+		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
+
 		await runUnlink(ctx, { root });
 	});
 
@@ -160,10 +177,12 @@ program
 	.option('--auto', 'auto-publish')
 	.action(async (options: { auto?: boolean }) => {
 		const root = process.cwd();
+		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
+
 		await runPublish(ctx, { root, auto: options.auto });
 	});
 

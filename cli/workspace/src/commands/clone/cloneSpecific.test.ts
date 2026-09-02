@@ -44,7 +44,7 @@ describe('cloneSpecific', () => {
 		await initBareRepoTest(bareDir);
 		writeRepoMockRecord(tempDir, 'One', bareDir);
 
-		const repos = await loadRepositoryRecords(ctx.config);
+		const repos = await loadRepositoryRecords(ctx);
 		await cloneSpecific(ctx, repos, 'One');
 
 		const repoDir = join(tempDir, ctx.config.clone.path, 'one');
@@ -66,8 +66,8 @@ describe('cloneSpecific', () => {
 		writeRepoMockRecord(tempDir, 'Foo', bareDir);
 		writeCheckoutMockRecord(tempDir, 'Foo', 'Foo', 'foo');
 
-		const repos = await loadRepositoryRecords(ctx.config);
-		hydrateStoreFromRecords(ctx.config, ctx.store, await loadCheckoutRecords(ctx.config, repos));
+		const repos = await loadRepositoryRecords(ctx);
+		hydrateStoreFromRecords(ctx.config, ctx.store, await loadCheckoutRecords(ctx, repos));
 		await cloneSpecific(ctx, repos, 'Foo', 'bar');
 
 		const ops = ctx.log.all();
@@ -89,7 +89,7 @@ describe('cloneSpecific', () => {
 		await initBareRepoTest(bareDir);
 		writeRepoMockRecord(tempDir, 'Foo', bareDir);
 
-		const repos = await loadRepositoryRecords(ctx.config);
+		const repos = await loadRepositoryRecords(ctx);
 		await cloneSpecific(ctx, repos, 'Foo', 'bar');
 
 		const checkouts = ctx.store.getAllCheckouts();
@@ -108,7 +108,7 @@ describe('cloneSpecific', () => {
 		await initBareRepoTest(bareDir);
 		writeRepoMockRecord(tempDir, 'Foo', bareDir);
 
-		const repos = await loadRepositoryRecords(ctx.config);
+		const repos = await loadRepositoryRecords(ctx);
 		await cloneSpecific(ctx, repos, 'Foo');
 
 		const checkouts = ctx.store.getAllCheckouts();
@@ -126,8 +126,8 @@ describe('cloneSpecific', () => {
 		writeRepoMockRecord(tempDir, 'Two', 'git@example.com:two.git');
 		writeCheckoutMockRecord(tempDir, 'Two', 'Two', 'one custom');
 
-		const repos = await loadRepositoryRecords(ctx.config);
-		hydrateStoreFromRecords(ctx.config, ctx.store, await loadCheckoutRecords(ctx.config, repos));
+		const repos = await loadRepositoryRecords(ctx);
+		hydrateStoreFromRecords(ctx.config, ctx.store, await loadCheckoutRecords(ctx, repos));
 		await cloneSpecific(ctx, repos, 'One', 'custom');
 
 		const ops = ctx.log.all();
@@ -144,7 +144,7 @@ describe('cloneSpecific', () => {
 		const targetDir = join(tempDir, ctx.config.clone.path, 'one');
 		mkdirSync(targetDir, { recursive: true });
 
-		const repos = await loadRepositoryRecords(ctx.config);
+		const repos = await loadRepositoryRecords(ctx);
 		await cloneSpecific(ctx, repos, 'One');
 
 		const ops = ctx.log.all();

@@ -1,17 +1,17 @@
 import { readdir } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 
-import type { WorkspaceConfig } from '../../../config/types';
+import type { WorkspaceContext } from '../../../private/context/createWorkspaceContext';
 import { createExtraneousCheckout } from '../../../private/scan/private/createExtraneousCheckout';
 import { scanCheckoutState } from '../../../private/scan/scanCheckoutState';
 import type { CheckoutStore } from '../../../private/store/createCheckoutStore';
 import type { Checkout } from '../../../private/store/types';
 
 export async function scanExtraneousCheckouts(
-	config: WorkspaceConfig,
+	ctx: WorkspaceContext,
 	store: CheckoutStore,
 ): Promise<Checkout[]> {
-	const checkoutsPath = join(config.root.path, config.clone.path);
+	const checkoutsPath = join(ctx.config.root.path, ctx.config.clone.path);
 	const result: Checkout[] = [];
 
 	try {
@@ -29,8 +29,8 @@ export async function scanExtraneousCheckouts(
 				continue;
 			}
 
-			const checkout = { ...createExtraneousCheckout(config, location), path: dir };
-			const scanned = await scanCheckoutState(checkout);
+			const checkout = { ...createExtraneousCheckout(ctx.config, location), path: dir };
+			const scanned = await scanCheckoutState(ctx, checkout);
 			result.push(scanned);
 		}
 	} catch {
