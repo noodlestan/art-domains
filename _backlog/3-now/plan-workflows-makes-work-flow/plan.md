@@ -1696,7 +1696,7 @@ refactor(workflows-make-work-flow): Rewrite delegate-plan skill and update domai
 
 | ID                        | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
 | ------------------------- | ------------------------------------- | ------------ | --------- | ----------- |
-| `update-domain-knowledge` | Art Domains / `$ART_DOMAINS` / `main` | `AUTONOMOUS` | `9a2c618` | `COMMITTED` |
+| `update-domain-knowledge` | Art Domains / `$ART_DOMAINS` / `main` | `AUTONOMOUS` | `b0b36b7` | `COMMITTED` |
 
 ##### Commit: `update-domain-knowledge`
 
