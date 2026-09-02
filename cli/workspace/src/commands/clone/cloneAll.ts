@@ -19,7 +19,7 @@ export async function cloneAll(ctx: WorkspaceContext, repos: RepositoryRecord[])
 		await cloneIfMissing(ctx, checkout);
 	}
 
-	await scanAllCheckoutsStates(ctx.store);
+	await scanAllCheckoutsStates(ctx);
 	presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts());
 	presentOperationsReport(ctx.log);
 }

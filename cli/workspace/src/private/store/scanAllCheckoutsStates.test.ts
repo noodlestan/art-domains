@@ -17,7 +17,7 @@ describe('scanAllCheckoutsStates', () => {
 		const tempDir = makeTempDir(tempDirs);
 		const ctx = createMockCommandContext(tempDir);
 
-		await scanAllCheckoutsStates(ctx.store);
+		await scanAllCheckoutsStates(ctx);
 
 		expect(ctx.store.getAllCheckouts()).toHaveLength(0);
 	});

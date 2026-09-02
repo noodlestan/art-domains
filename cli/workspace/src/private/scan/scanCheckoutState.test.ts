@@ -24,7 +24,7 @@ describe('scanCheckoutState', () => {
 		const ctx = createMockCommandContext(tempDir);
 		const checkout = createCheckout(ctx.config, 'nope');
 
-		const result = await scanCheckoutState(checkout);
+		const result = await scanCheckoutState(ctx, checkout);
 
 		expect(result.scan?.state('exists')).toEqual({ type: 'exists', exists: false });
 		expect(result.scan?.issues()).toContain('not cloned');
@@ -39,7 +39,7 @@ describe('scanCheckoutState', () => {
 		await initGitRepoTest(checkoutDir);
 
 		const checkout = createCheckout(ctx.config, 'extraneous', undefined, '');
-		const result = await scanCheckoutState(checkout);
+		const result = await scanCheckoutState(ctx, checkout);
 
 		expect(result.scan?.issues()).toContain('unknown project');
 		expect(result.scan?.issues()).not.toContain('wrong branch');
@@ -52,7 +52,7 @@ describe('scanCheckoutState', () => {
 		await initGitRepoTest(checkoutDir);
 
 		const checkout = createCheckout(ctx.config, 'myrepo', undefined, 'main');
-		const result = await scanCheckoutState(checkout);
+		const result = await scanCheckoutState(ctx, checkout);
 
 		expect(result.scan?.issues()).not.toContain('wrong branch');
 	});
@@ -64,7 +64,7 @@ describe('scanCheckoutState', () => {
 		await initGitRepoTest(checkoutDir);
 
 		const checkout = createCheckout(ctx.config, 'myrepo', undefined, 'develop');
-		const result = await scanCheckoutState(checkout);
+		const result = await scanCheckoutState(ctx, checkout);
 
 		expect(result.scan?.issues()).toContain('wrong branch');
 	});
@@ -81,7 +81,7 @@ describe('scanCheckoutState', () => {
 			remote: bareDir,
 		};
 		const checkout = createCheckout(ctx.config, 'myrepo', repo, 'main');
-		const result = await scanCheckoutState(checkout);
+		const result = await scanCheckoutState(ctx, checkout);
 
 		expect(result.scan?.issues()).not.toContain('wrong remote');
 	});
@@ -98,7 +98,7 @@ describe('scanCheckoutState', () => {
 			remote: 'git@github.com:noodlestan/foo.git',
 		};
 		const checkout = createCheckout(ctx.config, 'myrepo', repo, 'main');
-		const result = await scanCheckoutState(checkout);
+		const result = await scanCheckoutState(ctx, checkout);
 
 		expect(result.scan?.issues()).toContain('wrong remote');
 	});

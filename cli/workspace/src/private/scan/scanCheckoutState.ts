@@ -1,5 +1,8 @@
 import { access } from 'node:fs/promises';
 
+import { WorkspaceContext } from '../context/createWorkspaceContext';
+import { createOperationFailure } from '../context/operations/createOperationFailure';
+import { createOperationPending } from '../context/operations/createOperationPending';
 import { getBehindCount } from '../git/getBehindCount';
 import { getCurrentBranch } from '../git/getCurrentBranch';
 import { getRemoteBranch } from '../git/getRemoteBranch';
@@ -24,12 +27,17 @@ import {
 	createWrongRemoteState,
 } from './types';
 
-export async function scanCheckoutState(checkout: Checkout): Promise<Checkout> {
+export async function scanCheckoutState(
+	ctx: WorkspaceContext,
+	checkout: Checkout,
+): Promise<Checkout> {
 	try {
 		await access(checkout.path);
 	} catch {
 		return { ...checkout, scan: createCheckoutNoClonedScan(Boolean(checkout.repo)) };
 	}
+
+	ctx.log.log(createOperationPending('scan-checkout-state', checkout.record.location));
 
 	let branch: string | null = null;
 	let remoteBranch: string | null = null;
@@ -49,6 +57,7 @@ export async function scanCheckoutState(checkout: Checkout): Promise<Checkout> {
 		if (remote && branch !== '-' && branch !== 'HEAD') {
 			remoteBranch = await getRemoteBranch(checkout.path);
 			ahead = await getUnpushedCount(checkout.path, remoteBranch);
+			ctx.log.log(createOperationPending('scan-checkout-state-behind', checkout.record.location));
 			behind = remoteBranch ? await getBehindCount(checkout.path, remoteBranch) : 0;
 		}
 		if (remote && checkout.repo?.remote) {
@@ -57,8 +66,8 @@ export async function scanCheckoutState(checkout: Checkout): Promise<Checkout> {
 				wrongRemote = true;
 			}
 		}
-	} catch {
-		// The derived states still provide a useful report when git inspection fails.
+	} catch (error) {
+		ctx.log.log(createOperationFailure('scan-checkout-state', error, checkout.record.location));
 	}
 
 	const remoteState = createRemoteState(branch, checkout.record.branch, remote);

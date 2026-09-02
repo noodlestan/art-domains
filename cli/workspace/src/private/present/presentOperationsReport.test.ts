@@ -9,9 +9,10 @@ import { createOperationsLog } from '../log/createOperationsLog';
 import type { ClonePending } from '../operations/types';
 import { createCheckout } from '../store/createCheckout';
 
-import { makeOperationLogLine, presentOperationsReport } from './presentOperationsReport';
+import { makeOperationLogLine } from './makeOperationLogLine';
+import { presentOperationsReport } from './presentOperationsReport';
 
-function makePendingOperation(): ClonePending {
+function makeClonePendingOperationMock(): ClonePending {
 	return {
 		ts: new Date(),
 		checkout: undefined,
@@ -60,10 +61,10 @@ describe('presentOperationsReport', () => {
 
 describe('makeOperationLogLine', () => {
 	it('renders a pending line with ⏳', () => {
-		const line = makeOperationLogLine(makePendingOperation());
+		const line = makeOperationLogLine(makeClonePendingOperationMock());
 
 		expect(line[0]).toBe('⏳');
-		expect(line).toEqual(['⏳', 'unknown', 'clone', 'cloning my-repo']);
+		expect(line).toEqual(['⏳', 'clone', 'cloning my-repo']);
 	});
 
 	it('renders a success line with 🟢', () => {

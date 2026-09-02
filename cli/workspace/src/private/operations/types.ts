@@ -140,6 +140,18 @@ export interface UnlinkFailure extends OperationFailure {
 	source: string;
 }
 
+export interface GenericOperationPending extends OperationPending {
+	data?: unknown;
+}
+
+export interface GenericOperationSuccess extends OperationSuccess {
+	data?: unknown;
+}
+
+export interface GenericOperationFailure extends OperationFailure {
+	data?: unknown;
+}
+
 export type Operation =
 	| ClonePending
 	| CloneSuccess
@@ -161,4 +173,7 @@ export type Operation =
 	| LinkedFailure
 	| UnlinkPending
 	| UnlinkSuccess
-	| UnlinkFailure;
+	| UnlinkFailure
+	| GenericOperationPending
+	| GenericOperationSuccess
+	| GenericOperationFailure;

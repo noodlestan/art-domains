@@ -1,4 +1,5 @@
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
+import { createOperationPending } from '../../private/context/operations/createOperationPending';
 import { presentCheckoutRepositoryState } from '../../private/present/presentCheckoutRepositoryState';
 import { presentPackageStateReport } from '../../private/present/presentPackageStateReport';
 import { getRepositoryCheckoutPackages } from '../../private/repositories/getRepositoryCheckoutPackages';
@@ -21,10 +22,13 @@ export async function runRepo(
 	ctx: WorkspaceContext,
 	options: { locations?: string[] },
 ): Promise<void> {
-	const repos = await loadRepositoryRecords(ctx.config);
-	const records = await loadCheckoutRecords(ctx.config, repos);
+	const repos = await loadRepositoryRecords(ctx);
+	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
-	await scanAllCheckoutsStates(ctx.store);
+
+	ctx.log.log(createOperationPending('command', ['repo', options.locations]));
+
+	await scanAllCheckoutsStates(ctx);
 
 	const { locations = [] } = options;
 

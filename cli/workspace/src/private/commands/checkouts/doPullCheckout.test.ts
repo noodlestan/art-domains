@@ -55,7 +55,7 @@ describe('doPullCheckout', () => {
 			name: 'Behind',
 			remote: 'git@example.com:behind.git',
 		});
-		const scanned = await scanCheckoutState(checkout);
+		const scanned = await scanCheckoutState(ctx, checkout);
 		expect(scanned.scan?.state('sync').behind).toBe(1);
 
 		const result = await doPullCheckout(ctx, scanned);

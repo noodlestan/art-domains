@@ -16,7 +16,7 @@ export async function pullWorkspaceCheckout(ctx: WorkspaceContext): Promise<Chec
 	try {
 		ctx.log.log(createPullPending(workspace, workspace.record.branch));
 		await git.pull('origin', workspace.record.branch);
-		const updated = await scanCheckoutState(workspace);
+		const updated = await scanCheckoutState(ctx, workspace);
 		ctx.workspace = updated;
 		ctx.log.log(createPullSuccess(workspace, workspace.record.branch));
 		return updated;

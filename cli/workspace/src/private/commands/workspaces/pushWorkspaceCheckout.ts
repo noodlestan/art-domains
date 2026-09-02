@@ -16,7 +16,7 @@ export async function pushWorkspaceCheckout(ctx: WorkspaceContext): Promise<Chec
 	try {
 		ctx.log.log(createPushPending(workspace, workspace.record.branch));
 		await git.push('origin', workspace.record.branch);
-		const updated = await scanCheckoutState(workspace);
+		const updated = await scanCheckoutState(ctx, workspace);
 		ctx.workspace = updated;
 		ctx.log.log(createPushSuccess(workspace, workspace.record.branch));
 		return updated;

@@ -1,4 +1,4 @@
-import type { Operation, OperationPending } from '../operations/types';
+import type { Operation } from '../operations/types';
 
 export interface OperationsLog {
 	log(operation: Operation): void;
@@ -7,18 +7,16 @@ export interface OperationsLog {
 	latest(n: number): Operation[];
 }
 
-export function createOperationsLog(
-	logger: (op: OperationPending) => void = () => {},
-): OperationsLog {
+export function createOperationsLog(logger: (op: Operation) => void = () => {}): OperationsLog {
 	const operations: Operation[] = [];
 
 	return {
 		log(operation: Operation): void {
-			if (operation.outcome === 'pending') {
-				logger(operation);
-				return;
+			logger(operation);
+
+			if (operation.outcome !== 'pending') {
+				operations.push(operation);
 			}
-			operations.push(operation);
 		},
 
 		all(): Operation[] {

@@ -1,6 +1,7 @@
 import { doBranchCheckout } from '../../private/commands/checkouts/doBranchCheckout';
 import { createBranchFailure } from '../../private/commands/operations/createBranchFailure';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
+import { createOperationPending } from '../../private/context/operations/createOperationPending';
 import { presentCheckoutReport } from '../../private/present/presentCheckoutReport';
 import { presentOperationsReport } from '../../private/present/presentOperationsReport';
 import { loadCheckoutRecords } from '../../private/resources/checkout/loadCheckoutRecords';
@@ -13,9 +14,13 @@ export async function runBranch(
 	ctx: WorkspaceContext,
 	options: { branch: string; checkoutLocations: string[] },
 ): Promise<void> {
-	const repos = await loadRepositoryRecords(ctx.config);
-	const records = await loadCheckoutRecords(ctx.config, repos);
+	const repos = await loadRepositoryRecords(ctx);
+	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
+
+	ctx.log.log(
+		createOperationPending('command', ['branch', options.branch, options.checkoutLocations]),
+	);
 
 	const { branch, checkoutLocations } = options;
 	const checkouts = ctx.store.getAllCheckouts();
@@ -30,7 +35,7 @@ export async function runBranch(
 			continue;
 		}
 
-		const scanned = await scanCheckoutState(checkout);
+		const scanned = await scanCheckoutState(ctx, checkout);
 		ctx.store.updateCheckout(scanned);
 
 		if (!scanned.scan?.can?.('branch')) {
@@ -41,7 +46,7 @@ export async function runBranch(
 		await doBranchCheckout(ctx, scanned, branch);
 	}
 
-	await scanAllCheckoutsStates(ctx.store);
+	await scanAllCheckoutsStates(ctx);
 	presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts());
 	presentOperationsReport(ctx.log);
 }

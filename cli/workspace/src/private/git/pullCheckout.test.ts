@@ -32,7 +32,7 @@ afterEach(async () => {
 });
 
 describe('pullCheckout', () => {
-	it('pulls a behind checkout and returns the updated state', async () => {
+	it('pulls a behind checkout', async () => {
 		const tempDir = makeTempDir(tempDirs);
 		const ctx = createMockCommandContext(tempDir);
 		const bareDir = makeTempDir(tempDirs);
@@ -56,10 +56,11 @@ describe('pullCheckout', () => {
 			name: 'Behind',
 			remote: 'git@example.com:behind.git',
 		});
-		const scanned = await scanCheckoutState(checkout);
+		const scanned = await scanCheckoutState(ctx, checkout);
 		expect(scanned.scan?.state('sync').behind).toBe(1);
 
-		const result = await pullCheckout(scanned);
+		await pullCheckout(scanned);
+		const result = await scanCheckoutState(ctx, scanned);
 
 		expect(result.scan?.state('sync').behind).toBe(0);
 		expect(result.scan?.issues().some(i => i.includes('behind'))).toBe(false);

@@ -1,4 +1,5 @@
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
+import { createOperationPending } from '../../private/context/operations/createOperationPending';
 import { loadCheckoutRecords } from '../../private/resources/checkout/loadCheckoutRecords';
 import { loadRepositoryRecords } from '../../private/resources/repository/loadRepositoryRecords';
 import { hydrateStoreFromRecords } from '../../private/store/hydrateStoreFromRecords';
@@ -17,9 +18,11 @@ export async function runClone(
 	ctx: WorkspaceContext,
 	{ all, repoName, checkoutInput }: CloneOptions,
 ): Promise<WorkspaceContext> {
-	const repos = await loadRepositoryRecords(ctx.config);
-	const records = await loadCheckoutRecords(ctx.config, repos);
+	const repos = await loadRepositoryRecords(ctx);
+	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
+
+	ctx.log.log(createOperationPending('command', ['clone', { all, repoName, checkoutInput }]));
 
 	if (all) {
 		await cloneAll(ctx, repos);

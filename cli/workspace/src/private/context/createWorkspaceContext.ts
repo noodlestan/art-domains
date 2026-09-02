@@ -6,7 +6,7 @@ import { CheckoutStore } from '../store/createCheckoutStore';
 export interface WorkspaceContext {
 	config: WorkspaceConfig;
 	store: CheckoutStore;
-	log: OperationsLog;
+	log: OperationsLog; // WIP Rename to `ops`
 	workspace?: Checkout;
 }
 

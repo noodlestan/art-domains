@@ -3,6 +3,7 @@ import { doPushCheckout } from '../../private/commands/checkouts/doPushCheckout'
 import { pushWorkspaceCheckout } from '../../private/commands/workspaces/pushWorkspaceCheckout';
 import { scanWorkspaceCheckout } from '../../private/commands/workspaces/scanWorkspaceCheckout';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
+import { createOperationPending } from '../../private/context/operations/createOperationPending';
 import { presentCheckoutReport } from '../../private/present/presentCheckoutReport';
 import { presentOperationsReport } from '../../private/present/presentOperationsReport';
 import { loadCheckoutRecords } from '../../private/resources/checkout/loadCheckoutRecords';
@@ -11,11 +12,13 @@ import { hydrateStoreFromRecords } from '../../private/store/hydrateStoreFromRec
 import { scanAllCheckoutsStates } from '../../private/store/scanAllCheckoutsStates';
 
 export async function runPush(ctx: WorkspaceContext): Promise<void> {
-	const repos = await loadRepositoryRecords(ctx.config);
-	const records = await loadCheckoutRecords(ctx.config, repos);
+	const repos = await loadRepositoryRecords(ctx);
+	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
 
-	await scanAllCheckoutsStates(ctx.store);
+	ctx.log.log(createOperationPending('command', ['push']));
+
+	await scanAllCheckoutsStates(ctx);
 
 	for (const checkout of ctx.store.getAllCheckouts()) {
 		if (checkout.scan?.can?.('push') && checkout.scan.should?.('push')) {
