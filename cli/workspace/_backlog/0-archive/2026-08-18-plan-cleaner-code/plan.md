@@ -26,7 +26,7 @@ Decouple the workspace CLI's private layer from `WorkspaceContext` and split sca
 
 ## Mandatory Reading
 
-- `$PROJECT/_backlog/_architect.md` — workspace principles, NFRs, milestones.
+- `$PROJECT/_roadmap/_architect.md` — workspace principles, NFRs, milestones.
 - `$PROJECT/architecture/context-model.md` — `WorkspaceContext`, `CheckoutStore`, scanning.
 - `$PROJECT/architecture/_pseudo.md` — `### Command: clone`, `### Function: scanAllCheckoutsStates`.
 - `$WORKSPACE/.agents/domains/plans/definitions/index.md` — plan and instruction definitions.

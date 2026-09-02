@@ -44,7 +44,7 @@ The shared "is behind" infrastructure is provided by the `pull-push-sync-command
 
 ## Mandatory Reading
 
-- `$PROJECT/_backlog/_architect.md` — workspace architecture, principles, NFRs, use cases
+- `$PROJECT/_roadmap/_architect.md` — workspace architecture, principles, NFRs, use cases
 - `$PROJECT/architecture/_pseudo.md` — CLI pseudo-code: focus on `scanWorkspaceState`, `isCleanCheckout`, `pullCheckout`, `pushCleanCheckouts`, `shouldPushCheckout`
 - `$PROJECT/architecture/commands.md` — command surface and BDD scenarios (focus on Sanity section)
 - `$PROJECT/architecture/context-model.md` — WorkspaceContext, CheckoutStore, Project Records

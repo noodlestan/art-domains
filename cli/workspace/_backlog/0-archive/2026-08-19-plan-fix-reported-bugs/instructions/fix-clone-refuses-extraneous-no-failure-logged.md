@@ -26,7 +26,7 @@ When `clone` refuses because the target directory already exists, no failure ope
 
 ## Mandatory Reading
 
-- `$PROJECT/_backlog/_architect.md` — workspace principles, NFRs, milestones.
+- `$PROJECT/_roadmap/_architect.md` — workspace principles, NFRs, milestones.
 - `$PROJECT/architecture/commands.md` → `## Clone` — designed behaviour, BDD scenarios, and edge cases.
 - `$PROJECT/architecture/_pseudo.md` → `### Command: clone` — the pseudo-code for cloneSpecific.
 - `$PROJECT/architecture/operations-log.md` — how operations are logged.

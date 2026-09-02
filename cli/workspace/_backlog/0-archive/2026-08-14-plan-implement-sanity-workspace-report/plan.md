@@ -19,7 +19,7 @@ Treat workspace as a first-class checkout in sanity command. Show "Workspace:" r
 
 ## Mandatory Reading
 
-- `_backlog/_architect.md` — workspace architecture, principles, NFRs, use cases
+- `_roadmap/_architect.md` — workspace architecture, principles, NFRs, use cases
 - `architecture/_pseudo.md` — CLI pseudo-code: data structures, use cases, auxiliary functions
 - `architecture/context-model.md` — WorkspaceContext, CheckoutStore, Project Records
 - `architecture/reports.md` — How state and operation logs are presented

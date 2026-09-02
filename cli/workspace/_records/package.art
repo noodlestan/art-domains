@@ -26,9 +26,9 @@
 
 ## Package: Workspace CLI
 
-**Purpose:** CLI for workspace orchestration (clone, branch, link, sanity, publish).
+**Purpose:** Operate and monitor multi-repository development environments.
 
-**Description:** Provides commands for managing multiple repositories: cloning repos, branching across repos, symlinking packages for local dev, checking repo status, and publishing packages.
+**Description:** CLI for discovering projects, inspecting and synchronizing checkouts, linking resources, and executing commands across them.
 
 **Owner:** Project: Artificial
 

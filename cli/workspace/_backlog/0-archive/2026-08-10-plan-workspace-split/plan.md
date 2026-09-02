@@ -32,7 +32,7 @@ For the delegator (execution mechanics):
 
 For the delegatee (shared context; per-step context is in each instruction file):
 
-- `_backlog/_architect.md` — the split design, NFRs, and steps.
+- `_roadmap/_architect.md` — the split design, NFRs, and steps.
 - `#WORSKAPCE/ops/records/workspace.art` — the workspace record (kept in sync with the repos created).
 - `#WORSKAPCE/ops/records/repositories/workspace-tooling.art` — the record for the repo this plan extracts first.
 

@@ -26,7 +26,7 @@ When cloning a missing checkout for an existing record, `cloneIfMissing` current
 
 ## Mandatory Reading
 
-- `$PROJECT/_backlog/_architect.md` — workspace principles, NFRs, milestones.
+- `$PROJECT/_roadmap/_architect.md` — workspace principles, NFRs, milestones.
 - `$PROJECT/architecture/commands.md` → `## Clone` — designed behaviour and BDD scenarios.
 - `$PROJECT/architecture/_pseudo.md` → `### Function: cloneIfMissing` — the pseudo-code for cloning.
 - `$PROJECT/architecture/context-model.md` — `CheckoutStore`, `Checkout`, `saveCheckoutRecord`.

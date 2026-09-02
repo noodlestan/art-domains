@@ -24,7 +24,7 @@ Implement the `repo` command for `@art-domains/workspace-cli`. This command list
 
 ## Mandatory Reading
 
-- `$PROJECT/_backlog/_architect.md` — workspace architecture, principles, NFRs, use cases
+- `$PROJECT/_roadmap/_architect.md` — workspace architecture, principles, NFRs, use cases
 - `$PROJECT/architecture/_pseudo.md` — CLI pseudo-code: data structures, use cases, auxiliary functions (focus on `repo` command section)
 - `$PROJECT/architecture/commands.md` — command surface and BDD scenarios (focus on `Repo` section)
 - `$PROJECT/architecture/context-model.md` — WorkspaceContext, CheckoutStore, Project Records

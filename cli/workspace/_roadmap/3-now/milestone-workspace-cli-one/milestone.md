@@ -36,7 +36,7 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | Kind        | Path                                | Role                                                            |
 | ----------- | ----------------------------------- | --------------------------------------------------------------- |
 | Parking Lot | `$PROJECT/_backlog/_parking-lot.md` | Tracks short-term actionables, pending questions, and blockers. |
-| Source      | `$PROJECT/_backlog/_architect.md`   | Architect Briefing: Workspace CLI (Milestone 1)                 |
+| Source      | `$PROJECT/_roadmap/_architect.md`   | Architect Briefing: Workspace CLI (Milestone 1)                 |
 
 ### Required Skills
 
@@ -52,7 +52,7 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 
 ### Knowledge
 
-::READ `_backlog/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
+::READ `_roadmap/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
 
 ---
 

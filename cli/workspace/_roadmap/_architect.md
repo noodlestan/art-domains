@@ -1,4 +1,4 @@
-# Architect Briefing: Workspace CLI
+# Architect Briefing: Workspace
 
 This file tracks the forward-looking plan: why, principles, NFRs, definitions, conventions, and follow-ups.
 

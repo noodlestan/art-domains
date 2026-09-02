@@ -1,6 +1,8 @@
 # @art-domains/workspace-cli
 
-Workspace orchestration CLI for the Noodlestan ecosystem.
+**Purpose:** Operate and monitor multi-repository development environments.
+
+**Description:** CLI for discovering projects, inspecting and synchronizing checkouts, linking resources, and executing commands across them.
 
 ## Commands
 

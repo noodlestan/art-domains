@@ -24,7 +24,7 @@ Implement the `pull`, `push`, and `sync` commands for `@art-domains/workspace-cl
 
 ## Mandatory Reading
 
-- `$PROJECT/_backlog/_architect.md` — workspace architecture, principles, NFRs, use cases
+- `$PROJECT/_roadmap/_architect.md` — workspace architecture, principles, NFRs, use cases
 - `$PROJECT/architecture/_pseudo.md` — CLI pseudo-code: data structures, use cases, auxiliary functions
 - `$PROJECT/architecture/commands.md` — command surface and BDD scenarios (focus on Pull, Push, Sync, Sanity sections)
 - `$PROJECT/architecture/context-model.md` — WorkspaceContext, CheckoutStore, Project Records

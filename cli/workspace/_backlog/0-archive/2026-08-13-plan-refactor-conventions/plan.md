@@ -18,7 +18,7 @@ This plan derives from a direct user request (conventions enforcement), not from
 
 ## Mandatory Reading
 
-- `_backlog/_architect.md` — package briefing and approach
+- `_roadmap/_architect.md` — package briefing and approach
 - `_backlog/3-now/plan-workspace-cli/plan.md` — the workspace CLI plan that produced the current codebase
 - `package.json` — scripts: `lint`, `build`, `test`, `test:coverage`
 - `src/index.ts`, `src/config/index.ts` — entry points wiring the renamed modules
