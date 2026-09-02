@@ -43,7 +43,7 @@ describe('branch command', () => {
 
 		const ops = ctx.log.all();
 		expect(ops).toHaveLength(1);
-		expect(ops[0].operation).toBe('branch created');
+		expect(ops[0].operation).toBe('branch');
 		expect(ops[0].outcome).toBe('success');
 		expect(ops[0].message()).toBe('created feat/x');
 	});
@@ -63,7 +63,7 @@ describe('branch command', () => {
 
 		const ops = ctx.log.all();
 		expect(ops).toHaveLength(2);
-		expect(ops.every(o => o.operation === 'branch created' && o.outcome === 'success')).toBe(true);
+		expect(ops.every(o => o.operation === 'branch' && o.outcome === 'success')).toBe(true);
 		expect(ctx.store.getCheckoutOfRepo('Alpha')?.record.branch).toBe('feat/x');
 		expect(ctx.store.getCheckoutOfRepo('Beta')?.record.branch).toBe('feat/x');
 	});
@@ -99,7 +99,7 @@ describe('branch command', () => {
 		expect(ops.length).toEqual(2);
 		const failure = ops.find(o => o.outcome === 'failure');
 		expect(failure).toBeDefined();
-		expect(failure?.operation).toBe('branch created');
+		expect(failure?.operation).toBe('branch');
 		expect(failure?.message()).toContain('not cloned');
 		expect(ctx.store.getCheckoutOfRepo('Good')?.record.branch).toBe('main');
 	});

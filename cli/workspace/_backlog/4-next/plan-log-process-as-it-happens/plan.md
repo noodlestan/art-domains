@@ -2,7 +2,7 @@
 
 **ID:** `log-process-as-it-happens`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 

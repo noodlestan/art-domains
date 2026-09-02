@@ -25,7 +25,7 @@ export function createBranchFailure(
 		ts: new Date(),
 		checkout,
 		outcome: 'failure',
-		operation: 'branch created',
+		operation: 'branch',
 		branch,
 		error: rawError,
 		message() {
