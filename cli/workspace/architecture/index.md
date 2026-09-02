@@ -49,7 +49,7 @@ Commands run as **imperative one-shot processes**: each invocation creates a `Wo
 Every command operates on a `WorkspaceContext` holding:
 
 - **CheckoutStore** — in-memory state of all known checkouts, hydrated from checkout records (`hydrateStoreFromRecords`), scanned for git state; checkout records are saved per mutation by the commands (`saveCheckoutRecord`).
-- **OperationsLog** — append-only log of the side effects performed during the command (clone, push, publish, branch created, linked, unlink), each recorded with a success or failure outcome.
+- **OperationsLog** — append-only log of the side effects performed during the command (clone, push, publish, branch, linked, unlink), each recorded with a success or failure outcome.
 
 Details in `context-model.md` and `operations-log.md`.
 

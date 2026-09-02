@@ -10,7 +10,7 @@ export function createBranchSuccess(
 		ts: new Date(),
 		checkout,
 		outcome: 'success',
-		operation: 'branch created',
+		operation: 'branch',
 		branch,
 		message() {
 			return message || '<empty>';

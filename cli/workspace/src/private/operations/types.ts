@@ -90,17 +90,17 @@ export interface PublishFailure extends OperationFailure {
 }
 
 export interface BranchPending extends OperationPending {
-	operation: 'branch created';
+	operation: 'branch';
 	branch: string;
 }
 
 export interface BranchSuccess extends OperationSuccess {
-	operation: 'branch created';
+	operation: 'branch';
 	branch: string;
 }
 
 export interface BranchFailure extends OperationFailure {
-	operation: 'branch created';
+	operation: 'branch';
 	branch: string;
 }
 

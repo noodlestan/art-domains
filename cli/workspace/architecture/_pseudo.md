@@ -38,7 +38,7 @@ Detailed definitions live in `architecture/operations-log.md`. Symbols relevant 
 
 - **OperationsLog** — append-only: `log(operation)`, `all()`, `since(ts)`, `latest(n)`
 - **Operation** — `operation` kind, `ts`, `checkout`, `outcome` (success/failure), `message()`
-- **Kinds** — `clone`, `push`, `pull`, `publish`, `branch created`, `linked`, `unlink`
+- **Kinds** — `clone`, `push`, `pull`, `publish`, `branch`, `linked`, `unlink`
 - **Factories** — one per kind in `src/private/operations/`: `createCloneSuccess`, `createPushSuccess`, `createPushFailure`, `createPullSuccess`, `createPullFailure`, `createBranchSuccess`, `createBranchFailure`, `createLinkedSuccess`, `createLinkedFailure`, `createUnlinkSuccess`, `createUnlinkFailure`, etc. Read-only commands (`repo`, `links`) never log operations — their failures surface as report states.
 
 ## Reports

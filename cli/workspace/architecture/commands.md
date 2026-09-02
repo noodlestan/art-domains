@@ -357,7 +357,7 @@ Feature: Clone single repo
 
 **Usage:** `branch <branch> [<checkout-location>...]`
 
-Create and checkout the same feature branch in each specified checkout (all checkouts when none specified, or when an empty list is passed), enabling coordinated cross-repo development. The optional arguments are checkout locations (basenames under the checkouts path). Procedure: for each location — resolve the checkout, scan, create/switch the branch, record a `branch created` operation (success `created {branch}` / `switched to {branch}`, or a failure). Update the checkout record's branch (`saveCheckoutRecord`). Present Checkout Report + Operations Report.
+Create and checkout the same feature branch in each specified checkout (all checkouts when none specified, or when an empty list is passed), enabling coordinated cross-repo development. The optional arguments are checkout locations (basenames under the checkouts path). Procedure: for each location — resolve the checkout, scan, create/switch the branch, record a `branch` operation (success `created {branch}` / `switched to {branch}`, or a failure). Update the checkout record's branch (`saveCheckoutRecord`). Present Checkout Report + Operations Report.
 
 **BDD:**
 
@@ -369,8 +369,8 @@ Feature: Branch across checkouts
     When I run "art-workspace branch feat/x artificial purrception"
     Then branch "feat/x" exists in checkout "Artificial"
     And branch "feat/x" exists in checkout "Purrception"
-    And the Operations Report contains "Artificial | branch created"
-    And the Operations Report contains "Purrception | branch created"
+    And the Operations Report contains "Artificial | branch"
+    And the Operations Report contains "Purrception | branch"
 
   Scenario: branch defaults to all checkouts when none specified
     Given checkout "Artificial" is cloned on branch "main"
@@ -382,17 +382,17 @@ Feature: Branch across checkouts
   Scenario: branch switches to existing branch
     Given checkout "Artificial" has branch "feat/x"
     When I run "art-workspace branch feat/x artificial"
-    Then the Operations Report contains "Artificial | branch created | switched to feat/x"
+    Then the Operations Report contains "Artificial | branch | switched to feat/x"
 
   Scenario: unknown location logs failure
     When I run "art-workspace branch feat/x unknown-location"
-    Then the Operations Report contains "branch created | failure"
+    Then the Operations Report contains "branch | failure"
     And the failure message is "not cloned"
 
   Scenario: uncloned checkout logs failure
     Given checkout "Artificial" is recorded but not cloned
     When I run "art-workspace branch feat/x artificial"
-    Then the Operations Report contains "Artificial | branch created | failure"
+    Then the Operations Report contains "Artificial | branch | failure"
     And the failure message is "checkout not cloned"
 ```
 
