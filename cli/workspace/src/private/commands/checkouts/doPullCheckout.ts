@@ -2,6 +2,7 @@ import type { WorkspaceContext } from '../../context/createWorkspaceContext';
 import { pullCheckout } from '../../git/pullCheckout';
 import type { Checkout } from '../../store/createCheckout';
 import { createPullFailure } from '../operations/createPullFailure';
+import { createPullPending } from '../operations/createPullPending';
 import { createPullSuccess } from '../operations/createPullSuccess';
 
 export async function doPullCheckout(
@@ -9,6 +10,7 @@ export async function doPullCheckout(
 	checkout: Checkout,
 ): Promise<Checkout | null> {
 	try {
+		ctx.log.log(createPullPending(checkout, checkout.record.branch));
 		const updated = await pullCheckout(checkout);
 		ctx.store.updateCheckout(updated);
 		ctx.log.log(createPullSuccess(checkout, checkout.record.branch));

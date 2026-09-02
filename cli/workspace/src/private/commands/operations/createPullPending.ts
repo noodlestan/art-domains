@@ -1,0 +1,15 @@
+import type { PullPending } from '../../operations/types';
+import type { Checkout } from '../../store/createCheckout';
+
+export function createPullPending(checkout: Checkout, branch: string): PullPending {
+	return {
+		ts: new Date(),
+		checkout,
+		outcome: 'pending',
+		operation: 'pull',
+		branch,
+		message() {
+			return `from origin/${branch}`;
+		},
+	};
+}

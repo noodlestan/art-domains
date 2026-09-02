@@ -4,6 +4,7 @@ import type { WorkspaceContext } from '../../context/createWorkspaceContext';
 import { scanCheckoutState } from '../../scan/scanCheckoutState';
 import type { Checkout } from '../../store/createCheckout';
 import { createPullFailure } from '../operations/createPullFailure';
+import { createPullPending } from '../operations/createPullPending';
 import { createPullSuccess } from '../operations/createPullSuccess';
 
 export async function pullWorkspaceCheckout(ctx: WorkspaceContext): Promise<Checkout | null> {
@@ -13,6 +14,7 @@ export async function pullWorkspaceCheckout(ctx: WorkspaceContext): Promise<Chec
 
 	const git = simpleGit(workspace.path);
 	try {
+		ctx.log.log(createPullPending(workspace, workspace.record.branch));
 		await git.pull('origin', workspace.record.branch);
 		const updated = await scanCheckoutState(workspace);
 		ctx.workspace = updated;

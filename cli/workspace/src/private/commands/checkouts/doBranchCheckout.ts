@@ -3,6 +3,7 @@ import { createOrSwitchBranch } from '../../git/createOrSwitchBranch';
 import { saveCheckoutRecord } from '../../resources/checkout/saveCheckoutRecord';
 import type { Checkout } from '../../store/createCheckout';
 import { createBranchFailure } from '../operations/createBranchFailure';
+import { createBranchPending } from '../operations/createBranchPending';
 import { createBranchSuccess } from '../operations/createBranchSuccess';
 
 export async function doBranchCheckout(
@@ -11,6 +12,7 @@ export async function doBranchCheckout(
 	branch: string,
 ): Promise<Checkout | null> {
 	try {
+		ctx.log.log(createBranchPending(checkout, branch));
 		const outcome = await createOrSwitchBranch(checkout.path, branch);
 		if (outcome === 'created') {
 			ctx.log.log(createBranchSuccess(checkout, branch, `created ${branch}`));

@@ -1,0 +1,15 @@
+import type { BranchPending } from '../../operations/types';
+import type { Checkout } from '../../store/createCheckout';
+
+export function createBranchPending(checkout: Checkout, branch: string): BranchPending {
+	return {
+		ts: new Date(),
+		checkout,
+		outcome: 'pending',
+		operation: 'branch',
+		branch,
+		message() {
+			return `branch ${branch}`;
+		},
+	};
+}

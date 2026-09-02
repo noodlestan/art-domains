@@ -1,0 +1,15 @@
+import type { PushPending } from '../../operations/types';
+import type { Checkout } from '../../store/createCheckout';
+
+export function createPushPending(checkout: Checkout, branch: string): PushPending {
+	return {
+		ts: new Date(),
+		checkout,
+		outcome: 'pending',
+		operation: 'push',
+		branch,
+		message() {
+			return `to origin/${branch}`;
+		},
+	};
+}

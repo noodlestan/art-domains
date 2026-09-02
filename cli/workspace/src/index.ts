@@ -135,7 +135,11 @@ program
 	.description('Link packages for local dev')
 	.action(async () => {
 		const root = process.cwd();
-		await runLink({ root });
+		const config = await loadWorkspaceConfig(root);
+		const store = createCheckoutStore();
+		const log = createOperationsLog(logger);
+		const ctx = createWorkspaceContext(config, store, log);
+		await runLink(ctx, { root });
 	});
 
 program
@@ -143,7 +147,11 @@ program
 	.description('Unlink packages')
 	.action(async () => {
 		const root = process.cwd();
-		await runUnlink({ root });
+		const config = await loadWorkspaceConfig(root);
+		const store = createCheckoutStore();
+		const log = createOperationsLog(logger);
+		const ctx = createWorkspaceContext(config, store, log);
+		await runUnlink(ctx, { root });
 	});
 
 program
@@ -152,7 +160,11 @@ program
 	.option('--auto', 'auto-publish')
 	.action(async (options: { auto?: boolean }) => {
 		const root = process.cwd();
-		await runPublish({ root, auto: options.auto });
+		const config = await loadWorkspaceConfig(root);
+		const store = createCheckoutStore();
+		const log = createOperationsLog(logger);
+		const ctx = createWorkspaceContext(config, store, log);
+		await runPublish(ctx, { root, auto: options.auto });
 	});
 
 program.parse();

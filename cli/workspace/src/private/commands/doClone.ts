@@ -7,6 +7,7 @@ import { scanCheckoutState } from '../scan/scanCheckoutState';
 import type { Checkout } from '../store/createCheckout';
 
 import { createCloneFailure } from './operations/createCloneFailure';
+import { createClonePending } from './operations/createClonePending';
 import { createCloneSuccess } from './operations/createCloneSuccess';
 
 export async function doClone(ctx: WorkspaceContext, checkout: Checkout): Promise<Checkout | null> {
@@ -15,6 +16,7 @@ export async function doClone(ctx: WorkspaceContext, checkout: Checkout): Promis
 	const recordedBranch = checkout.record.branch;
 
 	try {
+		ctx.log.log(createClonePending(checkout));
 		const git = simpleGit('');
 		await git.clone(checkout.repo.remote, checkout.path);
 
