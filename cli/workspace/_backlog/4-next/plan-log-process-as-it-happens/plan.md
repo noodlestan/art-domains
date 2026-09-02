@@ -2,7 +2,7 @@
 
 **ID:** `log-process-as-it-happens`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -66,7 +66,7 @@ Update the operation type model and logging/presentation in `$PROJECT/src/privat
 
 ### Next
 
-Refine the first `DRAFT` iteration: `add-pending-operation-types`.
+Delegate the next `READY` iteration: `add-pending-operation-types`.
 
 ### Blockers
 
@@ -123,16 +123,16 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 | Iteration / Instructions                  | Status  |
 | ----------------------------------------- | ------- |
-| Iteration: Add Pending Operation Types    | `DRAFT` |
-| Iteration: Stream Pending Operations Live | `DRAFT` |
+| Iteration: Add Pending Operation Types    | `READY` |
+| Iteration: Stream Pending Operations Live | `READY` |
 
 ### Iteration: Add Pending Operation Types
 
 **Id:** `add-pending-operation-types`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
-**Purpose:** Extend the operation type model with a `pending` outcome and per-operation pending types.
+**Purpose:** Extend the operation type model with a `pending` outcome and per-operation pending types so operations can be logged before they complete.
 
 **Description:** Add `pending` to `OperationOutcome`; introduce `OperationPending` and a pending variant for each operation kind; rename `branch created` to `branch`; reorder types to match the export order; extend the `Operation` union with all pending types.
 
@@ -150,11 +150,45 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 - None.
 
+#### Commits:
+
+| ID                            | Repository / Checkout / Branch      | Policy       | Hash  | Status     |
+| ----------------------------- | ----------------------------------- | ------------ | ----- | ---------- |
+| `add-pending-operation-types` | Workspace CLI / `$PROJECT` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| `rename-branch-created`       | Workspace CLI / `$PROJECT` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+
+##### Commit: `add-pending-operation-types`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+build(workspace-cli): add pending operation types.
+
+- Add `pending` outcome and `OperationPending` with per-operation pending types.
+- Reorder operation types to match the `Operation` union export.
+- Extend the `Operation` union with `Pending | Success | Failure` per kind.
+```
+
+##### Commit: `rename-branch-created`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+renames(workspace-cli): rename branch created operation to branch.
+
+- Rename `branch created` to `branch` in operation types, factories, and tests.
+- Mirror the rename in architecture knowledge docs.
+```
+
 ### Iteration: Stream Pending Operations Live
 
 **Id:** `stream-pending-operations-live`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Stream pending operations through the logger as they are issued, and present a `doing:` line for each.
 
@@ -172,6 +206,39 @@ All steps MUST pass. No `it.todo()` tests may remain.
 **Dependencies:**
 
 - `add-pending-operation-types` — pending types must exist before streaming them.
+
+#### Commits:
+
+| ID                          | Repository / Checkout / Branch      | Policy       | Hash  | Status     |
+| --------------------------- | ----------------------------------- | ------------ | ----- | ---------- |
+| `stream-pending-operations` | Workspace CLI / `$PROJECT` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| `wire-live-logger`          | Workspace CLI / `$PROJECT` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+
+##### Commit: `stream-pending-operations`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+build(workspace-cli): stream pending operations through the log.
+
+- Add optional logger to `createOperationsLog`; pending operations are logged live and not stored.
+- Extract `makeOperationLogLine` with ⏳/🟢/🔴 rendering and reuse in the operations report.
+- Add tests for the three outcomes and live streaming.
+```
+
+##### Commit: `wire-live-logger`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+build(workspace-cli): wire live operation logger in index.
+
+- Log pending operations as `doing: {operation} {repo} {details}` via `makeOperationLogLine`.
+```
 
 ---
 
