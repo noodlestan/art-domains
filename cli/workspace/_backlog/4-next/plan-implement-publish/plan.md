@@ -37,7 +37,7 @@ Implement the publish command for pushing repos and publishing unpublished packa
 | --------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------- |
 | Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers. |
 | Architecture Briefing | `_backlog/_architect.md`                                           | Workspace principles, NFRs, milestones.                         |
-| Milestone             | `$PROJECT/_backlog/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan within the Workspace CLI One milestone.   |
+| Milestone             | `$PROJECT/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan within the Workspace CLI One milestone.   |
 
 ### Required Skills
 

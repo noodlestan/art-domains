@@ -36,7 +36,7 @@ Update 8 architecture knowledge resource files to reflect implemented commands (
 | Kind        | Path                                                               | Role                                                            |
 | ----------- | ------------------------------------------------------------------ | --------------------------------------------------------------- |
 | Parking Lot | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers. |
-| Milestone   | `$PROJECT/_backlog/3-now/milestone-workspace-cli-one/milestone.md` | Defines this plan as part of the Workspace CLI One milestone.   |
+| Milestone   | `$PROJECT/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Defines this plan as part of the Workspace CLI One milestone.   |
 
 ### Required Skills
 

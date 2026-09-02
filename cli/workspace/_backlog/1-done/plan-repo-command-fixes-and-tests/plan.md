@@ -156,7 +156,7 @@ None.
 
 ## Milestone
 
-Milestone 1 — Workspace CLI One (`$PACKAGE/_backlog/3-now/milestone-workspace-cli-one/milestone.md`). This plan is Phase 14 and is now in the `3-now` execution queue.
+Milestone 1 — Workspace CLI One (`$PACKAGE/_roadmap/3-now/milestone-workspace-cli-one/milestone.md`). This plan is Phase 14 and is now in the `3-now` execution queue.
 
 ## Feedback
 
