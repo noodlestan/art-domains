@@ -18,7 +18,7 @@ Fix repo command showing "unknown package" for every package, followed by hydrat
 
 ## Mandatory Reading
 
-- `_backlog/_architect.md` — workspace architecture, principles, NFRs, use cases
+- `_roadmap/_architect.md` — workspace architecture, principles, NFRs, use cases
 - `architecture/_pseudo.md` — CLI pseudo-code: data structures, use cases, auxiliary functions
 - `architecture/context-model.md` — WorkspaceContext, CheckoutStore, Project Records
 - `architecture/commands.md` — command surface and BDD scenarios

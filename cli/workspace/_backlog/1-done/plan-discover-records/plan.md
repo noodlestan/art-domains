@@ -42,7 +42,7 @@ Running on `$WORKSPACE`, managed by `@art-domains/workspace-cli`; the repository
 
 - Maintainer note: `$PROJECT/art-domains/cli/workspace/_backlog/_note_from_workspace_architect.md` — requires dynamic `.art` discovery, record-kind filtering, migration compatibility, and prioritisation.
 - Workspace parking lot: `$PROJECT/art-domains/cli/workspace/_backlog/_parking-lot.md` — identifies the Workspace CLI as active work and records testing and delivery expectations.
-- Workspace architect briefing: `$PROJECT/art-domains/cli/workspace/_backlog/_architect.md` — establishes records as the source of truth and the imperative, rehydratable command model.
+- Workspace architect briefing: `$PROJECT/art-domains/cli/workspace/_roadmap/_architect.md` — establishes records as the source of truth and the imperative, rehydratable command model.
 
 ### Guides
 

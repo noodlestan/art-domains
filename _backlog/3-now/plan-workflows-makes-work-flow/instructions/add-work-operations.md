@@ -142,6 +142,7 @@ Run from `$WORKSPACE` root:
 npm run lint:fix # to fix formatting issues automatically
 npm run lint # to report other formatting issues
 ```
+
 ## How to Report Back to the Delegator
 
 This section describes how to report back to the delegator after completing the instruction.

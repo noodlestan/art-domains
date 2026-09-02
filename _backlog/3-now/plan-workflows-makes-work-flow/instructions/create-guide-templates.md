@@ -27,12 +27,12 @@ This section describes how to report back to the delegator after completing the 
 
 This section lists the path variables used in this instruction file. All file references in this instructions file MUST use these variables — never bare filesystem paths.
 
-| Variable     | Resolved Path             | Purpose                                                          |
-| ------------ | ------------------------- | ---------------------------------------------------------------- |
-| `$WORKSPACE` | Current working directory | Workspace root directory contains the agent files being modified |
-| `$DOMAINS`   | `$WORKSPACE/.agents/domains` | Domain resources directory (changes here)                     |
-| `$ART_DOMAINS` | `$WORKSPACE/checkouts/art-domains` | Reference `_guide.md` examples live here                  |
-| `$PROJECT`   | Provided with prompt      | Where work execution is taking place.                            |
+| Variable       | Resolved Path                      | Purpose                                                          |
+| -------------- | ---------------------------------- | ---------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory          | Workspace root directory contains the agent files being modified |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains`       | Domain resources directory (changes here)                        |
+| `$ART_DOMAINS` | `$WORKSPACE/checkouts/art-domains` | Reference `_guide.md` examples live here                         |
+| `$PROJECT`     | Provided with prompt               | Where work execution is taking place.                            |
 
 ## Working Agreements
 

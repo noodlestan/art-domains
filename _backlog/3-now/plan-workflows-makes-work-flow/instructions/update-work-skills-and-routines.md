@@ -62,7 +62,7 @@ Create the following routine files in `$DOMAINS/work/routines/`:
 
 In `$DOMAINS/work/routines/compose-work-scope.art`:
 
-````art
+```art
 # Module
 
 ## Uses
@@ -103,13 +103,13 @@ In `$DOMAINS/work/routines/compose-work-scope.art`:
 5. When the resource is planned, include as much information as possible.
 6. Compose the `%scope` from all the populated `%scope-item`.
 7. Return `%scope`.
-````
+```
 
 #### 1.2 Create "Routine: Compose Work Context"
 
 In `$DOMAINS/work/routines/compose-work-context.art`:
 
-````art
+```art
 # Module
 
 ## Uses
@@ -156,13 +156,13 @@ In `$DOMAINS/work/routines/compose-work-context.art`:
    - `stages` — Workflow stages where this skill is required.
    - `purpose` — Why this skill is required.
 7. Return `%context.upstream`, `%context.knowledge`, `%context.required-skills`.
-````
+```
 
 #### 1.3 Create "Routine: Compose Work Operations"
 
 In `$DOMAINS/work/routines/compose-work-operations.art`:
 
-````art
+```art
 # Module
 
 ## Uses
@@ -191,13 +191,13 @@ In `$DOMAINS/work/routines/compose-work-operations.art`:
 3. With each `%stage` (Structure: Workflow Stage) in `%workflow.stages`, add all `%stage.operations` into the `%operations` list.
 4. For each `%operation` listed in `%operations` make sure it identifies the owning `workflow` and `stage`.
 5. Return list of Structure: Operation.
-````
+```
 
 #### 1.4 Create "Routine: Compose Operating Instructions"
 
 In `$DOMAINS/work/routines/compose-operating-instructions.art`:
 
-````art
+```art
 # Module
 
 ## Uses
@@ -228,7 +228,7 @@ In `$DOMAINS/work/routines/compose-operating-instructions.art`:
 3. With each `%knowledge` scan their artefacts for matching operational instructions. Examples: `## Operating Instructions: Verifying`.
 4. With each operating instruction, scan `%work-item.scope` resources for matching sections. Examples: `## Building`.
 5. Return deduplicated list of Type: Operating Instructions.
-````
+```
 
 ### Step 2: Update write-plan skill
 
@@ -242,21 +242,21 @@ Update `$SKILLS/write-plan/SKILL.md` to:
 
 **Example of how routines are loaded:**
 
-````art
+```art
 ## Mandatory Reading
 
 ::READ `$DOMAINS/work/routines/compose-work-scope.art` — Routine for composing work scope.
 ::READ `$DOMAINS/work/routines/compose-work-context.art` — Routine for composing work context.
 ::READ `$DOMAINS/work/routines/compose-work-operations.art` — Routine for composing work operations.
 ::READ `$DOMAINS/work/routines/compose-operating-instructions.art` — Routine for composing operating instructions.
-````
+```
 
 **Example of how routines are called:**
 
-````art
+```art
 5. ::READ `$DOMAINS/work/routines/compose-work-scope.art` to load the routine.
 6. ::With `%maybe-scope` and `%mode`, execute the **Routine: Compose Work Scope** to identify `%scope`.
-````
+```
 
 ### Step 3: Update write-milestone skill
 

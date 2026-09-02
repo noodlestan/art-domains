@@ -26,7 +26,7 @@ The plan workflow (see the entry point guide → Planning Workflow → Working T
 
 ## Mandatory Reading
 
-- `$PROJECT/_backlog/_architect.md` — workspace principles, NFRs, milestones.
+- `$PROJECT/_roadmap/_architect.md` — workspace principles, NFRs, milestones.
 - `$PROJECT/architecture/commands.md` → `## Sanity` — designed behaviour and BDD scenarios.
 - `$PROJECT/architecture/_pseudo.md` → `### Function: scanExtraneousCheckouts` — the pseudo-code for extraneous scanning.
 - `$PROJECT/architecture/context-model.md` — `CheckoutStore`, `Checkout`, scanning.

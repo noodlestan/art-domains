@@ -26,7 +26,7 @@ Extraneous checkouts always trigger a "wrong branch" issue because `scanCheckout
 
 ## Mandatory Reading
 
-- `$PROJECT/_backlog/_architect.md` — workspace principles, NFRs, milestones.
+- `$PROJECT/_roadmap/_architect.md` — workspace principles, NFRs, milestones.
 - `$PROJECT/architecture/_pseudo.md` → `### Function: scanCheckoutState` — how checkout state is computed.
 - `$PROJECT/architecture/context-model.md` — `CheckoutStore`, `Checkout`, scanning.
 - `$WORKSPACE/.agents/domains/plans/definitions/index.md` — plan and instruction definitions.

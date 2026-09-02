@@ -37,7 +37,7 @@ Move workspace-cli (code, roadmap/backlog, knowledge) to a new `noodlestan/art-c
 | Kind                  | Path                                                               | Role                                                                 |
 | --------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------- |
 | Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers.      |
-| Architecture Briefing | `_backlog/_architect.md`                                           | Workspace principles, NFRs, milestones.                              |
+| Architecture Briefing | `_roadmap/_architect.md`                                           | Workspace principles, NFRs, milestones.                              |
 | Milestone             | `$PROJECT/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan as Phase 3 of the Workspace CLI One milestone. |
 
 ### Required Skills
@@ -54,7 +54,7 @@ Move workspace-cli (code, roadmap/backlog, knowledge) to a new `noodlestan/art-c
 
 ### Knowledge
 
-::READ `_backlog/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
+::READ `_roadmap/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
 ::READ `architecture/index.md` (Model) — Package layout, publishing, and execution model. Relevant for Planning Work Item.
 ::READ `$DOMAINS/roadmaps/index.md` (Structure) — Roadmaps and milestones coordination. Relevant for Planning Work Item.
 

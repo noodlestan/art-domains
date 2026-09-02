@@ -27,8 +27,8 @@ Every command starts by loading records into the store:
 
 ```pseudo
 hydrate(ctx)
-  repos = await loadRepositoryRecords(ctx.config)
-  records = await loadCheckoutRecords(ctx.config, repos)
+  repos = await loadRepositoryRecords(ctx)
+  records = await loadCheckoutRecords(ctx, repos)
   hydrateStoreFromRecords(ctx.config, ctx.store, records)
 ```
 
@@ -114,7 +114,7 @@ cloneSpecific(ctx, repos, repoName, checkoutInput)
   scanCheckoutState(checkout)
 
 cloneStatus(ctx)
-  scanAllCheckoutsStates(ctx.store)
+  scanAllCheckoutsStates(ctx)
   presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts())
 ```
 
@@ -353,7 +353,7 @@ unlink(location, package, target)
 pull()
   ctx = createWorkspaceContext(config, store, log)
   hydrate(ctx)
-  scanAllCheckoutsStates(ctx.store)
+  scanAllCheckoutsStates(ctx)
 
   for checkout in ctx.store.getAllCheckouts():
     if checkout.scan.can('pull') and checkout.scan.should('pull'):
@@ -373,7 +373,7 @@ pull()
 push()
   ctx = createWorkspaceContext(config, store, log)
   hydrate(ctx)
-  scanAllCheckoutsStates(ctx.store)
+  scanAllCheckoutsStates(ctx)
 
   for checkout in ctx.store.getAllCheckouts():
     if checkout.scan.can('push') and checkout.scan.should('push'):
@@ -395,7 +395,7 @@ push()
 sync()
   ctx = createWorkspaceContext(config, store, log)
   hydrate(ctx)
-  scanAllCheckoutsStates(ctx.store)
+  scanAllCheckoutsStates(ctx)
 
   for checkout in ctx.store.getAllCheckouts():
     if checkout.scan.can('pull'):
@@ -416,7 +416,7 @@ sync()
 publish(auto)
   ctx = createWorkspaceContext(config, store, log)
   hydrate(ctx)
-  scanAllCheckoutsStates(ctx.store)
+  scanAllCheckoutsStates(ctx)
 
   for checkout in ctx.store.getAllCheckouts():
     // Push if clean, has remote, unpushed > 0

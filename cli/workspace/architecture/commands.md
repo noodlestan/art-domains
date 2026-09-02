@@ -610,4 +610,4 @@ Feature: Publish packages
 ## Implementation Status
 
 - **Implemented:** `clone` (all / specific / status), `sanity` (scan + `--auto` push), and `branch` (create/switch across checkouts), on top of the shared data model and reports.
-- **Stubbed:** `link`, `unlink`, `publish` — command entry points exist but print "TODO"; the procedures above are the designed behaviour (from `_backlog/_architect.md` use cases and the pseudo contract).
+- **Stubbed:** `link`, `unlink`, `publish` — command entry points exist but print "TODO"; the procedures above are the designed behaviour (from `_roadmap/_architect.md` use cases and the pseudo contract).

@@ -93,6 +93,7 @@ Add new roadmaps routines for milestone lifecycle and validation.
 - Add `integrate-milestone-downstream.art` — integrates findings from downstream work items.
 
 Key validation rules for milestones:
+
 - Phases must be ordered by index.
 - Each work item must belong to a phase.
 - The phases table must list all known items.

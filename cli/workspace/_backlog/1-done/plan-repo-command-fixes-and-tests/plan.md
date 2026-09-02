@@ -33,7 +33,7 @@ Fix the three reported `@art-domains/workspace-cli` repository-command bugs, add
 
 - Bugs attachment: `$PACKAGE/_backlog/1-done/plan-repo-command-fixes-and-tests/plan__bugs.md` — authoritative bug scenarios and evidence.
 - Parking lot: `$PACKAGE/_backlog/_parking-lot.md` — actionable fixes and test follow-ups.
-- Architect briefing: `$PACKAGE/_backlog/_architect.md` — command and records principles.
+- Architect briefing: `$PACKAGE/_roadmap/_architect.md` — command and records principles.
 
 ### Guides
 

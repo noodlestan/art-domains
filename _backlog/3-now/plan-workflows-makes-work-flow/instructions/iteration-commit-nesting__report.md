@@ -45,11 +45,11 @@ Successfully executed the `iteration-commit-nesting` instruction, which added a 
 
 ## Commits
 
-| ID                             | Hash     | Policy   | Status    |
-| ------------------------------ | -------- | -------- | --------- |
-| `add-commit-template`          | `dd8f814` | AUTONOMOUS | COMMITTED |
-| `change-commit-policy-options` | `6065c85` | BLOCKED  | COMMITTED |
-| `operating-instructions-in-instructions-file` | `4a49c56` | NOPUSH | COMMITTED |
+| ID                                            | Hash      | Policy     | Status    |
+| --------------------------------------------- | --------- | ---------- | --------- |
+| `add-commit-template`                         | `dd8f814` | AUTONOMOUS | COMMITTED |
+| `change-commit-policy-options`                | `6065c85` | BLOCKED    | COMMITTED |
+| `operating-instructions-in-instructions-file` | `4a49c56` | NOPUSH     | COMMITTED |
 
 ## Blockers
 

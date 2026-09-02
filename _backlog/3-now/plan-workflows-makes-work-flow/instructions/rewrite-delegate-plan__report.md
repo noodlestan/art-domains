@@ -10,12 +10,12 @@
 
 ### Changes
 
-| Goal | Status | Detail |
-| ---- | ------ | ------ |
-| Move delegation routines to canon locations | Done | `prepare-delegation.art` and `delegate-instructions.art` moved from `$SKILLS/delegate-plan/procedures/` to `$DOMAINS/plans/routines/`; empty `procedures/` directory removed. |
-| Rewrite `prepare-delegation.art` | Done | Follows canon routine syntax (`# Module` header, inputs/output, numbered `**Procedure:**`), declares `%maybe-plan`/`%maybe-instructions` inputs and `%plan` output; verifies iteration READY and commits AUTHORED, `::READ`s validate-plan and ALERTs on problems; keeps Step 1: Set execution state; all task references removed. |
-| Rewrite `delegate-instructions.art` | Done | Declares single `%instructions` input; keeps only the Step 2 content (worker launch + outcome identification). |
-| Rewrite `$SKILLS/delegate-plan/SKILL.md` | Done | Thin shell matching write-plan shape; h1 renamed to "Skill: Delegate Plan"; Routines `::READ` directives point to new canon locations; `%plan` single-input Delegate Plan command; added Delegate Instructions command; rewrote Record Delegation with `%maybe-instructions`/`%maybe-report`; flattened commands with `::READ` prior to every routine invocation. |
+| Goal                                        | Status | Detail                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Move delegation routines to canon locations | Done   | `prepare-delegation.art` and `delegate-instructions.art` moved from `$SKILLS/delegate-plan/procedures/` to `$DOMAINS/plans/routines/`; empty `procedures/` directory removed.                                                                                                                                                                                     |
+| Rewrite `prepare-delegation.art`            | Done   | Follows canon routine syntax (`# Module` header, inputs/output, numbered `**Procedure:**`), declares `%maybe-plan`/`%maybe-instructions` inputs and `%plan` output; verifies iteration READY and commits AUTHORED, `::READ`s validate-plan and ALERTs on problems; keeps Step 1: Set execution state; all task references removed.                                |
+| Rewrite `delegate-instructions.art`         | Done   | Declares single `%instructions` input; keeps only the Step 2 content (worker launch + outcome identification).                                                                                                                                                                                                                                                    |
+| Rewrite `$SKILLS/delegate-plan/SKILL.md`    | Done   | Thin shell matching write-plan shape; h1 renamed to "Skill: Delegate Plan"; Routines `::READ` directives point to new canon locations; `%plan` single-input Delegate Plan command; added Delegate Instructions command; rewrote Record Delegation with `%maybe-instructions`/`%maybe-report`; flattened commands with `::READ` prior to every routine invocation. |
 
 #### Files changed
 
@@ -42,6 +42,7 @@ Docs and routines were consistent. No ambiguities or contradictions found.
 ### For the crew
 
 Commits were:
+
 - `8c45827` — `refactor(workflows-make-work-flow): Rewrite delegation routines in plans domain` (pushed)
 - `76726b4` — `refactor(workflows-make-work-flow): Rewrite delegate-plan skill to match write-plan standards` (pushed)
 

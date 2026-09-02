@@ -63,6 +63,7 @@ npm run lint # report remaining issues
 ### Step 1: Rename routine files from .md to .art
 
 Rename the following files:
+
 - `domains/plans/routines/validate-plan.md` → `domains/plans/routines/validate-plan.art`
 - `domains/roadmaps/routines/validate-milestone.md` → `domains/roadmaps/routines/validate-milestone.art`
 

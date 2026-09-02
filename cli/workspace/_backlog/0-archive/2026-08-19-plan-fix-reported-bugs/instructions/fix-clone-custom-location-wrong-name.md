@@ -26,7 +26,7 @@ The plan workflow (see the entry point guide → Planning Workflow → Working T
 
 ## Mandatory Reading
 
-- `$PROJECT/_backlog/_architect.md` — workspace principles, NFRs, milestones.
+- `$PROJECT/_roadmap/_architect.md` — workspace principles, NFRs, milestones.
 - `$PROJECT/architecture/commands.md` → `## Clone` — designed behaviour, BDD scenarios, and edge cases.
 - `$PROJECT/architecture/_pseudo.md` → `### Command: clone` and `### Function: createCheckoutLocation` — pseudo-code for name and path computation.
 - `$PROJECT/architecture/context-model.md` — `CheckoutStore`, `Checkout`, `createCheckout`.

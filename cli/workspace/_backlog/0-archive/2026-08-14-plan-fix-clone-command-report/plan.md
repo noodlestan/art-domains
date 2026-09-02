@@ -19,7 +19,7 @@ Fix clone command report issues: checkout list shown twice, and report shows ful
 
 ## Mandatory Reading
 
-- `_backlog/_architect.md` — workspace architecture, principles, NFRs, use cases
+- `_roadmap/_architect.md` — workspace architecture, principles, NFRs, use cases
 - `architecture/_pseudo.md` — CLI pseudo-code: data structures, use cases, auxiliary functions
 - `architecture/commands.md` — command surface and BDD scenarios
 - `architecture/reports.md` — How state and operation logs are presented

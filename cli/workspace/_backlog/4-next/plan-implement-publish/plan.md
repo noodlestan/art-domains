@@ -36,7 +36,7 @@ Implement the publish command for pushing repos and publishing unpublished packa
 | Kind                  | Path                                                               | Role                                                            |
 | --------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------- |
 | Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers. |
-| Architecture Briefing | `_backlog/_architect.md`                                           | Workspace principles, NFRs, milestones.                         |
+| Architecture Briefing | `_roadmap/_architect.md`                                           | Workspace principles, NFRs, milestones.                         |
 | Milestone             | `$PROJECT/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan within the Workspace CLI One milestone.   |
 
 ### Required Skills
@@ -52,7 +52,7 @@ Implement the publish command for pushing repos and publishing unpublished packa
 
 ### Knowledge
 
-::READ `_backlog/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
+::READ `_roadmap/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
 ::READ `architecture/commands.md` (Design) — Designed behaviour and BDD scenarios for Publish. Relevant for Planning Work Item.
 ::READ `architecture/_pseudo.md` (Pseudo-code) — Pseudo-code contract for publish command and auxiliary `shouldPushCheckout`/`pushCheckout`. Relevant for Planning Work Item.
 ::READ `architecture/records/adr/publish.art` (ADR) — Publish decisions. Relevant for Planning Work Item.
@@ -176,7 +176,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Follow Ups
 
-- `publish` completes the publish-then-symlink loop with `link`/`unlink`; the Formalized Publishing Workflow follow-up in `_backlog/_architect.md` should be revisited once this lands.
+- `publish` completes the publish-then-symlink loop with `link`/`unlink`; the Formalized Publishing Workflow follow-up in `_roadmap/_architect.md` should be revisited once this lands.
 
 ### Feedback
 

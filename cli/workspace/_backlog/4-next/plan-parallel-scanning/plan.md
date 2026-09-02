@@ -36,7 +36,7 @@ Make `sanity`, `pull`, `push`, and `sync` faster by (1) scanning checkouts concu
 | Kind                  | Path                                                               | Role                                                                  |
 | --------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------- |
 | Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers.       |
-| Architecture Briefing | `_backlog/_architect.md`                                           | Workspace principles, NFRs, milestones.                               |
+| Architecture Briefing | `_roadmap/_architect.md`                                           | Workspace principles, NFRs, milestones.                               |
 | Milestone             | `$PROJECT/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan within the Workspace CLI One milestone.         |
 | Follow Ups            | `plan-fix-pull-push-bugs` plan Follow Ups                          | Scan latency and parallelism follow-up raised after fixing pull/push. |
 
@@ -53,7 +53,7 @@ Make `sanity`, `pull`, `push`, and `sync` faster by (1) scanning checkouts concu
 
 ### Knowledge
 
-::READ `_backlog/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
+::READ `_roadmap/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
 ::READ `architecture/index.md` (Model) — Execution Model and OperationsLog. Relevant for Planning Work Item.
 ::READ `architecture/commands.md` (Design) — Designed behaviour and BDD scenarios for sanity, pull, push, sync. Relevant for Planning Work Item.
 ::READ `architecture/_pseudo.md` (Pseudo-code) — Pseudo-code contract for the scan and git inspection. Relevant for Planning Work Item.

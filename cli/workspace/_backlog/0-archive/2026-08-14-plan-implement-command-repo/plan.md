@@ -14,11 +14,11 @@ Implement the `repo` command for `@art-domains/workspace-cli`. Lists repositorie
 
 ## Source Tasks
 
-- [Taken from Architect Briefing: Workspace CLI](_backlog/_architect.md)
+- [Taken from Architect Briefing: Workspace CLI](_roadmap/_architect.md)
 
 ## Mandatory Reading
 
-- `_backlog/_architect.md` — workspace architecture, principles, NFRs, use cases
+- `_roadmap/_architect.md` — workspace architecture, principles, NFRs, use cases
 - `architecture/_pseudo.md` — CLI pseudo-code: data structures, use cases, auxiliary functions
 - `architecture/commands.md` — command surface and BDD scenarios
 - `architecture/context-model.md` — WorkspaceContext, CheckoutStore, Project Records

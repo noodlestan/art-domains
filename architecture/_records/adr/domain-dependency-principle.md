@@ -7,6 +7,7 @@
 **Decision:** A domain may depend directly on another domain when it cannot provide its own abstraction without that domain.
 
 **Consequences:**
+
 - Dependencies are explicit and traceable.
 - Domains that can provide their own abstractions remain independent.
 - Dependency chains are kept short by preferring local abstractions where possible.

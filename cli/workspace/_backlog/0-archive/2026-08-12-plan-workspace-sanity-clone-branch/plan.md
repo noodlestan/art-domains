@@ -14,11 +14,11 @@ Create `@art-domains/workspace-cli` package with implemented commands: `sanity`,
 
 ## Source Tasks
 
-- [Taken from Architect Briefing: Workspace CLI](_backlog/_architect.md)
+- [Taken from Architect Briefing: Workspace CLI](_roadmap/_architect.md)
 
 ## Mandatory Reading
 
-- `_backlog/_architect.md` — workspace architecture, principles, NFRs, use cases
+- `_roadmap/_architect.md` — workspace architecture, principles, NFRs, use cases
 - `architecture/_pseudo.md` — CLI pseudo-code: data structures, use cases, auxiliary functions
 - `architecture/records/adr/cli.art` — CLI package decisions (location, manifest format, records as source of truth, tech stack)
 - `architecture/records/adr/execution-model.art` — imperative-first, reactive-later execution model

@@ -10,13 +10,13 @@
 
 ### Changes
 
-| Goal | Result |
-| ---- | ---- |
-| Rename `**Inherited:**` to `**Inherits:**` across all structures | 2 files fixed: `plan.art`, `milestone.art` |
-| Remove `**Primitive:** Record` from all structures and types | 9 files fixed: `milestone.art`, `iteration.art`, `work-scope-item-abstract.art`, `package-dependency.art`, `package-dependency-set.art`, `package-script.art`, `package-script-set.art`, `package-dependencies.art` |
-| Rename `**Specific fields:**` to `**Shape:**` in 4 drifted scope type files | 4 files fixed: `application-scope.art`, `repository-scope.art`, `package-scope.art`, `deployment-scope.art` |
-| Ensure all structures have consistent `**Extends:**` declarations | All 32 structure/type files verified with correct Extends declarations |
-| Verify `kind` and `name` are not listed in inherits sections | Checked across all modified files — clean |
+| Goal                                                                        | Result                                                                                                                                                                                                              |
+| --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rename `**Inherited:**` to `**Inherits:**` across all structures            | 2 files fixed: `plan.art`, `milestone.art`                                                                                                                                                                          |
+| Remove `**Primitive:** Record` from all structures and types                | 9 files fixed: `milestone.art`, `iteration.art`, `work-scope-item-abstract.art`, `package-dependency.art`, `package-dependency-set.art`, `package-script.art`, `package-script-set.art`, `package-dependencies.art` |
+| Rename `**Specific fields:**` to `**Shape:**` in 4 drifted scope type files | 4 files fixed: `application-scope.art`, `repository-scope.art`, `package-scope.art`, `deployment-scope.art`                                                                                                         |
+| Ensure all structures have consistent `**Extends:**` declarations           | All 32 structure/type files verified with correct Extends declarations                                                                                                                                              |
+| Verify `kind` and `name` are not listed in inherits sections                | Checked across all modified files — clean                                                                                                                                                                           |
 
 #### Files changed
 

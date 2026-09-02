@@ -36,7 +36,7 @@ Add `pending` operations to the type model, stream them live through the operati
 | Kind                  | Path                                                               | Role                                                            |
 | --------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------- |
 | Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers. |
-| Architecture Briefing | `_backlog/_architect.md`                                           | Workspace principles, NFRs, milestones.                         |
+| Architecture Briefing | `_roadmap/_architect.md`                                           | Workspace principles, NFRs, milestones.                         |
 | Milestone             | `$PROJECT/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan within the Workspace CLI One milestone.   |
 
 ### Required Skills
@@ -52,7 +52,7 @@ Add `pending` operations to the type model, stream them live through the operati
 
 ### Knowledge
 
-::READ `_backlog/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
+::READ `_roadmap/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
 ::READ `architecture/operations-log.md` (Model) — OperationsLog and Operation semantics. Read-only reference; do not edit. Relevant for Planning Work Item.
 ::READ `architecture/_pseudo.md` (Pseudo-code) — Operation kinds. Relevant for Planning Work Item.
 ::READ `architecture/commands.md` (Design) — Designed behaviour and BDD scenarios for the branch operation. Relevant for Planning Work Item.

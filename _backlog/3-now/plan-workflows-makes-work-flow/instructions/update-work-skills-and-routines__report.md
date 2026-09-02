@@ -10,12 +10,12 @@
 
 ### Changes
 
-| Goal | Outcome |
-| ---- | ------- |
-| Extract common routines from write-plan and write-milestone skills to the work domain | Done — 4 new routine files created |
-| Update write-plan skill to load routines via `::READ` directives | Done — removed inline routines, added directives, updated all references |
-| Update write-milestone skill to load routines via `::READ` directives | Done — removed inline routines, added directives, removed instruction file routine |
-| Update work domain index with new routines section | Done — added Routines table entry for all 4 new routines |
+| Goal                                                                                  | Outcome                                                                            |
+| ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Extract common routines from write-plan and write-milestone skills to the work domain | Done — 4 new routine files created                                                 |
+| Update write-plan skill to load routines via `::READ` directives                      | Done — removed inline routines, added directives, updated all references           |
+| Update write-milestone skill to load routines via `::READ` directives                 | Done — removed inline routines, added directives, removed instruction file routine |
+| Update work domain index with new routines section                                    | Done — added Routines table entry for all 4 new routines                           |
 
 #### Files changed
 

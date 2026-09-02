@@ -142,6 +142,7 @@ Example of existing record:
 ### Step: Remove concrete scope types
 
 Delete the following files:
+
 - `$DOMAINS/projects/types/project-scope.art`
 - `$DOMAINS/packages/types/package-scope.art`
 - `$DOMAINS/repositories/types/repository-scope.art`
@@ -158,6 +159,7 @@ Update `$DOMAINS/work/structures/work-item-abstract.art`:
 ### Step: Update domain indexes
 
 Update the following domain indexes to remove references to concrete scope types:
+
 - `$DOMAINS/projects/index.md` — Remove Type: Project Scope
 - `$DOMAINS/packages/index.md` — Remove Type: Package Scope
 - `$DOMAINS/repositories/index.md` — Remove Type: Repository Scope
@@ -167,6 +169,7 @@ Update the following domain indexes to remove references to concrete scope types
 ### Step: Update templates
 
 Update templates that reference scope types:
+
 - `$DOMAINS/work/templates/work-item-context.tart` — Update scope type references
 - `$DOMAINS/plans/templates/plan.tart` — Update scope type references
 - `$DOMAINS/roadmaps/templates/milestone.tart` — Update scope type references

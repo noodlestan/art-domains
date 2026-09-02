@@ -26,7 +26,7 @@ Detect when a checkout's actual git remote differs from the repository remote de
 
 ## Mandatory Reading
 
-- `$PROJECT/_backlog/_architect.md` — workspace principles, NFRs, milestones.
+- `$PROJECT/_roadmap/_architect.md` — workspace principles, NFRs, milestones.
 - `$PROJECT/architecture/commands.md` → `## Sanity` — designed behaviour and BDD scenarios.
 - `$PROJECT/architecture/_pseudo.md` → `### Function: scanCheckoutState` — how checkout state is computed.
 - `$PROJECT/architecture/context-model.md` — `CheckoutStore`, `Checkout`, scanning.

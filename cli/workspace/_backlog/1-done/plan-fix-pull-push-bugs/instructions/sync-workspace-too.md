@@ -45,7 +45,7 @@ Make `pull`, `push`, `sync`, and `sanity --auto` all apply their pull/push logic
 - Bugs: `$PROJECT/_backlog/3-now/plan-fix-pull-push-bugs/plan__bugs.md` — bug scenarios and evidence.
 - Architecture: `$PROJECT/architecture/commands.md` — command behaviour and BDD scenarios.
 - Pseudo-code: `$PROJECT/architecture/_pseudo.md` — pseudo-code contracts.
-- Briefing: `$PROJECT/_backlog/_architect.md` — workspace principles and NFRs.
+- Briefing: `$PROJECT/_roadmap/_architect.md` — workspace principles and NFRs.
 
 - RULE: You MUST follow any links under `## Mandatory Reading` sections found in the listed files.
 - RULE: If you are unable to read a file linked under `## Mandatory Reading` you must stop and REPORT A BLOCKER.

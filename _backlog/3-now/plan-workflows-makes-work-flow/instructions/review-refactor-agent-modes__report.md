@@ -10,15 +10,15 @@
 
 ### Changes
 
-| Goal | Change |
-| --- | --- |
-| Review and fix agent mode skill links and mandatory reading | Fixed typo `ot` → `or` in architect Skill Alignment |
-| Review and fix agent mode skill links and mandatory reading | Added `::READ` directive for executing-work workflow in worker Mandatory Reading |
+| Goal                                                        | Change                                                                                           |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Review and fix agent mode skill links and mandatory reading | Fixed typo `ot` → `or` in architect Skill Alignment                                              |
+| Review and fix agent mode skill links and mandatory reading | Added `::READ` directive for executing-work workflow in worker Mandatory Reading                 |
 | Review and fix agent mode skill links and mandatory reading | Updated worker Skill Alignment to reference executing-work workflow instead of engineering guide |
-| Refactor delegate-plan skill to match write-plan standards | Extracted `prepare-delegation.art` and `delegate-instructions.art` procedures |
-| Refactor delegate-plan skill to match write-plan standards | Replaced inline steps with `## Routines` section and `::READ` directives |
-| Refactor delegate-plan skill to match write-plan standards | Rewrote `Delegate Plan(s)` to delegate to Routine: Delegate Instructions |
-| Refactor delegate-plan skill to match write-plan standards | Replaced `Integrate Delegation` command with `Record Delegation` command |
+| Refactor delegate-plan skill to match write-plan standards  | Extracted `prepare-delegation.art` and `delegate-instructions.art` procedures                    |
+| Refactor delegate-plan skill to match write-plan standards  | Replaced inline steps with `## Routines` section and `::READ` directives                         |
+| Refactor delegate-plan skill to match write-plan standards  | Rewrote `Delegate Plan(s)` to delegate to Routine: Delegate Instructions                         |
+| Refactor delegate-plan skill to match write-plan standards  | Replaced `Integrate Delegation` command with `Record Delegation` command                         |
 
 #### Files changed
 

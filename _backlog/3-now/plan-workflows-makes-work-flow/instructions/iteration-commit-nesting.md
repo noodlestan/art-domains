@@ -285,6 +285,7 @@ Update `$DOMAINS/plans/templates/plan.tart` — change the operating instruction
 a) Rename `$WORKSPACE/knowledge/conventions/writing-commit-messages.art` to `writing-commit-message.art`.
 
 b) Update `_guide.md`:
+
 - Line 14: change `writing-commit-messages.art` to `writing-commit-message.art` and "Writing Commit Messages" to "Writing Commit Message".
 - Line 93: change heading `#### Operating Instructions: Writing Commit Messages` to `#### Operating Instructions: Writing Commit Message`.
 - Line 101: change "Writing Commit Messages" to "Writing Commit Message".

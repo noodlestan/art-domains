@@ -41,7 +41,7 @@ Scan all guides for workflow references or prose an replace them with a structur
 
 Scan for guides containing workflow prose.
 
-- Scan `$WORKSPACE/checkout/*/_guide.md`  - the checkout's repository guide.
+- Scan `$WORKSPACE/checkout/*/_guide.md` - the checkout's repository guide.
 - Scan `$WORKSPACE/checkout/**/_guide.md` - a nested guide wihtin the repository.
 
 ### Step 2: Update each guide

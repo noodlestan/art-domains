@@ -36,6 +36,7 @@ Generate prompts for architects and planners working on other sessions to update
 ### Step 1: Generate Milestone Migration Prompt
 
 Create a prompt for milestone migration with instructions on:
+
 - Updating milestone structure references
 - Updating template references
 - Updating workflow references
@@ -43,6 +44,7 @@ Create a prompt for milestone migration with instructions on:
 ### Step 2: Generate Plan Migration Prompt
 
 Create a prompt for plan migration with instructions on:
+
 - Updating plan structure references
 - Updating template references
 - Updating workflow references
