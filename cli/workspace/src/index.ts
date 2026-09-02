@@ -15,12 +15,18 @@ import { runUnlink } from './commands/unlink/runUnlink';
 import { loadWorkspaceConfig } from './config/loadWorkspaceConfig';
 import { createWorkspaceContext } from './private/context/createWorkspaceContext';
 import { createOperationsLog } from './private/log/createOperationsLog';
+import type { OperationPending } from './private/operations/types';
+import { makeOperationLogLine } from './private/present/presentOperationsReport';
 import { createCheckoutStore } from './private/store/createCheckoutStore';
 
 export { defineConfig, loadWorkspaceConfig } from './config';
 export type { WorkspaceConfig } from './config';
 
 const program = new Command();
+
+const logger = (op: OperationPending) => {
+	console.info(makeOperationLogLine(op));
+};
 
 program.name('art-workspace').description('Workspace orchestration CLI').version('0.0.18');
 
@@ -32,7 +38,7 @@ program
 		const root = process.cwd();
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
-		const log = createOperationsLog();
+		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 
 		const auto = options.auto ?? false;
@@ -54,7 +60,7 @@ program
 			const root = process.cwd();
 			const config = await loadWorkspaceConfig(root);
 			const store = createCheckoutStore();
-			const log = createOperationsLog();
+			const log = createOperationsLog(logger);
 			const ctx = createWorkspaceContext(config, store, log);
 
 			await runClone(ctx, { all: options.all, repoName, checkoutInput });
@@ -70,7 +76,7 @@ program
 		const root = process.cwd();
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
-		const log = createOperationsLog();
+		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 		await runBranch(ctx, { branch, checkoutLocations });
 	});
@@ -82,7 +88,7 @@ program
 		const root = process.cwd();
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
-		const log = createOperationsLog();
+		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 		await runPull(ctx);
 	});
@@ -94,7 +100,7 @@ program
 		const root = process.cwd();
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
-		const log = createOperationsLog();
+		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 		await runPush(ctx);
 	});
@@ -106,7 +112,7 @@ program
 		const root = process.cwd();
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
-		const log = createOperationsLog();
+		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 		await runSync(ctx);
 	});
@@ -119,7 +125,7 @@ program
 		const root = process.cwd();
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
-		const log = createOperationsLog();
+		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 		await runRepo(ctx, { locations });
 	});
