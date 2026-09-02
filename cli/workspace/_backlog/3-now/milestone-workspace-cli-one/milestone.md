@@ -127,30 +127,11 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 2     | Plan: Workspace CLI — Unlink Command `_backlog/4-next/plan-implement-unlink/plan.md`                                         | `DRAFT`     |
 | 2     | Plan: Update Knowledge Resources `_backlog/4-next/update-knowledge-resources/plan.md`                                        | `PREPARING` |
 | -     |                                                                                                                              |             |
-| 3     | Plan: Extract Workspace CLI to Repository: Art CLI (New)Repo                                                                 | `DRAFT`     |
+| 3     | Plan: Extract Workspace CLI to Repository: Art CLI (New)Repo `_backlog/4-next/plan-move-code-project-art-cli/plan.md`        | `DRAFT`     |
 | 3     | Plan: Extract Record Units to Lib-Records                                                                                    | `DRAFT`     |
 | 3     | Plan: Generate Art-CLI Roadmap                                                                                               | `DRAFT`     |
 
 The following items are not yet captured in a work item document.
-
-### Plan: Move Code and Project to Repository: Art CLI (New)
-
-**Status:** `DRAFT`
-
-**Purpose:** Move the workspace CLI into its own repository.
-
-**Description:** Moves workspace-cli and its roadmap/backlog and its knowledge to new repo `noodlestan/art-cli` (with project, repo, namespace = `@art-cli`); update art-domains project record and guide (no longer owns workspace-cli, art-cli does); add art-cli to owner project record (in artificials repo); add guide to art-cli; update README, knowledge, stale checks (in artificials, art-domains, and art-js); publish new workspace-cli version (to new canonical name `@art-cli/workspace`); test in `$WORKSPACE`.
-
-**Changes:**
-
-- Move workspace-cli and its roadmap/backlog and knowledge to `noodlestan/art-cli` (`@art-cli`).
-- Update art-domains project record and guide; add art-cli to owner project record (artificials repo).
-- Update README, knowledge, and stale checks in artificials, art-domains, and art-js.
-- Publish new workspace-cli version as `@art-cli/workspace`; test in `$WORKSPACE`.
-
-**Dependencies:**
-
-- None.
 
 ### Plan: Extract Record Units to Lib-Records
 
