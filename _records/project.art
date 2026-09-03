@@ -21,6 +21,9 @@
 
 **Private:** `false`
 
-**Management:** Uses Workflow: Planning Work with one backlog per package, coordinating with Workflow: Roadmapping from one project-wide roadmap.
+**Management:**
+
+- Uses Workflow: Roadmapping. Roadmap at `_roadmap`.
+- Uses Workflow: Planning Work. Backlog at `_backlog`.
 
 **License:** License: Noodlestan 2026 MIT

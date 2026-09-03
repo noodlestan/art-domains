@@ -16,6 +16,7 @@ Agents SHOULD scan these files for relevant clarifications when faced with ambig
 
 ```
 _backlog/           — plans, instructions, reports
+_roadmap/           — milestones, briefing, and roadmapping parking lot
 _records/           — records (project, repository, namespaces, scripts, scaffolding)
 architecture/       — index, ADRs, reference domain model and workflows
 cli/                - Node.JS CLI packages.
@@ -23,10 +24,10 @@ cli/                - Node.JS CLI packages.
 
 ## Projects
 
-| Project            | Guide                     | Backlog                   |
-| ------------------ | ------------------------- | ------------------------- |
-| Art Domains (root) | `_guide.md`               | `_backlog/`               |
-| Workspace CLI      | `cli/workspace/_guide.md` | `cli/workspace/_backlog/` |
+| Project            | Guide                     | Backlog                   | Roadmap                   |
+| ------------------ | ------------------------- | ------------------------- | ------------------------- |
+| Art Domains (root) | `_guide.md`               | `_backlog/`               | `_roadmap/`               |
+| Workspace CLI      | `cli/workspace/_guide.md` | `cli/workspace/_backlog/` | `cli/workspace/_roadmap/` |
 
 ## Records Management
 
@@ -49,16 +50,23 @@ Projects in this repository use the following workflows:
 
 | Workflow / Path                                                           | Purpose                                                                                           |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **Roadmapping** `$DOMAINS/roadmaps/workflows/roadmapping/workflow.art`    | Organize roadmap creation and maintenance and coordination of downstream work items.              |
 | **Planning Work** `$AGENTS/work/workflows/planning-work/workflow.art`     | Create and manage work item lifecycles, collecting operational instructions according to context. |
 | **Delegating Work** `$AGENTS/work/workflows/delegating-work/workflow.art` | Organize work delegation to sub-agents with validation, execution, and verification.              |
 | **Executing Work** `$AGENTS/work/workflows/executing-work/workflow.art`   | Organize work execution by sub-agents to produce completed, verified outcomes and feedback.       |
-| **Deploying** `$AGENTS/work/workflows/executing-work/workflow.art`        | Organizes deployment of artefacts in operations.                                                  |
+| **Deploying** `$DOMAINS/deployments/workflows/deploying/workflow.art`     | Organizes deployment of artefacts in operations.                                                  |
+
+### Roadmapping
+
+- The roadmap lives at `_roadmap/` with subdirectories such as `/3-now` and `/4-next/`.
+- The short-term roadmapping focus is captured in `_roadmap/_parking-lot.md`.
+- The requirements, use cases, and principles are captured in `_roadmap/_architect.md`.
 
 ### Planning Work
 
 - The backlog lives at `_backlog/` with subdirectories such as `/3-now` and `/4-next/`.
-- The short-term focus is captured in `_backlog/_parking-lot.md`.
-- The requirements, use cases, and principles are captured in `_backlog/_architect.md`.
+- The short-term focus is captured in `_roadmap/_parking-lot.md`.
+- The requirements, use cases, and principles are captured in `_roadmap/_architect.md`.
 
 ## Operating Instructions
 
