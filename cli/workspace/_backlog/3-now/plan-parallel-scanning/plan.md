@@ -70,7 +70,7 @@ Update the checkouts processing and scanning loops in `$PROJECT/src/private/stor
 | Iteration / Instructions                                                                     | Status  |
 | -------------------------------------------------------------------------------------------- | ------- |
 | Iteration: Parallelise Checkout Scanning `./instructions/parallelise-checkout-scanning.md`   | `DONE`  |
-| Iteration: Optimise Ahead/Behind Counting `./instructions/optimise-ahead-behind-counting.md` | `READY` |
+| Iteration: Optimise Ahead/Behind Counting `./instructions/optimise-ahead-behind-counting.md` | `DONE`  |
 | Iteration: Make Scan Refetch Opt-In `./instructions/make-scan-refetch-opt-in.md`             | `READY` |
 
 ### Iteration: Parallelise Checkout Scanning
@@ -150,7 +150,9 @@ test(workspace-cli): Cover concurrent checkout scanning and side effects.
 
 **Id:** `optimise-ahead-behind-counting`
 
-**Status:** `READY`
+**Status:** `DONE`
+
+**Report:** `./instructions/optimise-ahead-behind-counting__report.md`
 
 **Purpose:** Cut the per-checkout git subprocess calls and network fetches that dominate scan cost.
 
@@ -172,11 +174,11 @@ test(workspace-cli): Cover concurrent checkout scanning and side effects.
 
 #### Commits:
 
-| ID                                        | Repository / Checkout / Branch                        | Policy       | Hash  | Status     |
-| ----------------------------------------- | ----------------------------------------------------- | ------------ | ----- | ---------- |
-| `add-remote-fetch-and-ahead-behind-count` | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `use-combined-ahead-behind-in-scan`       | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `cover-ahead-behind-counting`             | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                                        | Repository / Checkout / Branch                        | Policy       | Hash      | Status      |
+| ----------------------------------------- | ----------------------------------------------------- | ------------ | --------- | ----------- |
+| `add-remote-fetch-and-ahead-behind-count` | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `5621861` | `COMMITTED` |
+| `use-combined-ahead-behind-in-scan`       | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `88af741` | `COMMITTED` |
+| `cover-ahead-behind-counting`             | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `0116982` | `COMMITTED` |
 
 ##### Commit: `add-remote-fetch-and-ahead-behind-count`
 
@@ -294,7 +296,7 @@ build(workspace-cli): Refetch after side effects in pull, push, and sync.
 
 ### Next
 
-Iteration `parallelise-checkout-scanning` is `DONE`. Next, delegate iteration `optimise-ahead-behind-counting` to workers.
+Iterations `parallelise-checkout-scanning` and `optimise-ahead-behind-counting` are `DONE`. Next, delegate iteration `make-scan-refetch-opt-in` to workers.
 
 ### Blockers
 
@@ -382,3 +384,4 @@ All steps MUST pass. No `it.todo()` tests may remain.
 ### Feedback
 
 - Iteration `parallelise-checkout-scanning`: worker noted the `$PROJECT/architecture/` mandatory-reading paths did not resolve; actual files live at `$PROJECT/cli/workspace/architecture/`. Minor path issue only — instruction otherwise clear. Worker also noted the pre-commit hook runs full CI (~25s/commit).
+- Iteration `optimise-ahead-behind-counting`: instruction was internally inconsistent — Step 7 scoped test changes to only `getBehindAheadCount.test.ts` + `scanCheckoutState.test.ts`, but removing the per-branch fetch broke `runPull.test.ts` and `runSync.test.ts` "false negative" tests. Fixed by reordering steps (tests before commit) and expanding test scope to include the two command tests.
