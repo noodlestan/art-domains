@@ -3,11 +3,10 @@ import { access } from 'node:fs/promises';
 import { WorkspaceContext } from '../context/createWorkspaceContext';
 import { createOperationFailure } from '../context/operations/createOperationFailure';
 import { createOperationPending } from '../context/operations/createOperationPending';
-import { getBehindCount } from '../git/getBehindCount';
+import { getBehindAheadCount } from '../git/getBehindAheadCount';
 import { getCurrentBranch } from '../git/getCurrentBranch';
 import { getRemoteBranch } from '../git/getRemoteBranch';
 import { getRemoteUrl } from '../git/getRemoteUrl';
-import { getUnpushedCount } from '../git/getUnpushedCount';
 import { hasMergeConflicts } from '../git/hasMergeConflicts';
 import { hasRemote } from '../git/hasRemote';
 import { isDetachedHead } from '../git/isDetachedHead';
@@ -56,9 +55,12 @@ export async function scanCheckoutState(
 		dirty = await isDirty(checkout.path);
 		if (remote && branch !== '-' && branch !== 'HEAD') {
 			remoteBranch = await getRemoteBranch(checkout.path);
-			ahead = await getUnpushedCount(checkout.path, remoteBranch);
-			ctx.log.log(createOperationPending('scan-checkout-state-behind', checkout.record.location));
-			behind = remoteBranch ? await getBehindCount(checkout.path, remoteBranch) : 0;
+			const { ahead: aheadCount, behind: behindCount } = await getBehindAheadCount(
+				checkout.path,
+				remoteBranch,
+			);
+			ahead = aheadCount;
+			behind = behindCount;
 		}
 		if (remote && checkout.repo?.remote) {
 			const actualUrl = await getRemoteUrl(checkout.path);

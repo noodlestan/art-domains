@@ -28,7 +28,7 @@ afterEach(async () => {
 });
 
 describe('pull command', () => {
-	it('pulls clean checkouts that are behind without a prior fetch (false negative)', async () => {
+	it('skips checkouts behind when the local tracking ref is stale (false negative is now intentional)', async () => {
 		const tempDir = makeTempDir(tempDirs);
 		const ctx = createMockCommandContext(tempDir);
 		const bareDir = makeTempDir(tempDirs);
@@ -41,17 +41,15 @@ describe('pull command', () => {
 
 		await runPull(ctx);
 
+		// Without a prior fetch the local count reports behind = 0, so no pull is triggered.
+		// The refetch flag (next iteration) will restore the network fetch when needed.
 		const checkout = ctx.store.getCheckoutOfRepo('Behind');
 		expect(checkout?.scan?.state('sync').behind).toBe(0);
 		expect(checkout?.scan?.issues()).toEqual([]);
 
-		const ops = ctx.log.all();
-		expect(ops).toHaveLength(1);
-		expect(ops[0].operation).toBe('pull');
-		expect(ops[0].outcome).toBe('success');
-		expect(ops[0].message()).toBe('from origin/main');
+		expect(ctx.log.all()).toHaveLength(0);
 
-		expect(existsSync(join(repoDir, 'origin.txt'))).toBe(true);
+		expect(existsSync(join(repoDir, 'origin.txt'))).toBe(false);
 	});
 
 	it('skips dirty checkouts', async () => {
