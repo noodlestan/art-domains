@@ -104,35 +104,36 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 
 ## Items:
 
-| Phase | Resource / Record                                                                                                            | Status      |
-| ----- | ---------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| 1     | Plan: Workspace Split `_backlog/0-archive/2026-08-10-plan-workspace-split/plan.md`                                           | `ARCHIVED`  |
-| 1     | Plan: Workspace CLI — Sanity, Clone, Branch `_backlog/0-archive/2026-08-12-plan-workspace-sanity-clone-branch/plan.md`       | `ARCHIVED`  |
-| 1     | Plan: Refactor Conventions `_backlog/0-archive/2026-08-13-plan-refactor-conventions/plan.md`                                 | `ARCHIVED`  |
-| 1     | Plan: Workspace CLI — Repo Command `_backlog/0-archive/2026-08-14-plan-implement-command-repo/plan.md`                       | `ARCHIVED`  |
-| 1     | Plan: Workspace CLI — Sanity Workspace Report `_backlog/0-archive/2026-08-14-plan-implement-sanity-workspace-report/plan.md` | `ARCHIVED`  |
-| 1     | Plan: Fix Repo Command Issues `_backlog/0-archive/2026-08-18-plan-fix-repo-command-issues/plan.md`                           | `ARCHIVED`  |
-| 1     | Plan: Workspace CLI — Pull, Push, Sync Commands `_backlog/0-archive/2026-08-18-plan-implement-pull-push-sync/plan.md`        | `ARCHIVED`  |
-| 1     | Plan: Workspace CLI — Cleaner Code `_backlog/0-archive/2026-08-18-plan-cleaner-code/plan.md`                                 | `ARCHIVED`  |
-| 1     | Plan: Discover Records Dynamically `_backlog/1-done/plan-discover-records/plan.md`                                           | `DONE`      |
-| 1     | Plan: Workspace CLI — Fix Reported Bugs `_backlog/0-archive/2026-08-19-plan-fix-reported-bugs/plan.md`                       | `ARCHIVED`  |
-| 1     | Plan: Workspace CLI — Fixes and Test Coverage `_backlog/1-done/plan-repo-command-fixes-and-tests/plan.md`                    | `DONE`      |
-| 1     | Plan: Fix Pull Push Bugs `_backlog/1-done/plan-fix-pull-push-bugs/plan.md`                                                   | `DONE`      |
-| -     |                                                                                                                              |             |
-| 2     | Plan: Log Process as it Happens `_backlog/1-done/plan-log-process-as-it-happens/plan.md`                                     | `DONE`      |
-| 2     | Plan: Scoped Record Paths `_backlog/3-now/plan-scoped-record-paths/plan.md`                                                  | `PLANNING`  |
-| 2     | Plan: Parallel Scanning `_backlog/4-next/plan-parallel-scanning/plan.md`                                                     | `DRAFT`     |
-| 2     | Plan: Scope Commands to Location `_backlog/6-plan/plan-scope-commands-to-location/plan.md`                                   | `DRAFT`     |
-| 2     | Plan: Make Behind Check Opt-in `_backlog/6-plan/plan-make-behind-check-opt-in/plan.md`                                       | `DRAFT`     |
-| 2     | Plan: Workspace CLI — Link Command `_backlog/6-plan/plan-implement-link/plan.md`                                             | `DRAFT`     |
-| 2     | Plan: Workspace CLI — Links Command `_backlog/6-plan/plan-implement-links/plan.md`                                           | `DRAFT`     |
-| 2     | Plan: Workspace CLI — Run Command `_backlog/4-next/plan-implement-run/plan.md`                                               | `DRAFT`     |
-| 2     | Plan: Workspace CLI — Unlink Command `_backlog/6-plan/plan-implement-unlink/plan.md`                                         | `DRAFT`     |
-| 2     | Plan: Update Knowledge Resources `_backlog/6-plan/plan-update-knowledge-resources/plan.md`                                   | `PREPARING` |
-| -     |                                                                                                                              |             |
-| 3     | Plan: Extract Workspace CLI to Repository: Art CLI (New)Repo `_backlog/4-next/plan-move-code-project-art-cli/plan.md`        | `DRAFT`     |
-| 3     | Plan: Extract Record Units to Lib-Records                                                                                    | `DRAFT`     |
-| 3     | Plan: Generate Art-CLI Roadmap                                                                                               | `DRAFT`     |
+| Phase | Resource / Record                                                                                                            | Status     |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 1     | Plan: Workspace Split `_backlog/0-archive/2026-08-10-plan-workspace-split/plan.md`                                           | `ARCHIVED` |
+| 1     | Plan: Workspace CLI — Sanity, Clone, Branch `_backlog/0-archive/2026-08-12-plan-workspace-sanity-clone-branch/plan.md`       | `ARCHIVED` |
+| 1     | Plan: Refactor Conventions `_backlog/0-archive/2026-08-13-plan-refactor-conventions/plan.md`                                 | `ARCHIVED` |
+| 1     | Plan: Workspace CLI — Repo Command `_backlog/0-archive/2026-08-14-plan-implement-command-repo/plan.md`                       | `ARCHIVED` |
+| 1     | Plan: Workspace CLI — Sanity Workspace Report `_backlog/0-archive/2026-08-14-plan-implement-sanity-workspace-report/plan.md` | `ARCHIVED` |
+| 1     | Plan: Fix Repo Command Issues `_backlog/0-archive/2026-08-18-plan-fix-repo-command-issues/plan.md`                           | `ARCHIVED` |
+| 1     | Plan: Workspace CLI — Pull, Push, Sync Commands `_backlog/0-archive/2026-08-18-plan-implement-pull-push-sync/plan.md`        | `ARCHIVED` |
+| 1     | Plan: Workspace CLI — Cleaner Code `_backlog/0-archive/2026-08-18-plan-cleaner-code/plan.md`                                 | `ARCHIVED` |
+| 1     | Plan: Discover Records Dynamically `_backlog/1-done/plan-discover-records/plan.md`                                           | `DONE`     |
+| 1     | Plan: Workspace CLI — Fix Reported Bugs `_backlog/0-archive/2026-08-19-plan-fix-reported-bugs/plan.md`                       | `ARCHIVED` |
+| 1     | Plan: Workspace CLI — Fixes and Test Coverage `_backlog/1-done/plan-repo-command-fixes-and-tests/plan.md`                    | `DONE`     |
+| 1     | Plan: Fix Pull Push Bugs `_backlog/1-done/plan-fix-pull-push-bugs/plan.md`                                                   | `DONE`     |
+| -     |                                                                                                                              |            |
+| 2     | Plan: Log Process as it Happens `_backlog/1-done/plan-log-process-as-it-happens/plan.md`                                     | `DONE`     |
+| 2     | Plan: Scoped Record Paths `_backlog/3-now/plan-scoped-record-paths/plan.md`                                                  | `READY`    |
+| 2     | Plan: Parallel Scanning `_backlog/4-next/plan-parallel-scanning/plan.md`                                                     | `PLANNING` |
+| 2     | Plan: Scope Commands to Location `_backlog/6-plan/plan-scope-commands-to-location/plan.md`                                   | `PLANNING` |
+| 2     | Plan: Workspace CLI — Run Command `_backlog/4-next/plan-implement-run/plan.md`                                               | `PLANNING` |
+| 2     | Plan: Extract Workspace CLI to Repository: Art CLI (New)Repo `_backlog/4-next/plan-move-code-project-art-cli/plan.md`        | `PLANNING` |
+| -     |                                                                                                                              |            |
+| 2     | Plan: Make Behind Check Opt-in `_backlog/6-plan/plan-make-behind-check-opt-in/plan.md`                                       | `DRAFT`    |
+| 2     | Plan: Workspace CLI — Link Command `_backlog/6-plan/plan-implement-link/plan.md`                                             | `DRAFT`    |
+| 2     | Plan: Workspace CLI — Links Command `_backlog/6-plan/plan-implement-links/plan.md`                                           | `DRAFT`    |
+| 2     | Plan: Workspace CLI — Unlink Command `_backlog/6-plan/plan-implement-unlink/plan.md`                                         | `DRAFT`    |
+| 2     | Plan: Update Knowledge Resources `_backlog/6-plan/plan-update-knowledge-resources/plan.md`                                   | `DRAFT`    |
+| -     |                                                                                                                              |            |
+| 3     | Plan: Extract Record Units to Lib-Records                                                                                    | `DRAFT`    |
+| 3     | Plan: Generate Art-CLI Roadmap                                                                                               | `DRAFT`    |
 
 The following items are not yet captured in a work item document.
 

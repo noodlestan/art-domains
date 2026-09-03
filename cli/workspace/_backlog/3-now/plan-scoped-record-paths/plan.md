@@ -118,15 +118,15 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions       | Status     |
-| ------------------------------ | ---------- |
-| Iteration: Scoped Record Paths | `PLANNING` |
+| Iteration / Instructions       | Status  |
+| ------------------------------ | ------- |
+| Iteration: Scoped Record Paths | `READY` |
 
 ### Iteration: Scoped Record Paths
 
 **Id:** `scoped-record-paths`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Replace the single-glob `included`/`ignored` record discovery with scoped, additive `paths` scans so discovery is fast, predictable, and `included` is no longer needed.
 
@@ -161,7 +161,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 **Message:**
 
 ```
-build(workspace-cli): introduce scoped record path scans.
+build(workspace-cli): Introduce config records.paths options for scoped scans.
 
 - Add `paths` array with base/pattern/ignored/excluded/gitignore per scan.
 - Normalize records into independent additive scans; drop `included` and RegExp.
@@ -175,7 +175,7 @@ build(workspace-cli): introduce scoped record path scans.
 **Message:**
 
 ```
-docs(workspace-cli): document records options in config.md.
+knowledge(workspace-cli): Document records options in architecture/.
 
 - Add `## Options overview` for the new records shape and discovery logic.
 - Update the WorkspaceConfig structure example.

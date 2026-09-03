@@ -1,8 +1,8 @@
-# Plan: Workspace CLI — Publish Command
+# Plan: Run Command
 
-**ID:** `implement-publish`
+**ID:** `implement-run`
 
-**Status:** `DRAFT`
+**Status:** `PLANNING`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 

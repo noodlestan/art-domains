@@ -2,7 +2,7 @@
 
 **ID:** `move-code-project-art-cli`
 
-**Status:** `DRAFT`
+**Status:** `PLANNING`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 

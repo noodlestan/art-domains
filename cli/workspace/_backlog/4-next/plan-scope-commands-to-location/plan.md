@@ -2,7 +2,7 @@
 
 **ID:** `scope-commands-to-location`
 
-**Status:** `DRAFT`
+**Status:** `PLANNING`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
