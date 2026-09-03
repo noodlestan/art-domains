@@ -119,7 +119,7 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 1     | Plan: Workspace CLI — Fixes and Test Coverage `_backlog/1-done/plan-repo-command-fixes-and-tests/plan.md`                    | `DONE`      |
 | 1     | Plan: Fix Pull Push Bugs `_backlog/1-done/plan-fix-pull-push-bugs/plan.md`                                                   | `DONE`      |
 | -     |                                                                                                                              |             |
-| 2     | Plan: Log Process as it Happens `_backlog/3-now/plan-log-process-as-it-happens/plan.md`                                      | `DRAFT`     |
+| 2     | Plan: Log Process as it Happens `_backlog/1-done/plan-log-process-as-it-happens/plan.md`                                     | `DONE`      |
 | 2     | Plan: Scoped Record Paths `_backlog/3-now/plan-scoped-record-paths/plan.md`                                                  | `PLANNING`  |
 | 2     | Plan: Parallel Scanning `_backlog/4-next/plan-parallel-scanning/plan.md`                                                     | `DRAFT`     |
 | 2     | Plan: Workspace CLI — Link Command `_backlog/4-next/plan-implement-link/plan.md`                                             | `DRAFT`     |
@@ -174,7 +174,7 @@ The following items are not yet captured in a work item document.
 
 ### Next
 
-Phase 2 — draft and execute `plan-log-process-as-it-happens`.
+Phase 2 — execute `plan-scoped-record-paths`.
 
 ### Blockers
 

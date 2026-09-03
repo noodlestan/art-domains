@@ -2,7 +2,7 @@
 
 **ID:** `log-process-as-it-happens`
 
-**Status:** `WORKING`
+**Status:** `DONE`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -66,7 +66,7 @@ Update the operation type model and logging/presentation in `$PROJECT/src/privat
 
 ### Next
 
-Delegate the next `READY` iteration: `scoped-record-paths`.
+Plan complete; all iterations `DONE`.
 
 ### Blockers
 
@@ -121,12 +121,12 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions                  | Status    |
-| ----------------------------------------- | --------- |
-| Iteration: Add Pending Operation Types    | `DONE`    |
-| Iteration: Stream Pending Operations Live | `DONE`    |
-| Iteration: Output Pending Operations      | `WORKING` |
-| Iteration: Scoped Record Paths            | `READY`   |
+| Iteration / Instructions                  | Status |
+| ----------------------------------------- | ------ |
+| Iteration: Add Pending Operation Types    | `DONE` |
+| Iteration: Stream Pending Operations Live | `DONE` |
+| Iteration: Output Pending Operations      | `DONE` |
+| Iteration: Scoped Record Paths            | `DONE` |
 
 ### Iteration: Add Pending Operation Types
 
@@ -332,7 +332,7 @@ build(workspace-cli): Log pending operations; refactor to inject ctx where neede
 
 **Id:** `scoped-record-paths`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Replace the single-glob `included`/`ignored` record discovery with scoped, additive `paths` scans so discovery is fast, predictable, and `included` is no longer needed.
 
