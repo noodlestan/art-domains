@@ -118,9 +118,9 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions       | Status  |
-| ------------------------------ | ------- |
-| Iteration: Scoped Record Paths | `READY` |
+| Iteration / Instructions       | Status |
+| ------------------------------ | ------ |
+| Iteration: Scoped Record Paths | `DONE` |
 
 ### Iteration: Scoped Record Paths
 
@@ -151,7 +151,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 | ID                    | Repository / Checkout / Branch                          | Policy       | Hash      | Status      |
 | --------------------- | ------------------------------------------------------- | ------------ | --------- | ----------- |
-| `scoped-record-paths` | Workspace CLI / `$PROJECT` / `plan-scoped-record-paths` | `AUTONOMOUS` | `16a9a1e` | `COMMITTED` |
+| `scoped-record-paths` | Workspace CLI / `$PROJECT` / `plan-scoped-record-paths` | `AUTONOMOUS` | `dfbd9d8` | `COMMITTED` |
 
 ##### Commit: `scoped-record-paths`
 

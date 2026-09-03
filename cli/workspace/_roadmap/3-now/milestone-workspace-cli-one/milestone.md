@@ -120,7 +120,7 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 1     | Plan: Fix Pull Push Bugs `_backlog/1-done/plan-fix-pull-push-bugs/plan.md`                                                   | `DONE`     |
 | -     |                                                                                                                              |            |
 | 2     | Plan: Log Process as it Happens `_backlog/1-done/plan-log-process-as-it-happens/plan.md`                                     | `DONE`     |
-| 2     | Plan: Scoped Record Paths `_backlog/3-now/plan-scoped-record-paths/plan.md`                                                  | `READY`    |
+| 2     | Plan: Scoped Record Paths `_backlog/1-done/plan-scoped-record-paths/plan.md`                                                 | `DONE`     |
 | 2     | Plan: Parallel Scanning `_backlog/4-next/plan-parallel-scanning/plan.md`                                                     | `PLANNING` |
 | 2     | Plan: Scope Commands to Location `_backlog/6-plan/plan-scope-commands-to-location/plan.md`                                   | `PLANNING` |
 | 2     | Plan: Workspace CLI — Run Command `_backlog/4-next/plan-implement-run/plan.md`                                               | `PLANNING` |
@@ -177,7 +177,7 @@ The following items are not yet captured in a work item document.
 
 ### Next
 
-Phase 2 — execute `plan-scoped-record-paths`.
+Phase 2 — plan and execute `plan-parallel-scanning`.
 
 ### Blockers
 
