@@ -1,4 +1,4 @@
-import { pullWorkspaceCheckout } from '../../private/commands/workspaces/pullWorkspaceCheckout';
+import { doPullWorkspaceCheckout } from '../../private/commands/workspaces/doPullWorkspaceCheckout';
 import { scanWorkspaceCheckout } from '../../private/commands/workspaces/scanWorkspaceCheckout';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
 import { createOperationPending } from '../../private/context/operations/createOperationPending';
@@ -11,8 +11,8 @@ import { loadRepositoryRecords } from '../../private/resources/repository/loadRe
 import { hydrateStoreFromRecords } from '../../private/store/hydrateStoreFromRecords';
 import { scanAllCheckoutsStates } from '../../private/store/scanAllCheckoutsStates';
 
-import { pushCleanCheckouts } from './private/pushCleanCheckouts';
 import { scanExtraneousCheckouts } from './private/scanExtraneousCheckouts';
+import { syncCheckouts } from './private/syncCheckouts';
 
 export async function runSanity(ctx: WorkspaceContext, options: { auto: boolean }): Promise<void> {
 	const repos = await loadRepositoryRecords(ctx);
@@ -25,8 +25,8 @@ export async function runSanity(ctx: WorkspaceContext, options: { auto: boolean 
 
 	await scanAllCheckoutsStates(ctx);
 	if (options.auto) {
-		await pullWorkspaceCheckout(ctx);
-		await pushCleanCheckouts(ctx);
+		await doPullWorkspaceCheckout(ctx);
+		await syncCheckouts(ctx);
 	}
 
 	const extraneous = await scanExtraneousCheckouts(ctx, ctx.store);

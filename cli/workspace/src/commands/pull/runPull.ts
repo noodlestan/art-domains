@@ -1,6 +1,6 @@
 import { runWithConcurrency } from '../../private/async/runWithConcurrency';
 import { doPullCheckout } from '../../private/commands/checkouts/doPullCheckout';
-import { pullWorkspaceCheckout } from '../../private/commands/workspaces/pullWorkspaceCheckout';
+import { doPullWorkspaceCheckout } from '../../private/commands/workspaces/doPullWorkspaceCheckout';
 import { scanWorkspaceCheckout } from '../../private/commands/workspaces/scanWorkspaceCheckout';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
 import { createOperationPending } from '../../private/context/operations/createOperationPending';
@@ -27,7 +27,7 @@ export async function runPull(ctx: WorkspaceContext): Promise<void> {
 	});
 
 	await scanWorkspaceCheckout(ctx);
-	await pullWorkspaceCheckout(ctx);
+	await doPullWorkspaceCheckout(ctx);
 
 	presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts());
 	presentOperationsReport(ctx.log);

@@ -7,7 +7,7 @@ import { createPullFailure } from '../operations/createPullFailure';
 import { createPullPending } from '../operations/createPullPending';
 import { createPullSuccess } from '../operations/createPullSuccess';
 
-export async function pullWorkspaceCheckout(ctx: WorkspaceContext): Promise<Checkout | null> {
+export async function doPullWorkspaceCheckout(ctx: WorkspaceContext): Promise<Checkout | null> {
 	const workspace = ctx.workspace;
 	if (!workspace) return null;
 	if (!workspace.scan?.can?.('pull') || !workspace.scan.should?.('pull')) return null;
@@ -16,7 +16,7 @@ export async function pullWorkspaceCheckout(ctx: WorkspaceContext): Promise<Chec
 	try {
 		ctx.log.log(createPullPending(workspace, workspace.record.branch));
 		await git.pull('origin', workspace.record.branch);
-		const updated = await scanCheckoutState(ctx, workspace);
+		const updated = await scanCheckoutState(ctx, workspace, true);
 		ctx.workspace = updated;
 		ctx.log.log(createPullSuccess(workspace, workspace.record.branch));
 		return updated;

@@ -12,7 +12,7 @@ import { initWorkingRepoTest } from '../../../test/helpers/git/initWorkingRepoTe
 import { makeTempDir } from '../../../test/helpers/tempDirs/makeTempDir';
 import { removeTempDirs } from '../../../test/helpers/tempDirs/removeTempDirs';
 
-import { pullWorkspaceCheckout } from './pullWorkspaceCheckout';
+import { doPullWorkspaceCheckout } from './doPullWorkspaceCheckout';
 
 const tempDirs: string[] = [];
 
@@ -20,7 +20,7 @@ afterEach(async () => {
 	await removeTempDirs(tempDirs);
 });
 
-describe('pullWorkspaceCheckout', () => {
+describe('doPullWorkspaceCheckout', () => {
 	it('pulls the workspace root when clean and behind', async () => {
 		const tempDir = makeTempDir(tempDirs);
 		const bareDir = makeTempDir(tempDirs);
@@ -41,7 +41,7 @@ describe('pullWorkspaceCheckout', () => {
 			makeWorkspaceCheckoutMock(tempDir, { scan: makeMockScan(1) }),
 		);
 
-		await pullWorkspaceCheckout(ctx);
+		await doPullWorkspaceCheckout(ctx);
 
 		expect(ctx.workspace).toBeDefined();
 		expect(ctx.workspace?.scan?.state('sync').behind).toEqual(0);
@@ -62,7 +62,7 @@ describe('pullWorkspaceCheckout', () => {
 			}),
 		);
 
-		await pullWorkspaceCheckout(ctx);
+		await doPullWorkspaceCheckout(ctx);
 
 		expect(ctx.log.all()).toHaveLength(0);
 	});
@@ -76,7 +76,7 @@ describe('pullWorkspaceCheckout', () => {
 			}),
 		);
 
-		await pullWorkspaceCheckout(ctx);
+		await doPullWorkspaceCheckout(ctx);
 
 		expect(ctx.log.all()).toHaveLength(0);
 	});
@@ -85,7 +85,7 @@ describe('pullWorkspaceCheckout', () => {
 		const tempDir = makeTempDir(tempDirs);
 		const ctx = createMockCommandContext(tempDir);
 
-		await expect(pullWorkspaceCheckout(ctx)).resolves.toBeNull();
+		await expect(doPullWorkspaceCheckout(ctx)).resolves.toBeNull();
 		expect(ctx.log.all()).toHaveLength(0);
 	});
 
@@ -110,7 +110,7 @@ describe('pullWorkspaceCheckout', () => {
 			makeWorkspaceCheckoutMock(tempDir, { scan: makeMockScan(1) }),
 		);
 
-		await expect(pullWorkspaceCheckout(ctx)).resolves.toBeNull();
+		await expect(doPullWorkspaceCheckout(ctx)).resolves.toBeNull();
 
 		const ops = ctx.log.all();
 		expect(ops).toHaveLength(1);

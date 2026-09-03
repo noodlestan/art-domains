@@ -7,7 +7,7 @@ import { createPushFailure } from '../operations/createPushFailure';
 import { createPushPending } from '../operations/createPushPending';
 import { createPushSuccess } from '../operations/createPushSuccess';
 
-export async function pushWorkspaceCheckout(ctx: WorkspaceContext): Promise<Checkout | null> {
+export async function doPushWorkspaceCheckout(ctx: WorkspaceContext): Promise<Checkout | null> {
 	const workspace = ctx.workspace;
 	if (!workspace) return null;
 	if (!workspace.scan?.can?.('push') || !workspace.scan.should?.('push')) return null;
@@ -16,7 +16,7 @@ export async function pushWorkspaceCheckout(ctx: WorkspaceContext): Promise<Chec
 	try {
 		ctx.log.log(createPushPending(workspace, workspace.record.branch));
 		await git.push('origin', workspace.record.branch);
-		const updated = await scanCheckoutState(ctx, workspace);
+		const updated = await scanCheckoutState(ctx, workspace, true);
 		ctx.workspace = updated;
 		ctx.log.log(createPushSuccess(workspace, workspace.record.branch));
 		return updated;

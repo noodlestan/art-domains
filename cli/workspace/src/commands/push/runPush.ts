@@ -1,7 +1,7 @@
 import { runWithConcurrency } from '../../private/async/runWithConcurrency';
 import { doPullCheckout } from '../../private/commands/checkouts/doPullCheckout';
 import { doPushCheckout } from '../../private/commands/checkouts/doPushCheckout';
-import { pushWorkspaceCheckout } from '../../private/commands/workspaces/pushWorkspaceCheckout';
+import { doPushWorkspaceCheckout } from '../../private/commands/workspaces/doPushWorkspaceCheckout';
 import { scanWorkspaceCheckout } from '../../private/commands/workspaces/scanWorkspaceCheckout';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
 import { createOperationPending } from '../../private/context/operations/createOperationPending';
@@ -32,7 +32,7 @@ export async function runPush(ctx: WorkspaceContext): Promise<void> {
 	});
 
 	await scanWorkspaceCheckout(ctx);
-	await pushWorkspaceCheckout(ctx);
+	await doPushWorkspaceCheckout(ctx);
 
 	presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts());
 	presentOperationsReport(ctx.log);
