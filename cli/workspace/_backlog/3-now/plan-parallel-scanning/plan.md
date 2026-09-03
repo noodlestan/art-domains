@@ -2,7 +2,7 @@
 
 **ID:** `parallel-scanning`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -69,7 +69,7 @@ Update the checkouts processing and scanning loops in `$PROJECT/src/private/stor
 
 | Iteration / Instructions                                                                     | Status  |
 | -------------------------------------------------------------------------------------------- | ------- |
-| Iteration: Parallelise Checkout Scanning `./instructions/parallelise-checkout-scanning.md`   | `READY` |
+| Iteration: Parallelise Checkout Scanning `./instructions/parallelise-checkout-scanning.md`   | `DONE`  |
 | Iteration: Optimise Ahead/Behind Counting `./instructions/optimise-ahead-behind-counting.md` | `READY` |
 | Iteration: Make Scan Refetch Opt-In `./instructions/make-scan-refetch-opt-in.md`             | `READY` |
 
@@ -77,7 +77,9 @@ Update the checkouts processing and scanning loops in `$PROJECT/src/private/stor
 
 **Id:** `parallelise-checkout-scanning`
 
-**Status:** `READY`
+**Status:** `DONE`
+
+**Report:** `./instructions/parallelise-checkout-scanning__report.md`
 
 **Purpose:** Make the per-checkout scan and pull/push/sync processing loops run concurrently so elapsed time scales with concurrency rather than the number of checkouts.
 
@@ -100,11 +102,11 @@ Update the checkouts processing and scanning loops in `$PROJECT/src/private/stor
 
 #### Commits:
 
-| ID                              | Repository / Checkout / Branch                        | Policy       | Hash  | Status     |
-| ------------------------------- | ----------------------------------------------------- | ------------ | ----- | ---------- |
-| `add-concurrency-helper`        | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `parallelise-checkout-scanning` | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `cover-parallel-scanning`       | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                              | Repository / Checkout / Branch                        | Policy       | Hash      | Status      |
+| ------------------------------- | ----------------------------------------------------- | ------------ | --------- | ----------- |
+| `add-concurrency-helper`        | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `6b54911` | `COMMITTED` |
+| `parallelise-checkout-scanning` | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `341a6bd` | `COMMITTED` |
+| `cover-parallel-scanning`       | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `59a3f06` | `COMMITTED` |
 
 ##### Commit: `add-concurrency-helper`
 
@@ -292,7 +294,7 @@ build(workspace-cli): Refetch after side effects in pull, push, and sync.
 
 ### Next
 
-All three iterations are `READY` with commit blueprints defined and instruction files written. Next, delegate the first `READY` iteration (`parallelise-checkout-scanning`) to workers.
+Iteration `parallelise-checkout-scanning` is `DONE`. Next, delegate iteration `optimise-ahead-behind-counting` to workers.
 
 ### Blockers
 
@@ -379,4 +381,4 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Feedback
 
-- None.
+- Iteration `parallelise-checkout-scanning`: worker noted the `$PROJECT/architecture/` mandatory-reading paths did not resolve; actual files live at `$PROJECT/cli/workspace/architecture/`. Minor path issue only — instruction otherwise clear. Worker also noted the pre-commit hook runs full CI (~25s/commit).
