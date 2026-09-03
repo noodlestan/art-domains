@@ -1,8 +1,10 @@
 import { join } from 'node:path';
 
+import simpleGit from 'simple-git';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { createMockCommandContext } from '../../test/helpers/context/createMockCommandContext';
+import { commitFileTest } from '../../test/helpers/git/commitFileTest';
 import { initGitRepoTest } from '../../test/helpers/git/initGitRepoTest';
 import { initWorkingRepoTest } from '../../test/helpers/git/initWorkingRepoTest';
 import { makeTempDir } from '../../test/helpers/tempDirs/makeTempDir';
@@ -101,5 +103,38 @@ describe('scanCheckoutState', () => {
 		const result = await scanCheckoutState(ctx, checkout);
 
 		expect(result.scan?.issues()).toContain('wrong remote');
+	});
+
+	it('cheap scan reports no behind when tracking ref is stale; refetch reports behind', async () => {
+		const tempDir = makeTempDir(tempDirs);
+		const bareDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+		const checkoutDir = join(tempDir, ctx.config.clone.path, 'refetch');
+		await initWorkingRepoTest(checkoutDir, bareDir);
+		const git = simpleGit(checkoutDir);
+		await git.push('origin', 'main', ['--set-upstream']);
+
+		// Push an additional commit from a second clone so the working repo's tracking ref is stale.
+		const secondDir = makeTempDir(tempDirs);
+		await git.clone(bareDir, secondDir);
+		const secondGit = simpleGit(secondDir);
+		await secondGit.addConfig('user.email', 'test@example.com');
+		await secondGit.addConfig('user.name', 'Test');
+		await commitFileTest(secondDir, 'remote-commit.txt');
+		await secondGit.push('origin', 'main');
+
+		const repo: RepositoryRecord = {
+			name: 'RefetchRepo',
+			remote: bareDir,
+		};
+		const checkout = createCheckout(ctx.config, 'refetch', repo, 'main');
+
+		// Cheap scan (refetch false) — local tracking ref is stale, so behind = 0.
+		const cheap = await scanCheckoutState(ctx, checkout);
+		expect(cheap.scan?.state('sync').behind).toBe(0);
+
+		// Refetch scan (refetch true) — fetches from origin, so behind = 1.
+		const refreshed = await scanCheckoutState(ctx, checkout, true);
+		expect(refreshed.scan?.state('sync').behind).toBe(1);
 	});
 });

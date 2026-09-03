@@ -11,6 +11,7 @@ import { hasMergeConflicts } from '../git/hasMergeConflicts';
 import { hasRemote } from '../git/hasRemote';
 import { isDetachedHead } from '../git/isDetachedHead';
 import { isDirty } from '../git/isDirty';
+import { remoteFetch } from '../git/remoteFetch';
 import type { Checkout } from '../store/types';
 
 import {
@@ -29,6 +30,7 @@ import {
 export async function scanCheckoutState(
 	ctx: WorkspaceContext,
 	checkout: Checkout,
+	refetch = false,
 ): Promise<Checkout> {
 	try {
 		await access(checkout.path);
@@ -55,6 +57,7 @@ export async function scanCheckoutState(
 		dirty = await isDirty(checkout.path);
 		if (remote && branch !== '-' && branch !== 'HEAD') {
 			remoteBranch = await getRemoteBranch(checkout.path);
+			if (refetch) await remoteFetch(checkout.path);
 			const { ahead: aheadCount, behind: behindCount } = await getBehindAheadCount(
 				checkout.path,
 				remoteBranch,

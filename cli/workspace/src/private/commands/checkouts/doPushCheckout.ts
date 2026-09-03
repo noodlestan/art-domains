@@ -13,7 +13,7 @@ export async function doPushCheckout(
 	try {
 		ctx.log.log(createPushPending(checkout, checkout.record.branch));
 		await pushCheckout(checkout);
-		const updated = await scanCheckoutState(ctx, checkout);
+		const updated = await scanCheckoutState(ctx, checkout, true);
 		ctx.store.updateCheckout(updated);
 		ctx.log.log(createPushSuccess(checkout, checkout.record.branch));
 		return updated;
