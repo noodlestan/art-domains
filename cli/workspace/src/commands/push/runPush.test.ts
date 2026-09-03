@@ -7,7 +7,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createMockCommandContext } from '../../test/helpers/context/createMockCommandContext';
 import { commitFileTest } from '../../test/helpers/git/commitFileTest';
 import { initWorkingRepoTest } from '../../test/helpers/git/initWorkingRepoTest';
-import { makeOriginAheadTest } from '../../test/helpers/git/makeOriginAheadTest';
 import { writeCheckoutMockRecord } from '../../test/helpers/records/writeCheckoutMockRecord';
 import { writeRepoMockRecord } from '../../test/helpers/records/writeRepoMockRecord';
 import { makeTempDir } from '../../test/helpers/tempDirs/makeTempDir';
@@ -56,37 +55,31 @@ describe('push command', () => {
 		expect(existsSync(join(verifyDir, 'ahead.txt'))).toBe(true);
 	});
 
-	it('tries pull first if behind', async () => {
+	it('pushes without pulling first (pre-push pull removed)', async () => {
 		const tempDir = makeTempDir(tempDirs);
 		const ctx = createMockCommandContext(tempDir);
 		const bareDir = makeTempDir(tempDirs);
-		const repoDir = join(tempDir, ctx.config.clone.path, 'diverged');
+		const repoDir = join(tempDir, ctx.config.clone.path, 'aheadonly');
 		await initWorkingRepoTest(repoDir, bareDir);
 		await commitFileTest(repoDir, 'ahead.txt');
-		await makeOriginAheadTest(bareDir, tempDirs);
-		await simpleGit(repoDir).fetch('origin', 'main');
 
-		writeRepoMockRecord(tempDir, 'Diverged', bareDir);
-		writeCheckoutMockRecord(tempDir, 'Diverged', 'Diverged', 'diverged');
+		writeRepoMockRecord(tempDir, 'AheadOnly', bareDir);
+		writeCheckoutMockRecord(tempDir, 'AheadOnly', 'AheadOnly', 'aheadonly');
 
 		await runPush(ctx);
 
 		const ops = ctx.log.all();
-		expect(ops).toHaveLength(2);
-		expect(ops[0].operation).toBe('pull');
+		expect(ops).toHaveLength(1);
+		expect(ops[0].operation).toBe('push');
 		expect(ops[0].outcome).toBe('success');
-		expect(ops[1].operation).toBe('push');
-		expect(ops[1].outcome).toBe('success');
 
-		const checkout = ctx.store.getCheckoutOfRepo('Diverged');
+		const checkout = ctx.store.getCheckoutOfRepo('AheadOnly');
 		expect(checkout?.scan?.state('sync').delta).toBe(0);
-		expect(checkout?.scan?.state('sync').delta).not.toBeLessThan(0);
 		expect(checkout?.scan?.issues()).toEqual([]);
 
 		const verifyDir = makeTempDir(tempDirs);
 		await simpleGit(verifyDir).clone(bareDir, verifyDir);
 		expect(existsSync(join(verifyDir, 'ahead.txt'))).toBe(true);
-		expect(existsSync(join(verifyDir, 'origin.txt'))).toBe(true);
 	});
 
 	it('skips dirty checkouts', async () => {
