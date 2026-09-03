@@ -61,7 +61,7 @@ Implement the publish command for pushing repos and publishing unpublished packa
 
 ## Scope
 
-Implement publish command in `$PROJECT/src/commands/publish/` with tests, npm registry check, operation factories, and commander wiring.
+Implement Run Command in `$PROJECT/src/commands/publish/` with tests, npm registry check, operation factories, and commander wiring.
 
 ## Work
 
@@ -122,11 +122,11 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions             | Status  |
-| ------------------------------------ | ------- |
-| Iteration: Implement Publish Command | `DRAFT` |
+| Iteration / Instructions         | Status  |
+| -------------------------------- | ------- |
+| Iteration: Implement Run Command | `DRAFT` |
 
-### Iteration: Implement Publish Command
+### Iteration: Implement Run Command
 
 **Id:** `implement-publish-command`
 
@@ -136,7 +136,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 **Description:** Implement the full publish command with package resolution, npm registry check, npm publish step, operation logging, and commander wiring. Reuses `shouldPushCheckout`/`pushCheckout` from pull-push-sync.
 
-**Instructions:** `./plan-implement-publish/instructions/implement-publish-command.md`
+**Instructions:** `./plan-implement-run/instructions/implement-publish-command.md`
 
 **Changes:**
 

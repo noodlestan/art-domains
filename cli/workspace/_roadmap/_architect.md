@@ -40,29 +40,6 @@ The Noodlestan ecosystem spans multiple independent repositories (`artificial`, 
 - **Tested** — every unit carries at least a minimum viable test, BDD specs guide design, and the testing shape follows need ("it depends"), not a prescribed ratio (see `architecture/records/adr/cli.art` → Testing Strategy).
 - **`npm run workspace watch`** — future mode that re-scans checkouts on filesystem events and re-reports without re-invocation. Store must be rehydratable from disk at any point.
 
-## Milestones
-
-### Milestone 1
-
-Complete the workspace CLI with remaining commands and infrastructure.
-
-**Fixing (top priority):** `plan-fix-reported-bugs` — bug fixes sourced from reported bugs (first bug: `clone` presents Checkout Report without scanning checkouts). See `_backlog/3-now/plan-fix-reported-bugs/plan.md`.
-
-**Archived:** `plan-implement-pull-push-sync` (pull, push, sync), `plan-fix-repo-command-issues` (repo fixes), `plan-cleaner-code` (decouple private layer). See `_backlog/0-archive/2026-08-18-*`.
-
-**In Parallel (DRAFT plans ready for architect refinement):**
-
-- `plan-implement-link` — `link <location> <package> [<target>]`; see `_backlog/4-next/plan-implement-link/plan.md`.
-- `plan-implement-links` — `links`; see `_backlog/4-next/plan-implement-links/plan.md`.
-- `plan-implement-unlink` — `unlink <location> <package> [<target>]`; see `_backlog/4-next/plan-implement-unlink/plan.md`.
-- `plan-implement-publish` — `publish [--auto]`; depends on `pull`/`push` from `plan-implement-pull-push-sync`; see `_backlog/4-next/plan-implement-publish/plan.md`.
-
-Each DRAFT plan embeds a self-contained **Architect Prompt** — copy it to launch one architect per slice.
-
 ## Follow-ups
 
 - **repo-ci** — GitHub Actions workflows for all repos (DRAFT, needs instruction file).
-- **Publishing workflow** — formalize the publish-then-symlink pattern into a Workflow resource with agent modes, skills, and commands.
-- **Prepare `@art-domains/workspace` domain** — after `@art-domains/workspace-cli` is established, prepare the domain package to host workspace structures and other resources, including a reference to the CLI companion package.
-- **Reverse edge resolution** — `purrpose → @no-comply/solid-primitives` is still using `file:` resolution. After no-comply packages are published to npm, rewire to npm version.
-- **`manifest-generator`** — auto-generate `.art-workspace.mts` from the records, replacing the manually-authored manifest.

@@ -81,8 +81,6 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 
 **Purpose:** Write standardized message according to context conventions. Operation of Workflow: Planning Work, defined in `$DOMAINS/work/workflows/planning-work/ops/writing-commit-message.art`.
 
-**Instructions:** (From `$WORKSPACE/_guide.md`)
-
 1. Read commit message conventions from `$WORKSPACE/knowledge/conventions/writing-commit-message.art`.
 2. Write the commit message following: the rules defined there.
 
@@ -110,8 +108,6 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 
 **Description:** Replace stale plan reference with current milestone, update CLI execution model to show implemented vs planned commands, review data model consistency.
 
-**Instructions:** `./update-knowledge-resources/instructions/update-architecture-index.md`
-
 **Changes:**
 
 - Replace the stale plan reference with the current milestone reference (`milestone-workspace-cli-one/milestone.md`).
@@ -133,8 +129,6 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 
 **Description:** Update the WorkspaceConfig interface to show the planned shape, update authoring example, add transition note.
 
-**Instructions:** `./update-knowledge-resources/instructions/update-config.md`
-
 **Changes:**
 
 - Update the `WorkspaceConfig` interface to show the planned shape: top-level `checkouts.path` and `checkouts.template`, and `records.pattern`.
@@ -154,8 +148,6 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 **Purpose:** Update `architecture/context-model.md` to reflect actual reader organization and function signatures.
 
 **Description:** Update directory tree, saveCheckoutRecord signature, loadProjectGraph, and Checkout interface.
-
-**Instructions:** `./update-knowledge-resources/instructions/update-context-model.md`
 
 **Changes:**
 
@@ -180,8 +172,6 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 
 **Description:** Update command surface table and implementation status section.
 
-**Instructions:** `./update-knowledge-resources/instructions/update-commands.md`
-
 **Changes:**
 
 - Update the command surface table: `pull`, `push`, `sync` → `implemented`.
@@ -203,8 +193,6 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 
 **Description:** Add pull to operation kinds and verify operation factory exports.
 
-**Instructions:** `./update-knowledge-resources/instructions/update-operations-log.md`
-
 **Changes:**
 
 - Add `pull` to the operation kinds list.
@@ -224,8 +212,6 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 **Purpose:** Update `architecture/_pseudo.md` to reflect current function signatures and add missing pseudo-code.
 
 **Description:** Add resolveCheckoutByName, update saveCheckoutRecord, add pull command pseudo-code, review pull/push/sync pseudo-code.
-
-**Instructions:** `./update-knowledge-resources/instructions/update-pseudo-code.md`
 
 **Changes:**
 
@@ -249,8 +235,6 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 **Purpose:** Verify `architecture/reports.md` matches actual presentation code.
 
 **Description:** Verify report formats match `src/private/present/` implementations.
-
-**Instructions:** `./update-knowledge-resources/instructions/update-reports.md`
 
 **Changes:**
 
