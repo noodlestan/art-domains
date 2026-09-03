@@ -1,3 +1,4 @@
+import { runWithConcurrency } from '../../private/async/runWithConcurrency';
 import { doPullCheckout } from '../../private/commands/checkouts/doPullCheckout';
 import { doPushCheckout } from '../../private/commands/checkouts/doPushCheckout';
 import { pullWorkspaceCheckout } from '../../private/commands/workspaces/pullWorkspaceCheckout';
@@ -21,7 +22,7 @@ export async function runSync(ctx: WorkspaceContext): Promise<void> {
 
 	await scanAllCheckoutsStates(ctx);
 
-	for (const checkout of ctx.store.getAllCheckouts()) {
+	await runWithConcurrency(ctx.store.getAllCheckouts(), 4, async checkout => {
 		if (checkout.scan?.can?.('pull')) {
 			if (checkout.scan.should?.('pull')) await doPullCheckout(ctx, checkout);
 			const current = ctx.store.getCheckoutForLocation(checkout.record.location) ?? checkout;
@@ -29,7 +30,7 @@ export async function runSync(ctx: WorkspaceContext): Promise<void> {
 				await doPushCheckout(ctx, current);
 			}
 		}
-	}
+	});
 
 	await scanWorkspaceCheckout(ctx);
 	await pullWorkspaceCheckout(ctx);

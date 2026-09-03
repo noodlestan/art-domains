@@ -1,9 +1,10 @@
+import { runWithConcurrency } from '../../../private/async/runWithConcurrency';
 import { doPushCheckout } from '../../../private/commands/checkouts/doPushCheckout';
 import type { WorkspaceContext } from '../../../private/context/createWorkspaceContext';
 
 export async function pushCleanCheckouts(ctx: WorkspaceContext): Promise<void> {
-	for (const checkout of ctx.store.getAllCheckouts()) {
-		if (!checkout.scan?.can?.('push') || !checkout.scan.should?.('push')) continue;
+	await runWithConcurrency(ctx.store.getAllCheckouts(), 4, async checkout => {
+		if (!checkout.scan?.can?.('push') || !checkout.scan.should?.('push')) return;
 		await doPushCheckout(ctx, checkout);
-	}
+	});
 }
