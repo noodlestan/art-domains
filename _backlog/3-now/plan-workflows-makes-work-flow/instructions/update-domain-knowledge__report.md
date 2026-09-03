@@ -12,11 +12,11 @@
 
 Updated the architecture knowledge base to reflect the canonical domain landscape — 14 domains, 5 workflows, and their operations.
 
-| Change | File | Description |
-| ------ | ---- | ----------- |
-| Rewritten | `architecture/reference-model.md` | 14 canonical domain boundaries replacing the stale 11-domain model; removed Backlogs, Projects, Applications, Engineering; added Artificials, Conventions, Domains, Noodlestan, Primitives, References, Scaffolders, Workspaces; documented Work domain ownership of workflows, operations, and routines |
-| Rewritten | `architecture/reference-workflows.md` | 5 workflows with full stage detail: Planning Work (6 ops), Executing Work (9 ops), Delegating Work (4 ops), Roadmapping (5 ops), Deploying (5 ops); removed the stale Engineering/Implementing workflow |
-| Updated | `architecture/index.md` | Corrected domain count from 11 to 14; corrected workflow list from "Planning, Roadmapping, Engineering, Deploying" to "Planning Work, Executing Work, Delegating Work, Roadmapping, Deploying" |
+| Change    | File                                  | Description                                                                                                                                                                                                                                                                                              |
+| --------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rewritten | `architecture/reference-model.md`     | 14 canonical domain boundaries replacing the stale 11-domain model; removed Backlogs, Projects, Applications, Engineering; added Artificials, Conventions, Domains, Noodlestan, Primitives, References, Scaffolders, Workspaces; documented Work domain ownership of workflows, operations, and routines |
+| Rewritten | `architecture/reference-workflows.md` | 5 workflows with full stage detail: Planning Work (6 ops), Executing Work (9 ops), Delegating Work (4 ops), Roadmapping (5 ops), Deploying (5 ops); removed the stale Engineering/Implementing workflow                                                                                                  |
+| Updated   | `architecture/index.md`               | Corrected domain count from 11 to 14; corrected workflow list from "Planning, Roadmapping, Engineering, Deploying" to "Planning Work, Executing Work, Delegating Work, Roadmapping, Deploying"                                                                                                           |
 
 #### Files changed
 

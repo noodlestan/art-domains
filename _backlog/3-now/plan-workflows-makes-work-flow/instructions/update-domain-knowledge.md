@@ -14,11 +14,11 @@ These are your instructions.
 
 ## Path Variables
 
-| Variable       | Resolved Path                        | Purpose                                                                    |
-| -------------- | ------------------------------------ | -------------------------------------------------------------------------- |
-| `$WORKSPACE`   | Current working directory            | Workspace root directory.                                                  |
-| `$ART_DOMAINS` | `$WORKSPACE/checkouts/art-domains`   | The art-domains repository checkout where the architecture knowledge lives. |
-| `$DOMAINS`     | `$WORKSPACE/.agents/domains`         | Domain resources directory — the canonical source of truth for the domain landscape. |
+| Variable       | Resolved Path                      | Purpose                                                                              |
+| -------------- | ---------------------------------- | ------------------------------------------------------------------------------------ |
+| `$WORKSPACE`   | Current working directory          | Workspace root directory.                                                            |
+| `$ART_DOMAINS` | `$WORKSPACE/checkouts/art-domains` | The art-domains repository checkout where the architecture knowledge lives.          |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains`       | Domain resources directory — the canonical source of truth for the domain landscape. |
 
 ## Working Agreements
 
