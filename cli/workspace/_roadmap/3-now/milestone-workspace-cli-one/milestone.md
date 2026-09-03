@@ -122,11 +122,11 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 2     | Plan: Log Process as it Happens `_backlog/1-done/plan-log-process-as-it-happens/plan.md`                                     | `DONE`      |
 | 2     | Plan: Scoped Record Paths `_backlog/3-now/plan-scoped-record-paths/plan.md`                                                  | `PLANNING`  |
 | 2     | Plan: Parallel Scanning `_backlog/4-next/plan-parallel-scanning/plan.md`                                                     | `DRAFT`     |
-| 2     | Plan: Workspace CLI — Link Command `_backlog/4-next/plan-implement-link/plan.md`                                             | `DRAFT`     |
-| 2     | Plan: Workspace CLI — Links Command `_backlog/4-next/plan-implement-links/plan.md`                                           | `DRAFT`     |
+| 2     | Plan: Workspace CLI — Link Command `_backlog/6-plan/plan-implement-link/plan.md`                                             | `DRAFT`     |
+| 2     | Plan: Workspace CLI — Links Command `_backlog/6-plan/plan-implement-links/plan.md`                                           | `DRAFT`     |
 | 2     | Plan: Workspace CLI — Run Command `_backlog/4-next/plan-implement-run/plan.md`                                               | `DRAFT`     |
-| 2     | Plan: Workspace CLI — Unlink Command `_backlog/4-next/plan-implement-unlink/plan.md`                                         | `DRAFT`     |
-| 2     | Plan: Update Knowledge Resources `_backlog/4-next/plan-update-knowledge-resources/plan.md`                                   | `PREPARING` |
+| 2     | Plan: Workspace CLI — Unlink Command `_backlog/6-plan/plan-implement-unlink/plan.md`                                         | `DRAFT`     |
+| 2     | Plan: Update Knowledge Resources `_backlog/6-plan/plan-update-knowledge-resources/plan.md`                                   | `PREPARING` |
 | -     |                                                                                                                              |             |
 | 3     | Plan: Extract Workspace CLI to Repository: Art CLI (New)Repo `_backlog/4-next/plan-move-code-project-art-cli/plan.md`        | `DRAFT`     |
 | 3     | Plan: Extract Record Units to Lib-Records                                                                                    | `DRAFT`     |
