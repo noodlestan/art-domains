@@ -66,7 +66,7 @@ Update the operation type model and logging/presentation in `$PROJECT/src/privat
 
 ### Next
 
-Delegate the next `READY` iteration: `glob-option-a`.
+Delegate the next `READY` iteration: `scoped-record-paths`.
 
 ### Blockers
 
@@ -126,7 +126,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 | Iteration: Add Pending Operation Types    | `DONE`    |
 | Iteration: Stream Pending Operations Live | `DONE`    |
 | Iteration: Output Pending Operations      | `WORKING` |
-| Iteration: Glob Option A                  | `READY`   |
+| Iteration: Scoped Record Paths            | `READY`   |
 
 ### Iteration: Add Pending Operation Types
 
@@ -266,11 +266,11 @@ build(workspace-cli): wire live operation logger in index.
 
 **Id:** `output-pending-operations`
 
-**Status:** `WORKING`
+**Status:** `DONE`
 
 **Purpose:** Emit pending operations before starting commands and supporting operations, so `doing:` lines stream immediately and supporting work is visible.
 
-**Description:** Add `create*Pending` factories and log a pending operation before each command's side effect; emit pending scan operations so supporting work is visible for performance planning.
+**Description:** Emit pending operations before commands and scans; thread ctx through scan/load so they log their own operations; extract pure git helpers with do\* orchestrators owning scan and store updates.
 
 **Instructions:** `./plan-log-process-as-it-happens/instructions/output-pending-operations.md`
 
@@ -290,7 +290,7 @@ build(workspace-cli): wire live operation logger in index.
 | ID                        | Repository / Checkout / Branch                                | Policy       | Hash      | Status      |
 | ------------------------- | ------------------------------------------------------------- | ------------ | --------- | ----------- |
 | `emit-pending-operations` | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | `e6f46ff` | `COMMITTED` |
-| `emit-scan-operations`    | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `MANUAL`     | (TBD)     | `AUTHORED`  |
+| `emit-scan-operations`    | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `MANUAL`     | `da9a76d` | `COMMITTED` |
 
 ##### Commit: `emit-pending-operations`
 
@@ -313,33 +313,41 @@ build(workspace-cli): emit pending operations before starting commands.
 
 **Repository:** Workspace CLI
 
+**Hash:** `da9a76d`
+
+**Status:** `COMMITTED`
+
 **Message:**
 
 ```
-build(workspace-cli): emit pending scan operations.
+build(workspace-cli): Log pending operations; refactor to inject ctx where needed.
 
-- Log a pending operation when scanning a checkout so supporting work is visible.
-- Only pending scans are reported; no success/failure scan operations.
+- Thread ctx through scan/load functions so they can log their own operations.
+- Extract pure git helpers; do* orchestrators own scan and store updates.
+- Emit a 'command' pending operation at the start of every run command.
+- Add generic operation factories and the makeOperationLogLine presenter.
 ```
 
-### Iteration: Glob Option A
+### Iteration: Scoped Record Paths
 
-**Id:** `glob-option-a`
+**Id:** `scoped-record-paths`
 
 **Status:** `READY`
 
-**Purpose:** Speed up record discovery by moving string `ignored` patterns and a baseline of always-excluded directories into the glob's `exclude` option, and express `included` overrides as separate positive globs unioned with the main results.
+**Purpose:** Replace the single-glob `included`/`ignored` record discovery with scoped, additive `paths` scans so discovery is fast, predictable, and `included` is no longer needed.
 
-**Description:** Refactor `findCandidateFiles`/`findRecordFiles` so the glob itself skips `node_modules`, `.git`, `dist` and the string `ignored` patterns, and `included` string patterns are globbed separately and unioned in (Option A). RegExp patterns and the `git check-ignore` post-filter remain for the parts glob cannot express.
+**Description:** Introduce a `paths` array of scoped record scans. Each path carries `base`, `pattern`, `ignored`, `excluded`, and `gitignore`. Normalize `records` (top-level defaults plus `paths`) into an array of independent additive scans, each globbing `join(searchPath, base, pattern)` with `exclude = ignored + excluded` (nested excludes, never the base itself) and optionally applying `git check-ignore` when `gitignore: true`. Drop `included` and RegExp patterns.
 
-**Instructions:** `./plan-log-process-as-it-happens/instructions/glob-option-a.md`
+**Instructions:** `./plan-log-process-as-it-happens/instructions/scoped-record-paths.md`
 
 **Changes:**
 
-- In `src/private/records/private/findCandidateFiles.ts`, accept an `exclude` list and pass it to `globSync`; add a baseline exclude of `node_modules`, `.git`, `dist`.
-- In `src/private/records/findRecordFiles.ts`, build the glob `exclude` from the baseline plus the string `ignored` patterns; run the main glob with those excludes.
-- Union `included` string patterns as separate positive globs so `included` overrides gitignore.
-- Keep RegExp `ignored`/`included` patterns and the `git check-ignore` post-filter for the parts glob cannot express.
+- Change `WorkspaceConfig['records']` to `Partial<WorkspaceRecordsPath> & { paths?: Partial<WorkspaceRecordsPath>[] }` with `WorkspaceRecordsPath = { base: string; pattern: string | string[]; ignored: string[]; excluded: string[]; gitignore: boolean }`; drop `included` and `dotignored` (replaced by `gitignore: boolean`).
+- Add a `normalizeRecordPaths(records)` helper producing fully-resolved path scans: if `paths` is empty, a single path from the top-level defaults (base default `'.'`); otherwise each path inherits top-level defaults overridden by its own fields (`ignored` is a full override; `excluded` merges).
+- In `findRecordFiles`, iterate the normalized paths, globbing `join(searchPath, base, pattern)` with `exclude = ignored + excluded` (nested excludes, not the base), optionally applying `git check-ignore` when `gitignore: true`; union and dedupe results.
+- Update `findCandidateFiles` to accept `base` and `exclude` and pass them to `globSync`.
+- Remove `filterByPatterns`, `getIgnoredSet`, `filterBuiltInExcludes`, and the `included`/RegExp machinery.
+- Document the new `records` shape and discovery logic in `architecture/config.md` under a new `## Options overview` section.
 
 **Dependencies:**
 
@@ -347,35 +355,36 @@ build(workspace-cli): emit pending scan operations.
 
 #### Commits:
 
-| ID                     | Repository / Checkout / Branch                                | Policy       | Hash  | Status     |
-| ---------------------- | ------------------------------------------------------------- | ------------ | ----- | ---------- |
-| `glob-exclude-ignored` | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `glob-include-union`   | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                         | Repository / Checkout / Branch                                | Policy       | Hash  | Status     |
+| -------------------------- | ------------------------------------------------------------- | ------------ | ----- | ---------- |
+| `scoped-record-paths`      | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| `document-records-options` | Workspace CLI / `$PROJECT` / `plan-log-process-as-it-happens` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
 
-##### Commit: `glob-exclude-ignored`
-
-**Repository:** Workspace CLI
-
-**Message:**
-
-```
-build(workspace-cli): pass ignored patterns and baseline dirs to glob exclude.
-
-- Add `exclude` to `globSync` for `node_modules`, `.git`, `dist`.
-- Pass string `ignored` patterns through to the glob `exclude`.
-```
-
-##### Commit: `glob-include-union`
+##### Commit: `scoped-record-paths`
 
 **Repository:** Workspace CLI
 
 **Message:**
 
 ```
-build(workspace-cli): union included patterns as positive globs.
+build(workspace-cli): introduce scoped record path scans.
 
-- Glob each string `included` pattern separately and union with the main results.
-- Keep RegExp patterns and the git check-ignore post-filter.
+- Add `paths` array with base/pattern/ignored/excluded/gitignore per scan.
+- Normalize records into independent additive scans; drop `included` and RegExp.
+- Glob each path with `exclude = ignored + excluded`; apply git check-ignore when enabled.
+```
+
+##### Commit: `document-records-options`
+
+**Repository:** Workspace CLI
+
+**Message:**
+
+```
+docs(workspace-cli): document records options in config.md.
+
+- Add `## Options overview` for the new records shape and discovery logic.
+- Update the WorkspaceConfig structure example.
 ```
 
 ---
@@ -390,7 +399,7 @@ build(workspace-cli): union included patterns as positive globs.
 
 - Iteration `add-pending-operation-types`: `pending` outcome, `OperationPending` and 7 per-operation pending types added; `branch created` renamed to `branch`; `Operation` union extended with `Pending | Success | Failure` per kind. Commits `19cd900`, `6058533`.
 - Iteration `stream-pending-operations-live`: optional logger in `createOperationsLog`; `makeOperationLogLine` presenter with ⏳/🟢/🔴; live logger wired in `src/index.ts`. Commits `6d6458f`, `0b004f7`.
-- Iteration `output-pending-operations` (commit 1): 7 `create*Pending` factories added; every command emits a pending operation before its side effect; tests added. Commit `e6f46ff`. Commit 2 `emit-scan-operations` (MANUAL) pending.
+- Iteration `output-pending-operations`: 7 `create*Pending` factories added; every command emits a pending operation before its side effect; ctx threaded through scan/load so they log their own operations; pure git helpers extracted with do\* orchestrators owning scan and store updates. Commits `e6f46ff`, `da9a76d`.
 - All 245 tests pass; lint and build green.
 
 ### Findings
@@ -406,6 +415,7 @@ build(workspace-cli): union included patterns as positive globs.
 
 - `architecture/operations-log.md` — add the `pending` outcome to the model (mirrored where read-only constraints apply).
 - `architecture/_pseudo.md`, `architecture/commands.md`, `architecture/index.md` — `branch created` → `branch`.
+- `architecture/config.md` — document the new `records` options (`paths`, `base`, `pattern`, `ignored`, `excluded`, `gitignore`) under `## Options overview`.
 
 ### Follow Ups
 

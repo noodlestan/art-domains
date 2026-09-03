@@ -15,7 +15,56 @@ interface WorkspaceConfig {
   root: { path: string };
   clone: { path: string };
   checkouts: { path: string; template: string };
-  records: { pattern: string };
+  records: {
+    base: string; // default '.'
+    pattern: string | string[]; // default '*.art'
+    ignored: string[]; // default ['node_modules/', '.git/', 'dist/']
+    excluded: string[]; // default []
+    gitignore: boolean; // default true
+    paths: {
+      base: string;
+      pattern?: string | string[];
+      ignored?: string[];
+      excluded?: string[];
+      gitignore?: boolean;
+    }[];
+  };
+}
+```
+
+## Options overview
+
+The `records` option controls how the CLI discovers record files. It is a partial path config plus an optional `paths` array; everything normalizes to a list of independent, additive scans.
+
+| Option      | Type                 | Default                               | Meaning                                                                  |
+| ----------- | -------------------- | ------------------------------------- | ------------------------------------------------------------------------ |
+| `base`      | `string`             | `'.'`                                 | Scan root, relative to the workspace root.                               |
+| `pattern`   | `string \| string[]` | `'*.art'`                             | Glob pattern(s) for record files within the base.                        |
+| `ignored`   | `string[]`           | `['node_modules/', '.git/', 'dist/']` | Baseline nested excludes.                                                |
+| `excluded`  | `string[]`           | `[]`                                  | Additional nested excludes, merged with `ignored`.                       |
+| `gitignore` | `boolean`            | `true`                                | Whether to apply `git check-ignore` as a post-filter.                    |
+| `paths`     | `array`              | `[]`                                  | Scoped scans; each inherits the top-level defaults, overridden per path. |
+
+**Discovery logic:**
+
+- Each `paths` entry is an independent scan anchored to its `base`; the glob is `join(root, base, pattern)`.
+- `ignored`/`excluded` exclude **nested** paths within the base, never the base itself — so `{ base: 'node_modules/', ignored: [] }` scans `node_modules/` while clearing the baseline for its contents.
+- `path.ignored` **overrides** `records.ignored`; `excluded` **merges** with it.
+- `gitignore: true` (default) applies `git check-ignore`; `false` skips it.
+- Results across all paths are unioned and deduped.
+- There is **no `included`** — to include something outside the main scan, add another `paths` entry with a different `base`.
+
+Example:
+
+```typescript
+records: {
+  pattern: '*.art',
+  paths: [
+    { base: '.', excluded: ['checkouts/'] },
+    { base: '_records/checkouts' },
+    { base: 'node_modules/', pattern: '*.{art,md}', ignored: [] },
+    { base: 'generated/', gitignore: false },
+  ],
 }
 ```
 

@@ -40,7 +40,7 @@ The plan workflow (see the entry point guide → Planning Workflow → Working T
 
 ## Goals
 
-Make every command emit a `pending` operation before starting its side effect, so a `doing:` line streams immediately via the live logger wired in `src/index.ts`. This iteration covers command operations only; supporting operations (e.g. scanning) are a separate manual commit.
+Make every command emit a `pending` operation before starting its side effect, so a `doing:` line streams immediately via the live logger wired in `src/index.ts`. Thread `ctx` through the scan and load functions so they log their own pending/failure operations, and extract pure git helpers so the do\* orchestrators own scanning and store updates. Emit a `command` pending operation at the start of every run command.
 
 ## Mandatory Reading
 
