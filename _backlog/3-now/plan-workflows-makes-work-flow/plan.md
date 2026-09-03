@@ -10,7 +10,7 @@
 
 **Purpose:** Update the write-plan skill to work with the new plan structure and work domain abstractions, and exercise the plan structures/templates by retrofitting completed work.
 
-**Description:** Plan with 8 completed iterations (exercise) and 6 planned iterations covering skill update, agent mode update, domain routine refactor, and spec integration.
+**Description:** Plan with completed iterations covering skill update, agent mode update, and domain routine refactor.
 
 ## Mandatory Reading
 
@@ -349,7 +349,6 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Iteration: Fix Broken References                               | `DONE`     |
 | Iteration: Refactor Domain Index Routines                      | `DONE`     |
 | Iteration: Rewrite Delegate Plan Skill                         | `DONE`     |
-| Iteration: Integrate Specs Into Plans                          | `PLANNING` |
 | Iteration: Update Domain Knowledge                             | `DONE`     |
 
 ### Iteration: Add Work Domain
@@ -1637,31 +1636,6 @@ refactor(workflows-make-work-flow): Rewrite delegate-plan skill and update domai
 - Flatten all commands, invoke routines with ::READ pattern
 - Update commits and plans domain indexes
 ```
-
-### Iteration: Integrate Specs Into Plans
-
-**id:** `integrate-specs-into-plans`
-
-**Status:** `PLANNING`
-
-**Purpose:** Integrate specification structures into plan workflow.
-
-**Description:** Connect Type: Spec (Abstract) into plan structure and template for specification-driven planning.
-
-**Changes:**
-
-- Add spec reference field to `$DOMAINS/plans/structures/plan.art`
-- Update `$DOMAINS/plans/templates/plan.tart` to render spec section
-- Add spec context type if needed for linking specs to plans
-- Update work-item-abstract.art to support spec references
-
-**Scope:** `$DOMAINS/plans/` and `$DOMAINS/specs/` directories
-
-**Key integration points:**
-
-- Plan structure gets optional `specs` field
-- Plan template renders spec references in context section
-- Specs become first-class resources in plan scope
 
 ### Iteration: Update Domain Knowledge
 
