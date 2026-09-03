@@ -21,7 +21,7 @@ export async function filterFilenamesByKinds(
 			}
 
 			return kinds.some(kind =>
-				new RegExp(`^##\\s+${escapeRegExp(kind)}\\s*:`, 'm').test(
+				new RegExp(`^#+\\s+${escapeRegExp(kind)}\\s*:`, 'm').test(
 					fileWithContents.content as string,
 				),
 			)

@@ -12,12 +12,7 @@ export async function loadCheckoutRecords(
 	const searchPath = ctx.config.root.path;
 	ctx.log.log(createOperationPending('load-checkout-records', searchPath));
 
-	const recordFiles = await findRecordFiles(
-		searchPath,
-		ctx.config.records.pattern,
-		['Checkout'],
-		ctx.config.records,
-	);
+	const recordFiles = await findRecordFiles(ctx.config.records, searchPath, ['Checkout']);
 	const checkouts = await Promise.all(
 		recordFiles.map(async file => {
 			const record = await readCheckoutRecord(file);

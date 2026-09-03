@@ -9,12 +9,7 @@ export async function loadRepositoryRecords(ctx: WorkspaceContext): Promise<Repo
 	const searchPath = ctx.config.root.path;
 	ctx.log.log(createOperationPending('load-repository-records', searchPath));
 
-	const recordFiles = await findRecordFiles(
-		searchPath,
-		ctx.config.records.pattern,
-		['Repository'],
-		ctx.config.records,
-	);
+	const recordFiles = await findRecordFiles(ctx.config.records, searchPath, ['Repository']);
 	const records = await Promise.all(recordFiles.map(file => readRepositoryRecord(file)));
 	return records.filter((record): record is RepositoryRecord => record !== null);
 }

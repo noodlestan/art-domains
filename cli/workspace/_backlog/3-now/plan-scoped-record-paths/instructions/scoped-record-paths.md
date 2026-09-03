@@ -225,21 +225,7 @@ build(workspace-cli): Introduce config records.paths options for scoped scans.
 - Add `paths` array with base/pattern/ignored/excluded/gitignore per scan.
 - Normalize records into independent additive scans; drop `included` and RegExp.
 - Glob each path with `exclude = ignored + excluded`; apply git check-ignore when enabled.
-```
-
----
-
-#### Commit: `document-records-options`
-
-**Policy:** AUTONOMOUS — Agent should commit autonomously, push, and proceed to the next step.
-
-**Message:**
-
-```
-knowledge(workspace-cli): Document records options in architecture/.
-
-- Add `## Options overview` for the new records shape and discovery logic.
-- Update the WorkspaceConfig structure example.
+- Document records options in architecture/config.md.
 ```
 
 ---

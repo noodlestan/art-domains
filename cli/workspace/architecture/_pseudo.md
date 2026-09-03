@@ -888,7 +888,7 @@ loadWorkspaceConfig(root)
 
 ```pseudo
 loadRepositoryRecords(config)
-  candidates = findRecordFiles(config.root.path, config.records.pattern, kinds?)
+  candidates = findRecordFiles(config.records, config.root.path, kinds?)
   records = []
   for file in candidates:
     record = readRepositoryRecord(file)
@@ -904,7 +904,7 @@ loadRepositoryRecords(config)
 
 ```pseudo
 loadCheckoutRecords(config, repos)
-  candidates = findRecordFiles(config.root.path, config.records.pattern, ['checkout'])
+  candidates = findRecordFiles(config.records, config.root.path, ['checkout'])
   records = []
   for file in candidates:
     record = readCheckoutRecord(file)
@@ -935,7 +935,7 @@ saveCheckoutRecord(config, data, filename?)
 
 ### Function: readProjectRecords(ctx, checkout)
 
-**Responsibility:** Read a checkout's project records dynamically. Uses `findRecordFiles(checkoutPath, config.records.pattern, ['Records'])` to discover `.art` files, then filters by kind (project, namespace, package) using the singular readers. Returns `Promise`.
+**Responsibility:** Read a checkout's project records dynamically. Uses `findRecordFiles(config.records, checkoutPath, ['Records'])` to discover `.art` files, then filters by kind (project, namespace, package) using the singular readers. Returns `Promise`.
 
 **Pseudo:**
 

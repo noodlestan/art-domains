@@ -15,20 +15,15 @@ interface WorkspaceConfig {
   root: { path: string };
   clone: { path: string };
   checkouts: { path: string; template: string };
-  records: {
-    base: string; // default '.'
-    pattern: string | string[]; // default '*.art'
-    ignored: string[]; // default ['node_modules/', '.git/', 'dist/']
-    excluded: string[]; // default []
-    gitignore: boolean; // default true
-    paths: {
-      base: string;
-      pattern?: string | string[];
-      ignored?: string[];
-      excluded?: string[];
-      gitignore?: boolean;
-    }[];
-  };
+  records: { paths: WorkspaceRecordsPath[] };
+}
+
+interface WorkspaceRecordsPath {
+  base: string; // default '.'
+  pattern: string | string[]; // default '*.art'
+  ignored: string[]; // default ['node_modules/', '.git/', 'dist/']
+  excluded: string[]; // default []
+  gitignore: boolean; // default true
 }
 ```
 

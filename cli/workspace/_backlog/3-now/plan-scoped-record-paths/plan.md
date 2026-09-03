@@ -2,7 +2,7 @@
 
 **ID:** `scoped-record-paths`
 
-**Status:** `PLANNING`
+**Status:** `DONE`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -126,7 +126,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 **Id:** `scoped-record-paths`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Replace the single-glob `included`/`ignored` record discovery with scoped, additive `paths` scans so discovery is fast, predictable, and `included` is no longer needed.
 
@@ -139,7 +139,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 - Change `WorkspaceConfig['records']` to `Partial<WorkspaceRecordsPath> & { paths?: Partial<WorkspaceRecordsPath>[] }` with `WorkspaceRecordsPath = { base: string; pattern: string | string[]; ignored: string[]; excluded: string[]; gitignore: boolean }`; drop `included` and `dotignored` (replaced by `gitignore: boolean`).
 - Add a `normalizeRecordPaths(records)` helper producing fully-resolved path scans: if `paths` is empty, a single path from the top-level defaults (base default `'.'`); otherwise each path inherits top-level defaults overridden by its own fields (`ignored` is a full override; `excluded` merges).
 - In `findRecordFiles`, iterate the normalized paths, globbing `join(searchPath, base, pattern)` with `exclude = ignored + excluded` (nested excludes, not the base), optionally applying `git check-ignore` when `gitignore: true`; union and dedupe results.
-- Update `findCandidateFiles` to accept `base` and `exclude` and pass them to `globSync`.
+- Glob each path with the async `glob` (Node `fs/promises`), passing `exclude` as an array of absolute base-anchored patterns.
 - Remove `filterByPatterns`, `getIgnoredSet`, `filterBuiltInExcludes`, and the `included`/RegExp machinery.
 - Document the new `records` shape and discovery logic in `architecture/config.md` under a new `## Options overview` section.
 
@@ -149,10 +149,9 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 #### Commits:
 
-| ID                         | Repository / Checkout / Branch                          | Policy       | Hash  | Status     |
-| -------------------------- | ------------------------------------------------------- | ------------ | ----- | ---------- |
-| `scoped-record-paths`      | Workspace CLI / `$PROJECT` / `plan-scoped-record-paths` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `document-records-options` | Workspace CLI / `$PROJECT` / `plan-scoped-record-paths` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                    | Repository / Checkout / Branch                          | Policy       | Hash      | Status      |
+| --------------------- | ------------------------------------------------------- | ------------ | --------- | ----------- |
+| `scoped-record-paths` | Workspace CLI / `$PROJECT` / `plan-scoped-record-paths` | `AUTONOMOUS` | `16a9a1e` | `COMMITTED` |
 
 ##### Commit: `scoped-record-paths`
 
@@ -166,19 +165,7 @@ build(workspace-cli): Introduce config records.paths options for scoped scans.
 - Add `paths` array with base/pattern/ignored/excluded/gitignore per scan.
 - Normalize records into independent additive scans; drop `included` and RegExp.
 - Glob each path with `exclude = ignored + excluded`; apply git check-ignore when enabled.
-```
-
-##### Commit: `document-records-options`
-
-**Repository:** Workspace CLI
-
-**Message:**
-
-```
-knowledge(workspace-cli): Document records options in architecture/.
-
-- Add `## Options overview` for the new records shape and discovery logic.
-- Update the WorkspaceConfig structure example.
+- Document records options in architecture/config.md.
 ```
 
 ---

@@ -31,7 +31,7 @@ describe('loadWorkspaceConfig', () => {
 		expect(config.clone.path).toBe('checkouts');
 		expect(config.checkouts.path).toBe('_records/');
 		expect(config.checkouts.template).toBe('.agents/domains/workspace/templates/checkout.art.njk');
-		expect(config.records.pattern).toBe('*.art');
+		expect(config.records.paths[0].pattern).toBe('*.art');
 	});
 
 	it('warns when the config is missing', async () => {
@@ -42,7 +42,7 @@ describe('loadWorkspaceConfig', () => {
 
 		expect(warn).toHaveBeenCalled();
 		expect(config.clone.path).toBe('checkouts');
-		expect(config.records.pattern).toBe('*.art');
+		expect(config.records.paths[0].pattern).toBe('*.art');
 	});
 
 	it('returns loaded config when config is present', async () => {
@@ -54,7 +54,7 @@ describe('loadWorkspaceConfig', () => {
 		expect(config.root.path).toBe(tempDir);
 		expect(config.checkouts.path).toBe('checkouts-path');
 		expect(config.checkouts.template).toBe('checkouts-template');
-		expect(config.records.pattern).toBe('*.art');
+		expect(config.records.paths[0].pattern).toBe('*.art');
 	});
 
 	it('reports the manifest path when the manifest throws on import', async () => {

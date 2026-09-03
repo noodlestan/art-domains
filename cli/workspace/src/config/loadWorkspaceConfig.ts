@@ -10,17 +10,18 @@ import type { PartialWorkspaceConfig, WorkspaceConfig } from './types';
 const MANIFEST_FILE = '.art-workspace.mts';
 const TEMP_FILE = '.art-workspace-bundle.mjs';
 
-const DEFAULT_CONFIG: Pick<WorkspaceConfig, 'clone' | 'checkouts' | 'records'> = {
+const DEFAULT_CONFIG: PartialWorkspaceConfig = {
 	clone: { path: 'checkouts' },
 	checkouts: {
 		path: '_records/',
 		template: '.agents/domains/workspace/templates/checkout.art.njk',
 	},
 	records: {
+		base: '.',
 		pattern: '*.art',
-		dotignored: ['gitignore'],
-		ignored: [],
-		included: [],
+		ignored: ['node_modules/', '.git/', 'dist/'],
+		excluded: [],
+		gitignore: true,
 	},
 };
 
@@ -33,7 +34,7 @@ export async function loadWorkspaceConfig(rootPath: string): Promise<WorkspaceCo
 
 	if (!existsSync(manifestPath)) {
 		console.warn(`${MANIFEST_FILE} not found at ${rootPath}; Using default config.`);
-		return { ...DEFAULT_CONFIG, root: { path: rootPath } };
+		return defineConfig({ ...DEFAULT_CONFIG, root: { path: rootPath } });
 	}
 
 	let output;

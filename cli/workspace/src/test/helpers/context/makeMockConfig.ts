@@ -8,7 +8,17 @@ export function makeMockConfig(
 		clone: { path: 'checkouts' },
 		root: { path: rootPath },
 		checkouts: { path: '_records/', template: 'checkout.art.njk' },
-		records: { pattern: '*.art', dotignored: ['gitignore'], ignored: [], included: [] },
+		records: {
+			paths: [
+				{
+					base: '.',
+					pattern: '*.art',
+					ignored: ['node_modules/', '.git/', 'dist/'],
+					excluded: [],
+					gitignore: true,
+				},
+			],
+		},
 		...overrides,
 	};
 }

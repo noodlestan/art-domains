@@ -1,3 +1,4 @@
+import { normalizeRecordPaths } from './private/normalizeRecordPaths';
 import type { PartialWorkspaceConfig, WorkspaceConfig } from './types';
 
 export function defineConfig(config: PartialWorkspaceConfig): WorkspaceConfig {
@@ -6,10 +7,7 @@ export function defineConfig(config: PartialWorkspaceConfig): WorkspaceConfig {
 	const checkoutsPath = config.checkouts?.path || '_records/';
 	const checkoutTemplatePath =
 		config.checkouts?.template || '.agents/domains/workspace/templates/checkout.art.njk';
-	const recordsPattern = config.records?.pattern || '*.art';
-	const recordsDotignored = config.records?.dotignored || ['gitignore'];
-	const recordsIgnored = config.records?.ignored || [];
-	const recordsIncluded = config.records?.included || [];
+	const recordsPaths = normalizeRecordPaths(config.records);
 
 	return {
 		clone: {
@@ -23,10 +21,7 @@ export function defineConfig(config: PartialWorkspaceConfig): WorkspaceConfig {
 			template: checkoutTemplatePath,
 		},
 		records: {
-			pattern: recordsPattern,
-			dotignored: recordsDotignored,
-			ignored: recordsIgnored,
-			included: recordsIncluded,
+			paths: recordsPaths,
 		},
 	};
 }
