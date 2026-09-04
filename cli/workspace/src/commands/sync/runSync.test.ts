@@ -161,4 +161,31 @@ describe('sync command', () => {
 		expect(ops[1].operation).toBe('push');
 		expect(ops[1].outcome).toBe('success');
 	});
+
+	it('skips push when pull fails (bad remote)', async () => {
+		const tempDir = makeTempDir(tempDirs);
+		const bareDir = makeTempDir(tempDirs);
+		const ctx = createMockCommandContext(tempDir);
+
+		const repoDir = join(tempDir, ctx.config.clone.path, 'badremote');
+		await initWorkingRepoTest(repoDir, bareDir);
+		await commitFileTest(repoDir, 'file.txt');
+		const git = simpleGit(repoDir);
+		await git.push('origin', 'main', ['--set-upstream']);
+		await commitFileTest(repoDir, 'file2.txt');
+
+		// Point remote to a non-existent path so push will fail
+		await simpleGit(repoDir).remote(['set-url', 'origin', join(tempDir, 'missing-origin')]);
+
+		writeRepoMockRecord(tempDir, 'BadRemote', bareDir);
+		writeCheckoutMockRecord(tempDir, 'BadRemote', 'BadRemote', 'badremote');
+
+		await runSync(ctx);
+
+		const ops = ctx.log.all();
+		// Without a prior fetch, pull is not triggered (behind=0); push is attempted and fails
+		expect(ops).toHaveLength(1);
+		expect(ops[0].operation).toBe('push');
+		expect(ops[0].outcome).toBe('failure');
+	});
 });

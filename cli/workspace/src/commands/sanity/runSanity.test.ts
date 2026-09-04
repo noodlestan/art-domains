@@ -398,4 +398,32 @@ describe('sanity command', () => {
 		expect(ops[1].operation).toEqual('push');
 		expect(ops[1].outcome).toEqual('success');
 	});
+
+	it('with refetch=true detects behind state for checkouts', async () => {
+		const tempDir = makeTempDir(tempDirs);
+		const bareDir = makeTempDir(tempDirs);
+		const ctx = await createMockCommandContext(tempDir);
+
+		const repoDir = join(tempDir, ctx.config.clone.path, 'refetchsanity');
+		await initWorkingRepoTest(repoDir, bareDir);
+		await commitFileTest(repoDir, 'file.txt');
+		const git = simpleGit(repoDir);
+		await git.push('origin', 'main', ['--set-upstream']);
+
+		// Advance the remote from a separate clone
+		const advDir = makeTempDir(tempDirs);
+		await simpleGit(advDir).clone(bareDir, advDir);
+		await commitFileTest(advDir, 'remote-advance.txt');
+		await simpleGit(advDir).push('origin', 'main');
+
+		writeRepoMockRecord(tempDir, 'RefetchSanity', bareDir);
+		writeCheckoutMockRecord(tempDir, 'RefetchSanity', 'RefetchSanity', 'refetchsanity');
+
+		await runSanity(ctx, { auto: false, refetch: true });
+
+		const checkouts = ctx.store.getAllCheckouts();
+		expect(checkouts.length).toEqual(1);
+		expect(checkouts[0].scan?.state('sync').behind).toBe(1);
+		expect(checkouts[0].scan?.issues()).toContain('1 commit behind');
+	});
 });
