@@ -2,7 +2,7 @@
 
 **ID:** `parallel-scanning`
 
-**Status:** `WORKING`
+**Status:** `DONE`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -67,12 +67,12 @@ Update the checkouts processing and scanning loops in `$PROJECT/src/private/stor
 
 ## Items:
 
-| Iteration / Instructions                                                                     | Status  |
-| -------------------------------------------------------------------------------------------- | ------- |
-| Iteration: Parallelise Checkout Scanning `./instructions/parallelise-checkout-scanning.md`   | `DONE`  |
-| Iteration: Optimise Ahead/Behind Counting `./instructions/optimise-ahead-behind-counting.md` | `DONE`  |
-| Iteration: Make Scan Refetch Opt-In `./instructions/make-scan-refetch-opt-in.md`             | `DONE`  |
-| Iteration: Refetch Control and Sync Fix `./instructions/refetch-control-and-sync-fix.md`     | `READY` |
+| Iteration / Instructions                                                                     | Status |
+| -------------------------------------------------------------------------------------------- | ------ |
+| Iteration: Parallelise Checkout Scanning `./instructions/parallelise-checkout-scanning.md`   | `DONE` |
+| Iteration: Optimise Ahead/Behind Counting `./instructions/optimise-ahead-behind-counting.md` | `DONE` |
+| Iteration: Make Scan Refetch Opt-In `./instructions/make-scan-refetch-opt-in.md`             | `DONE` |
+| Iteration: Refetch Control and Sync Fix `./instructions/refetch-control-and-sync-fix.md`     | `DONE` |
 
 ### Iteration: Parallelise Checkout Scanning
 
@@ -299,7 +299,9 @@ build(workspace-cli): Refetch after side effects in pull, push, and sync.
 
 **Id:** `refetch-control-and-sync-fix`
 
-**Status:** `READY`
+**Status:** `DONE`
+
+**Report:** `./instructions/refetch-control-and-sync-fix__report.md`
 
 **Purpose:** Thread the `refetch` flag through `scanAllCheckoutsStates` so callers can opt into fresh data, add `--refetch` to the `sanity` command, fix the stale-`checkout` bug in `runSync`, and remove the redundant workspace pre-scan in `runSync`.
 
@@ -321,12 +323,12 @@ build(workspace-cli): Refetch after side effects in pull, push, and sync.
 
 #### Commits:
 
-| ID                           | Repository / Checkout / Branch                        | Policy       | Hash  | Status     |
-| ---------------------------- | ----------------------------------------------------- | ------------ | ----- | ---------- |
-| `add-refetch-to-scan-all`    | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `add-refetch-to-sanity`      | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `fix-sync-stale-checkout`    | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `cover-refetch-and-sync-fix` | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                           | Repository / Checkout / Branch                        | Policy       | Hash      | Status      |
+| ---------------------------- | ----------------------------------------------------- | ------------ | --------- | ----------- |
+| `add-refetch-to-scan-all`    | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | —         | `SKIPPED`   |
+| `add-refetch-to-sanity`      | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `7c6b9cc` | `COMMITTED` |
+| `fix-sync-stale-checkout`    | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `aa0908e` | `COMMITTED` |
+| `cover-refetch-and-sync-fix` | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `2043c80` | `COMMITTED` |
 
 ##### Commit: `add-refetch-to-scan-all`
 
@@ -384,7 +386,7 @@ test(workspace-cli): Cover refetch parameter and fixed sync behaviour.
 
 ### Next
 
-Iterations 1–3 are `DONE`. Next, delegate iteration `refetch-control-and-sync-fix` to workers.
+All four iterations are `DONE`. Plan complete.
 
 ### Blockers
 
@@ -479,3 +481,4 @@ All steps MUST pass. No `it.todo()` tests may remain.
 - Iteration `parallelise-checkout-scanning`: worker noted the `$PROJECT/architecture/` mandatory-reading paths did not resolve; actual files live at `$PROJECT/cli/workspace/architecture/`. Minor path issue only — instruction otherwise clear. Worker also noted the pre-commit hook runs full CI (~25s/commit).
 - Iteration `optimise-ahead-behind-counting`: instruction was internally inconsistent — Step 7 scoped test changes to only `getBehindAheadCount.test.ts` + `scanCheckoutState.test.ts`, but removing the per-branch fetch broke `runPull.test.ts` and `runSync.test.ts` "false negative" tests. Fixed by reordering steps (tests before commit) and expanding test scope to include the two command tests.
 - Iteration `make-scan-refetch-opt-in`: completed without issues. All 250 tests pass.
+- Iteration `refetch-control-and-sync-fix`: completed without issues. Commit `add-refetch-to-scan-all` was skipped (already done in iteration 3). All 253 tests pass.
