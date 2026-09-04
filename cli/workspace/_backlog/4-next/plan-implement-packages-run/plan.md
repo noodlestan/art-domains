@@ -1,16 +1,16 @@
-# Plan: Implement Run Checkout Command
+# Plan: Implement Packages Run Command
 
-**ID:** `implement-run-checkout-cmd`
+**ID:** `implement-packages-run`
 
-**Status:** `PLANNING`
+**Status:** `DRAFT`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
 **Skill:** `write-plan`
 
-**Purpose:** Implement `art-workspace checkout-cmd <command> [<checkouts...>]` — run arbitrary commands across selected checkouts.
+**Purpose:** Implement `art-workspace packages run <command> [<checkouts...>] [<packages...>]` — run arbitrary commands across packages in selected checkouts.
 
-**Description:** TBD — name, params, and exact behaviour to be decided. The command should accept a shell command and optional checkout location filters, then execute the command in each matching checkout directory.
+**Description:** TBD — name, params, and exact behaviour to be decided. The command should accept a shell command and optional filters for checkouts and packages, then execute the command in each matching package directory.
 
 ## Mandatory Reading
 
@@ -27,7 +27,7 @@
 
 ## Summary
 
-Implement a `checkout-cmd` command that runs an arbitrary shell command across checkouts, with optional checkout location filters. Exact name, params, and behaviour TBD.
+Implement a `packages run` command that runs an arbitrary shell command across packages, with optional checkout and package filters. Exact name, params, and behaviour TBD.
 
 ## Context
 
@@ -60,13 +60,13 @@ Implement a `checkout-cmd` command that runs an arbitrary shell command across c
 
 ## Scope
 
-Implement `checkout-cmd` command in `$PROJECT/src/commands/` with checkout location filtering, command execution, operation logging, and commander wiring. Exact scope TBD.
+Implement `packages run` command in `$PROJECT/src/commands/` with checkout location filtering, package matching, command execution, operation logging, and commander wiring. Exact scope TBD.
 
 ## Work
 
 ### Next
 
-Refine the first `DRAFT` iteration: `implement-run-checkout-command`.
+Refine the first `DRAFT` iteration: `implement-packages-command`.
 
 ### Blockers
 
@@ -121,26 +121,26 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions                  | Status  |
-| ----------------------------------------- | ------- |
-| Iteration: Implement Run Checkout Command | `DRAFT` |
+| Iteration / Instructions                 | Status  |
+| ---------------------------------------- | ------- |
+| Iteration: Implement Run Package Command | `DRAFT` |
 
-### Iteration: Implement Run Checkout Command
+### Iteration: Implement Run Package Command
 
-**Id:** `implement-run-checkout-command`
+**Id:** `implement-packages-command`
 
 **Status:** `DRAFT`
 
-**Purpose:** Implement `art-workspace checkout-cmd <command> [<checkouts...>]` end-to-end.
+**Purpose:** Implement `art-workspace packages run <command> [<checkouts...>] [<packages...>]` end-to-end.
 
-**Description:** TBD — command name, parameters, and exact behaviour to be decided. The command will need to resolve checkouts and execute the given command in each matching checkout directory.
+**Description:** TBD — command name, parameters, and exact behaviour to be decided. The command will need to resolve checkouts, resolve packages within them, and execute the given command in each matching package directory.
 
 **Instructions:** TBD
 
 **Changes:**
 
 - Wire checkout locations argument to the new command in `src/index.ts`.
-- Filter checkouts by location (reuse pattern from `plan-scope-commands-to-checkouts`).
+- Resolve packages per checkout with location filtering.
 - Implement command execution step (TBD — spawn, cwd, output capture).
 - Add operation factories and reporting.
 - Write tests.
@@ -148,58 +148,73 @@ All steps MUST pass. No `it.todo()` tests may remain.
 **Dependencies:**
 
 - `plan-scope-commands-to-checkouts` — checkout location filtering pattern.
+- `plan-implement-checkouts-run` — checkout-level command execution (may share infrastructure).
 
 #### Commits:
 
-| ID                                              | Repository / Checkout / Branch  | Policy       | Status    |
-| ----------------------------------------------- | ------------------------------- | ------------ | --------- |
-| `wire-checkout-locations-to-run-command`        | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
-| `implement-run-checkout-command`                | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
-| `add-checkout-command-operations-and-reporting` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
-| `test-checkout-command`                         | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
+| ID                                             | Repository / Checkout / Branch  | Policy       | Status    |
+| ---------------------------------------------- | ------------------------------- | ------------ | --------- |
+| `wire-checkout-locations-to-run-command`       | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
+| `resolve-packages-per-checkout`                | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
+| `implement-packages-command`                   | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
+| `add-package-command-operations-and-reporting` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
+| `test-package-command`                         | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
 
 ##### Commit: `wire-checkout-locations-to-run-command`
 
 **Message:**
 
 ```
-feat(cli): wire checkout locations argument to checkout-cmd command
+feat(cli): wire checkout locations argument to packages run command
 
 - TBD — exact command name and signature to be decided
-- Accept optional checkout locations filter
+- Accept optional checkout locations and package filters
 - Location values are checkout locations relative to config.checkouts.path
 ```
 
-##### Commit: `implement-run-checkout-command`
+##### Commit: `resolve-packages-per-checkout`
 
 **Message:**
 
 ```
-feat(checkout-cmd): implement command execution step
+feat(packages run): resolve packages per checkout with location filtering
+
+- TBD — package matching strategy to be decided
+- Filter checkouts by location when provided
+- Load project graph per checkout and collect packages
+- Apply package filter if provided
+```
+
+##### Commit: `implement-packages-command`
+
+**Message:**
+
+```
+feat(packages run): implement command execution step
 
 - TBD — spawn strategy, cwd, output capture, error handling
-- Execute command in each matching checkout directory
-- Skip checkouts that fail to resolve
+- Execute command in each matching package directory
+- Skip packages that fail to resolve
 ```
 
-##### Commit: `add-checkout-command-operations-and-reporting`
+##### Commit: `add-package-command-operations-and-reporting`
 
 **Message:**
 
 ```
-feat(checkout-cmd): add operation factories and reporting
+feat(packages run): add operation factories and reporting
 
 - TBD — operation types and report format
-- Log command execution outcomes per checkout
+- Log command execution outcomes per package
 - Present Checkout Report and Operations Report
 ```
 
-##### Commit: `test-checkout-command`
+##### Commit: `test-package-command`
 
 **Message:**
 
 ```
-test(checkout-cmd): add checkout command tests
+test(packages run): add package command tests
 
 - TBD — test scenarios to be defined
 - No it.todo() remaining
@@ -227,7 +242,7 @@ test(checkout-cmd): add checkout command tests
 
 ### Knowledge to Update
 
-- `architecture/commands.md` — document the new `checkout-cmd` command.
+- `architecture/commands.md` — document the new `packages run` command.
 
 ### Follow Ups
 
