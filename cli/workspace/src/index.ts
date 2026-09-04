@@ -76,8 +76,12 @@ program
 	.command('branch')
 	.description('Branch across checkouts')
 	.argument('<branch>', 'branch name to create or switch to')
-	.option('-c, --checkouts <PATTERN...>', 'checkout location patterns')
-	.action(async (branch: string, options: { checkouts?: string[] }) => {
+	.option(
+		'-c, --checkouts <PATTERN...>',
+		'One or more. Matches checkout name and location. Wildcard asterisk * supported. Example: -c "* @ refactor" "lib-*"',
+	)
+	.option('-A, --all', 'Apply to all checkouts')
+	.action(async (branch: string, options: { checkouts?: string[]; all?: boolean }) => {
 		const root = process.cwd();
 		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
@@ -85,14 +89,18 @@ program
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 
-		await runBranch(ctx, { branch, checkouts: options.checkouts });
+		await runBranch(ctx, { branch, checkouts: options.checkouts, all: options.all });
 	});
 
 program
 	.command('pull')
 	.description('Pull clean checkouts that are behind')
-	.option('-c, --checkouts <PATTERN...>', 'checkout location patterns')
-	.action(async (options: { checkouts?: string[] }) => {
+	.option(
+		'-c, --checkouts <PATTERN...>',
+		'One or more. Matches checkout name and location. Wildcard asterisk * supported. Example: -c "* @ refactor" "lib-*"',
+	)
+	.option('-A, --all', 'Apply to all checkouts')
+	.action(async (options: { checkouts?: string[]; all?: boolean }) => {
 		const root = process.cwd();
 		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
@@ -100,14 +108,18 @@ program
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 
-		await runPull(ctx, { checkouts: options.checkouts });
+		await runPull(ctx, { checkouts: options.checkouts, all: options.all });
 	});
 
 program
 	.command('push')
 	.description('Push clean checkouts that are ahead')
-	.option('-c, --checkouts <PATTERN...>', 'checkout location patterns')
-	.action(async (options: { checkouts?: string[] }) => {
+	.option(
+		'-c, --checkouts <PATTERN...>',
+		'One or more. Matches checkout name and location. Wildcard asterisk * supported. Example: -c "* @ refactor" "lib-*"',
+	)
+	.option('-A, --all', 'Apply to all checkouts')
+	.action(async (options: { checkouts?: string[]; all?: boolean }) => {
 		const root = process.cwd();
 		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
@@ -115,14 +127,18 @@ program
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 
-		await runPush(ctx, { checkouts: options.checkouts });
+		await runPush(ctx, { checkouts: options.checkouts, all: options.all });
 	});
 
 program
 	.command('sync')
 	.description('Pull and push clean checkouts')
-	.option('-c, --checkouts <PATTERN...>', 'checkout location patterns')
-	.action(async (options: { checkouts?: string[] }) => {
+	.option(
+		'-c, --checkouts <PATTERN...>',
+		'One or more. Matches checkout name and location. Wildcard asterisk * supported. Example: -c "* @ refactor" "lib-*"',
+	)
+	.option('-A, --all', 'Apply to all checkouts')
+	.action(async (options: { checkouts?: string[]; all?: boolean }) => {
 		const root = process.cwd();
 		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
@@ -130,7 +146,7 @@ program
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 
-		await runSync(ctx, { checkouts: options.checkouts });
+		await runSync(ctx, { checkouts: options.checkouts, all: options.all });
 	});
 
 program

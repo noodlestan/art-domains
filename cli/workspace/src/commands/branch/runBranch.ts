@@ -12,7 +12,7 @@ import { scanAllCheckoutsStates } from '../../private/store/scanAllCheckoutsStat
 
 export async function runBranch(
 	ctx: WorkspaceContext,
-	options: { branch: string; checkouts?: string[] },
+	options: { branch: string; checkouts?: string[]; all?: boolean },
 ): Promise<void> {
 	const repos = await loadRepositoryRecords(ctx);
 	const records = await loadCheckoutRecords(ctx, repos);
@@ -20,11 +20,18 @@ export async function runBranch(
 
 	ctx.log.log(createOperationPending('command', ['branch', options.branch, options.checkouts]));
 
+	if (!options.all && (!options.checkouts || options.checkouts.length === 0)) {
+		console.error('No checkouts matched.');
+		console.error(
+			`Usage: Use \`art-workspace branch [options] -c <pattern>\` or \`art-workspace branch [options] --all\` if you want to apply the branch to all checkouts.`,
+		);
+		return;
+	}
+
 	const { branch, checkouts } = options;
-	const resolvedCheckouts =
-		checkouts && checkouts.length > 0
-			? ctx.store.getCheckoutsByPattern(checkouts)
-			: ctx.store.getAllCheckouts();
+	const resolvedCheckouts = options.all
+		? ctx.store.getAllCheckouts()
+		: ctx.store.getCheckoutsByPattern(checkouts ?? []);
 
 	for (const checkout of resolvedCheckouts) {
 		const scanned = await scanCheckoutState(ctx, checkout);

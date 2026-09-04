@@ -42,7 +42,7 @@ describe('sync command', () => {
 		writeRepoMockRecord(tempDir, 'SyncMe', bareDir);
 		writeCheckoutMockRecord(tempDir, 'SyncMe', 'SyncMe', 'syncme');
 
-		await runSync(ctx);
+		await runSync(ctx, { all: true });
 
 		const ops = ctx.log.all();
 		expect(ops).toHaveLength(2);
@@ -72,7 +72,7 @@ describe('sync command', () => {
 		writeRepoMockRecord(tempDir, 'BehindSync', bareDir);
 		writeCheckoutMockRecord(tempDir, 'BehindSync', 'BehindSync', 'behindsync');
 
-		await runSync(ctx);
+		await runSync(ctx, { all: true });
 
 		// Without a prior fetch the local count reports behind = 0, so no pull is triggered.
 		// The refetch flag (next iteration) will restore the network fetch when needed.
@@ -99,7 +99,7 @@ describe('sync command', () => {
 		writeRepoMockRecord(tempDir, 'DirtySync', bareDir);
 		writeCheckoutMockRecord(tempDir, 'DirtySync', 'DirtySync', 'dirtysync');
 
-		await runSync(ctx);
+		await runSync(ctx, { all: true });
 
 		const checkout = ctx.store.getCheckoutOfRepo('DirtySync');
 		expect(checkout?.scan?.issues()).toEqual(['uncommitted files', '1 commit behind']);
@@ -113,7 +113,7 @@ describe('sync command', () => {
 		writeRepoMockRecord(tempDir, 'Missing', 'git@example.com:missing.git');
 		writeCheckoutMockRecord(tempDir, 'Missing', 'Missing', 'missing');
 
-		await runSync(ctx);
+		await runSync(ctx, { all: true });
 
 		const checkout = ctx.store.getCheckoutOfRepo('Missing');
 		expect(checkout?.scan?.state('exists').exists).toBe(false);
@@ -131,7 +131,7 @@ describe('sync command', () => {
 		writeRepoMockRecord(tempDir, 'Current', bareDir);
 		writeCheckoutMockRecord(tempDir, 'Current', 'Current', 'current');
 
-		await runSync(ctx);
+		await runSync(ctx, { all: true });
 
 		const ops = ctx.log.all();
 		expect(ops).toHaveLength(0);
@@ -148,7 +148,7 @@ describe('sync command', () => {
 		await makeWorkspaceRootBehindTest(tempDir, bareDir, tempDirs);
 		await commitFileTest(tempDir, 'ahead.txt');
 
-		await runSync(ctx);
+		await runSync(ctx, { all: true });
 
 		expect(ctx.workspace).toBeDefined();
 		expect(ctx.workspace?.scan?.state('sync').delta).toBe(0);
@@ -180,7 +180,7 @@ describe('sync command', () => {
 		writeRepoMockRecord(tempDir, 'BadRemote', bareDir);
 		writeCheckoutMockRecord(tempDir, 'BadRemote', 'BadRemote', 'badremote');
 
-		await runSync(ctx);
+		await runSync(ctx, { all: true });
 
 		const ops = ctx.log.all();
 		// Without a prior fetch, pull is not triggered (behind=0); push is attempted and fails

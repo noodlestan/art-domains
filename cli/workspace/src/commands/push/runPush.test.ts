@@ -38,7 +38,7 @@ describe('push command', () => {
 		writeRepoMockRecord(tempDir, 'Ahead', bareDir);
 		writeCheckoutMockRecord(tempDir, 'Ahead', 'Ahead', 'ahead');
 
-		await runPush(ctx);
+		await runPush(ctx, { all: true });
 
 		const checkout = ctx.store.getCheckoutOfRepo('Ahead');
 		expect(checkout?.scan?.state('sync').delta).toBe(0);
@@ -66,7 +66,7 @@ describe('push command', () => {
 		writeRepoMockRecord(tempDir, 'AheadOnly', bareDir);
 		writeCheckoutMockRecord(tempDir, 'AheadOnly', 'AheadOnly', 'aheadonly');
 
-		await runPush(ctx);
+		await runPush(ctx, { all: true });
 
 		const ops = ctx.log.all();
 		expect(ops).toHaveLength(1);
@@ -94,7 +94,7 @@ describe('push command', () => {
 		writeRepoMockRecord(tempDir, 'DirtyPush', bareDir);
 		writeCheckoutMockRecord(tempDir, 'DirtyPush', 'DirtyPush', 'dirtypush');
 
-		await runPush(ctx);
+		await runPush(ctx, { all: true });
 
 		const checkout = ctx.store.getCheckoutOfRepo('DirtyPush');
 		expect(checkout?.scan?.issues()).toEqual(['uncommitted files', '1 commit ahead']);
@@ -111,7 +111,7 @@ describe('push command', () => {
 		writeRepoMockRecord(tempDir, 'Current', 'git@example.com:current.git');
 		writeCheckoutMockRecord(tempDir, 'Current', 'Current', 'current');
 
-		await runPush(ctx);
+		await runPush(ctx, { all: true });
 
 		const checkout = ctx.store.getCheckoutOfRepo('Current');
 		expect(checkout?.scan?.state('sync').delta).toBe(0);
@@ -125,7 +125,7 @@ describe('push command', () => {
 		writeRepoMockRecord(tempDir, 'Missing', 'git@example.com:missing.git');
 		writeCheckoutMockRecord(tempDir, 'Missing', 'Missing', 'missing');
 
-		await runPush(ctx);
+		await runPush(ctx, { all: true });
 
 		const checkout = ctx.store.getCheckoutOfRepo('Missing');
 		expect(checkout?.scan?.state('exists').exists).toBe(false);
@@ -140,7 +140,7 @@ describe('push command', () => {
 		await initWorkingRepoTest(tempDir, bareDir);
 		await commitFileTest(tempDir, 'ahead.txt');
 
-		await runPush(ctx);
+		await runPush(ctx, { all: true });
 
 		expect(ctx.workspace).toBeDefined();
 		expect(ctx.workspace?.scan?.state('sync').ahead).toBe(0);

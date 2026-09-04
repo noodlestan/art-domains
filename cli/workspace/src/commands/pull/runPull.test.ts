@@ -39,7 +39,7 @@ describe('pull command', () => {
 		writeRepoMockRecord(tempDir, 'Behind', bareDir);
 		writeCheckoutMockRecord(tempDir, 'Behind', 'Behind', 'behind');
 
-		await runPull(ctx);
+		await runPull(ctx, { all: true });
 
 		// Without a prior fetch the local count reports behind = 0, so no pull is triggered.
 		// The refetch flag (next iteration) will restore the network fetch when needed.
@@ -65,7 +65,7 @@ describe('pull command', () => {
 		writeRepoMockRecord(tempDir, 'Dirty', bareDir);
 		writeCheckoutMockRecord(tempDir, 'Dirty', 'Dirty', 'dirty');
 
-		await runPull(ctx);
+		await runPull(ctx, { all: true });
 
 		const checkout = ctx.store.getCheckoutOfRepo('Dirty');
 		expect(checkout?.scan?.issues()).toEqual(['uncommitted files', '1 commit behind']);
@@ -82,7 +82,7 @@ describe('pull command', () => {
 		writeRepoMockRecord(tempDir, 'Current', 'git@example.com:current.git');
 		writeCheckoutMockRecord(tempDir, 'Current', 'Current', 'current');
 
-		await runPull(ctx);
+		await runPull(ctx, { all: true });
 
 		const checkout = ctx.store.getCheckoutOfRepo('Current');
 		expect(checkout?.scan?.state('sync').delta).toBe(0);
@@ -99,7 +99,7 @@ describe('pull command', () => {
 		writeRepoMockRecord(tempDir, 'UpToDate', bareDir);
 		writeCheckoutMockRecord(tempDir, 'UpToDate', 'UpToDate', 'uptodate');
 
-		await runPull(ctx);
+		await runPull(ctx, { all: true });
 
 		const checkout = ctx.store.getCheckoutOfRepo('UpToDate');
 		expect(checkout?.scan?.state('sync').behind).toBe(0);
@@ -114,7 +114,7 @@ describe('pull command', () => {
 		writeRepoMockRecord(tempDir, 'Missing', 'git@example.com:missing.git');
 		writeCheckoutMockRecord(tempDir, 'Missing', 'Missing', 'missing');
 
-		await runPull(ctx);
+		await runPull(ctx, { all: true });
 
 		const checkout = ctx.store.getCheckoutOfRepo('Missing');
 		expect(checkout?.scan?.state('exists').exists).toBe(false);
@@ -128,7 +128,7 @@ describe('pull command', () => {
 		const ctx = createMockCommandContext(tempDir);
 		await makeWorkspaceRootBehindTest(tempDir, bareDir, tempDirs);
 
-		await runPull(ctx);
+		await runPull(ctx, { all: true });
 
 		expect(ctx.workspace).toBeDefined();
 		expect(ctx.workspace?.scan?.state('sync').behind).toBe(0);

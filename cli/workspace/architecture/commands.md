@@ -4,19 +4,19 @@ The command surface of the workspace CLI, their procedures, and their edge cases
 
 ## Command Surface
 
-| command   | usage                                    | status      |
-| --------- | ---------------------------------------- | ----------- |
-| `sanity`  | `sanity [--auto]`                        | implemented |
-| `pull`    | `pull [-c <PATTERN...>]`                 | implemented |
-| `push`    | `push [-c <PATTERN...>]`                 | implemented |
-| `sync`    | `sync [-c <PATTERN...>]`                 | implemented |
-| `repo`    | `repo [<location>...]`                   | implemented |
-| `clone`   | `clone [--all] [<repo>] [<location>]`    | implemented |
-| `branch`  | `branch <branch> [-c <PATTERN...>]`      | implemented |
-| `link`    | `link <location> <package> [<target>]`   | designed    |
-| `links`   | `links`                                  | designed    |
-| `unlink`  | `unlink <location> <package> [<target>]` | designed    |
-| `publish` | `publish [--auto]`                       | designed    |
+| command   | usage                                       | status      |
+| --------- | ------------------------------------------- | ----------- |
+| `sanity`  | `sanity [--auto]`                           | implemented |
+| `pull`    | `pull [-c <PATTERN...>] [--all]`            | implemented |
+| `push`    | `push [-c <PATTERN...>] [--all]`            | implemented |
+| `sync`    | `sync [-c <PATTERN...>] [--all]`            | implemented |
+| `repo`    | `repo [<location>...]`                      | implemented |
+| `clone`   | `clone [--all] [<repo>] [<location>]`       | implemented |
+| `branch`  | `branch <branch> [-c <PATTERN...>] [--all]` | implemented |
+| `link`    | `link <location> <package> [<target>]`      | designed    |
+| `links`   | `links`                                     | designed    |
+| `unlink`  | `unlink <location> <package> [<target>]`    | designed    |
+| `publish` | `publish [--auto]`                          | designed    |
 
 Every command that touches checkouts presents reports (see `reports.md`).
 
@@ -33,7 +33,6 @@ Scope the operation to one or more checkouts. Patterns support exact match and w
 - Patterns **without** `*` are exact-match only (case-insensitive). If no checkout matches exactly, a warning is printed and the pattern produces zero results. This prevents accidental partial matches.
 - Patterns **with** `*` are treated as wildcards: `*` is converted to `.*` (RegExp) and matched against both `CheckoutRecord.name` and `CheckoutRecord.location` (case-insensitive, no `^` anchor).
 - Results are deduplicated by `record.location` — the same checkout matched by multiple patterns appears once.
-- When omitted, all checkouts are processed.
 
 **Examples:**
 
@@ -44,6 +43,10 @@ npm run workspace pull -c "art*"                # wildcard: matches art-js, art-
 npm run workspace pull -c "* @ planning"        # wildcard: matches all planning checkouts
 npm run workspace pull -c "art-js" -c "purr*"   # mixed: exact + wildcard
 ```
+
+### `--all` (shorthand `-A`)
+
+Apply the operation to all checkouts. Either `--checkouts` or `--all` must be provided. If neither is provided, a usage message is printed and the command exits without performing any operation.
 
 ### `--auto` (shorthand `-a`)
 
@@ -105,9 +108,9 @@ Feature: Sanity check workspace status
 
 ## Pull
 
-**Usage:** `pull [-c <PATTERN...>]`
+**Usage:** `pull [-c <PATTERN...>] [--all]`
 
-Pull from origin for selected checkouts. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
+Pull from origin for selected checkouts. See [Command Arguments](#command-arguments) for `--checkouts` and `--all` behaviour.
 
 **BDD:**
 
@@ -149,9 +152,9 @@ Feature: Pull from origin
 
 ## Push
 
-**Usage:** `push [-c <PATTERN...>]`
+**Usage:** `push [-c <PATTERN...>] [--all]`
 
-Push to origin for selected checkouts. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
+Push to origin for selected checkouts. See [Command Arguments](#command-arguments) for `--checkouts` and `--all` behaviour.
 
 **BDD:**
 
@@ -204,9 +207,9 @@ Feature: Push to origin
 
 ## Sync
 
-**Usage:** `sync [-c <PATTERN...>]`
+**Usage:** `sync [-c <PATTERN...>] [--all]`
 
-Sync selected checkouts — pull then push. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
+Sync selected checkouts — pull then push. See [Command Arguments](#command-arguments) for `--checkouts` and `--all` behaviour.
 
 **BDD:**
 
@@ -384,9 +387,9 @@ Feature: Clone single repo
 
 ## Branch
 
-**Usage:** `branch <branch> [-c <PATTERN...>]`
+**Usage:** `branch <branch> [-c <PATTERN...>] [--all]`
 
-Create and checkout the same feature branch in selected checkouts. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
+Create and checkout the same feature branch in selected checkouts. See [Command Arguments](#command-arguments) for `--checkouts` and `--all` behaviour.
 
 **BDD:**
 

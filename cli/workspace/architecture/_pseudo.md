@@ -151,22 +151,26 @@ cloneStatus(ctx)
   presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts())
 ```
 
-### Command: branch <branch> [-c <PATTERN...>]
+### Command: branch <branch> [-c <PATTERN...>] [--all]
 
-**Responsibility:** Create and checkout a feature branch across multiple checkouts (all checkouts when none specified), update checkout records and present Checkout Report + Operations Report. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
+**Responsibility:** Create and checkout a feature branch across multiple checkouts, update checkout records and present Checkout Report + Operations Report. Either `-c` or `--all` must be provided. See [Command Arguments](#command-arguments) for `--checkouts` and `--all` behaviour.
 
 **Pseudo:**
 
 ```pseudo
-branch(branch, checkoutLocations)
+branch(branch, options)
   ctx = createWorkspaceContext(config, store, log)
   hydrate(ctx)
 
-  checkouts = options.checkouts ?? []
-  if checkouts is empty:
+  if not options.all and (not options.checkouts or options.checkouts is empty):
+    print "No checkouts matched."
+    print "Usage: Use `art-workspace branch [options] -c <pattern>` or `art-workspace branch [options] --all` if you want to apply the branch to all checkouts."
+    return
+
+  if options.all:
     targets = ctx.store.getAllCheckouts()
   else:
-    targets = ctx.store.getCheckoutsByPattern(checkouts)
+    targets = ctx.store.getCheckoutsByPattern(options.checkouts)
 
   for checkout in targets:
     if not checkout:
@@ -379,9 +383,9 @@ unlink(location, package, target)
   presentOperationsReport(ctx.log)
 ```
 
-### Command: pull [-c <PATTERN...>]
+### Command: pull [-c <PATTERN...>] [--all]
 
-**Responsibility:** Pull from origin for selected checkouts. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
+**Responsibility:** Pull from origin for selected checkouts. Either `-c` or `--all` must be provided. See [Command Arguments](#command-arguments) for `--checkouts` and `--all` behaviour.
 
 **Pseudo:**
 
@@ -391,11 +395,15 @@ pull(options)
   hydrate(ctx)
   scanAllCheckoutsStates(ctx)
 
-  checkouts = options.checkouts ?? []
-  if checkouts is empty:
+  if not options.all and (not options.checkouts or options.checkouts is empty):
+    print "No checkouts matched."
+    print "Usage: Use `art-workspace pull [options] -c <pattern>` or `art-workspace pull [options] --all` if you want to apply the pull to all checkouts."
+    return
+
+  if options.all:
     targets = ctx.store.getAllCheckouts()
   else:
-    targets = ctx.store.getCheckoutsByPattern(checkouts)
+    targets = ctx.store.getCheckoutsByPattern(options.checkouts)
 
   for checkout in targets:
     if checkout.scan.can('pull') and checkout.scan.should('pull'):
@@ -405,9 +413,9 @@ pull(options)
   presentOperationsReport(ctx.log)
 ```
 
-### Command: push [-c <PATTERN...>]
+### Command: push [-c <PATTERN...>] [--all]
 
-**Responsibility:** Push to origin for selected checkouts. Try pull first if behind. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
+**Responsibility:** Push to origin for selected checkouts. Try pull first if behind. Either `-c` or `--all` must be provided. See [Command Arguments](#command-arguments) for `--checkouts` and `--all` behaviour.
 
 **Pseudo:**
 
@@ -417,11 +425,15 @@ push(options)
   hydrate(ctx)
   scanAllCheckoutsStates(ctx)
 
-  checkouts = options.checkouts ?? []
-  if checkouts is empty:
+  if not options.all and (not options.checkouts or options.checkouts is empty):
+    print "No checkouts matched."
+    print "Usage: Use `art-workspace push [options] -c <pattern>` or `art-workspace push [options] --all` if you want to apply the push to all checkouts."
+    return
+
+  if options.all:
     targets = ctx.store.getAllCheckouts()
   else:
-    targets = ctx.store.getCheckoutsByPattern(checkouts)
+    targets = ctx.store.getCheckoutsByPattern(options.checkouts)
 
   for checkout in targets:
     if checkout.scan.can('push') and checkout.scan.should('push'):
@@ -433,9 +445,9 @@ push(options)
   presentOperationsReport(ctx.log)
 ```
 
-### Command: sync [-c <PATTERN...>]
+### Command: sync [-c <PATTERN...>] [--all]
 
-**Responsibility:** Sync selected checkouts — pull then push. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
+**Responsibility:** Sync selected checkouts — pull then push. Either `-c` or `--all` must be provided. See [Command Arguments](#command-arguments) for `--checkouts` and `--all` behaviour.
 
 **Pseudo:**
 
@@ -445,11 +457,15 @@ sync(options)
   hydrate(ctx)
   scanAllCheckoutsStates(ctx)
 
-  checkouts = options.checkouts ?? []
-  if checkouts is empty:
+  if not options.all and (not options.checkouts or options.checkouts is empty):
+    print "No checkouts matched."
+    print "Usage: Use `art-workspace sync [options] -c <pattern>` or `art-workspace sync [options] --all` if you want to apply the sync to all checkouts."
+    return
+
+  if options.all:
     targets = ctx.store.getAllCheckouts()
   else:
-    targets = ctx.store.getCheckoutsByPattern(checkouts)
+    targets = ctx.store.getCheckoutsByPattern(options.checkouts)
 
   for checkout in targets:
     if checkout.scan.can('pull'):

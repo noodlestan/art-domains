@@ -350,7 +350,7 @@ knowledge(architecture): Document --checkouts pattern matching and update comman
 
 **Id:** `require-all-arg-in-all-commands`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Purpose:** Require `-c <pattern>` or `--all` in all commands that iterate checkouts (`pull`, `push`, `sync` and `branch`) Remove implicit all-checkouts fallback. Update `-c` description.
 

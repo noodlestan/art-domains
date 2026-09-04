@@ -59,7 +59,7 @@ describe('branch command', () => {
 		writeCheckoutMockRecord(tempDir, 'Alpha', 'Alpha', 'alpha');
 		writeCheckoutMockRecord(tempDir, 'Beta', 'Beta', 'beta');
 
-		await runBranch(ctx, { branch: 'feat/x', checkouts: [] });
+		await runBranch(ctx, { branch: 'feat/x', all: true });
 
 		const ops = ctx.log.all();
 		expect(ops).toHaveLength(2);

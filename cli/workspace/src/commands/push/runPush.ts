@@ -13,7 +13,7 @@ import { scanAllCheckoutsStates } from '../../private/store/scanAllCheckoutsStat
 
 export async function runPush(
 	ctx: WorkspaceContext,
-	options: { checkouts?: string[] } = {},
+	options: { checkouts?: string[]; all?: boolean } = {},
 ): Promise<void> {
 	const repos = await loadRepositoryRecords(ctx);
 	const records = await loadCheckoutRecords(ctx, repos);
@@ -23,10 +23,17 @@ export async function runPush(
 
 	await scanAllCheckoutsStates(ctx);
 
-	const checkouts =
-		options.checkouts && options.checkouts.length > 0
-			? ctx.store.getCheckoutsByPattern(options.checkouts)
-			: ctx.store.getAllCheckouts();
+	if (!options.all && (!options.checkouts || options.checkouts.length === 0)) {
+		console.error('No checkouts matched.');
+		console.error(
+			`Usage: Use \`art-workspace push [options] -c <pattern>\` or \`art-workspace push [options] --all\` if you want to apply the push to all checkouts.`,
+		);
+		return;
+	}
+
+	const checkouts = options.all
+		? ctx.store.getAllCheckouts()
+		: ctx.store.getCheckoutsByPattern(options.checkouts ?? []);
 
 	await runWithConcurrency(checkouts, 4, async checkout => {
 		if (checkout.scan?.can?.('push') && checkout.scan.should?.('push')) {
