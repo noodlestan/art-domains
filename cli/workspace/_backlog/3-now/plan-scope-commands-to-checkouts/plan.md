@@ -2,7 +2,7 @@
 
 **ID:** `scope-commands-to-checkouts`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -119,18 +119,18 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions               | Status  |
-| -------------------------------------- | ------- |
-| Iteration: Add Checkout Arg            | `READY` |
-| Iteration: Improve Command Declaration | `READY` |
-| Iteration: Change Branch Argument      | `READY` |
-| Iteration: Update Commands Knowledge   | `READY` |
+| Iteration / Instructions               | Status    |
+| -------------------------------------- | --------- |
+| Iteration: Add Checkout Arg            | `READY`   |
+| Iteration: Improve Command Declaration | `WORKING` |
+| Iteration: Change Branch Argument      | `WORKING` |
+| Iteration: Update Commands Knowledge   | `READY`   |
 
 ### Iteration: Add Checkout Arg
 
 **Id:** `add-checkout-arg`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Let `pull`, `push`, and `sync` operate on a subset of checkout locations via `--checkouts` patterns.
 
@@ -222,7 +222,7 @@ test(cli): add checkout pattern matching tests.
 
 **Id:** `improve-command-declaration`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Purpose:** Standardise command argument declarations across all commands with verbose syntax and shorthand flags.
 
@@ -263,7 +263,7 @@ build(workspace-cli-one): Standardise command argument declarations with shortha
 
 **Id:** `change-branch-argument`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Purpose:** Change `branch` command from positional `[checkouts...]` to `--checkouts <PATTERN...>` (shorthand `-c`) for consistency.
 
@@ -304,7 +304,7 @@ build(workspace-cli-one): Change branch command from positional checkouts to --c
 
 **Id:** `update-commands-knowledge`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Purpose:** Update architecture documentation to reflect the new `--checkouts` pattern, `getCheckoutsByPattern` store method, and standardised command declarations.
 

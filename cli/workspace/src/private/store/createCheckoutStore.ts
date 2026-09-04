@@ -25,7 +25,7 @@ function matchCheckoutByLocation(
 function patternToRegex(pattern: string): RegExp {
 	const escaped = pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&');
 	const globbed = escaped.replace(/\*/g, '.*');
-	return new RegExp(globbed, 'i');
+	return new RegExp(`^${globbed}$`, 'i');
 }
 
 function isWildcardPattern(pattern: string): boolean {

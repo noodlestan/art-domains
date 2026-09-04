@@ -12,29 +12,21 @@ import { scanAllCheckoutsStates } from '../../private/store/scanAllCheckoutsStat
 
 export async function runBranch(
 	ctx: WorkspaceContext,
-	options: { branch: string; checkoutLocations: string[] },
+	options: { branch: string; checkouts?: string[] },
 ): Promise<void> {
 	const repos = await loadRepositoryRecords(ctx);
 	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
 
-	ctx.log.log(
-		createOperationPending('command', ['branch', options.branch, options.checkoutLocations]),
-	);
+	ctx.log.log(createOperationPending('command', ['branch', options.branch, options.checkouts]));
 
-	const { branch, checkoutLocations } = options;
-	const checkouts = ctx.store.getAllCheckouts();
+	const { branch, checkouts } = options;
+	const resolvedCheckouts =
+		checkouts && checkouts.length > 0
+			? ctx.store.getCheckoutsByPattern(checkouts)
+			: ctx.store.getAllCheckouts();
 
-	const locations =
-		checkoutLocations.length > 0 ? checkoutLocations : checkouts.map(c => c.record.location);
-
-	for (const location of locations) {
-		const checkout = ctx.store.getCheckoutForLocation(location);
-		if (!checkout) {
-			ctx.log.log(createBranchFailure(branch, 'not cloned', checkout));
-			continue;
-		}
-
+	for (const checkout of resolvedCheckouts) {
 		const scanned = await scanCheckoutState(ctx, checkout);
 		ctx.store.updateCheckout(scanned);
 

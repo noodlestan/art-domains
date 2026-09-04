@@ -34,8 +34,8 @@ program.name('art-workspace').description('Workspace orchestration CLI').version
 program
 	.command('sanity')
 	.description('Check git status across all repos')
-	.option('--auto', 'push clean unpushed repos')
-	.option('--refetch', 'fetch ahead/behind data from remote')
+	.option('-a, --auto', 'push clean unpushed repos')
+	.option('-r, --refetch', 'fetch ahead/behind data from remote')
 	.action(async (options: { auto?: boolean; refetch?: boolean }) => {
 		const root = process.cwd();
 		logger(createOperationPending('boot'));
@@ -52,7 +52,7 @@ program
 program
 	.command('clone')
 	.description('Clone repos from manifest')
-	.option('--all', 'clone all repos')
+	.option('-a, --all', 'clone all repos')
 	.argument('[name]', 'repo name to clone')
 	.argument('[target]', 'target location (relative to checkouts path)')
 	.action(
@@ -76,8 +76,8 @@ program
 	.command('branch')
 	.description('Branch across checkouts')
 	.argument('<branch>', 'branch name to create or switch to')
-	.argument('[checkouts...]', 'checkouts to branch (default: all checkouts)')
-	.action(async (branch: string, checkoutLocations: string[]) => {
+	.option('-c, --checkouts <PATTERN...>', 'checkout location patterns')
+	.action(async (branch: string, options: { checkouts?: string[] }) => {
 		const root = process.cwd();
 		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
@@ -85,7 +85,7 @@ program
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 
-		await runBranch(ctx, { branch, checkoutLocations });
+		await runBranch(ctx, { branch, checkouts: options.checkouts });
 	});
 
 program
@@ -179,7 +179,7 @@ program
 program
 	.command('publish')
 	.description('Publish packages')
-	.option('--auto', 'auto-publish')
+	.option('-a, --auto', 'auto-publish')
 	.action(async (options: { auto?: boolean }) => {
 		const root = process.cwd();
 		logger(createOperationPending('boot'));
