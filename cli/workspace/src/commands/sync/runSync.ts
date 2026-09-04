@@ -23,7 +23,12 @@ export async function runSync(
 
 	await scanAllCheckoutsStates(ctx);
 
-	await runWithConcurrency(ctx.store.getAllCheckouts(), 4, async checkout => {
+	const checkouts =
+		options.checkouts && options.checkouts.length > 0
+			? ctx.store.getCheckoutsByPattern(options.checkouts)
+			: ctx.store.getAllCheckouts();
+
+	await runWithConcurrency(checkouts, 4, async checkout => {
 		if (checkout.scan?.can?.('pull')) {
 			const pulled = checkout.scan.should?.('pull')
 				? await doPullCheckout(ctx, checkout)
@@ -36,6 +41,6 @@ export async function runSync(
 
 	await syncWorkspaceCheckout(ctx);
 
-	presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts());
+	presentCheckoutReport(ctx.config, checkouts);
 	presentOperationsReport(ctx.log);
 }
