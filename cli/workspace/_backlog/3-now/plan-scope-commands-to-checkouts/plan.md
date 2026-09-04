@@ -119,12 +119,13 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions               | Status |
-| -------------------------------------- | ------ |
-| Iteration: Add Checkout Arg            | `DONE` |
-| Iteration: Improve Command Declaration | `DONE` |
-| Iteration: Change Branch Argument      | `DONE` |
-| Iteration: Update Commands Knowledge   | `DONE` |
+| Iteration / Instructions                   | Status  |
+| ------------------------------------------ | ------- |
+| Iteration: Add Checkout Arg                | `DONE`  |
+| Iteration: Improve Command Declaration     | `DONE`  |
+| Iteration: Change Branch Argument          | `DONE`  |
+| Iteration: Update Commands Knowledge       | `DONE`  |
+| Iteration: Require All Arg In All Commands | `READY` |
 
 ### Iteration: Add Checkout Arg
 
@@ -343,6 +344,40 @@ knowledge(architecture): Document --checkouts pattern matching and update comman
 - Update pull, push, sync, branch usage lines to reference shared section
 - Add getCheckoutsByPattern pseudo-code to _pseudo.md
 - Update resolveCheckoutByName note and branch command pseudo
+```
+
+### Iteration: Require All Arg In All Commands
+
+**Id:** `require-all-arg-in-all-commands`
+
+**Status:** `READY`
+
+**Purpose:** Require `-c <pattern>` or `--all` in all commands that iterate checkouts (`pull`, `push`, `sync` and `branch`) Remove implicit all-checkouts fallback. Update `-c` description.
+
+**Instructions:** `./plan-scope-commands-to-checkouts/instructions/require-all-arg-in-all-commands.md`
+
+**Changes:** Add `--all` to pull, push, sync, branch. Remove `getAllCheckouts()` fallback and print warning and usage message. Update `-c` description across commands. Update tests and docs.
+
+**Dependencies:** All previous iterations complete.
+
+#### Commits:
+
+| ID                                         | Policy       | Status     |
+| ------------------------------------------ | ------------ | ---------- |
+| `require-checkouts-or-all-in-all-commands` | `AUTONOMOUS` | `AUTHORED` |
+
+##### Commit: `require-checkouts-or-all-in-all-commands`
+
+**Message:**
+
+```
+build(workspace-cli-one): Require -c or --all in commands; remove implicit fallback.
+
+- Add -A, --all to pull, push, sync, branch
+- Update -c description to be more descriptive with examples
+- Remove implicit getAllCheckouts() fallback; require -c or --all
+- Print usage message when neither -c nor --all provided
+- Update tests for all changed commands
 ```
 
 ---
