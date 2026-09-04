@@ -35,7 +35,8 @@ program
 	.command('sanity')
 	.description('Check git status across all repos')
 	.option('--auto', 'push clean unpushed repos')
-	.action(async (options: { auto?: boolean }) => {
+	.option('--refetch', 'fetch ahead/behind data from remote')
+	.action(async (options: { auto?: boolean; refetch?: boolean }) => {
 		const root = process.cwd();
 		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
@@ -44,7 +45,8 @@ program
 		const ctx = createWorkspaceContext(config, store, log);
 
 		const auto = options.auto ?? false;
-		await runSanity(ctx, { auto });
+		const refetch = options.refetch ?? false;
+		await runSanity(ctx, { auto, refetch });
 	});
 
 program

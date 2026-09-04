@@ -14,16 +14,19 @@ import { scanAllCheckoutsStates } from '../../private/store/scanAllCheckoutsStat
 import { scanExtraneousCheckouts } from './private/scanExtraneousCheckouts';
 import { syncCheckouts } from './private/syncCheckouts';
 
-export async function runSanity(ctx: WorkspaceContext, options: { auto: boolean }): Promise<void> {
+export async function runSanity(
+	ctx: WorkspaceContext,
+	options: { auto: boolean; refetch?: boolean },
+): Promise<void> {
 	const repos = await loadRepositoryRecords(ctx);
 	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
 
 	ctx.log.log(createOperationPending('command', ['sanity', options.auto]));
 
-	await scanWorkspaceCheckout(ctx);
+	await scanWorkspaceCheckout(ctx, options.refetch);
 
-	await scanAllCheckoutsStates(ctx);
+	await scanAllCheckoutsStates(ctx, options.refetch);
 	if (options.auto) {
 		await doPullWorkspaceCheckout(ctx);
 		await syncCheckouts(ctx);
