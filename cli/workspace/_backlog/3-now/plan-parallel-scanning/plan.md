@@ -2,7 +2,7 @@
 
 **ID:** `parallel-scanning`
 
-**Status:** `WORKING`
+**Status:** `DONE`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -67,11 +67,11 @@ Update the checkouts processing and scanning loops in `$PROJECT/src/private/stor
 
 ## Items:
 
-| Iteration / Instructions                                                                     | Status  |
-| -------------------------------------------------------------------------------------------- | ------- |
-| Iteration: Parallelise Checkout Scanning `./instructions/parallelise-checkout-scanning.md`   | `DONE`  |
-| Iteration: Optimise Ahead/Behind Counting `./instructions/optimise-ahead-behind-counting.md` | `DONE`  |
-| Iteration: Make Scan Refetch Opt-In `./instructions/make-scan-refetch-opt-in.md`             | `READY` |
+| Iteration / Instructions                                                                     | Status |
+| -------------------------------------------------------------------------------------------- | ------ |
+| Iteration: Parallelise Checkout Scanning `./instructions/parallelise-checkout-scanning.md`   | `DONE` |
+| Iteration: Optimise Ahead/Behind Counting `./instructions/optimise-ahead-behind-counting.md` | `DONE` |
+| Iteration: Make Scan Refetch Opt-In `./instructions/make-scan-refetch-opt-in.md`             | `DONE` |
 
 ### Iteration: Parallelise Checkout Scanning
 
@@ -222,7 +222,9 @@ test(workspace-cli): Cover combined ahead/behind counting and fallbacks.
 
 **Id:** `make-scan-refetch-opt-in`
 
-**Status:** `READY`
+**Status:** `DONE`
+
+**Report:** `./instructions/make-scan-refetch-opt-in__report.md`
 
 **Purpose:** Make the network `remoteFetch` during scanning opt-in so cheap pre-scan passes stay local while post-side-effect scans refresh.
 
@@ -247,11 +249,11 @@ test(workspace-cli): Cover combined ahead/behind counting and fallbacks.
 
 #### Commits:
 
-| ID                                 | Repository / Checkout / Branch                        | Policy       | Hash  | Status     |
-| ---------------------------------- | ----------------------------------------------------- | ------------ | ----- | ---------- |
-| `thread-refetch-through-scan`      | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `rename-workspace-command-helpers` | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `refetch-after-side-effects`       | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                                 | Repository / Checkout / Branch                        | Policy       | Hash      | Status      |
+| ---------------------------------- | ----------------------------------------------------- | ------------ | --------- | ----------- |
+| `thread-refetch-through-scan`      | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `2e59def` | `COMMITTED` |
+| `rename-workspace-command-helpers` | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `ddd0d4e` | `COMMITTED` |
+| `refetch-after-side-effects`       | Workspace CLI / `$PROJECT` / `plan-parallel-scanning` | `AUTONOMOUS` | `e5ddd56` | `COMMITTED` |
 
 ##### Commit: `thread-refetch-through-scan`
 
@@ -296,7 +298,7 @@ build(workspace-cli): Refetch after side effects in pull, push, and sync.
 
 ### Next
 
-Iterations `parallelise-checkout-scanning` and `optimise-ahead-behind-counting` are `DONE`. Next, delegate iteration `make-scan-refetch-opt-in` to workers.
+All three iterations are `DONE`. Plan complete.
 
 ### Blockers
 
@@ -385,3 +387,4 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 - Iteration `parallelise-checkout-scanning`: worker noted the `$PROJECT/architecture/` mandatory-reading paths did not resolve; actual files live at `$PROJECT/cli/workspace/architecture/`. Minor path issue only — instruction otherwise clear. Worker also noted the pre-commit hook runs full CI (~25s/commit).
 - Iteration `optimise-ahead-behind-counting`: instruction was internally inconsistent — Step 7 scoped test changes to only `getBehindAheadCount.test.ts` + `scanCheckoutState.test.ts`, but removing the per-branch fetch broke `runPull.test.ts` and `runSync.test.ts` "false negative" tests. Fixed by reordering steps (tests before commit) and expanding test scope to include the two command tests.
+- Iteration `make-scan-refetch-opt-in`: completed without issues. All 250 tests pass.
