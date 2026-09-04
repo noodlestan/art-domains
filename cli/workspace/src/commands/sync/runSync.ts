@@ -1,7 +1,6 @@
 import { runWithConcurrency } from '../../private/async/runWithConcurrency';
 import { doPullCheckout } from '../../private/commands/checkouts/doPullCheckout';
 import { doPushCheckout } from '../../private/commands/checkouts/doPushCheckout';
-import { scanWorkspaceCheckout } from '../../private/commands/workspaces/scanWorkspaceCheckout';
 import { syncWorkspaceCheckout } from '../../private/commands/workspaces/syncWorkspaceCheckout';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
 import { createOperationPending } from '../../private/context/operations/createOperationPending';
@@ -23,14 +22,15 @@ export async function runSync(ctx: WorkspaceContext): Promise<void> {
 
 	await runWithConcurrency(ctx.store.getAllCheckouts(), 4, async checkout => {
 		if (checkout.scan?.can?.('pull')) {
-			if (checkout.scan.should?.('pull')) await doPullCheckout(ctx, checkout);
-			if (checkout.scan?.can?.('push') && checkout.scan.should?.('push')) {
-				await doPushCheckout(ctx, checkout);
+			const pulled = checkout.scan.should?.('pull')
+				? await doPullCheckout(ctx, checkout)
+				: checkout;
+			if (pulled?.scan?.can?.('push') && pulled.scan.should?.('push')) {
+				await doPushCheckout(ctx, pulled);
 			}
 		}
 	});
 
-	await scanWorkspaceCheckout(ctx);
 	await syncWorkspaceCheckout(ctx);
 
 	presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts());

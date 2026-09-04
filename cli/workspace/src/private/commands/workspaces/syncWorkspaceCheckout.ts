@@ -3,6 +3,7 @@ import simpleGit from 'simple-git';
 import type { WorkspaceContext } from '../../context/createWorkspaceContext';
 import { scanCheckoutState } from '../../scan/scanCheckoutState';
 import type { Checkout } from '../../store/createCheckout';
+import { createCheckout } from '../../store/createCheckout';
 import { createPullFailure } from '../operations/createPullFailure';
 import { createPullPending } from '../operations/createPullPending';
 import { createPullSuccess } from '../operations/createPullSuccess';
@@ -11,8 +12,16 @@ import { createPushPending } from '../operations/createPushPending';
 import { createPushSuccess } from '../operations/createPushSuccess';
 
 export async function syncWorkspaceCheckout(ctx: WorkspaceContext): Promise<Checkout | null> {
-	const workspace = ctx.workspace;
-	if (!workspace) return null;
+	let workspace = ctx.workspace;
+	if (!workspace) {
+		workspace = {
+			...createCheckout(ctx.config, '.', undefined, 'main', 'Workspace'),
+			path: ctx.config.root.path,
+		};
+		const scanned = await scanCheckoutState(ctx, workspace, true);
+		ctx.workspace = scanned;
+		workspace = scanned;
+	}
 
 	const git = simpleGit(workspace.path);
 
