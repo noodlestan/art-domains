@@ -20,6 +20,39 @@ Detailed definitions live in `architecture/context-model.md`. Symbols relevant t
 
 - **WorkspaceContext** — single object passed to all routines: `config`, `store`, `log`
 - **CheckoutStore** — in-memory checkout identity: `addCheckout`, `getCheckoutForLocation`, `getCheckoutOfRepo`, `getCheckoutByName`, `updateCheckout`, `getAllCheckouts`
+
+### Function: getCheckoutsByPattern(store, patterns)
+
+**Responsibility:** Resolve checkout patterns to a deduplicated list of checkouts. Supports exact match (no wildcard) and wildcard match (pattern contains \*).
+
+**Pseudo:**
+
+```pseudo
+getCheckoutsByPattern(store, patterns)
+  matched = new Map()  // keyed by record.location
+
+  for pattern in patterns:
+    patternMatched = false
+
+    for checkout in store.getAllCheckouts():
+      if pattern contains '*':
+        regex = patternToRegex(pattern)  // escape special chars, * -> .*
+        nameMatch = regex.test(checkout.record.name)
+        locationMatch = regex.test(checkout.record.location)
+      else:
+        nameMatch = checkout.record.name.toLowerCase() === pattern.toLowerCase()
+        locationMatch = checkout.record.location.toLowerCase() === pattern.toLowerCase()
+
+      if nameMatch or locationMatch:
+        matched.set(checkout.record.location, checkout)
+        patternMatched = true
+
+    if not patternMatched:
+      warn("no checkout matches pattern: " + pattern)
+
+  return Array.from(matched.values())
+```
+
 - **Checkout** — per-repo identity: `repo?`, `record` (name/location/branch/repository), `path`, and optional computed `scan` state
 - **Records** — `WorkspaceRecord`, `RepositoryRecord`, `CheckoutRecord` (structure files in `.agents/domains/workspace/structures/`)
 
@@ -118,9 +151,9 @@ cloneStatus(ctx)
   presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts())
 ```
 
-### Command: branch <branch> [<checkout-location...>]
+### Command: branch <branch> [-c <PATTERN...>]
 
-**Responsibility:** Create and checkout a feature branch across multiple checkouts (all checkouts when none specified), update checkout records and present Checkout Report + Operations Report. The optional arguments are checkout locations (basenames under the checkouts path).
+**Responsibility:** Create and checkout a feature branch across multiple checkouts (all checkouts when none specified), update checkout records and present Checkout Report + Operations Report. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
 
 **Pseudo:**
 
@@ -129,12 +162,13 @@ branch(branch, checkoutLocations)
   ctx = createWorkspaceContext(config, store, log)
   hydrate(ctx)
 
-  locations = checkoutLocations non-empty
-    ? checkoutLocations
-    : ctx.store.getAllCheckouts().map(c => c.record.location)
+  checkouts = options.checkouts ?? []
+  if checkouts is empty:
+    targets = ctx.store.getAllCheckouts()
+  else:
+    targets = ctx.store.getCheckoutsByPattern(checkouts)
 
-  for location in locations:
-    checkout = ctx.store.getCheckoutForLocation(location)
+  for checkout in targets:
     if not checkout:
       ctx.log.log(createBranchFailure(branch, "not cloned", checkout))
       continue
@@ -209,6 +243,8 @@ repo(locations)
 ### Function: resolveCheckoutByName(store, input)
 
 **Responsibility:** Resolve a checkout by name, handling multiple input formats (exact name, "Repository:" prefix, slug format, location). Returns the matching checkout or null. Note: not yet used by `repo` — the current implementation resolves inline with `getCheckoutByName ?? getCheckoutForLocation`. Designed for future use by other commands.
+
+**Note:** Superseded by `getCheckoutsByPattern` for pattern-based resolution. `resolveCheckoutByName` remains for single-checkout exact resolution by name, slug, or location.
 
 **Pseudo:**
 
@@ -343,19 +379,25 @@ unlink(location, package, target)
   presentOperationsReport(ctx.log)
 ```
 
-### Command: pull
+### Command: pull [-c <PATTERN...>]
 
-**Responsibility:** Pull from origin for all clean checkouts. No arguments — acts only on clean branches. Present Checkout Report + Operations Report.
+**Responsibility:** Pull from origin for selected checkouts. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
 
 **Pseudo:**
 
 ```pseudo
-pull()
+pull(options)
   ctx = createWorkspaceContext(config, store, log)
   hydrate(ctx)
   scanAllCheckoutsStates(ctx)
 
-  for checkout in ctx.store.getAllCheckouts():
+  checkouts = options.checkouts ?? []
+  if checkouts is empty:
+    targets = ctx.store.getAllCheckouts()
+  else:
+    targets = ctx.store.getCheckoutsByPattern(checkouts)
+
+  for checkout in targets:
     if checkout.scan.can('pull') and checkout.scan.should('pull'):
       doPullCheckout(ctx, checkout)
 
@@ -363,19 +405,25 @@ pull()
   presentOperationsReport(ctx.log)
 ```
 
-### Command: push
+### Command: push [-c <PATTERN...>]
 
-**Responsibility:** Push to origin for all clean checkouts. No arguments — acts only on clean branches. Try pull first if behind. Present Checkout Report + Operations Report.
+**Responsibility:** Push to origin for selected checkouts. Try pull first if behind. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
 
 **Pseudo:**
 
 ```pseudo
-push()
+push(options)
   ctx = createWorkspaceContext(config, store, log)
   hydrate(ctx)
   scanAllCheckoutsStates(ctx)
 
-  for checkout in ctx.store.getAllCheckouts():
+  checkouts = options.checkouts ?? []
+  if checkouts is empty:
+    targets = ctx.store.getAllCheckouts()
+  else:
+    targets = ctx.store.getCheckoutsByPattern(checkouts)
+
+  for checkout in targets:
     if checkout.scan.can('push') and checkout.scan.should('push'):
       if checkout.scan.should('pull'):
         doPullCheckout(ctx, checkout)
@@ -385,19 +433,25 @@ push()
   presentOperationsReport(ctx.log)
 ```
 
-### Command: sync
+### Command: sync [-c <PATTERN...>]
 
-**Responsibility:** Sync all clean checkouts — pull then push regardless of captured states. No arguments — acts only on clean branches. Present Checkout Report + Operations Report.
+**Responsibility:** Sync selected checkouts — pull then push. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
 
 **Pseudo:**
 
 ```pseudo
-sync()
+sync(options)
   ctx = createWorkspaceContext(config, store, log)
   hydrate(ctx)
   scanAllCheckoutsStates(ctx)
 
-  for checkout in ctx.store.getAllCheckouts():
+  checkouts = options.checkouts ?? []
+  if checkouts is empty:
+    targets = ctx.store.getAllCheckouts()
+  else:
+    targets = ctx.store.getCheckoutsByPattern(checkouts)
+
+  for checkout in targets:
     if checkout.scan.can('pull'):
       if checkout.scan.should('pull'): doPullCheckout(ctx, checkout)
       if checkout.scan.can('push') and checkout.scan.should('push'): pushCheckout(ctx, checkout)

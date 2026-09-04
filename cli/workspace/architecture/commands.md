@@ -4,21 +4,50 @@ The command surface of the workspace CLI, their procedures, and their edge cases
 
 ## Command Surface
 
-| command   | usage                                      | status      |
-| --------- | ------------------------------------------ | ----------- |
-| `sanity`  | `sanity [--auto]`                          | implemented |
-| `pull`    | `pull`                                     | planned     |
-| `push`    | `push`                                     | planned     |
-| `sync`    | `sync`                                     | planned     |
-| `repo`    | `repo [<location>...]`                     | implemented |
-| `clone`   | `clone [--all] [<repo>] [<location>]`      | implemented |
-| `branch`  | `branch <branch> [<checkout-location>...]` | implemented |
-| `link`    | `link <location> <package> [<target>]`     | designed    |
-| `links`   | `links`                                    | designed    |
-| `unlink`  | `unlink <location> <package> [<target>]`   | designed    |
-| `publish` | `publish [--auto]`                         | designed    |
+| command   | usage                                    | status      |
+| --------- | ---------------------------------------- | ----------- |
+| `sanity`  | `sanity [--auto]`                        | implemented |
+| `pull`    | `pull [-c <PATTERN...>]`                 | implemented |
+| `push`    | `push [-c <PATTERN...>]`                 | implemented |
+| `sync`    | `sync [-c <PATTERN...>]`                 | implemented |
+| `repo`    | `repo [<location>...]`                   | implemented |
+| `clone`   | `clone [--all] [<repo>] [<location>]`    | implemented |
+| `branch`  | `branch <branch> [-c <PATTERN...>]`      | implemented |
+| `link`    | `link <location> <package> [<target>]`   | designed    |
+| `links`   | `links`                                  | designed    |
+| `unlink`  | `unlink <location> <package> [<target>]` | designed    |
+| `publish` | `publish [--auto]`                       | designed    |
 
 Every command that touches checkouts presents reports (see `reports.md`).
+
+## Command Arguments
+
+Shared argument conventions used across commands.
+
+### `--checkouts <PATTERN...>` (shorthand `-c`)
+
+Scope the operation to one or more checkouts. Patterns support exact match and wildcard matching against checkout **name** and **location**.
+
+**Matching rules:**
+
+- Patterns **without** `*` are exact-match only (case-insensitive). If no checkout matches exactly, a warning is printed and the pattern produces zero results. This prevents accidental partial matches.
+- Patterns **with** `*` are treated as wildcards: `*` is converted to `.*` (RegExp) and matched against both `CheckoutRecord.name` and `CheckoutRecord.location` (case-insensitive, no `^` anchor).
+- Results are deduplicated by `record.location` — the same checkout matched by multiple patterns appears once.
+- When omitted, all checkouts are processed.
+
+**Examples:**
+
+```bash
+npm run workspace pull -c "art-js"              # exact name match
+npm run workspace pull -c "art-js-planning"     # exact location match
+npm run workspace pull -c "art*"                # wildcard: matches art-js, art-js-planning, etc.
+npm run workspace pull -c "* @ planning"        # wildcard: matches all planning checkouts
+npm run workspace pull -c "art-js" -c "purr*"   # mixed: exact + wildcard
+```
+
+### `--auto` (shorthand `-a`)
+
+Enable automatic mode for the command (e.g. auto-push, auto-publish). Behaviour varies by command.
 
 ## Common Data Flow
 
@@ -76,9 +105,9 @@ Feature: Sanity check workspace status
 
 ## Pull
 
-**Usage:** `pull`
+**Usage:** `pull [-c <PATTERN...>]`
 
-Pull from origin for all clean checkouts. No arguments — acts only on clean branches. Procedure: load repository records → hydrate checkouts from checkout records → scan all → for each checkout: if clean and behind, pull → present Checkout Report + Operations Report.
+Pull from origin for selected checkouts. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
 
 **BDD:**
 
@@ -120,9 +149,9 @@ Feature: Pull from origin
 
 ## Push
 
-**Usage:** `push`
+**Usage:** `push [-c <PATTERN...>]`
 
-Push to origin for all clean checkouts. No arguments — acts only on clean branches. Procedure: load repository records → hydrate checkouts from checkout records → scan all → for each checkout: if clean and ahead, try pull first, then push → present Checkout Report + Operations Report.
+Push to origin for selected checkouts. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
 
 **BDD:**
 
@@ -175,9 +204,9 @@ Feature: Push to origin
 
 ## Sync
 
-**Usage:** `sync`
+**Usage:** `sync [-c <PATTERN...>]`
 
-Sync all clean checkouts — pull then push regardless of captured states. No arguments — acts only on clean branches. Procedure: load repository records → hydrate checkouts from checkout records → scan all → for each checkout: if clean, pull then push → present Checkout Report + Operations Report.
+Sync selected checkouts — pull then push. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
 
 **BDD:**
 
@@ -355,9 +384,9 @@ Feature: Clone single repo
 
 ## Branch
 
-**Usage:** `branch <branch> [<checkout-location>...]`
+**Usage:** `branch <branch> [-c <PATTERN...>]`
 
-Create and checkout the same feature branch in each specified checkout (all checkouts when none specified, or when an empty list is passed), enabling coordinated cross-repo development. The optional arguments are checkout locations (basenames under the checkouts path). Procedure: for each location — resolve the checkout, scan, create/switch the branch, record a `branch` operation (success `created {branch}` / `switched to {branch}`, or a failure). Update the checkout record's branch (`saveCheckoutRecord`). Present Checkout Report + Operations Report.
+Create and checkout the same feature branch in selected checkouts. See [Command Arguments](#command-arguments) for `--checkouts` behaviour.
 
 **BDD:**
 
