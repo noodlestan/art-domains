@@ -1,6 +1,6 @@
-# Plan: Run Command
+# Plan: Implement Run Checkout Command
 
-**ID:** `implement-run`
+**ID:** `implement-run-checkout-cmd`
 
 **Status:** `PLANNING`
 
@@ -8,9 +8,9 @@
 
 **Skill:** `write-plan`
 
-**Purpose:** Implement `art-workspace publish [--auto]` for `@art-domains/workspace-cli`.
+**Purpose:** Implement `art-workspace checkout-cmd <command> [<checkouts...>]` — run arbitrary commands across selected checkouts.
 
-**Description:** Push repos and publish unpublished packages to npm, replacing the stub at `src/commands/publish/runPublish.ts`. Depends on the `push` capabilities from `plan-implement-pull-push-sync` and on the project-record reading already implemented for the `repo` command.
+**Description:** TBD — name, params, and exact behaviour to be decided. The command should accept a shell command and optional checkout location filters, then execute the command in each matching checkout directory.
 
 ## Mandatory Reading
 
@@ -27,7 +27,7 @@
 
 ## Summary
 
-Implement the publish command for pushing repos and publishing unpublished packages to npm, reusing pushCheckout from the pull-push-sync work.
+Implement a `checkout-cmd` command that runs an arbitrary shell command across checkouts, with optional checkout location filters. Exact name, params, and behaviour TBD.
 
 ## Context
 
@@ -53,21 +53,20 @@ Implement the publish command for pushing repos and publishing unpublished packa
 ### Knowledge
 
 ::READ `_roadmap/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
-::READ `architecture/commands.md` (Design) — Designed behaviour and BDD scenarios for Publish. Relevant for Planning Work Item.
-::READ `architecture/_pseudo.md` (Pseudo-code) — Pseudo-code contract for publish command and auxiliary `shouldPushCheckout`/`pushCheckout`. Relevant for Planning Work Item.
-::READ `architecture/records/adr/publish.art` (ADR) — Publish decisions. Relevant for Planning Work Item.
+::READ `architecture/commands.md` (Design) — TBD — command surface to be designed.
+::READ `architecture/_pseudo.md` (Pseudo-code) — TBD — pseudo-code contract to be drafted.
 ::READ `architecture/context-model.md` (Model) — WorkspaceContext, CheckoutStore, project records. Relevant for Planning Work Item.
 ::READ `architecture/reports.md` (Reports) — Operations Report format. Relevant for Planning Work Item.
 
 ## Scope
 
-Implement Run Command in `$PROJECT/src/commands/publish/` with tests, npm registry check, operation factories, and commander wiring.
+Implement `checkout-cmd` command in `$PROJECT/src/commands/` with checkout location filtering, command execution, operation logging, and commander wiring. Exact scope TBD.
 
 ## Work
 
 ### Next
 
-Delegate the first `DRAFT` iteration: `implement-publish-command`.
+Refine the first `DRAFT` iteration: `implement-run-checkout-command`.
 
 ### Blockers
 
@@ -122,33 +121,89 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions         | Status  |
-| -------------------------------- | ------- |
-| Iteration: Implement Run Command | `DRAFT` |
+| Iteration / Instructions              | Status  |
+| ------------------------------------- | ------- |
+| Iteration: Implement Run Checkout Command | `DRAFT` |
 
-### Iteration: Implement Run Command
+### Iteration: Implement Run Checkout Command
 
-**Id:** `implement-publish-command`
+**Id:** `implement-run-checkout-command`
 
 **Status:** `DRAFT`
 
-**Purpose:** Implement `art-workspace publish [--auto]` end-to-end, tests first.
+**Purpose:** Implement `art-workspace checkout-cmd <command> [<checkouts...>]` end-to-end.
 
-**Description:** Implement the full publish command with package resolution, npm registry check, npm publish step, operation logging, and commander wiring. Reuses `shouldPushCheckout`/`pushCheckout` from pull-push-sync.
+**Description:** TBD — command name, parameters, and exact behaviour to be decided. The command will need to resolve checkouts and execute the given command in each matching checkout directory.
 
-**Instructions:** `./plan-implement-run/instructions/implement-publish-command.md`
+**Instructions:** TBD
 
 **Changes:**
 
-- Resolve packages per checkout via existing `readProjectRecords` (project → namespaces → packages).
-- Implement `npmIsPublished(canonicalName, version)` (npm registry lookup) and the `npm publish --access public` step in the package dir; skip `private` packages.
-- Add `createPublishSuccess` / `createPublishFailure` operation factories in `src/private/operations/`; log push and publish outcomes; present Operations Report.
-- Wire `--auto` option in `src/index.ts`.
-- Write tests first — no `it.todo()` left at the end.
+- Wire checkout locations argument to the new command in `src/index.ts`.
+- Filter checkouts by location (reuse pattern from `plan-scope-commands-to-location`).
+- Implement command execution step (TBD — spawn, cwd, output capture).
+- Add operation factories and reporting.
+- Write tests.
 
 **Dependencies:**
 
-- `plan-implement-pull-push-sync` — consumes `pushCheckout` and `shouldPushCheckout` landed in commit `ef8a2cf`. Reuse those functions — do not scaffold them.
+- `plan-scope-commands-to-location` — checkout location filtering pattern.
+
+#### Commits:
+
+| ID                                        | Repository / Checkout / Branch    | Policy       | Status  |
+| ----------------------------------------- | --------------------------------- | ------------ | ------- |
+| `wire-checkout-locations-to-run-command`  | Workspace / `$PROJECT` / `main`   | `AUTONOMOUS` | `PENDING` |
+| `implement-run-checkout-command`          | Workspace / `$PROJECT` / `main`   | `AUTONOMOUS` | `PENDING` |
+| `add-checkout-command-operations-and-reporting` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
+| `test-checkout-command`                   | Workspace / `$PROJECT` / `main`   | `AUTONOMOUS` | `PENDING` |
+
+##### Commit: `wire-checkout-locations-to-run-command`
+
+**Message:**
+
+```
+feat(cli): wire checkout locations argument to checkout-cmd command
+
+- TBD — exact command name and signature to be decided
+- Accept optional checkout locations filter
+- Location values are checkout locations relative to config.checkouts.path
+```
+
+##### Commit: `implement-run-checkout-command`
+
+**Message:**
+
+```
+feat(checkout-cmd): implement command execution step
+
+- TBD — spawn strategy, cwd, output capture, error handling
+- Execute command in each matching checkout directory
+- Skip checkouts that fail to resolve
+```
+
+##### Commit: `add-checkout-command-operations-and-reporting`
+
+**Message:**
+
+```
+feat(checkout-cmd): add operation factories and reporting
+
+- TBD — operation types and report format
+- Log command execution outcomes per checkout
+- Present Checkout Report and Operations Report
+```
+
+##### Commit: `test-checkout-command`
+
+**Message:**
+
+```
+test(checkout-cmd): add checkout command tests
+
+- TBD — test scenarios to be defined
+- No it.todo() remaining
+```
 
 ---
 
@@ -164,19 +219,19 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Findings
 
-- None.
+- TBD.
 
 ### Decisions
 
-- None.
+- TBD.
 
 ### Knowledge to Update
 
-- None.
+- `architecture/commands.md` — document the new `checkout-cmd` command.
 
 ### Follow Ups
 
-- `publish` completes the publish-then-symlink loop with `link`/`unlink`; the Formalized Publishing Workflow follow-up in `_roadmap/_architect.md` should be revisited once this lands.
+- None.
 
 ### Feedback
 
