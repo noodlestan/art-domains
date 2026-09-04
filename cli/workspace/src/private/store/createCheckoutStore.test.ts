@@ -105,4 +105,102 @@ describe('createCheckoutStore', () => {
 		expect(checkouts[0].record.name).toBe('two');
 		expect(checkouts[0].record.location).toBe('fix-test');
 	});
+
+	it('getCheckoutsByPattern exact name match', () => {
+		const config = makeMockConfig('.');
+		const store = createCheckoutStore();
+		const repo = { name: 'Foo Bar', remote: 'git@example.com:test.git' };
+		const c = createCheckout(config, 'fix-test', repo);
+		store.addCheckout(c);
+
+		const results = store.getCheckoutsByPattern(['Foo Bar @ fix-test']);
+		expect(results).toHaveLength(1);
+		expect(results[0].record.location).toBe('fix-test');
+	});
+
+	it('getCheckoutsByPattern exact location match', () => {
+		const config = makeMockConfig('.');
+		const store = createCheckoutStore();
+		const repo = { name: 'Foo Bar', remote: 'git@example.com:test.git' };
+		const c = createCheckout(config, 'fix-test', repo);
+		store.addCheckout(c);
+
+		const results = store.getCheckoutsByPattern(['fix-test']);
+		expect(results).toHaveLength(1);
+		expect(results[0].record.location).toBe('fix-test');
+	});
+
+	it('getCheckoutsByPattern exact match fails with warning', () => {
+		const config = makeMockConfig('.');
+		const store = createCheckoutStore();
+		const repo = { name: 'Foo Bar', remote: 'git@example.com:test.git' };
+		const c = createCheckout(config, 'fix-test', repo);
+		store.addCheckout(c);
+
+		const results = store.getCheckoutsByPattern(['nonexistent']);
+		expect(results).toHaveLength(0);
+	});
+
+	it('getCheckoutsByPattern wildcard name match', () => {
+		const config = makeMockConfig('.');
+		const store = createCheckoutStore();
+		const repo = { name: 'Foo Bar', remote: 'git@example.com:test.git' };
+		const c = createCheckout(config, 'fix-test', repo);
+		store.addCheckout(c);
+
+		const results = store.getCheckoutsByPattern(['* @ fix-test']);
+		expect(results).toHaveLength(1);
+		expect(results[0].record.location).toBe('fix-test');
+	});
+
+	it('getCheckoutsByPattern wildcard location match', () => {
+		const config = makeMockConfig('.');
+		const store = createCheckoutStore();
+		const repo = { name: 'Foo Bar', remote: 'git@example.com:test.git' };
+		const c = createCheckout(config, 'fix-test', repo);
+		store.addCheckout(c);
+		const c2 = createCheckout(config, 'fix-prod', repo);
+		store.addCheckout(c2);
+
+		const results = store.getCheckoutsByPattern(['fix-*']);
+		expect(results).toHaveLength(2);
+	});
+
+	it('getCheckoutsByPattern mixed patterns deduplication', () => {
+		const config = makeMockConfig('.');
+		const store = createCheckoutStore();
+		const repo = { name: 'Foo Bar', remote: 'git@example.com:test.git' };
+		const c = createCheckout(config, 'fix-test', repo);
+		store.addCheckout(c);
+		const c2 = createCheckout(config, 'prod-test', repo);
+		store.addCheckout(c2);
+
+		const results = store.getCheckoutsByPattern(['fix-test', 'prod*']);
+		expect(results).toHaveLength(2);
+	});
+
+	it('getCheckoutsByPattern case-insensitive', () => {
+		const config = makeMockConfig('.');
+		const store = createCheckoutStore();
+		const repo = { name: 'Foo Bar', remote: 'git@example.com:test.git' };
+		const c = createCheckout(config, 'fix-test', repo);
+		store.addCheckout(c);
+
+		const results = store.getCheckoutsByPattern(['FOO BAR @ FIX-TEST']);
+		expect(results).toHaveLength(1);
+		expect(results[0].record.location).toBe('fix-test');
+	});
+
+	it('getCheckoutsByPattern multiple checkouts one pattern matches two deduplication', () => {
+		const config = makeMockConfig('.');
+		const store = createCheckoutStore();
+		const repo = { name: 'Foo Bar', remote: 'git@example.com:test.git' };
+		const c = createCheckout(config, 'fix-test', repo);
+		store.addCheckout(c);
+		const c2 = createCheckout(config, 'fix-prod', repo);
+		store.addCheckout(c2);
+
+		const results = store.getCheckoutsByPattern(['fix-*']);
+		expect(results).toHaveLength(2);
+	});
 });
