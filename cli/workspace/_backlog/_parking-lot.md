@@ -12,6 +12,7 @@ None current.
 
 ### ACTIONABLE
 
+- **ScanCheckoutState should not do git checks in dirs without .git** — Some scan heuristics in `cli/workspace/src/private/scan/scanCheckoutState.ts` inherit state from parent dir when `.git` not present. Exampole. Create `hasGitDir` check, bypass others (exactly which?) when `.git` not present. Create `createGitDirState(hasGit)` and add before anything else.
 - **Fix `--version` showing stale version** — `npm run workspace -- --version` shows `0.0.9` but package is at `0.0.14`. Investigate why version is not being read from package.json correctly.
 - **Fix operations log shows repo name instead of checkout** — investigate if all operations add a checkout - it's possible that a clone operation failure logs only the repository name or (unnknown) and bails out without determining a loggable checkout name - change report to present 2 columns repo and "checkout" - ALSO: change the checkouts column "location" to be "checkout" as well.
 - **Implement checkout name resolution** — `resolveCheckoutByName` is designed in `architecture/_pseudo.md` (commit `040b07e`) but `src/commands/repo/runRepo.ts` still calls `getCheckoutByName` directly; the `repo` command still doesn't accept checkout names.
