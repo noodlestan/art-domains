@@ -20,10 +20,10 @@
 
 ## Path Variables
 
-| Variable     | Resolved Path             | Purpose                                        |
-| ------------ | ------------------------- | ---------------------------------------------- |
-| `$WORKSPACE` | Current working directory | Repository where this milestone and plans live |
-| `$DOMAINS`   | `$WORKSPACE/.agents/domains` | Domain resources directory                  |
+| Variable     | Resolved Path                | Purpose                                        |
+| ------------ | ---------------------------- | ---------------------------------------------- |
+| `$WORKSPACE` | Current working directory    | Repository where this milestone and plans live |
+| `$DOMAINS`   | `$WORKSPACE/.agents/domains` | Domain resources directory                     |
 
 ## Summary
 
@@ -33,11 +33,11 @@ Develop new domains, building on the distribution and installation capabilities,
 
 ### Upstream Work
 
-| Kind                  | Path                                         | Role                                                              |
-| --------------------- | -------------------------------------------- | ----------------------------------------------------------------- |
-| Parking Lot           | `$WORKSPACE/_roadmap/_parking-lot.md`        | Tracks short-term actionables, pending questions, and blockers.   |
-| Architecture Briefing | `$WORKSPACE/_roadmap/_architect.md`          | Principles, Constraints, NFRs.                                    |
-| Roadmap               | `$WORKSPACE/_roadmap/_roadmap.md`            | Coordinates this milestone with other milestones and plans.       |
+| Kind                  | Path                                  | Role                                                            |
+| --------------------- | ------------------------------------- | --------------------------------------------------------------- |
+| Parking Lot           | `$WORKSPACE/_roadmap/_parking-lot.md` | Tracks short-term actionables, pending questions, and blockers. |
+| Architecture Briefing | `$WORKSPACE/_roadmap/_architect.md`   | Principles, Constraints, NFRs.                                  |
+| Roadmap               | `$WORKSPACE/_roadmap/_roadmap.md`     | Coordinates this milestone with other milestones and plans.     |
 
 ### Required Skills
 
@@ -46,24 +46,24 @@ Develop new domains, building on the distribution and installation capabilities,
 
 ### Domains
 
-| Domain / Path                           | Description                                                                        |
-| --------------------------------------- | ---------------------------------------------------------------------------------- |
-| Domain: Roadmaps `$DOMAINS/roadmaps/index.md` | Roadmapping lifecycle for briefing, problem, solution, and plan stages.      |
-| Domain: Plans `$DOMAINS/plans/index.md` | Planning lifecycle for contextualising, drafting, refining, and integrating plans. |
-| Domain: Specs `$DOMAINS/specs/index.md` | Spec production, provenance, and spec-driven planning resources.                  |
+| Domain / Path                                 | Description                                                                        |
+| --------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Domain: Roadmaps `$DOMAINS/roadmaps/index.md` | Roadmapping lifecycle for briefing, problem, solution, and plan stages.            |
+| Domain: Plans `$DOMAINS/plans/index.md`       | Planning lifecycle for contextualising, drafting, refining, and integrating plans. |
+| Domain: Specs `$DOMAINS/specs/index.md`       | Spec production, provenance, and spec-driven planning resources.                   |
 
 ### Workflows
 
-| Workflow / Path                                                          | Description                                                                        |
-| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
-| Workflow: Roadmapping `$DOMAINS/roadmaps/workflows/roadmapping.art`      | Roadmapping lifecycle for briefing, problem, solution, and plan stages.            |
-| Workflow: Planning `$DOMAINS/plans/workflows/planning.art`               | Planning lifecycle for contextualising, drafting, refining, and integrating plans. |
+| Workflow / Path                                                     | Description                                                                        |
+| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Workflow: Roadmapping `$DOMAINS/roadmaps/workflows/roadmapping.art` | Roadmapping lifecycle for briefing, problem, solution, and plan stages.            |
+| Workflow: Planning `$DOMAINS/plans/workflows/planning.art`          | Planning lifecycle for contextualising, drafting, refining, and integrating plans. |
 
 ## Phases
 
-| Index | Name            | Status     |
-| ----- | --------------- | ---------- |
-| #1    | Extend          | `PLANNING` |
+| Index | Name   | Status     |
+| ----- | ------ | ---------- |
+| #1    | Extend | `PLANNING` |
 
 ### Phase: 1 — Extend
 
@@ -84,10 +84,10 @@ Develop new domains, building on the distribution and installation capabilities,
 
 This section lists the downstream work items produced, coordinated, or advanced by the milestone.
 
-| Resource / Record                                                                                          | Status   |
-| ---------------------------------------------------------------------------------------------------------- | -------- |
-| Plan: Extend Domains `$WORKSPACE/_backlog/6-plan/plan-extend-domains/plan.md`                              | `DRAFT`  |
-| Plan: Specs MVP `$WORKSPACE/_roadmap/6-plan/plan-specs-mvp/plan.md`                                        | `DRAFT`  |
+| Resource / Record                                                             | Status  |
+| ----------------------------------------------------------------------------- | ------- |
+| Plan: Extend Domains `$WORKSPACE/_backlog/6-plan/plan-extend-domains/plan.md` | `DRAFT` |
+| Plan: Specs MVP `$WORKSPACE/_roadmap/6-plan/plan-specs-mvp/plan.md`           | `DRAFT` |
 
 ---
 

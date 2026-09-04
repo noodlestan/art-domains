@@ -20,10 +20,10 @@
 
 ## Path Variables
 
-| Variable     | Resolved Path             | Purpose                               |
-| ------------ | ------------------------- | ------------------------------------- |
-| `$WORKSPACE` | Current working directory | Workspace root directory              |
-| `$PROJECT`   | Provided with prompt      | Where work execution is taking place. |
+| Variable     | Resolved Path                | Purpose                                   |
+| ------------ | ---------------------------- | ----------------------------------------- |
+| `$WORKSPACE` | Current working directory    | Workspace root directory                  |
+| `$PROJECT`   | Provided with prompt         | Where work execution is taking place.     |
 | `$DOMAINS`   | `$WORKSPACE/.agents/domains` | Domain resources directory (changes here) |
 
 ## Summary
@@ -34,11 +34,11 @@ Integrate specification-driven planning into the plan structure and template so 
 
 ### Upstream Work
 
-| Kind                  | Path                                                               | Role                                                            |
-| --------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------- |
-| Parking Lot           | `$PROJECT/_roadmap/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers. |
-| Architecture Briefing | `_roadmap/_architect.md`                                           | Workspace principles, NFRs, milestones.                         |
-| Milestone             | `$PROJECT/_roadmap/3-now/milestone-hello-world/milestone.md`       | Coordinates this plan within the Art Domains roadmap.           |
+| Kind                  | Path                                                         | Role                                                            |
+| --------------------- | ------------------------------------------------------------ | --------------------------------------------------------------- |
+| Parking Lot           | `$PROJECT/_roadmap/_parking-lot.md`                          | Tracks short-term actionables, pending questions, and blockers. |
+| Architecture Briefing | `_roadmap/_architect.md`                                     | Workspace principles, NFRs, milestones.                         |
+| Milestone             | `$PROJECT/_roadmap/3-now/milestone-hello-world/milestone.md` | Coordinates this plan within the Art Domains roadmap.           |
 
 ### Required Skills
 
@@ -50,7 +50,7 @@ Integrate specification-driven planning into the plan structure and template so 
 | Domain / Path                           | Description                                                                        |
 | --------------------------------------- | ---------------------------------------------------------------------------------- |
 | Domain: Plans `$DOMAINS/plans/index.md` | Planning lifecycle for contextualising, drafting, planning, and integrating plans. |
-| Domain: Specs `$DOMAINS/specs/index.md` | Spec production, provenance, and spec-driven planning resources.                  |
+| Domain: Specs `$DOMAINS/specs/index.md` | Spec production, provenance, and spec-driven planning resources.                   |
 
 ### Knowledge
 
@@ -122,8 +122,8 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions          | Status  |
-| --------------------------------- | ------- |
+| Iteration / Instructions                       | Status  |
+| ---------------------------------------------- | ------- |
 | Iteration: Integrate Specs Into Plan Structure | `DRAFT` |
 
 ### Iteration: Integrate Specs Into Plan Structure

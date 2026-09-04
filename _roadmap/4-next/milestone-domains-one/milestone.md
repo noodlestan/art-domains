@@ -22,10 +22,10 @@
 
 This section lists the path variables used throughout the milestone file and its downstream work items. All file references in the milestone and downstream work items MUST use these variables — never bare filesystem paths.
 
-| Variable     | Resolved Path             | Purpose                                        |
-| ------------ | ------------------------- | ---------------------------------------------- |
-| `$WORKSPACE` | Current working directory | Repository where this milestone and plans live |
-| `$DOMAINS`   | `$WORKSPACE/.agents/domains` | Domain resources directory                  |
+| Variable     | Resolved Path                | Purpose                                        |
+| ------------ | ---------------------------- | ---------------------------------------------- |
+| `$WORKSPACE` | Current working directory    | Repository where this milestone and plans live |
+| `$DOMAINS`   | `$WORKSPACE/.agents/domains` | Domain resources directory                     |
 
 ## Summary
 
@@ -35,11 +35,11 @@ Continue evolving the domain prototype. All work and commits remain in the `$WOR
 
 ### Upstream Work
 
-| Kind                  | Path                                         | Role                                                              |
-| --------------------- | -------------------------------------------- | ----------------------------------------------------------------- |
-| Parking Lot           | `$WORKSPACE/_roadmap/_parking-lot.md`        | Tracks short-term actionables, pending questions, and blockers.   |
-| Architecture Briefing | `$WORKSPACE/_roadmap/_architect.md`          | Principles, Constraints, NFRs. Planned, not yet created.          |
-| Roadmap               | `$WORKSPACE/_roadmap/_roadmap.md`            | Coordinates this milestone with other milestones and plans.       |
+| Kind                  | Path                                  | Role                                                            |
+| --------------------- | ------------------------------------- | --------------------------------------------------------------- |
+| Parking Lot           | `$WORKSPACE/_roadmap/_parking-lot.md` | Tracks short-term actionables, pending questions, and blockers. |
+| Architecture Briefing | `$WORKSPACE/_roadmap/_architect.md`   | Principles, Constraints, NFRs. Planned, not yet created.        |
+| Roadmap               | `$WORKSPACE/_roadmap/_roadmap.md`     | Coordinates this milestone with other milestones and plans.     |
 
 ### Required Skills
 
@@ -48,27 +48,27 @@ Continue evolving the domain prototype. All work and commits remain in the `$WOR
 
 ### Domains
 
-| Domain / Path                           | Description                                                                        |
-| --------------------------------------- | ---------------------------------------------------------------------------------- |
-| Domain: Roadmaps `$DOMAINS/roadmaps/index.md` | Roadmapping lifecycle for briefing, problem, solution, and plan stages.      |
-| Domain: Plans `$DOMAINS/plans/index.md` | Planning lifecycle for contextualising, drafting, refining, and integrating plans. |
-| Domain: Specs `$DOMAINS/specs/index.md` | Spec production, provenance, and spec-driven planning resources.                  |
+| Domain / Path                                 | Description                                                                        |
+| --------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Domain: Roadmaps `$DOMAINS/roadmaps/index.md` | Roadmapping lifecycle for briefing, problem, solution, and plan stages.            |
+| Domain: Plans `$DOMAINS/plans/index.md`       | Planning lifecycle for contextualising, drafting, refining, and integrating plans. |
+| Domain: Specs `$DOMAINS/specs/index.md`       | Spec production, provenance, and spec-driven planning resources.                   |
 
 ### Workflows
 
-| Workflow / Path                                                          | Description                                                                        |
-| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
-| Workflow: Roadmapping `$DOMAINS/roadmaps/workflows/roadmapping.art`      | Roadmapping lifecycle for briefing, problem, solution, and plan stages.            |
-| Workflow: Planning `$DOMAINS/plans/workflows/planning.art`               | Planning lifecycle for contextualising, drafting, refining, and integrating plans. |
+| Workflow / Path                                                     | Description                                                                        |
+| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Workflow: Roadmapping `$DOMAINS/roadmaps/workflows/roadmapping.art` | Roadmapping lifecycle for briefing, problem, solution, and plan stages.            |
+| Workflow: Planning `$DOMAINS/plans/workflows/planning.art`          | Planning lifecycle for contextualising, drafting, refining, and integrating plans. |
 
 ## Phases
 
 This section describes the ordered phases used to organise downstream work, identifying blocking dependencies across resources of different owners.
 
-| Index | Name            | Status     |
-| ----- | --------------- | ---------- |
-| #1    | Distribute      | `PLANNING` |
-| #2    | Extend          | `PLANNING` |
+| Index | Name       | Status     |
+| ----- | ---------- | ---------- |
+| #1    | Distribute | `PLANNING` |
+| #2    | Extend     | `PLANNING` |
 
 ### Phase: 1 — Distribute
 
@@ -100,15 +100,15 @@ This section describes the ordered phases used to organise downstream work, iden
 
 This section lists the downstream work items produced, coordinated, or advanced by the milestone.
 
-| Phase | Resource / Record                                                                                          | Status   |
-| ----- | ---------------------------------------------------------------------------------------------------------- | -------- |
-| 1     | Milestone: POC Domain Package Distribution `$WORKSPACE/_roadmap/6-plan/milestone-poc-domain-package-distribution.md` | `DRAFT`  |
-| -     |                                                                                                            |          |
-| 1     | Milestone: Distributable Domains `$WORKSPACE/_roadmap/6-plan/milestone-distributable-domains.md`                | `DRAFT`  |
-| -     |                                                                                                            |          |
-| 2     | Milestone: Extend Domains `$WORKSPACE/_roadmap/6-plan/milestone-extend-domains.md`                              | `DRAFT`  |
-| -     |                                                                                                            |          |
-| 2     | Milestone: Specs MVP `$WORKSPACE/_roadmap/6-plan/milestone-extend-domains.md`                                        | `DRAFT`  |
+| Phase | Resource / Record                                                                                                    | Status  |
+| ----- | -------------------------------------------------------------------------------------------------------------------- | ------- |
+| 1     | Milestone: POC Domain Package Distribution `$WORKSPACE/_roadmap/6-plan/milestone-poc-domain-package-distribution.md` | `DRAFT` |
+| -     |                                                                                                                      |         |
+| 1     | Milestone: Distributable Domains `$WORKSPACE/_roadmap/6-plan/milestone-distributable-domains.md`                     | `DRAFT` |
+| -     |                                                                                                                      |         |
+| 2     | Milestone: Extend Domains `$WORKSPACE/_roadmap/6-plan/milestone-extend-domains.md`                                   | `DRAFT` |
+| -     |                                                                                                                      |         |
+| 2     | Milestone: Specs MVP `$WORKSPACE/_roadmap/6-plan/milestone-extend-domains.md`                                        | `DRAFT` |
 
 ---
 

@@ -321,35 +321,35 @@ Execution of changes to agent files occurs directly in `$WORKSPACE/` (where they
 
 This section lists the downstream work items produced, coordinated, or advanced by the plan, identifying blocking dependencies across resources of different owners.
 
-| Resource / Record                                              | Status     |
-| -------------------------------------------------------------- | ---------- |
-| Iteration: Add Work Domain                                     | `DONE`     |
-| Iteration: Split Iterations From Commits                       | `DONE`     |
-| Iteration: Convert Templates to Directive Syntax               | `DONE`     |
-| Iteration: Rebuild Domain Indexes                              | `DONE`     |
-| Iteration: Add Domain and Workflow Structure                   | `DONE`     |
-| Iteration: Update Fundamentals File                            | `DONE`     |
-| Iteration: Integrate Work Domain With Others                   | `DONE`     |
-| Iteration: Initialize Domains Knowledge                        | `DONE`     |
-| Iteration: Initialize Architecture Knowledge                   | `DONE`     |
-| Iteration: Normalize Structure Extends                         | `DONE`     |
-| Iteration: Add Work Operations                                 | `DONE`     |
-| Iteration: Collapse Work Scope to a Single Type                | `DONE`     |
-| Iteration: Update or Create Work Skills and Routines           | `DONE`     |
-| Iteration: Build Operations and Operating Instructions         | `DONE`     |
-| Iteration: Formalize Iteration Commits Nesting                 | `DONE`     |
-| Iteration: Use Work Routines and Operations in Write Plan      | `DONE`     |
-| Iteration: Use Work Routines and Operations in Write Milestone | `DONE`     |
-| Iteration: Replace execute-plan with delegate-plan             | `DONE`     |
-| Iteration: Declaring workflows in Guides                       | `DONE`     |
-| Iteration: Create Guide Templates and Routines                 | `DONE`     |
-| Iteration: Create Migration Routines                           | `DONE`     |
-| Iteration: Update Domain Listing                               | `DONE`     |
-| Iteration: Review and Refactor Agent Modes                     | `DONE`     |
-| Iteration: Fix Broken References                               | `DONE`     |
-| Iteration: Refactor Domain Index Routines                      | `DONE`     |
-| Iteration: Rewrite Delegate Plan Skill                         | `DONE`     |
-| Iteration: Update Domain Knowledge                             | `DONE`     |
+| Resource / Record                                              | Status |
+| -------------------------------------------------------------- | ------ |
+| Iteration: Add Work Domain                                     | `DONE` |
+| Iteration: Split Iterations From Commits                       | `DONE` |
+| Iteration: Convert Templates to Directive Syntax               | `DONE` |
+| Iteration: Rebuild Domain Indexes                              | `DONE` |
+| Iteration: Add Domain and Workflow Structure                   | `DONE` |
+| Iteration: Update Fundamentals File                            | `DONE` |
+| Iteration: Integrate Work Domain With Others                   | `DONE` |
+| Iteration: Initialize Domains Knowledge                        | `DONE` |
+| Iteration: Initialize Architecture Knowledge                   | `DONE` |
+| Iteration: Normalize Structure Extends                         | `DONE` |
+| Iteration: Add Work Operations                                 | `DONE` |
+| Iteration: Collapse Work Scope to a Single Type                | `DONE` |
+| Iteration: Update or Create Work Skills and Routines           | `DONE` |
+| Iteration: Build Operations and Operating Instructions         | `DONE` |
+| Iteration: Formalize Iteration Commits Nesting                 | `DONE` |
+| Iteration: Use Work Routines and Operations in Write Plan      | `DONE` |
+| Iteration: Use Work Routines and Operations in Write Milestone | `DONE` |
+| Iteration: Replace execute-plan with delegate-plan             | `DONE` |
+| Iteration: Declaring workflows in Guides                       | `DONE` |
+| Iteration: Create Guide Templates and Routines                 | `DONE` |
+| Iteration: Create Migration Routines                           | `DONE` |
+| Iteration: Update Domain Listing                               | `DONE` |
+| Iteration: Review and Refactor Agent Modes                     | `DONE` |
+| Iteration: Fix Broken References                               | `DONE` |
+| Iteration: Refactor Domain Index Routines                      | `DONE` |
+| Iteration: Rewrite Delegate Plan Skill                         | `DONE` |
+| Iteration: Update Domain Knowledge                             | `DONE` |
 
 ### Iteration: Add Work Domain
 

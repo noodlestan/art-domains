@@ -121,8 +121,8 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions              | Status  |
-| ------------------------------------- | ------- |
+| Iteration / Instructions                 | Status  |
+| ---------------------------------------- | ------- |
 | Iteration: Implement Run Package Command | `DRAFT` |
 
 ### Iteration: Implement Run Package Command
@@ -147,18 +147,18 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 **Dependencies:**
 
-- `plan-scope-commands-to-location` — checkout location filtering pattern.
+- `plan-scope-commands-to-checkouts` — checkout location filtering pattern.
 - `plan-implement-run-checkout-cmd` — checkout-level command execution (may share infrastructure).
 
 #### Commits:
 
-| ID                                        | Repository / Checkout / Branch    | Policy       | Status  |
-| ----------------------------------------- | --------------------------------- | ------------ | ------- |
-| `wire-checkout-locations-to-run-command`  | Workspace / `$PROJECT` / `main`   | `AUTONOMOUS` | `PENDING` |
-| `resolve-packages-per-checkout`           | Workspace / `$PROJECT` / `main`   | `AUTONOMOUS` | `PENDING` |
-| `implement-run-package-command`           | Workspace / `$PROJECT` / `main`   | `AUTONOMOUS` | `PENDING` |
+| ID                                             | Repository / Checkout / Branch  | Policy       | Status    |
+| ---------------------------------------------- | ------------------------------- | ------------ | --------- |
+| `wire-checkout-locations-to-run-command`       | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
+| `resolve-packages-per-checkout`                | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
+| `implement-run-package-command`                | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
 | `add-package-command-operations-and-reporting` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
-| `test-package-command`                    | Workspace / `$PROJECT` / `main`   | `AUTONOMOUS` | `PENDING` |
+| `test-package-command`                         | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
 
 ##### Commit: `wire-checkout-locations-to-run-command`
 

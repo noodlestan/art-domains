@@ -122,9 +122,9 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 2     | Plan: Log Process as it Happens `_backlog/1-done/plan-log-process-as-it-happens/plan.md`                                     | `DONE`     |
 | 2     | Plan: Scoped Record Paths `_backlog/1-done/plan-scoped-record-paths/plan.md`                                                 | `DONE`     |
 | 2     | Plan: Parallel Scanning `_backlog/3-now/plan-parallel-scanning/plan.md`                                                      | `READY`    |
-| 2     | Plan: Scope Commands to Location `_backlog/4-next/plan-scope-commands-to-location/plan.md`                                   | `PLANNING` |
-| 2     | Plan: Workspace CLI — Run Checkout Command `_backlog/4-next/plan-implement-run-checkout-cmd/plan.md`                       | `PLANNING` |
-| 2     | Plan: Workspace CLI — Run Package Command `_backlog/4-next/plan-implement-run-package-cmd/plan.md`                         | `DRAFT`    |
+| 2     | Plan: Scope Commands to Location `_backlog/3-next/plan-scope-commands-to-checkouts/plan.md`                                  | `READY`    |
+| 2     | Plan: Workspace CLI — Run Checkout Command `_backlog/4-next/plan-implement-run-checkout-cmd/plan.md`                         | `PLANNING` |
+| 2     | Plan: Workspace CLI — Run Package Command `_backlog/4-next/plan-implement-run-package-cmd/plan.md`                           | `DRAFT`    |
 | 2     | Plan: Extract Workspace CLI to Repository: Art CLI (New)Repo `_backlog/4-next/plan-move-code-project-art-cli/plan.md`        | `PLANNING` |
 | -     |                                                                                                                              |            |
 | 2     | Plan: Make Behind Check Opt-in `_backlog/6-plan/plan-make-behind-check-opt-in/plan.md`                                       | `DRAFT`    |

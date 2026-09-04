@@ -121,8 +121,8 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions              | Status  |
-| ------------------------------------- | ------- |
+| Iteration / Instructions                  | Status  |
+| ----------------------------------------- | ------- |
 | Iteration: Implement Run Checkout Command | `DRAFT` |
 
 ### Iteration: Implement Run Checkout Command
@@ -140,23 +140,23 @@ All steps MUST pass. No `it.todo()` tests may remain.
 **Changes:**
 
 - Wire checkout locations argument to the new command in `src/index.ts`.
-- Filter checkouts by location (reuse pattern from `plan-scope-commands-to-location`).
+- Filter checkouts by location (reuse pattern from `plan-scope-commands-to-checkouts`).
 - Implement command execution step (TBD — spawn, cwd, output capture).
 - Add operation factories and reporting.
 - Write tests.
 
 **Dependencies:**
 
-- `plan-scope-commands-to-location` — checkout location filtering pattern.
+- `plan-scope-commands-to-checkouts` — checkout location filtering pattern.
 
 #### Commits:
 
-| ID                                        | Repository / Checkout / Branch    | Policy       | Status  |
-| ----------------------------------------- | --------------------------------- | ------------ | ------- |
-| `wire-checkout-locations-to-run-command`  | Workspace / `$PROJECT` / `main`   | `AUTONOMOUS` | `PENDING` |
-| `implement-run-checkout-command`          | Workspace / `$PROJECT` / `main`   | `AUTONOMOUS` | `PENDING` |
+| ID                                              | Repository / Checkout / Branch  | Policy       | Status    |
+| ----------------------------------------------- | ------------------------------- | ------------ | --------- |
+| `wire-checkout-locations-to-run-command`        | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
+| `implement-run-checkout-command`                | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
 | `add-checkout-command-operations-and-reporting` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
-| `test-checkout-command`                   | Workspace / `$PROJECT` / `main`   | `AUTONOMOUS` | `PENDING` |
+| `test-checkout-command`                         | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `PENDING` |
 
 ##### Commit: `wire-checkout-locations-to-run-command`
 
