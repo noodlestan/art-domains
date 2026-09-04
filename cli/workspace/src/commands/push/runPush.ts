@@ -11,12 +11,15 @@ import { loadRepositoryRecords } from '../../private/resources/repository/loadRe
 import { hydrateStoreFromRecords } from '../../private/store/hydrateStoreFromRecords';
 import { scanAllCheckoutsStates } from '../../private/store/scanAllCheckoutsStates';
 
-export async function runPush(ctx: WorkspaceContext): Promise<void> {
+export async function runPush(
+	ctx: WorkspaceContext,
+	options: { checkouts?: string[] } = {},
+): Promise<void> {
 	const repos = await loadRepositoryRecords(ctx);
 	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
 
-	ctx.log.log(createOperationPending('command', ['push']));
+	ctx.log.log(createOperationPending('command', ['push', options.checkouts]));
 
 	await scanAllCheckoutsStates(ctx);
 

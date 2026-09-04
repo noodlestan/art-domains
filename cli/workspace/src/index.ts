@@ -91,7 +91,8 @@ program
 program
 	.command('pull')
 	.description('Pull clean checkouts that are behind')
-	.action(async () => {
+	.option('-c, --checkouts <PATTERN...>', 'checkout location patterns')
+	.action(async (options: { checkouts?: string[] }) => {
 		const root = process.cwd();
 		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
@@ -99,13 +100,14 @@ program
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 
-		await runPull(ctx);
+		await runPull(ctx, { checkouts: options.checkouts });
 	});
 
 program
 	.command('push')
 	.description('Push clean checkouts that are ahead')
-	.action(async () => {
+	.option('-c, --checkouts <PATTERN...>', 'checkout location patterns')
+	.action(async (options: { checkouts?: string[] }) => {
 		const root = process.cwd();
 		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
@@ -113,13 +115,14 @@ program
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 
-		await runPush(ctx);
+		await runPush(ctx, { checkouts: options.checkouts });
 	});
 
 program
 	.command('sync')
 	.description('Pull and push clean checkouts')
-	.action(async () => {
+	.option('-c, --checkouts <PATTERN...>', 'checkout location patterns')
+	.action(async (options: { checkouts?: string[] }) => {
 		const root = process.cwd();
 		logger(createOperationPending('boot'));
 		const config = await loadWorkspaceConfig(root);
@@ -127,7 +130,7 @@ program
 		const log = createOperationsLog(logger);
 		const ctx = createWorkspaceContext(config, store, log);
 
-		await runSync(ctx);
+		await runSync(ctx, { checkouts: options.checkouts });
 	});
 
 program
