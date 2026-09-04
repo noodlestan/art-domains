@@ -20,11 +20,12 @@
 
 ## Path Variables
 
-| Variable     | Resolved Path             | Purpose                                |
-| ------------ | ------------------------- | -------------------------------------- |
-| `$WORKSPACE` | Current working directory | Workspace root directory               |
-| `$PROJECT`   | Provided with prompt      | Where work execution is taking place.  |
-| `$ART_CLI`   | The new repository        | Destination repo `noodlestan/art-cli`. |
+| Variable     | Resolved Path             | Purpose                                 |
+| ------------ | ------------------------- | --------------------------------------- |
+| `$WORKSPACE` | Current working directory | Workspace root directory                |
+| `$PROJECT`   | Provided with prompt      | Where work execution is taking place.   |
+| `$ART_CLI`   | `$WORKSPACE/art-cli`      | Destination repo `noodlestan/art-cli`.  |
+| `$ART_WORK`  | `$WORKSPACE/art-work`     | Destination repo `noodlestan/art-work`. |
 
 ## Summary
 

@@ -97,6 +97,7 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 | Iteration: Update Operations Log     | `DRAFT` |
 | Iteration: Update Pseudo Code        | `DRAFT` |
 | Iteration: Update Reports            | `DRAFT` |
+| Iteration: Update ADRs               | `DRAFT` |
 
 ### Iteration: Update Architecture Index
 
@@ -110,9 +111,11 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 
 **Changes:**
 
-- Replace the stale plan reference with the current milestone reference (`milestone-workspace-cli-one/milestone.md`).
-- Update the "CLI Execution Model" section to reflect that `pull`, `push`, and `sync` are now implemented.
-- Clarify that `link`, `unlink`, and `publish` remain designed/draft.
+- Replace the fields at the top **Status:**, **Pseudo:**, **Plans:** by a **Purpose:** of this document (overview and index of the Workspace CLI architecure).
+- Promote **Description:** to a ## What section (describes the CLI) and nest "### Why", "### Key Benefits"
+- Remove "### Definitions"
+- Add "## Index" with a table of nested documents with columns "Title / Path" and "Purpose" \*where path is relative to architecture and purpose is **Purpose:** field of the document, fallback to **Description:**, fallback to generate terse summary of doc.
+- Move "## Use Cases" to after "## Index" and review to update to latest command compositions and options.
 - Review the "Data Model" section against `context-model.md` updates.
 
 **Dependencies:**
@@ -195,6 +198,7 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 
 **Changes:**
 
+- Update `architecture/operations-log.md` to document `pending` as an outcome and the streaming/logger concept (feedback from `plan-log-process-as-it-happens`).
 - Add `pull` to the operation kinds list.
 - Verify the `Operation` kind field matches what `src/private/operations/` actually exports.
 - Confirm no other new operation kinds were introduced.
@@ -215,10 +219,14 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 
 **Changes:**
 
-- Add `resolveCheckoutByName(store, input)` function.
-- Update `saveCheckoutRecord` to data-first signature.
-- Update `loadCheckoutRecords` to show it pairs records with repository records.
-- Add the `pull` command pseudo-code if not already present.
+- Compact big function declarations to terse and pseudo pseudo.
+  - Remove details, like path,
+  - Remove all literal code with no business logic value. Example: "const p = path.join".
+  - Keep details that implement the responsibility of the unit, but reword to english. Example: "normalized = remove Repository: prefix.
+  - Identify local patterns that can be extracted from the logic, such as 3 instructions related to create operation pending, failure, success can be summarised in a "instrumented operation: {terse details of success/error if any | only pending is tracked}"
+  - Identify patterns of groups of expressions repeated in different commands. Example: "load repositories, load checkouts, .." => "Hydrate Records".
+  - Identify patterns that are more granular but still repeat or more granular "Scan Workspace (refetch = true)".
+- Add pseudo for each command pseudo-code and compact. Extract repeated operations.
 - Review `pull`, `push`, `sync` pseudo-code against actual implementations.
 - Update operation kind factories list.
 
@@ -241,6 +249,34 @@ Delegate the first `DRAFT` iteration: `update-architecture-index`.
 - Verify that all report formats match actual presentation code in `src/private/present/`.
 - Check if any report columns or formatting changed during implementation.
 - This file may need no changes — verify and confirm.
+
+**Dependencies:**
+
+- None.
+
+### Iteration: Update ADRs
+
+**Id:** `update-adrs`
+
+**Status:** `DRAFT`
+
+**Purpose:** Verify `architecture/records/adr/*` is streamlined and reflects
+
+**Description:** Verify report formats match `src/private/present/` implementations.
+
+**Changes:**
+
+Notes for planner: explore the current ADRs, apply the rules below and refine concrete instructions.
+
+Update rules for `cli/workspace/architecture/records/adr/*`
+
+- Remove any decision related exclusively to initial migration steps.
+- Remove from any other decision any context that describes previous unfinshjed state, reword it to be independent.
+- Check for contradictions.
+- Check for omissions in relation to big patterns emerging from design and implementation.
+- Identify opportunities to merge and compact different items.
+- Identify excessive verbosity. Example "Decision: Type-safe Configuration in ..." is way too long for something so basic. Even the title is long.
+- Identify opportunities to extract to 2 different files. Example: CLI is to broad.
 
 **Dependencies:**
 

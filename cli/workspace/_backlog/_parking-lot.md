@@ -14,10 +14,8 @@ None current.
 
 - **ScanCheckoutState should not do git checks in dirs without .git** — Some scan heuristics in `cli/workspace/src/private/scan/scanCheckoutState.ts` inherit state from parent dir when `.git` not present. Exampole. Create `hasGitDir` check, bypass others (exactly which?) when `.git` not present. Create `createGitDirState(hasGit)` and add before anything else.
 - **Fix `--version` showing stale version** — `npm run workspace -- --version` shows `0.0.9` but package is at `0.0.14`. Investigate why version is not being read from package.json correctly.
-- **Implement checkout name resolution** — `resolveCheckoutByName` is designed in `architecture/_pseudo.md` (commit `040b07e`) but `src/commands/repo/runRepo.ts` still calls `getCheckoutByName` directly; the `repo` command still doesn't accept checkout names.
 - **Verify remaining bugs** — check if other bugs in the BUGS table are still valid (clone edge cases, extraneous items, etc.)
 - **Fix operations log shows repo name instead of checkout** — investigate if all operations add a checkout - it's possible that a clone operation failure logs only the repository name or (unnknown) and bails out without determining a loggable checkout name - change report to present 2 columns repo and "checkout" - ALSO: change the checkouts column "location" to be "checkout" as well.
-- **Emit pending operation per command before side effects** — follow-up from `plan-log-process-as-it-happens`: create the pending operation (with `details`) in each command before the side effect so every operation streams a `doing:` line; the type/log/presenter groundwork is done, per-command emission is not.
 - **Cache scan results / reduce redundant re-scans** — follow-up from `plan-log-process-as-it-happens`: `runSync` re-scans each pulled+pushed checkout up to 3× (initial + after pull + after push) plus workspace re-scans; consider caching scan results and/or batching the fetch (fetch batching is now handled by `plan-parallel-scanning`; the repeated re-scan is not).
 - **Apply filename-carrying pattern to other record kinds** — follow-up from `plan-discover-records`: currently only checkout records are mutable and carry a filename; generalize to other record kinds as they become read/write.
 - **Extract Git-ignore filtering into a reusable filesystem service** — follow-up from `plan-discover-records`: reuse gitignore-aware filtering outside record discovery if future commands need it.
@@ -26,19 +24,7 @@ None current.
 
 - **Injectable Presentation** — Testing command usage of presentation layer requires setup mocking or assertion on presenters. Consider refactoring presentation to make it injectable. Configuration and the strategy pattern would go a long way here.
 
-- **Formalize Publishing Workflow** — formalize the publish-then-symlink pattern into a `Workflow: Publishing` resource. Define agent modes, skills (`publishing-workflow`), and commands. Integration with plan files: when a plan reaches `DONE` status, the publishing workflow identifies what needs publishing. Feeds off `_backlog/1-done/`. Related to `$WORKSPACE/.agents/domains/changelogs/` — publishing triggers changelog generation.
-
-- **Formalize Delivery Workflow** — create a `Workflow: Delivery` resource in `$WORKSPACE/.agents/domains/engineering/_guide.md` that captures the full delivery cycle: Planning → Delegation → Execution → Publishing → Changelog. Agent modes: architect, delegator, worker. Skills: `planning-workflow`, `publishing-workflow` (new), `write-changelog`.
-
 - **Investigate `$WORKSPACE/.agents/domains/changelogs/`** — separate domain for changelog management. Should be dependency of engineering domain (like plans). Own structures, agent modes (if any), skills. `write-changelog` skill already exists — may need expansion. Changelogs generated from completed plans in backlogs. Example: `_backlog/1-done/`.
-
-- **Prepare `@art-domains/workspace` domain** — after `@art-domains/workspace-cli` is established, prepare the domain package to host workspace structures and other resources, including a reference to the CLI companion package.
-
-- **Reverse edge resolution** — `purrpose → @no-comply/solid-primitives` is still using `file:` resolution. After no-comply packages are published to npm, rewire to npm version.
-
-- **repo-ci** — GitHub Actions workflows for all repos. **DRAFT** — needs instruction file. Not priority.
-
-- **Update CLI README** — match format of other CLI READMEs in the ecosystem, preserving command summary.
 
 ### BLOCKER
 
@@ -47,8 +33,4 @@ None current.
 ### FOLLOW-UPS (not in scope)
 
 - Evaluate turbo remote caching for cross-repo builds.
-- Release cadence and versioning strategy across repos.
-- What happens to `NOCOMPLY.md` and root docs after the rename?
 - Archive the legacy `noodlestan/eslint-config` repo after its package is consumed via npm.
-- Update `architecture/operations-log.md` to document `pending` as an outcome and the streaming/logger concept (feedback from `plan-log-process-as-it-happens`).
-- Update workspace-wide domain structures that still document `ops/records` after the package plan landed (follow-up from `plan-discover-records`).
