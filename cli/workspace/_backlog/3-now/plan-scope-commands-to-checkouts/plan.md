@@ -119,13 +119,13 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions                   | Status  |
-| ------------------------------------------ | ------- |
-| Iteration: Add Checkout Arg                | `DONE`  |
-| Iteration: Improve Command Declaration     | `DONE`  |
-| Iteration: Change Branch Argument          | `DONE`  |
-| Iteration: Update Commands Knowledge       | `DONE`  |
-| Iteration: Require All Arg In All Commands | `READY` |
+| Iteration / Instructions                   | Status |
+| ------------------------------------------ | ------ |
+| Iteration: Add Checkout Arg                | `DONE` |
+| Iteration: Improve Command Declaration     | `DONE` |
+| Iteration: Change Branch Argument          | `DONE` |
+| Iteration: Update Commands Knowledge       | `DONE` |
+| Iteration: Require All Arg In All Commands | `DONE` |
 
 ### Iteration: Add Checkout Arg
 
@@ -160,14 +160,16 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 #### Commits:
 
-| ID                                   | Repository / Checkout / Branch  | Policy       | Status     |
-| ------------------------------------ | ------------------------------- | ------------ | ---------- |
-| `add-checkouts-option-to-commands`   | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `AUTHORED` |
-| `implement-pattern-resolver-utility` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `AUTHORED` |
-| `wire-resolver-into-run-functions`   | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `AUTHORED` |
-| `test-checkout-pattern-matching`     | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `AUTHORED` |
+| ID                                   | Repository / Checkout / Branch  | Policy       | Hash      | Status      |
+| ------------------------------------ | ------------------------------- | ------------ | --------- | ----------- |
+| `add-checkouts-option-to-commands`   | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `52b8b36` | `COMMITTED` |
+| `implement-pattern-resolver-utility` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `1e043ae` | `COMMITTED` |
+| `wire-resolver-into-run-functions`   | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `426bf73` | `COMMITTED` |
+| `test-checkout-pattern-matching`     | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `52b8b36` | `COMMITTED` |
 
 ##### Commit: `add-checkouts-option-to-commands`
+
+**Hash:** `52b8b36`
 
 **Message:**
 
@@ -180,6 +182,8 @@ build(workspace-cli-one): Add --checkouts option to pull, push, sync commands.
 ```
 
 ##### Commit: `implement-pattern-resolver-utility`
+
+**Hash:** `1e043ae`
 
 **Message:**
 
@@ -195,6 +199,8 @@ build(workspace-cli-one): Add getCheckoutsByPattern to CheckoutStore API.
 
 ##### Commit: `wire-resolver-into-run-functions`
 
+**Hash:** `426bf73`
+
 **Message:**
 
 ```
@@ -206,6 +212,8 @@ build(workspace-cli-one): Wire checkout pattern resolver into pull/push/sync.
 ```
 
 ##### Commit: `test-checkout-pattern-matching`
+
+**Hash:** `52b8b36`
 
 **Message:**
 
@@ -244,11 +252,13 @@ test(cli): add checkout pattern matching tests.
 
 #### Commits:
 
-| ID                                 | Repository / Checkout / Branch  | Policy       | Status     |
-| ---------------------------------- | ------------------------------- | ------------ | ---------- |
-| `standardise-command-declarations` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `AUTHORED` |
+| ID                                 | Repository / Checkout / Branch  | Policy       | Hash | Status    |
+| ---------------------------------- | ------------------------------- | ------------ | ---- | --------- |
+| `standardise-command-declarations` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | -    | `SKIPPED` |
 
 ##### Commit: `standardise-command-declarations`
+
+**Hash:** `-`
 
 **Message:**
 
@@ -285,11 +295,13 @@ build(workspace-cli-one): Standardise command argument declarations with shortha
 
 #### Commits:
 
-| ID                                  | Repository / Checkout / Branch  | Policy       | Status     |
-| ----------------------------------- | ------------------------------- | ------------ | ---------- |
-| `change-branch-to-checkouts-option` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `AUTHORED` |
+| ID                                  | Repository / Checkout / Branch  | Policy       | Hash      | Status      |
+| ----------------------------------- | ------------------------------- | ------------ | --------- | ----------- |
+| `change-branch-to-checkouts-option` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `1bdc448` | `COMMITTED` |
 
 ##### Commit: `change-branch-to-checkouts-option`
+
+**Hash:** `1bdc448`
 
 **Message:**
 
@@ -329,11 +341,13 @@ build(workspace-cli-one): Change branch command from positional checkouts to --c
 
 #### Commits:
 
-| ID                                    | Repository / Checkout / Branch  | Policy       | Status     |
-| ------------------------------------- | ------------------------------- | ------------ | ---------- |
-| `document-checkouts-pattern-matching` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `AUTHORED` |
+| ID                                    | Repository / Checkout / Branch  | Policy       | Hash      | Status      |
+| ------------------------------------- | ------------------------------- | ------------ | --------- | ----------- |
+| `document-checkouts-pattern-matching` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `83ba6a5` | `COMMITTED` |
 
 ##### Commit: `document-checkouts-pattern-matching`
+
+**Hash:** `83ba6a5`
 
 **Message:**
 
@@ -350,7 +364,7 @@ knowledge(architecture): Document --checkouts pattern matching and update comman
 
 **Id:** `require-all-arg-in-all-commands`
 
-**Status:** `WORKING`
+**Status:** `DONE`
 
 **Purpose:** Require `-c <pattern>` or `--all` in all commands that iterate checkouts (`pull`, `push`, `sync` and `branch`) Remove implicit all-checkouts fallback. Update `-c` description.
 
@@ -362,11 +376,13 @@ knowledge(architecture): Document --checkouts pattern matching and update comman
 
 #### Commits:
 
-| ID                                         | Policy       | Status     |
-| ------------------------------------------ | ------------ | ---------- |
-| `require-checkouts-or-all-in-all-commands` | `AUTONOMOUS` | `AUTHORED` |
+| ID                                         | Repository / Checkout / Branch      | Policy       | Hash      | Status      |
+| ------------------------------------------ | ----------------------------------- | ------------ | --------- | ----------- |
+| `require-checkouts-or-all-in-all-commands` | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `03c664a` | `COMMITTED` |
 
 ##### Commit: `require-checkouts-or-all-in-all-commands`
+
+**Hash:** `03c664a`
 
 **Message:**
 
