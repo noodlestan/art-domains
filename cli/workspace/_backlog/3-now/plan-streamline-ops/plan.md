@@ -168,11 +168,11 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 Three commits, ordered: contract + generic factories first (not purely additive — the generic factories depend on `OperationBase` gaining `finishedTs`/`timing()`), refactor/deletions next, report presentation last.
 
-| ID                                     | Repository / Checkout / Branch  | Policy       | Status     |
-| -------------------------------------- | ------------------------------- | ------------ | ---------- |
-| `add-generic-operation-factories`      | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `AUTHORED` |
-| `integrate-generic-operation-handling` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `AUTHORED` |
-| `present-all-operation-report-fields`  | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | `AUTHORED` |
+| ID                                     | Repository / Checkout / Branch      | Policy       | Status     |
+| -------------------------------------- | ----------------------------------- | ------------ | ---------- |
+| `add-generic-operation-factories`      | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `AUTHORED` |
+| `integrate-generic-operation-handling` | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `AUTHORED` |
+| `present-all-operation-report-fields`  | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `AUTHORED` |
 
 ##### Commit: `add-generic-operation-factories`
 
