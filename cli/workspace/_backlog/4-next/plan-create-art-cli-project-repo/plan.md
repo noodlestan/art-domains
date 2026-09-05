@@ -2,7 +2,7 @@
 
 **ID:** `create-art-cli-project-repo`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -66,7 +66,7 @@ Scaffold the art-cli repo from the art-js-reference template: dotfiles, lint con
 
 ### Next
 
-Refine the first `DRAFT` iteration: `scaffold-repository`.
+Delegate the `READY` iterations: `scaffold-repository`, `add-guide`, `populate-records` (instructions written under `./plan-create-art-cli-project-repo/instructions/`).
 
 ### Blockers
 
@@ -123,36 +123,55 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 | Iteration / Instructions       | Status  |
 | ------------------------------ | ------- |
-| Iteration: Scaffold Repository | `DRAFT` |
-| Iteration: Add Guide           | `DRAFT` |
-| Iteration: Populate Records    | `DRAFT` |
+| Iteration: Scaffold Repository | `READY` |
+| Iteration: Add Guide           | `READY` |
+| Iteration: Populate Records    | `READY` |
 
 ### Iteration: Scaffold Repository
 
 **Id:** `scaffold-repository`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Scaffold the art-cli repository from the art-js-reference template.
 
-**Description:** Scaffold all dotfiles, tslint, eslint, vite, license, README, `_records`, architecture (empty index), and initialize `_backlog/_parking-lot.md` and `_roadmap/_parking-lot.md` from `$TEMPLATE`.
+**Description:** Scaffold all dotfiles, tslint, eslint, vite, license, README, package.json, tsconfig, turbo.json, lefthook.yml, architecture (empty index), and initialize `_backlog/_parking-lot.md` and `_roadmap/_parking-lot.md` from `$TEMPLATE`. Records are populated in the Populate Records iteration.
 
 **Instructions:** `./plan-create-art-cli-project-repo/instructions/scaffold-repository.md`
 
 **Changes:**
 
-- Scaffold all dotfiles, tslint, eslint, vite, license, README, `_records`, architecture (empty index) from `$TEMPLATE`.
+- Scaffold the repo skeleton from `$TEMPLATE`: dotfiles, lint configs, vite, license, README, package.json, tsconfig, turbo.json, lefthook.yml.
+- Create an empty architecture index.
 - Initialize `_backlog/_parking-lot.md` and `_roadmap/_parking-lot.md`.
 
 **Dependencies:**
 
 - None.
 
+#### Commits:
+
+| ID                            | Repository / Checkout / Branch | Policy       | Hash | Status     |
+| ----------------------------- | ------------------------------ | ------------ | ---- | ---------- |
+| `scaffold-art-cli-repository` | Art Cli / `$ART_CLI` / `main`  | `AUTONOMOUS` | -    | `AUTHORED` |
+
+##### Commit: `scaffold-art-cli-repository`
+
+**Message:**
+
+```
+scaffold(art-cli): scaffold art-cli repository from art-js-reference template
+
+- Copy dotfiles, lint configs, vite, license, README, package.json, tsconfig, turbo.json, and lefthook.yml.
+- Create empty architecture index.
+- Initialize _backlog/_parking-lot.md and _roadmap/_parking-lot.md.
+```
+
 ### Iteration: Add Guide
 
 **Id:** `add-guide`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Add the guide to the new repository.
 
@@ -168,11 +187,27 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 - `scaffold-repository` — the scaffolded repo must exist first.
 
+#### Commits:
+
+| ID                  | Repository / Checkout / Branch | Policy       | Hash | Status     |
+| ------------------- | ------------------------------ | ------------ | ---- | ---------- |
+| `add-art-cli-guide` | Art Cli / `$ART_CLI` / `main`  | `AUTONOMOUS` | -    | `AUTHORED` |
+
+##### Commit: `add-art-cli-guide`
+
+**Message:**
+
+```
+docs(art-cli): add the guide to the art-cli repository
+
+- Add _guide.md with repository layout, records, and operating instructions.
+```
+
 ### Iteration: Populate Records
 
 **Id:** `populate-records`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Populate the project, repo, and namespace records for the Art Cli project.
 
@@ -191,6 +226,24 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 - `add-guide` — the guide must be in place before records are populated.
 
+#### Commits:
+
+| ID                         | Repository / Checkout / Branch | Policy       | Hash | Status     |
+| -------------------------- | ------------------------------ | ------------ | ---- | ---------- |
+| `populate-art-cli-records` | Art Cli / `$ART_CLI` / `main`  | `AUTONOMOUS` | -    | `AUTHORED` |
+
+##### Commit: `populate-art-cli-records`
+
+**Message:**
+
+```
+records(art-cli): populate project, repo, and namespace records
+
+- Copy template records except scaffolders.
+- Set Namespace: Art Cli, Project: Art Cli, Repository remote art-cli.git.
+- Register Package: Lib Records (PLANNED) in the project record.
+```
+
 ---
 
 ## Coordination
@@ -206,13 +259,15 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Findings
 
-- None.
+- The art-js-reference template carries the full scaffold (dotfiles, lint configs, vite, license, README, `_records`, architecture index, parking lots) plus scaffolders; the scaffolders are not copied — records are populated manually.
+- The template records (project, repository, namespace, license, dependencies, scripts) are copied except the `scaffolders/` directory.
 
 ### Decisions
 
 - The art-cli repo is scaffolded from `$WORKSPACE/checkouts/art-js-reference`.
 - Records are copied from the template except scaffolders.
 - Namespace: Art Cli, Project: Art Cli, Repository remote `git@github.com:noodlestan/art-cli.git`.
+- Commit order: scaffold → guide → records; each commit is self-contained in the art-cli repo.
 
 ### Knowledge to Update
 
@@ -221,7 +276,8 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Follow Ups
 
-- None.
+- Register the art-cli repository in the workspace records (`_records/repositories/art-cli.art`) once the repo exists on GitHub.
+- Add art-cli to the owner project record in the artificials repo.
 
 ### Feedback
 

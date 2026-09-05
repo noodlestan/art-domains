@@ -2,7 +2,7 @@
 
 **ID:** `extract-workspace-cli-art-work`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -66,7 +66,7 @@ Move the workspace-cli source code from `$SOURCE` to `art-work/cli/workspace`; u
 
 ### Next
 
-Refine the first `DRAFT` iteration: `move-workspace-cli-source`.
+Delegate the `READY` iterations: `move-workspace-cli-source`, `update-package-record` (instructions written under `./plan-extract-workspace-cli-art-work/instructions/`).
 
 ### Blockers
 
@@ -123,14 +123,14 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 | Iteration / Instructions             | Status  |
 | ------------------------------------ | ------- |
-| Iteration: Move Workspace Cli Source | `DRAFT` |
-| Iteration: Update Package Record     | `DRAFT` |
+| Iteration: Move Workspace Cli Source | `READY` |
+| Iteration: Update Package Record     | `READY` |
 
 ### Iteration: Move Workspace Cli Source
 
 **Id:** `move-workspace-cli-source`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Move the workspace-cli source code to the art-work repository.
 
@@ -148,15 +148,44 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 - Plan: Create Art Work Repository and Project — the art-work repo must exist first.
 
+#### Commits:
+
+| ID                            | Repository / Checkout / Branch    | Policy       | Hash | Status     |
+| ----------------------------- | --------------------------------- | ------------ | ---- | ---------- |
+| `move-workspace-cli-source`   | Art Work / `$ART_WORK` / `main`   | `AUTONOMOUS` | -    | `AUTHORED` |
+| `remove-workspace-cli-source` | Art Domains / `$PROJECT` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+
+##### Commit: `move-workspace-cli-source`
+
+**Message:**
+
+```
+refs(art-work): move workspace-cli source to cli/workspace
+
+- Copy workspace-cli source from art-domains to art-work/cli/workspace.
+- Keep the cli source in cli/workspace (Art Work remains a monorepo).
+```
+
+##### Commit: `remove-workspace-cli-source`
+
+**Message:**
+
+```
+refs(workspace-cli): remove workspace-cli source moved to art-work
+
+- Remove the workspace-cli source from art-domains.
+- The project record is not migrated (already copied to the root of Art Work).
+```
+
 ### Iteration: Update Package Record
 
 **Id:** `update-package-record`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Update the workspace-cli package record for its new home in Art Work.
 
-**Description:** Update the package record: Owner: Project: Art Work, Namespace: Namespace: Art Work, Path: `cli/workspace`, Canonical Name: `@art-work/cli`, Bin: `art-work-cli: ./dist/index.js`.
+**Description:** Update the package record: Owner: Project: Art Work, Namespace: Namespace: Art Work, Path: `cli/workspace`, Canonical Name: `@art-work/cli`, Bin: `art-work-cli: ./dist/index.js`. Keep package.json and the npm-deployment record consistent with the new canonical name.
 
 **Instructions:** `./plan-extract-workspace-cli-art-work/instructions/update-package-record.md`
 
@@ -167,10 +196,31 @@ All steps MUST pass. No `it.todo()` tests may remain.
 - Set Package.Path: `cli/workspace`.
 - Set Package.CanonicalName: `@art-work/cli`.
 - Set Package.Bin: `art-work-cli: ./dist/index.js`.
+- Update package.json: name `@art-work/cli`, bin `art-work-cli`, repository url `https://github.com/noodlestan/art-work`, directory `cli/workspace`.
+- Update the npm-deployment record canonical name to `@art-work/cli`.
 
 **Dependencies:**
 
 - `move-workspace-cli-source` — the source must be moved before the package record is updated.
+
+#### Commits:
+
+| ID                                    | Repository / Checkout / Branch  | Policy       | Hash | Status     |
+| ------------------------------------- | ------------------------------- | ------------ | ---- | ---------- |
+| `update-workspace-cli-package-record` | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+
+##### Commit: `update-workspace-cli-package-record`
+
+**Message:**
+
+```
+records(art-work): update workspace-cli package record for art-work
+
+- Set Owner: Project: Art Work, Namespace: Namespace: Art Work.
+- Set Path: cli/workspace, Canonical Name: @art-work/cli, Bin: art-work-cli.
+- Update package.json name, bin, and repository to match.
+- Update npm-deployment canonical name to @art-work/cli.
+```
 
 ---
 
@@ -187,13 +237,15 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Findings
 
-- None.
+- The move spans two repositories: the source is added to art-work (`cli/workspace`) and removed from art-domains; each side commits separately.
+- The project record is not migrated — it was already copied to the root of Art Work in Plan: Create Art Work Repository and Project.
 
 ### Decisions
 
 - Art Work remains a monorepo; the cli source stays in `cli/workspace`.
 - The project record is not migrated (already copied to the root of Art Work).
 - Canonical name becomes `@art-work/cli`; bin becomes `art-work-cli`.
+- Commit order: add source in art-work → remove source in art-domains → update package record in art-work.
 
 ### Knowledge to Update
 
@@ -202,7 +254,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Follow Ups
 
-- None.
+- Update READMEs, knowledge, and stale checks in artificials, art-domains, and art-js referencing workspace-cli under art-domains (tracked in Knowledge to Update).
 
 ### Feedback
 

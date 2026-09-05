@@ -2,7 +2,7 @@
 
 **ID:** `create-art-work-repository-project`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -65,7 +65,7 @@ Create the art-work repo (scaffold, guide, records): Namespace: Art Work; root p
 
 ### Next
 
-Refine the first `DRAFT` iteration: `create-repository`.
+Delegate the `READY` iterations: `create-repository`, `populate-records` (instructions written under `./plan-create-art-work-repository-project/instructions/`).
 
 ### Blockers
 
@@ -122,44 +122,74 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 | Iteration / Instructions     | Status  |
 | ---------------------------- | ------- |
-| Iteration: Create Repository | `DRAFT` |
-| Iteration: Populate Records  | `DRAFT` |
+| Iteration: Create Repository | `READY` |
+| Iteration: Populate Records  | `READY` |
 
 ### Iteration: Create Repository
 
 **Id:** `create-repository`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Create the art-work repository with the standard scaffold and guide.
 
-**Description:** Scaffold the art-work repo (dotfiles, lint configs, license, README, `_records`, architecture index, `_backlog/_parking-lot.md`, `_roadmap/_parking-lot.md`) and add the `_guide.md`.
+**Description:** Scaffold the art-work repo (dotfiles, lint configs, license, README, package.json, tsconfig, turbo.json, lefthook.yml, architecture index, `_backlog/_parking-lot.md`, `_roadmap/_parking-lot.md`) and add the `_guide.md`. Records are populated in the Populate Records iteration.
 
 **Instructions:** `./plan-create-art-work-repository-project/instructions/create-repository.md`
 
 **Changes:**
 
-- Scaffold the art-work repo (dotfiles, lint configs, license, README, `_records`, architecture index, parking lots).
+- Scaffold the art-work repo (dotfiles, lint configs, license, README, package.json, tsconfig, turbo.json, lefthook.yml, architecture index, parking lots).
 - Add the `_guide.md`.
 
 **Dependencies:**
 
 - None.
 
+#### Commits:
+
+| ID                             | Repository / Checkout / Branch  | Policy       | Hash | Status     |
+| ------------------------------ | ------------------------------- | ------------ | ---- | ---------- |
+| `scaffold-art-work-repository` | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+| `add-art-work-guide`           | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+
+##### Commit: `scaffold-art-work-repository`
+
+**Message:**
+
+```
+scaffold(art-work): scaffold art-work repository
+
+- Add dotfiles, lint configs, license, README, package.json, tsconfig, turbo.json, and lefthook.yml.
+- Create empty architecture index.
+- Initialize _backlog/_parking-lot.md and _roadmap/_parking-lot.md.
+```
+
+##### Commit: `add-art-work-guide`
+
+**Message:**
+
+```
+docs(art-work): add the guide to the art-work repository
+
+- Add _guide.md with repository layout, records, and operating instructions.
+```
+
 ### Iteration: Populate Records
 
 **Id:** `populate-records`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Populate the project, repo, and namespace records for the Art Work project.
 
-**Description:** Set Namespace: Art Work; root project record takes the current content of `cli/workspace/_records/project.art`; Project.Resources: Package: Workspace CLI, Application: Workspace Website (PLANNED), Tool: Workspace Tool (PLANNED); Repository.Remote: `git@github.com:noodlestan/art-work.git`.
+**Description:** Copy the template records (namespace, project, repository, license, dependencies, scripts) and set Namespace: Art Work; root project record takes the current content of `cli/workspace/_records/project.art`; Project.Resources: Package: Workspace CLI, Application: Workspace Website (PLANNED), Tool: Workspace Tool (PLANNED); Repository.Remote: `git@github.com:noodlestan/art-work.git`.
 
 **Instructions:** `./plan-create-art-work-repository-project/instructions/populate-records.md`
 
 **Changes:**
 
+- Copy the template records (namespace, project, repository, license, dependencies, scripts).
 - Set Namespace.name: Art Work.
 - Set the root project record from the current content of `cli/workspace/_records/project.art`.
 - Set Project.Resources: Package: Workspace CLI, Application: Workspace Website (PLANNED), Tool: Workspace Tool (PLANNED).
@@ -168,6 +198,25 @@ All steps MUST pass. No `it.todo()` tests may remain.
 **Dependencies:**
 
 - `create-repository` — the repo must exist before records are populated.
+
+#### Commits:
+
+| ID                          | Repository / Checkout / Branch  | Policy       | Hash | Status     |
+| --------------------------- | ------------------------------- | ------------ | ---- | ---------- |
+| `populate-art-work-records` | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+
+##### Commit: `populate-art-work-records`
+
+**Message:**
+
+```
+records(art-work): populate project, repo, and namespace records
+
+- Copy template records (namespace, project, repository, license, dependencies, scripts).
+- Set Namespace: Art Work.
+- Root project record from cli/workspace/_records/project.art.
+- Set Project.Resources and Repository remote art-work.git.
+```
 
 ---
 
@@ -183,13 +232,15 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Findings
 
-- None.
+- The root project record for Art Work takes the current content of `cli/workspace/_records/project.art` (Project: Workspace), re-scoped to Namespace: Art Work and Repository: Art Work.
+- The art-work repo is a monorepo; the workspace-cli source will live at `cli/workspace` (moved in Plan: Extract Workspace Cli to Art Work).
 
 ### Decisions
 
 - Namespace: Art Work.
 - The root project record takes the current content of `cli/workspace/_records/project.art`.
 - Repository remote `git@github.com:noodlestan/art-work.git`.
+- Commit order: scaffold → guide → records; each commit is self-contained in the art-work repo.
 
 ### Knowledge to Update
 
@@ -198,7 +249,8 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Follow Ups
 
-- None.
+- Register the art-work repository in the workspace records (`_records/repositories/art-work.art`) and workspace manifest once the repo exists on GitHub.
+- Add art-work to the owner project record in the artificials repo.
 
 ### Feedback
 

@@ -139,10 +139,10 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 2     | Plan: Workspace CLI — Checkouts Run Command `_backlog/3-now/plan-implement-checkouts-run/plan.md`                            | `READY`    |
 | 2     | Plan: Streamline Operation Types and Factories `_backlog/3-now/plan-streamline-ops/plan.md`                                  | `READY`    |
 | -     |                                                                                                                              |            |
-| 3     | Plan: Create Art Cli Project and Repo `_backlog/4-next/plan-create-art-cli-project-repo/plan.md`                             | `DRAFT`    |
-| 3     | Plan: Create Art Work Repository and Project `_backlog/4-next/plan-create-art-work-repository-project/plan.md`               | `DRAFT`    |
-| 3     | Plan: Extract Workspace Cli to Art Work `_backlog/4-next/plan-extract-workspace-cli-art-work/plan.md`                        | `DRAFT`    |
-| 3     | Plan: Extract Read/Write Records to Art Cli `_backlog/4-next/plan-extract-read-write-records-art-cli/plan.md`                | `DRAFT`    |
+| 3     | Plan: Create Art Cli Project and Repo `_backlog/4-next/plan-create-art-cli-project-repo/plan.md`                             | `READY`    |
+| 3     | Plan: Create Art Work Repository and Project `_backlog/4-next/plan-create-art-work-repository-project/plan.md`               | `READY`    |
+| 3     | Plan: Extract Workspace Cli to Art Work `_backlog/4-next/plan-extract-workspace-cli-art-work/plan.md`                        | `READY`    |
+| 3     | Plan: Extract Read/Write Records to Art Cli `_backlog/4-next/plan-extract-read-write-records-art-cli/plan.md`                | `READY`    |
 | -     |                                                                                                                              |            |
 | 4     | Plan: Replace Repo Command                                                                                                   | -          |
 | 4     | Plan: Replace Clone Command                                                                                                  | -          |
@@ -159,7 +159,7 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 
 ### Next
 
-Phase 2 — continue delegating `plan-scope-commands-to-checkouts` (WORKING).
+Phase 2 — delegate the `READY` plan `plan-streamline-ops` (instructions written). Then Phase 3 — delegate the `READY` plans `plan-create-art-cli-project-repo`, `plan-create-art-work-repository-project`, `plan-extract-workspace-cli-art-work`, `plan-extract-read-write-records-art-cli` (instructions written).
 
 ### Blockers
 

@@ -2,7 +2,7 @@
 
 **ID:** `extract-read-write-records-art-cli`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -10,7 +10,7 @@
 
 **Purpose:** Extract the generic record read/write modules into a shared library in the art-cli repository.
 
-**Description:** Create Package: Lib Records in art-cli (canonical `@art-cli/lib-records`, path `lib/records`); extract the generic record read/write modules and their tests from workspace-cli; register the lib in the Art Cli project record; publish the lib; consume it in workspace-cli; update knowledge; publish a new workspace-cli version; test in `$WORKSPACE`.
+**Description:** Create Package: Lib Records in art-cli (canonical `@art-cli/lib-records`, path `libs/records`); extract the generic record read/write modules and their tests from workspace-cli; register the lib in the Art Cli project record; publish the lib; consume it in workspace-cli; update knowledge; publish a new workspace-cli version; test in `$WORKSPACE`.
 
 ## Mandatory Reading
 
@@ -29,7 +29,7 @@
 
 ## Summary
 
-Create Package: Lib Records in art-cli (`@art-cli/lib-records`, path `lib/records`); extract the generic record read/write modules and their tests from workspace-cli; register, publish, consume; publish a new workspace-cli version; test in `$WORKSPACE`.
+Create Package: Lib Records in art-cli (`@art-cli/lib-records`, path `libs/records`); extract the generic record read/write modules and their tests from workspace-cli; register, publish, consume; publish a new workspace-cli version; test in `$WORKSPACE`.
 
 ## Context
 
@@ -66,7 +66,7 @@ Create the Lib Records package in art-cli; extract the generic record read/write
 
 ### Next
 
-Refine the first `DRAFT` iteration: `create-lib-records-package`.
+Delegate the `READY` iterations: `create-lib-records-package`, `extract-record-modules`, `register-publish-consume` (instructions written under `./plan-extract-read-write-records-art-cli/instructions/`).
 
 ### Blockers
 
@@ -123,56 +123,90 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 | Iteration / Instructions              | Status  |
 | ------------------------------------- | ------- |
-| Iteration: Create Lib Records Package | `DRAFT` |
-| Iteration: Extract Record Modules     | `DRAFT` |
-| Iteration: Register, Publish, Consume | `DRAFT` |
+| Iteration: Create Lib Records Package | `READY` |
+| Iteration: Extract Record Modules     | `READY` |
+| Iteration: Register, Publish, Consume | `READY` |
 
 ### Iteration: Create Lib Records Package
 
 **Id:** `create-lib-records-package`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Create the Lib Records package in the art-cli repository.
 
-**Description:** Create Package: Lib Records with canonical name `@art-cli/lib-records` at path `lib/records`.
+**Description:** Create Package: Lib Records with canonical name `@art-cli/lib-records` at path `libs/records`.
 
 **Instructions:** `./plan-extract-read-write-records-art-cli/instructions/create-lib-records-package.md`
 
 **Changes:**
 
-- Create Package: Lib Records, canonical `@art-cli/lib-records`, path `lib/records`.
+- Create Package: Lib Records, canonical `@art-cli/lib-records`, path `libs/records`.
 
 **Dependencies:**
 
 - Plan: Create Art Cli Project and Repo — the art-cli repo must exist first.
 
+#### Commits:
+
+| ID                           | Repository / Checkout / Branch | Policy       | Hash | Status     |
+| ---------------------------- | ------------------------------ | ------------ | ---- | ---------- |
+| `create-lib-records-package` | Art Cli / `$ART_CLI` / `main`  | `AUTONOMOUS` | -    | `AUTHORED` |
+
+##### Commit: `create-lib-records-package`
+
+**Message:**
+
+```
+scaffold(art-cli): create lib records package
+
+- Create Package: Lib Records at libs/records with canonical @art-cli/lib-records.
+- Add package record, scaffold, and stub entry point.
+```
+
 ### Iteration: Extract Record Modules
 
 **Id:** `extract-record-modules`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Extract the generic record read/write modules and their tests into the Lib Records package.
 
-**Description:** Extract the generic record read/write modules and their tests from workspace-cli to `art-cli/lib/records`.
+**Description:** Extract the generic record read/write modules and their tests from workspace-cli to `art-cli/libs/records`.
 
 **Instructions:** `./plan-extract-read-write-records-art-cli/instructions/extract-record-modules.md`
 
 **Changes:**
 
-- Extract generic record read/write modules and their tests to `art-cli/lib/records`.
+- Extract generic record read/write modules and their tests to `art-cli/libs/records`.
 
 **Dependencies:**
 
 - `create-lib-records-package` — the package must exist before modules are extracted.
 - Plan: Extract Workspace Cli to Art Work — the workspace-cli source must be in art-work before modules are extracted from it.
 
+#### Commits:
+
+| ID                       | Repository / Checkout / Branch | Policy       | Hash | Status     |
+| ------------------------ | ------------------------------ | ------------ | ---- | ---------- |
+| `extract-record-modules` | Art Cli / `$ART_CLI` / `main`  | `AUTONOMOUS` | -    | `AUTHORED` |
+
+##### Commit: `extract-record-modules`
+
+**Message:**
+
+```
+refactor(art-cli): extract record read/write modules from workspace-cli
+
+- Copy generic record read/write modules and their tests to libs/records.
+- Adapt imports and exports for the lib package.
+```
+
 ### Iteration: Register, Publish, Consume
 
 **Id:** `register-publish-consume`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Register the lib, publish it, and consume it in workspace-cli.
 
@@ -193,6 +227,48 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 - `extract-record-modules` — the modules must be extracted before the lib is registered and published.
 
+#### Commits:
+
+| ID                                     | Repository / Checkout / Branch  | Policy       | Hash | Status     |
+| -------------------------------------- | ------------------------------- | ------------ | ---- | ---------- |
+| `register-and-publish-lib-records`     | Art Cli / `$ART_CLI` / `main`   | `AUTONOMOUS` | -    | `AUTHORED` |
+| `consume-lib-records-in-workspace-cli` | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+| `release-workspace-cli`                | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+
+##### Commit: `register-and-publish-lib-records`
+
+**Message:**
+
+```
+records(art-cli): register lib records in project record and publish
+
+- Register Package: Lib Records in the Art Cli project record.
+- Publish @art-cli/lib-records to npm.
+```
+
+##### Commit: `consume-lib-records-in-workspace-cli`
+
+**Message:**
+
+```
+refactor(art-work): consume @art-cli/lib-records in workspace-cli
+
+- Replace local record read/write modules with imports from @art-cli/lib-records.
+- Update package record and dependencies.
+- Update knowledge in art-cli and art-work.
+```
+
+##### Commit: `release-workspace-cli`
+
+**Message:**
+
+```
+release(art-work): publish workspace-cli with lib records dependency
+
+- Publish a new workspace-cli version consuming @art-cli/lib-records.
+- Test in $WORKSPACE.
+```
+
 ---
 
 ## Coordination
@@ -209,11 +285,13 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Findings
 
-- None.
+- The extraction spans two repos: modules are copied to art-cli (`libs/records`) while workspace-cli keeps its local copies until the lib is published and consumed.
+- Consumption replaces the local modules in workspace-cli with imports from `@art-cli/lib-records`, followed by a new workspace-cli release.
 
 ### Decisions
 
-- Package: Lib Records, canonical `@art-cli/lib-records`, path `lib/records`.
+- Package: Lib Records, canonical `@art-cli/lib-records`, path `libs/records`.
+- Commit order: create package → extract modules → register + publish lib → consume in workspace-cli → release workspace-cli.
 
 ### Knowledge to Update
 
