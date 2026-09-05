@@ -140,6 +140,21 @@ export interface UnlinkFailure extends OperationFailure {
 	source: string;
 }
 
+export interface CheckoutRunPending extends OperationPending {
+	operation: 'run';
+	command: string;
+}
+
+export interface CheckoutRunSuccess extends OperationSuccess {
+	operation: 'run';
+	command: string;
+}
+
+export interface CheckoutRunFailure extends OperationFailure {
+	operation: 'run';
+	command: string;
+}
+
 export interface GenericOperationPending extends OperationPending {
 	data?: unknown;
 }
@@ -174,6 +189,9 @@ export type Operation =
 	| UnlinkPending
 	| UnlinkSuccess
 	| UnlinkFailure
+	| CheckoutRunPending
+	| CheckoutRunSuccess
+	| CheckoutRunFailure
 	| GenericOperationPending
 	| GenericOperationSuccess
 	| GenericOperationFailure;

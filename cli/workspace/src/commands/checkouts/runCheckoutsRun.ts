@@ -1,3 +1,5 @@
+import { runWithConcurrency } from '../../private/async/runWithConcurrency';
+import { doCheckoutRun } from '../../private/commands/checkouts/doCheckoutRun';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
 import { createOperationPending } from '../../private/context/operations/createOperationPending';
 import { presentCheckoutReport } from '../../private/present/presentCheckoutReport';
@@ -30,6 +32,10 @@ export async function runCheckoutsRun(
 	const checkouts = options.all
 		? ctx.store.getAllCheckouts()
 		: ctx.store.getCheckoutsByPattern(options.checkouts ?? []);
+
+	await runWithConcurrency(checkouts, 4, async checkout => {
+		await doCheckoutRun(ctx, checkout, options.command);
+	});
 
 	presentCheckoutReport(ctx.config, checkouts);
 	presentOperationsReport(ctx.log);
