@@ -1,7 +1,7 @@
 import type { LinkedPending } from '../../operations/types';
 import type { Checkout } from '../../store/createCheckout';
 
-export function createLinkedPending(
+export function createLinkedOperation(
 	checkout: Checkout | undefined,
 	pkg: string,
 	target: string,

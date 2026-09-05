@@ -1,7 +1,7 @@
 import type { UnlinkPending } from '../../operations/types';
 import type { Checkout } from '../../store/createCheckout';
 
-export function createUnlinkPending(
+export function createUnlinkOperation(
 	checkout: Checkout | undefined,
 	pkg: string,
 	source: string,

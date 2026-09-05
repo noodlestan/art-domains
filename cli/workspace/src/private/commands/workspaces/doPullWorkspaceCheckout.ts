@@ -1,28 +1,30 @@
 import simpleGit from 'simple-git';
 
 import type { WorkspaceContext } from '../../context/createWorkspaceContext';
+import { createOperationFailure } from '../../operations/createOperationFailure';
+import { createOperationSuccess } from '../../operations/createOperationSuccess';
 import { scanCheckoutState } from '../../scan/scanCheckoutState';
 import type { Checkout } from '../../store/createCheckout';
-import { createPullFailure } from '../operations/createPullFailure';
-import { createPullPending } from '../operations/createPullPending';
-import { createPullSuccess } from '../operations/createPullSuccess';
+import { createPullOperation } from '../operations/createPullOperation';
 
 export async function doPullWorkspaceCheckout(ctx: WorkspaceContext): Promise<Checkout | null> {
 	const workspace = ctx.workspace;
 	if (!workspace) return null;
 	if (!workspace.scan?.can?.('pull') || !workspace.scan.should?.('pull')) return null;
 
+	const pending = createPullOperation(workspace, workspace.record.branch);
 	const git = simpleGit(workspace.path);
 	try {
-		ctx.log.log(createPullPending(workspace, workspace.record.branch));
+		ctx.log.log(pending);
 		await git.pull('origin', workspace.record.branch);
 		const updated = await scanCheckoutState(ctx, workspace, true);
 		ctx.workspace = updated;
-		ctx.log.log(createPullSuccess(workspace, workspace.record.branch));
+		ctx.log.log(createOperationSuccess(pending));
 		return updated;
 	} catch (error) {
-		const op = createPullFailure(workspace, workspace.record.branch, error);
-		ctx.log.log(op);
+		ctx.log.log(
+			createOperationFailure(createPullOperation(workspace, workspace.record.branch), error),
+		);
 		return null;
 	}
 }

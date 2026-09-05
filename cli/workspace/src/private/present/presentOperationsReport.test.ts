@@ -3,9 +3,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createMockCommandContext } from '../../test/helpers/context/createMockCommandContext';
 import { makeTempDir } from '../../test/helpers/tempDirs/makeTempDir';
 import { removeTempDirs } from '../../test/helpers/tempDirs/removeTempDirs';
-import { createCloneFailure } from '../commands/operations/createCloneFailure';
-import { createCloneSuccess } from '../commands/operations/createCloneSuccess';
+import { createCloneOperation } from '../commands/operations/createCloneOperation';
 import { createOperationsLog } from '../log/createOperationsLog';
+import { createOperationFailure } from '../operations/createOperationFailure';
+import { createOperationSuccess } from '../operations/createOperationSuccess';
 import type { ClonePending } from '../operations/types';
 import { createCheckout } from '../store/createCheckout';
 
@@ -54,7 +55,7 @@ describe('presentOperationsReport', () => {
 			name: 'MyRepo',
 			remote: 'git@example.com:my-repo.git',
 		});
-		log.log(createCloneSuccess(checkout));
+		log.log(createOperationSuccess(createCloneOperation(checkout)));
 
 		presentOperationsReport(log);
 
@@ -78,13 +79,15 @@ describe('makeOperationLogLine', () => {
 			remote: 'git@example.com:my-repo.git',
 		});
 
-		const line = makeOperationLogLine(createCloneSuccess(checkout));
+		const line = makeOperationLogLine(createOperationSuccess(createCloneOperation(checkout)));
 
 		expect(line[0]).toBe('🟢');
 	});
 
 	it('renders a failure line with 🔴', () => {
-		const line = makeOperationLogLine(createCloneFailure(undefined, new Error('boom')));
+		const line = makeOperationLogLine(
+			createOperationFailure(createCloneOperation(undefined), new Error('boom')),
+		);
 
 		expect(line[0]).toBe('🔴');
 	});

@@ -1,7 +1,7 @@
 import type { PullPending } from '../../operations/types';
 import type { Checkout } from '../../store/createCheckout';
 
-export function createPullPending(checkout: Checkout, branch: string): PullPending {
+export function createPullOperation(checkout: Checkout, branch: string): PullPending {
 	return {
 		ts: new Date(),
 		checkout,

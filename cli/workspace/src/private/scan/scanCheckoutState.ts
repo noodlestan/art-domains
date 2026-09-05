@@ -1,8 +1,6 @@
 import { access } from 'node:fs/promises';
 
 import { WorkspaceContext } from '../context/createWorkspaceContext';
-import { createOperationFailure } from '../context/operations/createOperationFailure';
-import { createOperationPending } from '../context/operations/createOperationPending';
 import { getBehindAheadCount } from '../git/getBehindAheadCount';
 import { getCurrentBranch } from '../git/getCurrentBranch';
 import { getRemoteBranch } from '../git/getRemoteBranch';
@@ -12,6 +10,8 @@ import { hasRemote } from '../git/hasRemote';
 import { isDetachedHead } from '../git/isDetachedHead';
 import { isDirty } from '../git/isDirty';
 import { remoteFetch } from '../git/remoteFetch';
+import { createGenericOperation } from '../operations/createGenericOperation';
+import { createOperationFailure } from '../operations/createOperationFailure';
 import type { Checkout } from '../store/types';
 
 import {
@@ -38,7 +38,7 @@ export async function scanCheckoutState(
 		return { ...checkout, scan: createCheckoutNoClonedScan(Boolean(checkout.repo)) };
 	}
 
-	ctx.log.log(createOperationPending('scan-checkout-state', checkout.record.location));
+	ctx.log.log(createGenericOperation('scan-checkout-state', checkout.record.location));
 
 	let branch: string | null = null;
 	let remoteBranch: string | null = null;
@@ -72,7 +72,12 @@ export async function scanCheckoutState(
 			}
 		}
 	} catch (error) {
-		ctx.log.log(createOperationFailure('scan-checkout-state', error, checkout.record.location));
+		ctx.log.log(
+			createOperationFailure(
+				createGenericOperation('scan-checkout-state', checkout.record.location),
+				error,
+			),
+		);
 	}
 
 	const remoteState = createRemoteState(branch, checkout.record.branch, remote);

@@ -1,5 +1,5 @@
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
-import { createOperationPending } from '../../private/context/operations/createOperationPending';
+import { createGenericOperation } from '../../private/operations/createGenericOperation';
 import { presentCheckoutRepositoryState } from '../../private/present/presentCheckoutRepositoryState';
 import { presentPackageStateReport } from '../../private/present/presentPackageStateReport';
 import { getRepositoryCheckoutPackages } from '../../private/repositories/getRepositoryCheckoutPackages';
@@ -26,7 +26,7 @@ export async function runRepo(
 	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
 
-	ctx.log.log(createOperationPending('command', ['repo', options.locations]));
+	ctx.log.log(createGenericOperation('command', ['repo', options.locations]));
 
 	await scanAllCheckoutsStates(ctx);
 

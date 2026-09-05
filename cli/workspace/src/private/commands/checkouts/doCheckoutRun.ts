@@ -1,9 +1,9 @@
 import type { WorkspaceContext } from '../../context/createWorkspaceContext';
 import { runCommandInDirectory } from '../../exec/runCommandInDirectory';
+import { createOperationFailure } from '../../operations/createOperationFailure';
+import { createOperationSuccess } from '../../operations/createOperationSuccess';
 import type { Checkout } from '../../store/createCheckout';
-import { createCheckoutRunFailure } from '../operations/createCheckoutRunFailure';
-import { createCheckoutRunPending } from '../operations/createCheckoutRunPending';
-import { createCheckoutRunSuccess } from '../operations/createCheckoutRunSuccess';
+import { createCheckoutRunOperation } from '../operations/createCheckoutRunOperation';
 
 export async function doCheckoutRun(
 	ctx: WorkspaceContext,
@@ -13,20 +13,22 @@ export async function doCheckoutRun(
 	const commandLine = command.join(' ');
 
 	if (!checkout.scan?.state('exists').exists) {
-		const op = createCheckoutRunFailure(checkout, commandLine, new Error('checkout not cloned'));
+		const op = createOperationFailure(
+			createCheckoutRunOperation(checkout, commandLine),
+			new Error('checkout not cloned'),
+		);
 		ctx.log.log(op);
 		return null;
 	}
 
+	const pending = createCheckoutRunOperation(checkout, commandLine);
 	try {
-		ctx.log.log(createCheckoutRunPending(checkout, commandLine));
+		ctx.log.log(pending);
 		const runOutcome = await runCommandInDirectory(checkout.path, command);
 		if (runOutcome.code === 0) {
-			ctx.log.log(createCheckoutRunSuccess(checkout, commandLine));
+			ctx.log.log(createOperationSuccess(pending));
 		} else {
-			ctx.log.log(
-				createCheckoutRunFailure(checkout, commandLine, new Error(`Exit code: ${runOutcome.code}`)),
-			);
+			ctx.log.log(createOperationFailure(pending, new Error(`Exit code: ${runOutcome.code}`)));
 		}
 		if (!runOutcome.output.trim() && !runOutcome.error.trim()) {
 			console.info('\n--- [No output]\n');
@@ -44,8 +46,7 @@ export async function doCheckoutRun(
 		}
 		return checkout;
 	} catch (error) {
-		const op = createCheckoutRunFailure(checkout, commandLine, error);
-		ctx.log.log(op);
+		ctx.log.log(createOperationFailure(pending, error));
 		return null;
 	}
 }

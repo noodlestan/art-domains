@@ -1,15 +1,13 @@
 import simpleGit from 'simple-git';
 
 import type { WorkspaceContext } from '../../context/createWorkspaceContext';
+import { createOperationFailure } from '../../operations/createOperationFailure';
+import { createOperationSuccess } from '../../operations/createOperationSuccess';
 import { scanCheckoutState } from '../../scan/scanCheckoutState';
 import type { Checkout } from '../../store/createCheckout';
 import { createCheckout } from '../../store/createCheckout';
-import { createPullFailure } from '../operations/createPullFailure';
-import { createPullPending } from '../operations/createPullPending';
-import { createPullSuccess } from '../operations/createPullSuccess';
-import { createPushFailure } from '../operations/createPushFailure';
-import { createPushPending } from '../operations/createPushPending';
-import { createPushSuccess } from '../operations/createPushSuccess';
+import { createPullOperation } from '../operations/createPullOperation';
+import { createPushOperation } from '../operations/createPushOperation';
 
 export async function syncWorkspaceCheckout(ctx: WorkspaceContext): Promise<Checkout | null> {
 	let workspace = ctx.workspace;
@@ -27,12 +25,13 @@ export async function syncWorkspaceCheckout(ctx: WorkspaceContext): Promise<Chec
 
 	// Pull
 	if (workspace.scan?.can?.('pull')) {
+		const pending = createPullOperation(workspace, workspace.record.branch);
 		try {
-			ctx.log.log(createPullPending(workspace, workspace.record.branch));
+			ctx.log.log(pending);
 			await git.pull('origin', workspace.record.branch);
-			ctx.log.log(createPullSuccess(workspace, workspace.record.branch));
+			ctx.log.log(createOperationSuccess(pending));
 		} catch (error) {
-			const op = createPullFailure(workspace, workspace.record.branch, error);
+			const op = createOperationFailure(pending, error);
 			ctx.log.log(op);
 			return null;
 		}
@@ -40,12 +39,13 @@ export async function syncWorkspaceCheckout(ctx: WorkspaceContext): Promise<Chec
 
 	// Push
 	if (workspace.scan?.can?.('push')) {
+		const pending = createPushOperation(workspace, workspace.record.branch);
 		try {
-			ctx.log.log(createPushPending(workspace, workspace.record.branch));
+			ctx.log.log(pending);
 			await git.push('origin', workspace.record.branch);
-			ctx.log.log(createPushSuccess(workspace, workspace.record.branch));
+			ctx.log.log(createOperationSuccess(pending));
 		} catch (error) {
-			const op = createPushFailure(workspace, workspace.record.branch, error);
+			const op = createOperationFailure(pending, error);
 			ctx.log.log(op);
 			return null;
 		}

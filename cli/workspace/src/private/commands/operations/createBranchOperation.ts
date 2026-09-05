@@ -1,15 +1,15 @@
-import type { PushPending } from '../../operations/types';
+import type { BranchPending } from '../../operations/types';
 import type { Checkout } from '../../store/createCheckout';
 
-export function createPushPending(checkout: Checkout, branch: string): PushPending {
+export function createBranchOperation(checkout: Checkout, branch: string): BranchPending {
 	return {
 		ts: new Date(),
 		checkout,
 		outcome: 'pending',
-		operation: 'push',
+		operation: 'branch',
 		branch,
 		message() {
-			return `to origin/${branch}`;
+			return `branch ${branch}`;
 		},
 		timing() {
 			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;

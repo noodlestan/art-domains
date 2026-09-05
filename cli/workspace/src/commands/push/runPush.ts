@@ -3,7 +3,7 @@ import { doPushCheckout } from '../../private/commands/checkouts/doPushCheckout'
 import { doPushWorkspaceCheckout } from '../../private/commands/workspaces/doPushWorkspaceCheckout';
 import { scanWorkspaceCheckout } from '../../private/commands/workspaces/scanWorkspaceCheckout';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
-import { createOperationPending } from '../../private/context/operations/createOperationPending';
+import { createGenericOperation } from '../../private/operations/createGenericOperation';
 import { presentCheckoutReport } from '../../private/present/presentCheckoutReport';
 import { presentOperationsReport } from '../../private/present/presentOperationsReport';
 import { loadCheckoutRecords } from '../../private/resources/checkout/loadCheckoutRecords';
@@ -19,7 +19,7 @@ export async function runPush(
 	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
 
-	ctx.log.log(createOperationPending('command', ['push', options.checkouts]));
+	ctx.log.log(createGenericOperation('command', ['push', options.checkouts]));
 
 	await scanAllCheckoutsStates(ctx);
 

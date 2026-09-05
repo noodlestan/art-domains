@@ -1,5 +1,5 @@
 import { WorkspaceContext } from '../../context/createWorkspaceContext';
-import { createOperationPending } from '../../context/operations/createOperationPending';
+import { createGenericOperation } from '../../operations/createGenericOperation';
 import { findRecordFiles } from '../../records/findRecordFiles';
 import { RepositoryCheckoutRecord, RepositoryRecord } from '../types';
 
@@ -10,7 +10,7 @@ export async function loadCheckoutRecords(
 	repos: RepositoryRecord[],
 ): Promise<RepositoryCheckoutRecord[]> {
 	const searchPath = ctx.config.root.path;
-	ctx.log.log(createOperationPending('load-checkout-records', searchPath));
+	ctx.log.log(createGenericOperation('load-checkout-records', searchPath));
 
 	const recordFiles = await findRecordFiles(ctx.config.records, searchPath, ['Checkout']);
 	const checkouts = await Promise.all(

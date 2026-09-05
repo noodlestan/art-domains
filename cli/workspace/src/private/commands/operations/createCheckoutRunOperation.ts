@@ -1,19 +1,18 @@
-import type { BranchSuccess } from '../../operations/types';
+import type { CheckoutRunPending } from '../../operations/types';
 import type { Checkout } from '../../store/createCheckout';
 
-export function createBranchSuccess(
+export function createCheckoutRunOperation(
 	checkout: Checkout,
-	branch: string,
-	message?: string,
-): BranchSuccess {
+	command: string,
+): CheckoutRunPending {
 	return {
 		ts: new Date(),
 		checkout,
-		outcome: 'success',
-		operation: 'branch',
-		branch,
+		outcome: 'pending',
+		operation: 'run',
+		command,
 		message() {
-			return message || '<empty>';
+			return command;
 		},
 		timing() {
 			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;

@@ -1,8 +1,9 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { createCloneFailure } from '../../private/commands/operations/createCloneFailure';
+import { createCloneOperation } from '../../private/commands/operations/createCloneOperation';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
+import { createOperationFailure } from '../../private/operations/createOperationFailure';
 import { presentCheckoutReport } from '../../private/present/presentCheckoutReport';
 import { presentOperationsReport } from '../../private/present/presentOperationsReport';
 import { saveCheckoutRecord } from '../../private/resources/checkout/saveCheckoutRecord';
@@ -23,7 +24,9 @@ export async function cloneSpecific(
 	const repo = repos.find(r => r.name.toLowerCase() === canonical.toLowerCase());
 
 	if (!repo) {
-		ctx.log.log(createCloneFailure(undefined, `unknown repo "${repoName}"`));
+		ctx.log.log(
+			createOperationFailure(createCloneOperation(undefined), `unknown repo "${repoName}"`),
+		);
 		presentOperationsReport(ctx.log);
 		return;
 	}
@@ -33,7 +36,7 @@ export async function cloneSpecific(
 	const existing = ctx.store.getCheckoutForLocation(location);
 	if (existing && existing.repo?.name !== repo.name) {
 		const msg = `location ${location} is already used by checkout '${existing.record.name}'.`;
-		ctx.log.log(createCloneFailure(existing, msg));
+		ctx.log.log(createOperationFailure(createCloneOperation(existing), msg));
 		presentOperationsReport(ctx.log);
 		return;
 	}
@@ -44,7 +47,7 @@ export async function cloneSpecific(
 		const targetDir = join(ctx.config.root.path, ctx.config.clone.path, location);
 		if (existsSync(targetDir)) {
 			const msg = `directory already exists at ${targetDir}`;
-			ctx.log.log(createCloneFailure(undefined, msg));
+			ctx.log.log(createOperationFailure(createCloneOperation(undefined), msg));
 			presentOperationsReport(ctx.log);
 			return;
 		}

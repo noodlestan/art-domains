@@ -1,7 +1,7 @@
 import type { PublishPending } from '../../operations/types';
 import type { Checkout } from '../../store/createCheckout';
 
-export function createPublishPending(
+export function createPublishOperation(
 	checkout: Checkout | undefined,
 	pkg: string,
 	version: string,

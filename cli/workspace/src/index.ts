@@ -15,8 +15,8 @@ import { runSync } from './commands/sync/runSync';
 import { runUnlink } from './commands/unlink/runUnlink';
 import { loadWorkspaceConfig } from './config/loadWorkspaceConfig';
 import { createWorkspaceContext } from './private/context/createWorkspaceContext';
-import { createOperationPending } from './private/context/operations/createOperationPending';
 import { createOperationsLog } from './private/log/createOperationsLog';
+import { createGenericOperation } from './private/operations/createGenericOperation';
 import type { Operation } from './private/operations/types';
 import { makeOperationLogLine } from './private/present/makeOperationLogLine';
 import { createCheckoutStore } from './private/store/createCheckoutStore';
@@ -39,7 +39,7 @@ program
 	.option('-r, --refetch', 'fetch ahead/behind data from remote')
 	.action(async (options: { auto?: boolean; refetch?: boolean }) => {
 		const root = process.cwd();
-		logger(createOperationPending('boot'));
+		logger(createGenericOperation('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
@@ -63,7 +63,7 @@ program
 			options: { all?: boolean },
 		) => {
 			const root = process.cwd();
-			logger(createOperationPending('boot'));
+			logger(createGenericOperation('boot'));
 			const config = await loadWorkspaceConfig(root);
 			const store = createCheckoutStore();
 			const log = createOperationsLog(logger);
@@ -84,7 +84,7 @@ program
 	.option('-A, --all', 'Apply to all checkouts')
 	.action(async (branch: string, options: { checkouts?: string[]; all?: boolean }) => {
 		const root = process.cwd();
-		logger(createOperationPending('boot'));
+		logger(createGenericOperation('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
@@ -103,7 +103,7 @@ program
 	.option('-A, --all', 'Apply to all checkouts')
 	.action(async (options: { checkouts?: string[]; all?: boolean }) => {
 		const root = process.cwd();
-		logger(createOperationPending('boot'));
+		logger(createGenericOperation('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
@@ -122,7 +122,7 @@ program
 	.option('-A, --all', 'Apply to all checkouts')
 	.action(async (options: { checkouts?: string[]; all?: boolean }) => {
 		const root = process.cwd();
-		logger(createOperationPending('boot'));
+		logger(createGenericOperation('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
@@ -141,7 +141,7 @@ program
 	.option('-A, --all', 'Apply to all checkouts')
 	.action(async (options: { checkouts?: string[]; all?: boolean }) => {
 		const root = process.cwd();
-		logger(createOperationPending('boot'));
+		logger(createGenericOperation('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
@@ -163,7 +163,7 @@ program
 	.option('-A, --all', 'Apply to all checkouts')
 	.action(async (command: string[], options: { checkouts?: string[]; all?: boolean }) => {
 		const root = process.cwd();
-		logger(createOperationPending('boot'));
+		logger(createGenericOperation('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
@@ -178,7 +178,7 @@ program
 	.argument('[checkouts...]', 'checkout locations to list (default: all checkouts)')
 	.action(async (locations: string[]) => {
 		const root = process.cwd();
-		logger(createOperationPending('boot'));
+		logger(createGenericOperation('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
@@ -192,7 +192,7 @@ program
 	.description('Link packages for local dev')
 	.action(async () => {
 		const root = process.cwd();
-		logger(createOperationPending('boot'));
+		logger(createGenericOperation('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
@@ -206,7 +206,7 @@ program
 	.description('Unlink packages')
 	.action(async () => {
 		const root = process.cwd();
-		logger(createOperationPending('boot'));
+		logger(createGenericOperation('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);
@@ -221,7 +221,7 @@ program
 	.option('-a, --auto', 'auto-publish')
 	.action(async (options: { auto?: boolean }) => {
 		const root = process.cwd();
-		logger(createOperationPending('boot'));
+		logger(createGenericOperation('boot'));
 		const config = await loadWorkspaceConfig(root);
 		const store = createCheckoutStore();
 		const log = createOperationsLog(logger);

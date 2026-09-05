@@ -1,25 +1,25 @@
 import type { WorkspaceContext } from '../../context/createWorkspaceContext';
 import { pullCheckout } from '../../git/pullCheckout';
+import { createOperationFailure } from '../../operations/createOperationFailure';
+import { createOperationSuccess } from '../../operations/createOperationSuccess';
 import { scanCheckoutState } from '../../scan/scanCheckoutState';
 import type { Checkout } from '../../store/createCheckout';
-import { createPullFailure } from '../operations/createPullFailure';
-import { createPullPending } from '../operations/createPullPending';
-import { createPullSuccess } from '../operations/createPullSuccess';
+import { createPullOperation } from '../operations/createPullOperation';
 
 export async function doPullCheckout(
 	ctx: WorkspaceContext,
 	checkout: Checkout,
 ): Promise<Checkout | null> {
+	const pending = createPullOperation(checkout, checkout.record.branch);
 	try {
-		ctx.log.log(createPullPending(checkout, checkout.record.branch));
+		ctx.log.log(pending);
 		await pullCheckout(checkout);
 		const updated = await scanCheckoutState(ctx, checkout, true);
 		ctx.store.updateCheckout(updated);
-		ctx.log.log(createPullSuccess(checkout, checkout.record.branch));
+		ctx.log.log(createOperationSuccess(pending));
 		return updated;
 	} catch (error) {
-		const op = createPullFailure(checkout, checkout.record.branch, error);
-		ctx.log.log(op);
+		ctx.log.log(createOperationFailure(pending, error));
 		return null;
 	}
 }

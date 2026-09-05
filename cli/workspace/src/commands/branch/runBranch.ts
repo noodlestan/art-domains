@@ -1,7 +1,8 @@
 import { doBranchCheckout } from '../../private/commands/checkouts/doBranchCheckout';
-import { createBranchFailure } from '../../private/commands/operations/createBranchFailure';
+import { createBranchOperation } from '../../private/commands/operations/createBranchOperation';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
-import { createOperationPending } from '../../private/context/operations/createOperationPending';
+import { createGenericOperation } from '../../private/operations/createGenericOperation';
+import { createOperationFailure } from '../../private/operations/createOperationFailure';
 import { presentCheckoutReport } from '../../private/present/presentCheckoutReport';
 import { presentOperationsReport } from '../../private/present/presentOperationsReport';
 import { loadCheckoutRecords } from '../../private/resources/checkout/loadCheckoutRecords';
@@ -18,7 +19,7 @@ export async function runBranch(
 	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
 
-	ctx.log.log(createOperationPending('command', ['branch', options.branch, options.checkouts]));
+	ctx.log.log(createGenericOperation('command', ['branch', options.branch, options.checkouts]));
 
 	if (!options.all && (!options.checkouts || options.checkouts.length === 0)) {
 		console.error('No checkouts matched.');
@@ -38,7 +39,9 @@ export async function runBranch(
 		ctx.store.updateCheckout(scanned);
 
 		if (!scanned.scan?.can?.('branch')) {
-			ctx.log.log(createBranchFailure(branch, 'checkout not cloned', scanned));
+			ctx.log.log(
+				createOperationFailure(createBranchOperation(scanned, branch), 'checkout not cloned'),
+			);
 			continue;
 		}
 

@@ -72,7 +72,7 @@ Detailed definitions live in `architecture/operations-log.md`. Symbols relevant 
 - **OperationsLog** — append-only: `log(operation)`, `all()`, `since(ts)`, `latest(n)`
 - **Operation** — `operation` kind, `ts`, `checkout`, `outcome` (success/failure), `message()`
 - **Kinds** — `clone`, `push`, `pull`, `publish`, `branch`, `linked`, `unlink`, `run`
-- **Factories** — one per kind in `src/private/operations/`: `createCloneSuccess`, `createPushSuccess`, `createPushFailure`, `createPullSuccess`, `createPullFailure`, `createBranchSuccess`, `createBranchFailure`, `createLinkedSuccess`, `createLinkedFailure`, `createUnlinkSuccess`, `createUnlinkFailure`, `createCheckoutRunPending`, `createCheckoutRunSuccess`, `createCheckoutRunFailure`, etc. Read-only commands (`repo`, `links`) never log operations — their failures surface as report states.
+- **Factories** — per-kind operation factories in `src/private/commands/operations/`: `createCloneOperation`, `createPushOperation`, `createPullOperation`, `createBranchOperation`, `createLinkedOperation`, `createPublishOperation`, `createUnlinkOperation`, `createCheckoutRunOperation`; plus generic ones in `src/private/operations/`: `createGenericOperation(operation, data)` / `createOperationSuccess(pending, message?)` / `createOperationFailure(pending, error)`. Each operation logs a pending instance; success/failure are derived from it via the generic factories. Read-only commands (`repo`, `links`) never log operations — their failures surface as report states.
 
 ## Reports
 
@@ -120,7 +120,7 @@ cloneSpecific(ctx, repos, repoName, checkoutInput)
   canonical = repoName without "@scope/" prefix
   repo = repos.find(r => r.name.toLowerCase() === canonical.toLowerCase())
   if not repo:
-    ctx.log.log(createCloneFailure(undefined, `unknown repo "${repoName}"`))
+    ctx.log.log(createOperationFailure(createCloneOperation(undefined), `unknown repo "${repoName}"`))
     return
 
   location = createCheckoutLocation(repo, checkoutInput)
@@ -128,13 +128,13 @@ cloneSpecific(ctx, repos, repoName, checkoutInput)
   elsewhere = ctx.store.getCheckoutOfRepo(repo.name)
   if elsewhere and elsewhere.record.location !== location:
     msg = `checkout for '${repo.name}' exists at ${elsewhere.record.location}. Cannot clone to ${location}.`
-    ctx.log.log(createCloneFailure(elsewhere, msg))
+    ctx.log.log(createOperationFailure(createCloneOperation(elsewhere), msg))
     return
 
   existing = ctx.store.getCheckoutForLocation(location)
   if existing and existing.repo?.name !== repo.name:
     msg = `location ${location} is already used by checkout '${existing.record.name}'.`
-    ctx.log.log(createCloneFailure(existing, msg))
+    ctx.log.log(createOperationFailure(createCloneOperation(existing), msg))
     return
 
   if not existing:
@@ -173,25 +173,23 @@ branch(branch, options)
     targets = ctx.store.getCheckoutsByPattern(options.checkouts)
 
   for checkout in targets:
-    if not checkout:
-      ctx.log.log(createBranchFailure(branch, "not cloned", checkout))
-      continue
-
     checkout = scanCheckoutState(checkout)
     if not checkout.exists:
-      ctx.log.log(createBranchFailure(branch, "checkout not cloned", checkout))
+      ctx.log.log(createOperationFailure(createBranchOperation(checkout, branch), "checkout not cloned"))
       continue
 
+    pending = createBranchOperation(checkout, branch)
     try:
+      ctx.log.log(pending)
       outcome = createOrSwitchBranch(checkout.path, branch)      // "created" | "switched"
-      ctx.log.log(createBranchSuccess(checkout, branch, outcome === "created" ? `created ${branch}` : `switched to ${branch}`))
+      ctx.log.log(createOperationSuccess(pending, outcome === "created" ? `created ${branch}` : `switched to ${branch}`))
 
       updated = { ...checkout, record: { ...checkout.record, branch } }
       ctx.store.updateCheckout(updated)
       scanned = scanCheckoutState(updated)
       await saveCheckoutRecord(ctx.config, scanned.record, scanned.filename)
     catch error:
-      ctx.log.log(createBranchFailure(branch, error, checkout))
+      ctx.log.log(createOperationFailure(createBranchOperation(checkout, branch), error))
       continue
 
   presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts())
@@ -285,14 +283,14 @@ link(location, package, target)
 
   sourceCheckout = ctx.store.getCheckoutForLocation(location)
   if not sourceCheckout:
-    ctx.log.log(createLinkedFailure(undefined, package, "unknown location " + location))
+    ctx.log.log(createOperationFailure(createLinkedOperation(undefined, package, ""), "unknown location " + location))
     presentOperationsReport(ctx.log)
     return
 
   projects = readProjectRecords(ctx, sourceCheckout)
   pkg = findPackage(projects, package)          // search by canonicalName, then by name
   if not pkg:
-    ctx.log.log(createLinkedFailure(sourceCheckout, package, "unknown package"))
+    ctx.log.log(createOperationFailure(createLinkedOperation(sourceCheckout, package, ""), "unknown package"))
     presentOperationsReport(ctx.log)
     return
 
@@ -304,7 +302,7 @@ link(location, package, target)
   rm -rf linkTarget                              // replace existing symlink or npm-installed dir
   ln -s pkgPath linkTarget
 
-  ctx.log.log(createLinkedSuccess(sourceCheckout, pkg.canonicalName, linkTarget))
+  ctx.log.log(createOperationSuccess(createLinkedOperation(sourceCheckout, pkg.canonicalName, linkTarget)))
   presentOperationsReport(ctx.log)
 ```
 
@@ -359,14 +357,14 @@ unlink(location, package, target)
 
   sourceCheckout = ctx.store.getCheckoutForLocation(location)
   if not sourceCheckout:
-    ctx.log.log(createUnlinkFailure(undefined, package, "unknown location " + location))
+    ctx.log.log(createOperationFailure(createUnlinkOperation(undefined, package, ""), "unknown location " + location))
     presentOperationsReport(ctx.log)
     return
 
   projects = readProjectRecords(ctx, sourceCheckout)
   pkg = findPackage(projects, package)
   if not pkg:
-    ctx.log.log(createUnlinkFailure(sourceCheckout, package, "unknown package"))
+    ctx.log.log(createOperationFailure(createUnlinkOperation(sourceCheckout, package, ""), "unknown package"))
     presentOperationsReport(ctx.log)
     return
 
@@ -379,7 +377,7 @@ unlink(location, package, target)
 
   rm linkTarget
   npm install in targetDir
-  ctx.log.log(createUnlinkSuccess(sourceCheckout, pkg.canonicalName, linkTarget))
+  ctx.log.log(createOperationSuccess(createUnlinkOperation(sourceCheckout, pkg.canonicalName, linkTarget)))
   presentOperationsReport(ctx.log)
 ```
 
@@ -530,8 +528,10 @@ publish(auto)
           if not pkgJson or pkgJson.private: continue
           published = npmIsPublished(pkg.canonicalName, pkgJson.version)
           if not published and auto:
+            pending = createPublishOperation(checkout, pkg.canonicalName, pkgJson.version)
+            ctx.log.log(pending)
             npm publish --access public in dir
-            ctx.log.log(createPublishSuccess(checkout, pkg.canonicalName, pkgJson.version))
+            ctx.log.log(createOperationSuccess(pending))
 
   presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts())
   presentOperationsReport(ctx.log)
@@ -783,13 +783,15 @@ pushCleanCheckouts(ctx)
 ```pseudo
 pushCheckout(ctx, checkout)
   git = simpleGit(checkout.path)
+  pending = createPushOperation(checkout, checkout.record.branch)
   try:
+    ctx.log.log(pending)
     git push origin checkout.record.branch
     updated = { ...checkout, unpushed: 0, issues: checkout.issues.filter(i => not /\d+ commit/.test(i)) }
     ctx.store.updateCheckout(updated)
-    ctx.log.log(createPushSuccess(checkout, checkout.record.branch))
+    ctx.log.log(createOperationSuccess(pending))
   catch error:
-    op = createPushFailure(checkout, checkout.record.branch, error)
+    op = createOperationFailure(pending, error)
     updated = { ...checkout, issues: [...checkout.issues, op.message()] }
     ctx.store.updateCheckout(updated)
     ctx.log.log(op)
@@ -820,21 +822,22 @@ doCheckoutRun(ctx, checkout, command)
   commandLine = command.join(" ")
 
   if not checkout.scan?.state("exists").exists:
-    ctx.log.log(createCheckoutRunFailure(checkout, commandLine, "checkout not cloned"))
+    ctx.log.log(createOperationFailure(createCheckoutRunOperation(checkout, commandLine), "checkout not cloned"))
     return null
 
+  pending = createCheckoutRunOperation(checkout, commandLine)
   try:
-    ctx.log.log(createCheckoutRunPending(checkout, commandLine))
+    ctx.log.log(pending)
     runOutcome = await runCommandInDirectory(checkout.path, command)
     if runOutcome.code === 0:
-      ctx.log.log(createCheckoutRunSuccess(checkout, commandLine))
+      ctx.log.log(createOperationSuccess(pending))
     else:
-      ctx.log.log(createCheckoutRunFailure(checkout, commandLine, "Exit code: " + runOutcome.code))
+      ctx.log.log(createOperationFailure(pending, "Exit code: " + runOutcome.code))
     if runOutcome.output: print "--- Output:" + runOutcome.output
     if runOutcome.error: print "--- Error:" + runOutcome.error
     return checkout
   catch error:
-    ctx.log.log(createCheckoutRunFailure(checkout, commandLine, error))
+    ctx.log.log(createOperationFailure(pending, error))
     return null
 ```
 
@@ -878,14 +881,16 @@ cloneIfMissing(ctx, checkout)
   if scanned.exists: return scanned
   if not scanned.repo: return null
 
+  pending = createCloneOperation(scanned)
   try:
+    ctx.log.log(pending)
     git clone scanned.repo.remote scanned.path     // simpleGit("").clone(remote, path)
   catch error:
-    ctx.log.log(createCloneFailure(scanned, error))
+    ctx.log.log(createOperationFailure(pending, error))
     return null
 
   rescan = scanCheckoutState(scanned)
-  ctx.log.log(createCloneSuccess(rescan))
+  ctx.log.log(createOperationSuccess(createCloneOperation(rescan)))
 
   actualBranch = getCurrentBranch(scanned.path)
   await saveCheckoutRecord(ctx.config, {

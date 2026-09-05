@@ -1,7 +1,7 @@
 import { runWithConcurrency } from '../../private/async/runWithConcurrency';
 import { doCheckoutRun } from '../../private/commands/checkouts/doCheckoutRun';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
-import { createOperationPending } from '../../private/context/operations/createOperationPending';
+import { createGenericOperation } from '../../private/operations/createGenericOperation';
 import { presentCheckoutReport } from '../../private/present/presentCheckoutReport';
 import { presentOperationsReport } from '../../private/present/presentOperationsReport';
 import { loadCheckoutRecords } from '../../private/resources/checkout/loadCheckoutRecords';
@@ -17,7 +17,7 @@ export async function runCheckoutsRun(
 	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
 
-	ctx.log.log(createOperationPending('command', ['checkouts', 'run', options.command]));
+	ctx.log.log(createGenericOperation('command', ['checkouts', 'run', options.command]));
 
 	await scanAllCheckoutsStates(ctx);
 

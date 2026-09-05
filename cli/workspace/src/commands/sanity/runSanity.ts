@@ -1,7 +1,7 @@
 import { doPullWorkspaceCheckout } from '../../private/commands/workspaces/doPullWorkspaceCheckout';
 import { scanWorkspaceCheckout } from '../../private/commands/workspaces/scanWorkspaceCheckout';
 import type { WorkspaceContext } from '../../private/context/createWorkspaceContext';
-import { createOperationPending } from '../../private/context/operations/createOperationPending';
+import { createGenericOperation } from '../../private/operations/createGenericOperation';
 import { presentCheckoutReport } from '../../private/present/presentCheckoutReport';
 import { presentExtraneousReport } from '../../private/present/presentExtraneousReport';
 import { presentOperationsReport } from '../../private/present/presentOperationsReport';
@@ -22,7 +22,7 @@ export async function runSanity(
 	const records = await loadCheckoutRecords(ctx, repos);
 	hydrateStoreFromRecords(ctx.config, ctx.store, records);
 
-	ctx.log.log(createOperationPending('command', ['sanity', options.auto]));
+	ctx.log.log(createGenericOperation('command', ['sanity', options.auto]));
 
 	await scanWorkspaceCheckout(ctx, options.refetch);
 
