@@ -2,7 +2,7 @@
 
 **ID:** `create-art-cli-project-repo`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -67,7 +67,7 @@ Scaffold the art-cli repo from the art-js-reference template: dotfiles, lint con
 
 ### Next
 
-Delegate the `READY` iterations: `scaffold-repository`, `add-guide`, `populate-records` (instructions written under `./plan-create-art-cli-project-repo/instructions/`).
+Move plan to `1-done/` or proceed to next plan in milestone.
 
 ### Blockers
 
@@ -122,17 +122,19 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions       | Status  |
-| ------------------------------ | ------- |
-| Iteration: Scaffold Repository | `READY` |
-| Iteration: Add Guide           | `READY` |
-| Iteration: Populate Records    | `READY` |
+| Iteration / Instructions       | Status |
+| ------------------------------ | ------ |
+| Iteration: Scaffold Repository | `DONE` |
+| Iteration: Add Guide           | `DONE` |
+| Iteration: Populate Records    | `DONE` |
 
 ### Iteration: Scaffold Repository
 
 **Id:** `scaffold-repository`
 
-**Status:** `READY`
+**Status:** `DONE`
+
+**Report:** `./plan-create-art-cli-project-repo/instructions/scaffold-repository__report.md`
 
 **Purpose:** Scaffold the art-cli repository from the art-js-reference template.
 
@@ -152,9 +154,9 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 #### Commits:
 
-| ID                            | Repository / Checkout / Branch | Policy       | Hash | Status     |
-| ----------------------------- | ------------------------------ | ------------ | ---- | ---------- |
-| `scaffold-art-cli-repository` | Art Cli / `$ART_CLI` / `main`  | `AUTONOMOUS` | -    | `AUTHORED` |
+| ID                            | Repository / Checkout / Branch | Policy       | Hash      | Status      |
+| ----------------------------- | ------------------------------ | ------------ | --------- | ----------- |
+| `scaffold-art-cli-repository` | Art Cli / `$ART_CLI` / `main`  | `AUTONOMOUS` | `3da41ec` | `COMMITTED` |
 
 ##### Commit: `scaffold-art-cli-repository`
 
@@ -172,7 +174,9 @@ scaffold(art-cli): Scaffold Art Cli repository from Art Js template.
 
 **Id:** `add-guide`
 
-**Status:** `READY`
+**Status:** `DONE`
+
+**Report:** `./plan-create-art-cli-project-repo/instructions/add-guide__report.md`
 
 **Purpose:** Add the guide to the new repository.
 
@@ -190,9 +194,9 @@ scaffold(art-cli): Scaffold Art Cli repository from Art Js template.
 
 #### Commits:
 
-| ID                  | Repository / Checkout / Branch | Policy       | Hash | Status     |
-| ------------------- | ------------------------------ | ------------ | ---- | ---------- |
-| `add-art-cli-guide` | Art Cli / `$ART_CLI` / `main`  | `AUTONOMOUS` | -    | `AUTHORED` |
+| ID                  | Repository / Checkout / Branch | Policy       | Hash      | Status      |
+| ------------------- | ------------------------------ | ------------ | --------- | ----------- |
+| `add-art-cli-guide` | Art Cli / `$ART_CLI` / `main`  | `AUTONOMOUS` | `6e47e36` | `COMMITTED` |
 
 ##### Commit: `add-art-cli-guide`
 
@@ -206,7 +210,9 @@ guides(art-cli): Add root guide to Art Cli repository.
 
 **Id:** `populate-records`
 
-**Status:** `READY`
+**Status:** `DONE`
+
+**Report:** `./plan-create-art-cli-project-repo/instructions/populate-records__report.md`
 
 **Purpose:** Populate the project, repo, and namespace records for the Art Cli project.
 
@@ -227,9 +233,9 @@ guides(art-cli): Add root guide to Art Cli repository.
 
 #### Commits:
 
-| ID                         | Repository / Checkout / Branch | Policy       | Hash | Status     |
-| -------------------------- | ------------------------------ | ------------ | ---- | ---------- |
-| `populate-art-cli-records` | Art Cli / `$ART_CLI` / `main`  | `AUTONOMOUS` | -    | `AUTHORED` |
+| ID                         | Repository / Checkout / Branch | Policy       | Hash      | Status      |
+| -------------------------- | ------------------------------ | ------------ | --------- | ----------- |
+| `populate-art-cli-records` | Art Cli / `$ART_CLI` / `main`  | `AUTONOMOUS` | `917c561` | `COMMITTED` |
 
 ##### Commit: `populate-art-cli-records`
 
@@ -254,7 +260,9 @@ records(art-cli): Populate project, repo, and namespace records.
 
 ### Evidence
 
-- None.
+- Scaffolded Art Cli repository skeleton, dotfiles, configs, architecture index, parking lots, and `_guide.md` at `$ART_CLI`.
+- Populated project, repo, namespace, license, dependencies, and scripts records at `$ART_CLI/_records/`.
+- Commits `3da41ec`, `6e47e36`, and `10b5f13` authored and pushed to `origin/main`.
 
 ### Findings
 

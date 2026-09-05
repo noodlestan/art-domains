@@ -207,7 +207,7 @@ guides(art-work): Add root guide to the Art Work repository.
 
 | ID                          | Repository / Checkout / Branch  | Policy       | Hash      | Status      |
 | --------------------------- | ------------------------------- | ------------ | --------- | ----------- |
-| `populate-art-work-records` | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | `9a2cd88` | `COMMITTED` |
+| `populate-art-work-records` | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | `6285c27` | `COMMITTED` |
 
 ##### Commit: `populate-art-work-records`
 

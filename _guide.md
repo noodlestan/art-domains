@@ -65,8 +65,8 @@ Projects in this repository use the following workflows:
 ### Planning Work
 
 - The backlog lives at `_backlog/` with subdirectories such as `/3-now` and `/4-next/`.
-- The short-term focus is captured in `_roadmap/_parking-lot.md`.
-- The requirements, use cases, and principles are captured in `_roadmap/_architect.md`.
+- The short-term focus is captured in `_backlog/_parking-lot.md`.
+- The requirements, use cases, and principles are captured in `_backlog/_architect.md`.
 
 ## Operating Instructions
 
