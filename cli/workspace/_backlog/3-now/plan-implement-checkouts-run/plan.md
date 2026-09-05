@@ -2,7 +2,7 @@
 
 **ID:** `implement-checkouts-run`
 
-**Status:** `WORKING`
+**Status:** `DONE`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -122,10 +122,10 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions                  | Status  |
-| ----------------------------------------- | ------- |
-| Iteration: Implement Checkout Run Command | `DONE`  |
-| Iteration: Update Commands Knowledge      | `READY` |
+| Iteration / Instructions                  | Status |
+| ----------------------------------------- | ------ |
+| Iteration: Implement Checkout Run Command | `DONE` |
+| Iteration: Update Commands Knowledge      | `DONE` |
 
 ### Iteration: Implement Checkout Run Command
 
@@ -224,13 +224,15 @@ test(checkouts-run): add checkout run command tests.
 
 **Id:** `update-commands-knowledge`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Capture the `checkout run` command in the architecture knowledge so the command surface and pseudo-code stay current.
 
 **Description:** Add `checkout run` to the command surface in `architecture/commands.md` and add its pseudo-code to `architecture/_pseudo.md`, following the same pattern as the scope plan's `update-commands-knowledge` iteration.
 
 **Instructions:** `./plan-implement-checkouts-run/instructions/update-commands-knowledge.md`
+
+**Report:** `./plan-implement-checkouts-run/instructions/update-commands-knowledge__report.md`
 
 **Changes:**
 
@@ -245,11 +247,13 @@ test(checkouts-run): add checkout run command tests.
 
 #### Commits:
 
-| ID                              | Repository / Checkout / Branch      | Policy       | Hash | Status     |
-| ------------------------------- | ----------------------------------- | ------------ | ---- | ---------- |
-| `document-checkout-run-command` | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | -    | `AUTHORED` |
+| ID                              | Repository / Checkout / Branch      | Policy       | Hash      | Status      |
+| ------------------------------- | ----------------------------------- | ------------ | --------- | ----------- |
+| `document-checkout-run-command` | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `ce2eba4` | `COMMITTED` |
 
 ##### Commit: `document-checkout-run-command`
+
+**Hash:** `ce2eba4`
 
 **Message:**
 
@@ -273,6 +277,7 @@ knowledge(architecture): Document checkout run command.
 
 - Commander 12.1.0 nested-command and option-parsing behavior verified empirically in a scratch project.
 - `checkout run` implemented end-to-end and verified via CLI: usage guard (neither `-c` nor `--all`), `--all`, pattern filtering, execution success/failure, uncloned checkout, and inner-flag `--` convention. 269 tests pass; monorepo `npm run ci` green.
+- `checkout run` documented in `architecture/commands.md` (Command Surface + `## Checkout Run` section) and `architecture/_pseudo.md` (entry-point route, `run` operation kinds/factories, use-case pseudo, `runCommandInDirectory`/`doCheckoutRun` aux functions).
 
 ### Findings
 
