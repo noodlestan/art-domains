@@ -9,7 +9,7 @@ export function presentOperationsReport(log: OperationsLog): void {
 		return;
 	}
 
-	const headers = ['', 'repo', 'operation', 'message'];
+	const headers = ['', 'repo', 'checkout', 'operation', 'message', 'ms'];
 	const rows = operations.map(makeOperationLogLine);
 
 	console.info('Operations Report:');

@@ -25,15 +25,15 @@ Columns: `repo`, `location`, `branch`, `states`. `states` is the joined list of 
 
 ## Operations Report
 
-Appended when a command performs side effects; omitted when nothing was done. Each operation row shows its outcome (success/failure), repo, operation, and message.
+Appended when a command performs side effects; omitted when nothing was done. Each operation row shows its outcome (success/failure), repo, checkout, operation, message, and timing.
 
-Columns: ``, `repo`, `operation`, `message`.
+Columns: ``, `repo`, `checkout`, `operation`, `message`, `ms`. `checkout`is the checkout record location.`message` is the operation message middle-truncated to 50 chars (`[...]`marker in the middle).`ms`is the`timing()` delta (`finishedTs - ts`).
 
-|     | repo        | operation | detail                         |
-| --- | ----------- | --------- | ------------------------------ |
-| 🟢  | artificial  | clone     | cloned to checkouts/artificial |
-| 🟢  | purrception | push      | 2 commits to origin/feat/x     |
-| 🔴  | no-comply   | publish   | @no-comply/core@1.2.3 failed   |
+|     | repo        | checkout              | operation | message                        | ms  |
+| --- | ----------- | --------------------- | --------- | ------------------------------ | --- |
+| 🟢  | artificial  | checkouts/artificial  | clone     | cloned to checkouts/artificial | 3   |
+| 🟢  | purrception | checkouts/purrception | push      | 2 commits to origin/feat/x     | 12  |
+| 🔴  | no-comply   | checkouts/no-comply   | publish   | @no-comply/core@1.2.3 failed   | 0   |
 
 ## Extraneous Report
 
