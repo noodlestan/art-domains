@@ -43,10 +43,10 @@ Capture the `checkout run` command in the architecture knowledge so the command 
 
 ## Mandatory Reading
 
-- ::READ `$PROJECT/_backlog/4-next/plan-implement-checkouts-run/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$PROJECT/_backlog/3-now/plan-implement-checkouts-run/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
 - ::READ `$PROJECT/architecture/commands.md` (Knowledge) — Command surface and command documentation to update.
 - ::READ `$PROJECT/architecture/_pseudo.md` (Knowledge) — Pseudo-code contract to update.
-- ::READ `$PROJECT/_backlog/3-now/plan-scope-commands-to-checkouts/instructions/update-commands-knowledge.md` (Reference) — Reference knowledge-update iteration from the scope plan; follow its style.
+- ::READ `$PROJECT/_backlog/1-done/plan-scope-commands-to-checkouts/instructions/update-commands-knowledge.md` (Reference) — Reference knowledge-update iteration from the scope plan; follow its style.
 - ::READ `$PROJECT/src/commands/checkout/runCheckoutRun.ts` (Source) — The implemented handler to document.
 - ::READ `$PROJECT/src/private/commands/checkouts/doCheckoutRun.ts` (Source) — The per-checkout helper to document.
 - ::READ `$PROJECT/src/private/exec/runCommandInDirectory.ts` (Source) — The exec helper to document.

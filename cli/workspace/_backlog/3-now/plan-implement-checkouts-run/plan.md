@@ -2,7 +2,7 @@
 
 **ID:** `implement-checkouts-run`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -124,20 +124,22 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 | Iteration / Instructions                  | Status  |
 | ----------------------------------------- | ------- |
-| Iteration: Implement Checkout Run Command | `READY` |
+| Iteration: Implement Checkout Run Command | `DONE`  |
 | Iteration: Update Commands Knowledge      | `READY` |
 
 ### Iteration: Implement Checkout Run Command
 
 **Id:** `implement-checkout-run-command`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Implement `art-workspace checkout run <command...> [-c <PATTERN...>] [-A, --all]` end-to-end, following the `runPull` pattern.
 
 **Description:** Create the `checkout` command group with a single `run` subcommand. `run` accepts a variadic `<command...>` positional and requires `-c, --checkouts <PATTERN...>` or `-A, --all` (usage message when neither). Resolve checkouts via `ctx.store.getCheckoutsByPattern(checkouts)` or `getAllCheckouts()`. Execute the command in each matching checkout directory via spawn with `cwd` = checkout path. Log pending → success/failure operations per checkout. Present Checkout Report + Operations Report.
 
 **Instructions:** `./plan-implement-checkouts-run/instructions/implement-checkout-run-command.md`
+
+**Report:** `./plan-implement-checkouts-run/instructions/implement-checkout-run-command__report.md`
 
 **Changes:**
 
@@ -155,14 +157,16 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 #### Commits:
 
-| ID                                          | Repository / Checkout / Branch  | Policy       | Hash | Status     |
-| ------------------------------------------- | ------------------------------- | ------------ | ---- | ---------- |
-| `wire-checkout-run-command`                 | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
-| `add-checkout-run-operations-and-reporting` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
-| `implement-checkout-run-execution`          | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
-| `test-checkout-run-command`                 | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+| ID                                          | Repository / Checkout / Branch      | Policy       | Hash      | Status      |
+| ------------------------------------------- | ----------------------------------- | ------------ | --------- | ----------- |
+| `wire-checkout-run-command`                 | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `4542672` | `COMMITTED` |
+| `add-checkout-run-operations-and-reporting` | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `20574b7` | `COMMITTED` |
+| `implement-checkout-run-execution`          | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `c91fc08` | `COMMITTED` |
+| `test-checkout-run-command`                 | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `b443cc5` | `COMMITTED` |
 
 ##### Commit: `wire-checkout-run-command`
+
+**Hash:** `4542672`
 
 **Message:**
 
@@ -176,6 +180,8 @@ build(checkouts-run): Wire checkout run command group and subcommand.
 
 ##### Commit: `add-checkout-run-operations-and-reporting`
 
+**Hash:** `20574b7`
+
 **Message:**
 
 ```
@@ -186,6 +192,8 @@ build(checkouts-run): Add checkout run operations and reporting.
 ```
 
 ##### Commit: `implement-checkout-run-execution`
+
+**Hash:** `c91fc08`
 
 **Message:**
 
@@ -198,6 +206,8 @@ build(checkouts-run): Implement checkout run execution step.
 ```
 
 ##### Commit: `test-checkout-run-command`
+
+**Hash:** `b443cc5`
 
 **Message:**
 
@@ -235,9 +245,9 @@ test(checkouts-run): add checkout run command tests.
 
 #### Commits:
 
-| ID                              | Repository / Checkout / Branch  | Policy       | Hash | Status     |
-| ------------------------------- | ------------------------------- | ------------ | ---- | ---------- |
-| `document-checkout-run-command` | Workspace / `$PROJECT` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+| ID                              | Repository / Checkout / Branch      | Policy       | Hash | Status     |
+| ------------------------------- | ----------------------------------- | ------------ | ---- | ---------- |
+| `document-checkout-run-command` | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | -    | `AUTHORED` |
 
 ##### Commit: `document-checkout-run-command`
 
@@ -262,6 +272,7 @@ knowledge(architecture): Document checkout run command.
 ### Evidence
 
 - Commander 12.1.0 nested-command and option-parsing behavior verified empirically in a scratch project.
+- `checkout run` implemented end-to-end and verified via CLI: usage guard (neither `-c` nor `--all`), `--all`, pattern filtering, execution success/failure, uncloned checkout, and inner-flag `--` convention. 269 tests pass; monorepo `npm run ci` green.
 
 ### Findings
 
@@ -297,4 +308,5 @@ knowledge(architecture): Document checkout run command.
 
 ### Feedback
 
-- None.
+- Instruction's mandatory-reading path points to `$PROJECT/_backlog/4-next/plan-implement-checkouts-run/plan.md`, but the plan lives in `3-now` — stale path; update to `3-now`.
+- Handler signature `options: { command: string[]; ... } = {}` fails `tsc --noEmit` (`Property 'command' is missing in type '{}'`); worker removed the impossible `= {}` default (the caller always passes `command`).
