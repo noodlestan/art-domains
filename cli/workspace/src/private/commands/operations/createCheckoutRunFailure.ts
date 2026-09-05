@@ -31,6 +31,9 @@ export function createCheckoutRunFailure(
 		message() {
 			return `${command} — ${extractReason(rawError)}`;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 		errorSerialized() {
 			return `CheckoutRunError: ${checkout.repo?.name} — ${command}\n\n${formatRawError(rawError)}`;
 		},

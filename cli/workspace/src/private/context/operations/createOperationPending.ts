@@ -13,5 +13,8 @@ export function createOperationPending(operation: string, data?: unknown): Gener
 		message() {
 			return formatData(data);
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }

@@ -6,24 +6,29 @@ export type OperationOutcome = 'pending' | 'success' | 'failure';
 
 export interface OperationBase {
 	operation: string;
-	ts: Date;
+	ts: Date; // created when the pending op is logged
+	finishedTs?: Date; // set when the op resolves (success/failure)
 	checkout?: Checkout;
 	outcome: OperationOutcome;
 	message: () => string;
+	timing: () => number; // finishedTs ? finishedTs.getTime() - ts.getTime() : NaN
 }
 
 export interface OperationPending extends OperationBase {
 	outcome: 'pending';
+	data?: unknown;
 }
 
 export interface OperationSuccess extends OperationBase {
 	outcome: 'success';
+	data?: unknown;
 }
 
 export interface OperationFailure extends OperationBase {
 	outcome: 'failure';
 	error: string;
 	errorSerialized: () => string;
+	data?: unknown;
 }
 
 export interface ClonePending extends OperationPending {

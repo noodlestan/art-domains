@@ -22,6 +22,9 @@ function makeClonePendingOperationMock(): ClonePending {
 		message() {
 			return 'cloning my-repo';
 		},
+		timing() {
+			return NaN;
+		},
 	};
 }
 

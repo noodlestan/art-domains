@@ -11,5 +11,8 @@ export function createCloneSuccess(checkout: Checkout): CloneSuccess {
 		message() {
 			return `to ${checkout.record.location}`;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }

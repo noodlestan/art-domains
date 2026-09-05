@@ -30,6 +30,9 @@ export function createCloneFailure(checkout?: Checkout, e?: unknown): CloneFailu
 		message() {
 			return `clone failed on ${repoName}: ${extractReason(this.error)}`;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 		errorSerialized() {
 			return `CloneError: ${repoName} at ${location} — ${this.message()}\n\n${formatRawError(this.error)}`;
 		},

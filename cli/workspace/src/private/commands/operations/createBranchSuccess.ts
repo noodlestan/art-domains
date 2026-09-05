@@ -15,5 +15,8 @@ export function createBranchSuccess(
 		message() {
 			return message || '<empty>';
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }

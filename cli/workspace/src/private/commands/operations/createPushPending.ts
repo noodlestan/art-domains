@@ -11,5 +11,8 @@ export function createPushPending(checkout: Checkout, branch: string): PushPendi
 		message() {
 			return `to origin/${branch}`;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }

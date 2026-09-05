@@ -31,6 +31,9 @@ export function createPushFailure(checkout: Checkout, branch: string, error: unk
 		message() {
 			return toMessage(this.error);
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 		errorSerialized() {
 			return `PushError: ${checkout.repo?.name} on ${branch} — ${this.message()}\n\n${formatRawError(this.error)}`;
 		},

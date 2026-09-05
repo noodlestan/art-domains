@@ -27,6 +27,9 @@ export function createOperationFailure(
 		message() {
 			return rawError;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 		errorSerialized() {
 			const d = formatData(data);
 			return `Error: ${operation} — ${d ? d + ' ' : ''}${this.message()}\n\n${formatRawError(rawError)}`;

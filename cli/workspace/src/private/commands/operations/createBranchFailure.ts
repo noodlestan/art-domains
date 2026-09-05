@@ -31,6 +31,9 @@ export function createBranchFailure(
 		message() {
 			return extractReason(this.error);
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 		errorSerialized() {
 			return `BranchError: ${checkout?.repo?.name} on ${branch} — ${this.message()}\n\n${formatRawError(this.error)}`;
 		},

@@ -11,5 +11,8 @@ export function createPullSuccess(checkout: Checkout, branch: string): PullSucce
 		message() {
 			return `from origin/${branch}`;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }

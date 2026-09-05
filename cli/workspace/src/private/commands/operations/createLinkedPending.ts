@@ -16,5 +16,8 @@ export function createLinkedPending(
 		message() {
 			return `linking ${pkg}`;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }

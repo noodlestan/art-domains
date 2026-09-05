@@ -22,6 +22,9 @@ function makePendingOperation() {
 		message() {
 			return 'cloning my-repo';
 		},
+		timing() {
+			return NaN;
+		},
 	};
 }
 

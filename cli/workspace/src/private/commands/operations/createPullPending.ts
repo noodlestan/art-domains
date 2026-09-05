@@ -11,5 +11,8 @@ export function createPullPending(checkout: Checkout, branch: string): PullPendi
 		message() {
 			return `from origin/${branch}`;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }

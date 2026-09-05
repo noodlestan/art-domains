@@ -16,5 +16,8 @@ export function createUnlinkPending(
 		message() {
 			return `unlinking ${pkg}`;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }

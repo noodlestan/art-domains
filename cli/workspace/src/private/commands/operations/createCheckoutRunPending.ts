@@ -11,5 +11,8 @@ export function createCheckoutRunPending(checkout: Checkout, command: string): C
 		message() {
 			return command;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }

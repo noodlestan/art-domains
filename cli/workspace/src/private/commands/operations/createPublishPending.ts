@@ -16,5 +16,8 @@ export function createPublishPending(
 		message() {
 			return `publishing ${pkg}@${version}`;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }

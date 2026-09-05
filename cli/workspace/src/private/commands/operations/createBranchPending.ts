@@ -11,5 +11,8 @@ export function createBranchPending(checkout: Checkout, branch: string): BranchP
 		message() {
 			return `branch ${branch}`;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }

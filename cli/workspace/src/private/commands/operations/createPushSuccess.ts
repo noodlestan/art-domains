@@ -11,5 +11,8 @@ export function createPushSuccess(checkout: Checkout, branch: string): PushSucce
 		message() {
 			return `to origin/${branch}`;
 		},
+		timing() {
+			return this.finishedTs ? this.finishedTs.getTime() - this.ts.getTime() : NaN;
+		},
 	};
 }
