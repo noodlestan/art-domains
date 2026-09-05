@@ -165,7 +165,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 **Message:**
 
 ```
-feat(cli): wire checkout locations argument to packages run command
+build(packages-run): wire checkout locations argument to packages run command
 
 - TBD — exact command name and signature to be decided
 - Accept optional checkout locations and package filters
@@ -177,7 +177,7 @@ feat(cli): wire checkout locations argument to packages run command
 **Message:**
 
 ```
-feat(packages run): resolve packages per checkout with location filtering
+build(packages-run): resolve packages per checkout with location filtering
 
 - TBD — package matching strategy to be decided
 - Filter checkouts by location when provided
@@ -190,7 +190,7 @@ feat(packages run): resolve packages per checkout with location filtering
 **Message:**
 
 ```
-feat(packages run): implement command execution step
+build(packages-run): implement command execution step
 
 - TBD — spawn strategy, cwd, output capture, error handling
 - Execute command in each matching package directory
@@ -202,7 +202,7 @@ feat(packages run): implement command execution step
 **Message:**
 
 ```
-feat(packages run): add operation factories and reporting
+build(packages-run): add operation factories and reporting
 
 - TBD — operation types and report format
 - Log command execution outcomes per package
@@ -214,7 +214,7 @@ feat(packages run): add operation factories and reporting
 **Message:**
 
 ```
-test(packages run): add package command tests
+test(packages-run): add package command tests
 
 - TBD — test scenarios to be defined
 - No it.todo() remaining
