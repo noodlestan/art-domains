@@ -90,9 +90,9 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 
 ### Phase: 3 — Consolidate
 
-**Goal:** Consolidate the CLI into its own repo and shared libraries, and plan the art-cli ecosystem.
+**Goal:** Consolidate the CLI into its own repo (art-work) and shared libraries (art-cli).
 
-**Description:** Move code and project to a new repo; extract record units to a shared records lib; generate the art-cli roadmap.
+**Description:** Create the art-cli and art-work repositories; move the workspace CLI to art-work; extract record read/write units to a shared records lib in art-cli.
 
 **Status:** `DRAFT`
 
@@ -121,11 +121,10 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | -     |                                                                                                                              |            |
 | 2     | Plan: Log Process as it Happens `_backlog/1-done/plan-log-process-as-it-happens/plan.md`                                     | `DONE`     |
 | 2     | Plan: Scoped Record Paths `_backlog/1-done/plan-scoped-record-paths/plan.md`                                                 | `DONE`     |
-| 2     | Plan: Parallel Scanning `_backlog/1-done/plan-parallel-scanning/plan.md`                                                   | `DONE`     |
+| 2     | Plan: Parallel Scanning `_backlog/1-done/plan-parallel-scanning/plan.md`                                                     | `DONE`     |
 | 2     | Plan: Scope Commands to Location `_backlog/3-now/plan-scope-commands-to-checkouts/plan.md`                                   | `WORKING`  |
 | 2     | Plan: Workspace CLI — Checkouts Run Command `_backlog/4-next/plan-implement-checkouts-run/plan.md`                           | `PLANNING` |
 | 2     | Plan: Workspace CLI — Packages Run Command `_backlog/4-next/plan-implement-packages-run/plan.md`                             | `DRAFT`    |
-| 2     | Plan: Extract Workspace CLI to Repository: Art CLI (New)Repo `_backlog/4-next/plan-move-code-project-art-cli/plan.md`        | `PLANNING` |
 | -     |                                                                                                                              |            |
 | 2     | Plan: Make Behind Check Opt-in `_backlog/6-plan/plan-make-behind-check-opt-in/plan.md`                                       | `DRAFT`    |
 | 2     | Plan: Workspace CLI — Link Command `_backlog/6-plan/plan-implement-link/plan.md`                                             | `DRAFT`    |
@@ -133,44 +132,10 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 2     | Plan: Workspace CLI — Unlink Command `_backlog/6-plan/plan-implement-unlink/plan.md`                                         | `DRAFT`    |
 | 2     | Plan: Update Knowledge Resources `_backlog/6-plan/plan-update-knowledge-resources/plan.md`                                   | `DRAFT`    |
 | -     |                                                                                                                              |            |
-| 3     | Plan: Extract Record Units to Lib-Records                                                                                    | `DRAFT`    |
-| 3     | Plan: Generate Art-CLI Roadmap                                                                                               | `DRAFT`    |
-
-The following items are not yet captured in a work item document.
-
-### Plan: Extract Record Units to Lib-Records
-
-**Status:** `DRAFT`
-
-**Purpose:** Extract generic record read/write modules into a shared library.
-
-**Description:** Extract generic record read/write modules and their tests to a lib in `art-cli/libs/records` canonical `@art-cli/lib-records`, register lib in Art Cli project record, publish lib, consume in workspace-cli; update knowledge in art-cli and art-cli; publish new workspace-cli version; test in `$WORKSPACE`.
-
-**Changes:**
-
-- Extract generic record read/write modules and their tests to `art-cli/libs/records` (`@art-cli/records`).
-- Register lib in art-cli project record; publish lib; consume in workspace-cli.
-- Update knowledge in art-js and art-cli; publish new workspace-cli version; test in `$WORKSPACE`.
-
-**Dependencies:**
-
-- None.
-
-### Plan: Generate Art-CLI Roadmap
-
-**Status:** `DRAFT`
-
-**Purpose:** Generate the art-cli roadmap notes for the future roadmap.
-
-**Description:** Generate art-cli roadmap notes for the future roadmap: `@art-cli/art` (globally installed tool, commands: init, bind (discovers installed clis, updates snapshot); get (discovers available clis from directory, installs them); catch-all (routes commands to other clis); `@art-cli/parser` (md => json); `@art-cli/modules` (install, list); `@art-cli/linter` (depends on project Art Linter, new repo, new namespace `@art-linter`); `@art-cli/projection` (bundler/compiler).
-
-**Changes:**
-
-- Generate roadmap notes for the future art-cli ecosystem (`@art-cli/art`, `@art-cli/parser`, `@art-cli/modules`, `@art-cli/linter`, `@art-cli/projection`).
-
-**Dependencies:**
-
-- None.
+| 3     | Plan: Create Art Cli Project and Repo `_backlog/4-next/plan-create-art-cli-project-repo/plan.md`                             | `DRAFT`    |
+| 3     | Plan: Create Art Work Repository and Project `_backlog/4-next/plan-create-art-work-repository-project/plan.md`               | `DRAFT`    |
+| 3     | Plan: Extract Workspace Cli to Art Work `_backlog/4-next/plan-extract-workspace-cli-art-work/plan.md`                        | `DRAFT`    |
+| 3     | Plan: Extract Read/Write Records to Art Cli `_backlog/4-next/plan-extract-read-write-records-art-cli/plan.md`                | `DRAFT`    |
 
 ---
 
@@ -215,7 +180,9 @@ Phase 2 — continue delegating `plan-scope-commands-to-checkouts` (WORKING).
 
 ### Decisions
 
-- None.
+- Phase 3 splits the move plan into 4 plans: create art-cli repo, create art-work repo, extract workspace cli to art-work, extract read/write records to art-cli.
+- The workspace CLI moves to `noodlestan/art-work` (canonical `@art-work/cli`); the shared records lib lives in `noodlestan/art-cli` (canonical `@art-cli/lib-records`).
+- The superseded plan `plan-move-code-project-art-cli` is archived.
 
 ### Knowledge to Update
 
