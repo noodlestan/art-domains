@@ -2,7 +2,7 @@
 
 **ID:** `create-art-work-repository-project`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -67,7 +67,7 @@ Create the art-work repo (scaffold, guide, records): Namespace: Art Work; root p
 
 ### Next
 
-Delegate the `READY` iterations: `create-repository`, `populate-records` (instructions written under `./plan-create-art-work-repository-project/instructions/`).
+Move plan to `1-done/` or proceed to next plan in milestone.
 
 ### Blockers
 
@@ -122,16 +122,18 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Items:
 
-| Iteration / Instructions     | Status  |
-| ---------------------------- | ------- |
-| Iteration: Create Repository | `READY` |
-| Iteration: Populate Records  | `READY` |
+| Iteration / Instructions     | Status |
+| ---------------------------- | ------ |
+| Iteration: Create Repository | `DONE` |
+| Iteration: Populate Records  | `DONE` |
 
 ### Iteration: Create Repository
 
 **Id:** `create-repository`
 
-**Status:** `READY`
+**Status:** `DONE`
+
+**Report:** `./plan-create-art-work-repository-project/instructions/create-repository__report.md`
 
 **Purpose:** Create the art-work repository with the standard scaffold and guide.
 
@@ -150,10 +152,10 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 #### Commits:
 
-| ID                             | Repository / Checkout / Branch  | Policy       | Hash | Status     |
-| ------------------------------ | ------------------------------- | ------------ | ---- | ---------- |
-| `scaffold-art-work-repository` | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
-| `add-art-work-guide`           | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+| ID                             | Repository / Checkout / Branch  | Policy       | Hash      | Status      |
+| ------------------------------ | ------------------------------- | ------------ | --------- | ----------- |
+| `scaffold-art-work-repository` | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | `7eca2fa` | `COMMITTED` |
+| `add-art-work-guide`           | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | `7f6e943` | `COMMITTED` |
 
 ##### Commit: `scaffold-art-work-repository`
 
@@ -179,7 +181,9 @@ guides(art-work): Add root guide to the Art Work repository.
 
 **Id:** `populate-records`
 
-**Status:** `READY`
+**Status:** `DONE`
+
+**Report:** `./plan-create-art-work-repository-project/instructions/populate-records__report.md`
 
 **Purpose:** Populate the project, repo, and namespace records for the Art Work project.
 
@@ -201,9 +205,9 @@ guides(art-work): Add root guide to the Art Work repository.
 
 #### Commits:
 
-| ID                          | Repository / Checkout / Branch  | Policy       | Hash | Status     |
-| --------------------------- | ------------------------------- | ------------ | ---- | ---------- |
-| `populate-art-work-records` | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+| ID                          | Repository / Checkout / Branch  | Policy       | Hash      | Status      |
+| --------------------------- | ------------------------------- | ------------ | --------- | ----------- |
+| `populate-art-work-records` | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | `9a2cd88` | `COMMITTED` |
 
 ##### Commit: `populate-art-work-records`
 
@@ -228,7 +232,9 @@ records(art-work): Populate project, repo, and namespace records.
 
 ### Evidence
 
-- None.
+- Created Art Work repository skeleton, architecture index, parking lots, and `_guide.md` at `$ART_WORK`.
+- Populated project, repo, namespace, license, dependencies, and scripts records at `$ART_WORK/_records/`.
+- Commits `7eca2fa`, `7f6e943`, and `9a2cd88` authored and pushed to `origin/main`.
 
 ### Findings
 
