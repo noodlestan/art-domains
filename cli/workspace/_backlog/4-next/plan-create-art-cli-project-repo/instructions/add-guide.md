@@ -24,12 +24,13 @@ This section describes how to report back to the delegator after completing the 
 
 ## Path Variables
 
-| Variable     | Resolved Path                           | Purpose                                |
-| ------------ | --------------------------------------- | -------------------------------------- |
-| `$WORKSPACE` | Current working directory               | Workspace root directory               |
-| `$PROJECT`   | Provided with prompt                    | Where work execution is taking place.  |
-| `$ART_CLI`   | `$WORKSPACE/art-cli`                    | Destination repo `noodlestan/art-cli`. |
-| `$TEMPLATE`  | `$WORKSPACE/checkouts/art-js-reference` | Scaffold template repo.                |
+| Variable       | Resolved Path                | Purpose                                                                            |
+| -------------- | ---------------------------- | ---------------------------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory    | Workspace root directory                                                           |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                         |
+| `$ART_DOMAINS` | Provided with prompt.        | Where this plan lives. Example: `$WORKSPACE/checkouts/art-domains-planning`        |
+| `$ART_CLI`     | Provided with prompt.        | The new repository to create. Example: `$WORKSPACE/checkouts/art-cli-building`     |
+| `$ART_JS`      | Provided with prompt.        | Repo used to scaffold by copying. Example: `$WORKSPACE/checkouts/art-js-reference` |
 
 ## Working Agreements
 
@@ -45,8 +46,8 @@ Add the `_guide.md` to the art-cli repository, modeled on the art-js-reference g
 
 ## Mandatory Reading
 
-- ::READ `$PROJECT/_backlog/4-next/plan-create-art-cli-project-repo/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
-- ::READ `$TEMPLATE/_guide.md` (Source) — Template guide to model the art-cli guide on.
+- ::READ `$ART_DOMAINS/_backlog/4-next/plan-create-art-cli-project-repo/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$ART_JS/_guide.md` (Source) — Template guide to model the art-cli guide on.
 - ::READ `$ART_CLI/package.json` (Source) — The scaffolded package.json (scripts and workspaces for the guide).
 
 - RULE: You MUST follow any links under `## Mandatory Reading` sections found in the listed files.
@@ -60,16 +61,16 @@ Add the `_guide.md` to the art-cli repository, modeled on the art-js-reference g
 
 **Purpose:** Prepare the execution environment. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/setting-up.art`.
 
-**Instructions:** (From `$WORKSPACE/_guide.md`)
+**Instructions:** (From `$ART_CLI/_guide.md`)
 
-Run from the `$WORKSPACE` root:
+Run from the `$ART_CLI` root:
 
 ```bash
 npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+If any of these fail, resolve the issue before proceeding with implementation.
 
 ### Writing Commit Message
 
@@ -84,15 +85,13 @@ If any of these fail, resolve the issue before proceeding with implementation. D
 
 **Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Instructions:** (From `$PROJECT/_guide.md`)
+**Instructions:** (From `$ART_CLI/_guide.md`)
 
-Run from the package directory:
+Run from the `$ART_CLI` root directory:
 
 ```bash
 npm run lint:fix # to fix formatting issues automatically
 npm run lint # to report other issues (prettier, eslint, tsc --noEmit)
-npm run build
-npm run test
 ```
 
 All steps MUST pass. No `it.todo()` tests may remain.
@@ -110,7 +109,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Step `1 / 4` — Write the art-cli `_guide.md`
 
-Create `$ART_CLI/_guide.md`, modeled on `$TEMPLATE/_guide.md` but scoped to Art Cli. Include at minimum:
+Create `$ART_CLI/_guide.md`, modeled on `$ARJ_JS/_guide.md` but scoped to Art Cli. Include at minimum:
 
 - **Title:** `# Guide: Art Cli`
 - **Overview:** host and manage the Art Cli shared libraries and tools, and their planning artefacts.
@@ -140,9 +139,7 @@ Create `$ART_CLI/_guide.md`, modeled on `$TEMPLATE/_guide.md` but scoped to Art 
 **Message:**
 
 ```
-docs(art-cli): add the guide to the art-cli repository
-
-- Add _guide.md with repository layout, records, and operating instructions.
+guides(art-cli): Add root guide to Art Cli repository.
 ```
 
 ---

@@ -24,14 +24,13 @@ This section describes how to report back to the delegator after completing the 
 
 ## Path Variables
 
-| Variable     | Resolved Path             | Purpose                                  |
-| ------------ | ------------------------- | ---------------------------------------- |
-| `$WORKSPACE` | Current working directory | Workspace root directory                 |
-| `$PROJECT`   | Provided with prompt      | Where work execution is taking place.    |
-| `$ART_CLI`   | `$WORKSPACE/art-cli`      | Destination repo `noodlestan/art-cli`.   |
-| `$LIB`       | `$ART_CLI/libs/records`   | The Lib Records package.                 |
-| `$ART_WORK`  | `$WORKSPACE/art-work`     | Destination repo `noodlestan/art-work`.  |
-| `$PACKAGE`   | `$ART_WORK/cli/workspace` | The workspace-cli package (in art-work). |
+| Variable       | Resolved Path                | Purpose                                                                                     |
+| -------------- | ---------------------------- | ------------------------------------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory    | Workspace root directory                                                                    |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                                  |
+| `$ART_DOMAINS` | Provided with prompt.        | Where this plan lives. Example: `$WORKSPACE/checkouts/art-domains-planning`                 |
+| `$ART_CLI`     | Provided with prompt.        | Where the functions are being migrated to. Example: `$WORKSPACE/checkouts/art-cli-building` |
+| `$ART_WORK`    | Provided with prompt.        | Repo currently containing the functions. Example: `$WORKSPACE/checkouts/art-work-building`  |
 
 ## Working Agreements
 
@@ -47,14 +46,14 @@ Register the Lib Records package in the Art Cli project record, publish `@art-cl
 
 ## Mandatory Reading
 
-- ::READ `$PROJECT/_backlog/4-next/plan-extract-read-write-records-art-cli/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$ART_DOMAINS/_backlog/4-next/plan-extract-read-write-records-art-cli/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
 - ::READ `$ART_CLI/_records/project.art` (Source) — Art-cli project record; Package: Lib Records is registered as PLANNED.
-- ::READ `$LIB/package.json` (Source) — The lib package.json to publish.
-- ::READ `$PACKAGE/_records/package.art` (Source) — The workspace-cli package record to update.
-- ::READ `$PACKAGE/package.json` (Source) — The workspace-cli package.json to update.
-- ::READ `$PACKAGE/src/private/records/findRecordFiles.ts` (Source) — Local module to be replaced by the lib import.
-- ::READ `$PACKAGE/src/private/records/readRecordFileContent.ts` (Source) — Local module to be replaced by the lib import.
-- ::READ `$PACKAGE/src/private/records/types.ts` (Source) — Local module to be replaced by the lib import.
+- ::READ `$ART_CLI/libs/records/package.json` (Source) — The lib package.json to publish.
+- ::READ `$ART_WORK/cli/work$/_records/package.art` (Source) — The workspace-cli package record to update.
+- ::READ `$ART_WORK/cli/work$/package.json` (Source) — The workspace-cli package.json to update.
+- ::READ `$ART_WORK/cli/work$/src/private/records/findRecordFiles.ts` (Source) — Local module to be replaced by the lib import.
+- ::READ `$ART_WORK/cli/work$/src/private/records/readRecordFileContent.ts` (Source) — Local module to be replaced by the lib import.
+- ::READ `$ART_WORK/cli/work$/src/private/records/types.ts` (Source) — Local module to be replaced by the lib import.
 
 - RULE: You MUST follow any links under `## Mandatory Reading` sections found in the listed files.
 - RULE: If you are unable to read a file linked under `## Mandatory Reading` you must stop and REPORT A BLOCKER.
@@ -76,7 +75,7 @@ npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+If any of these fail, resolve the issue before proceeding with implementation.
 
 ### Writing Commit Message
 
@@ -91,7 +90,7 @@ If any of these fail, resolve the issue before proceeding with implementation. D
 
 **Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Instructions:** (From `$PROJECT/_guide.md`)
+**Instructions:** (From `$ART_DOMAINS/_guide.md`)
 
 Run from the package directory:
 
@@ -130,13 +129,13 @@ Edit `$ART_CLI/_records/project.art`: change the Lib Records resource from PLANN
 **2a. Publish the lib to npm:**
 
 ```bash
-cd $LIB
+cd $ART_CLI/libs/records
 npm publish --access public
 ```
 
 If the publish fails because the package name is already taken or npm auth is missing, do NOT report a blocker — record the deferred publish in the report and continue. The publish is executed once auth is available.
 
-**2b. Update the lib package record** `$LIB/_records/package.art`:
+**2b. Update the lib package record** `$ART_CLI/libs/records/_records/package.art`:
 
 - **Published:** `true`
 
@@ -161,22 +160,22 @@ records(art-cli): register lib records in project record and publish
 
 ### Step `3 / 6` — Consume the lib in workspace-cli
 
-**3a. Add the dependency** to `$PACKAGE/package.json`:
+**3a. Add the dependency** to `$ART_WORK/cli/work$/package.json`:
 
 - `dependencies`: add `"@art-cli/lib-records": "^0.0.1"`
 
-**3b. Replace the local record modules with lib imports.** The consumers of the record modules are the resource readers/loaders in `$PACKAGE/src/private/resources/`:
+**3b. Replace the local record modules with lib imports.** The consumers of the record modules are the resource readers/loaders in `$ART_WORK/cli/work$/src/private/resources/`:
 
 - `loadRepositoryRecords.ts`, `loadPackageRecords.ts`, `loadProjectRecords.ts`, `loadCheckoutRecords.ts`, `loadNamespaceRecords.ts` — replace `import { findRecordFiles } from '../../records/findRecordFiles'` with `import { findRecordFiles } from '@art-cli/lib-records'`.
 - `readRepositoryRecord.ts`, `readPackageRecord.ts`, `readProjectRecord.ts`, `readCheckoutRecord.ts`, `readNamespaceRecord.ts` — replace `import { readRecordFileContent } from '../../records/readRecordFileContent'` and `import type { RecordFile } from '../../records/types'` with `import { readRecordFileContent, type RecordFile } from '@art-cli/lib-records'`.
 
-**3c. Remove the local record modules** from `$PACKAGE/src/private/records/` (findRecordFiles, readRecordFileContent, types, private/, and the test).
+**3c. Remove the local record modules** from `$ART_WORK/cli/work$/src/private/records/` (findRecordFiles, readRecordFileContent, types, private/, and the test).
 
-**3d. Update the workspace-cli package record** `$PACKAGE/_records/package.art`:
+**3d. Update the workspace-cli package record** `$ART_WORK/cli/work$/_records/package.art`:
 
 - **Dependencies** → Runtime: add `Package Dependency: Lib Records` (canonical `@art-cli/lib-records`, version `^0.0.1`).
 
-**3e. Verify the workspace-cli builds and tests pass** from `$PACKAGE`:
+**3e. Verify the workspace-cli builds and tests pass** from `$ART_WORK/cli/work$`:
 
 ```bash
 npm run lint:fix
@@ -208,24 +207,24 @@ refactor(art-work): consume @art-cli/lib-records in workspace-cli
 ### Step `4 / 6` — Update knowledge in art-cli and art-work
 
 - In `$ART_CLI`: add a short architecture note under `$ART_CLI/architecture/index.md` documenting the Lib Records package (purpose, canonical name, path).
-- In `$ART_WORK`: update `$PACKAGE/architecture/` docs that reference the record modules to point at `@art-cli/lib-records` (e.g. `architecture/index.md` and `architecture/_pseudo.md` if they mention `src/private/records/`).
+- In `$ART_WORK`: update `$ART_WORK/cli/work$/architecture/` docs that reference the record modules to point at `@art-cli/lib-records` (e.g. `architecture/index.md` and `architecture/_pseudo.md` if they mention `src/private/records/`).
 
 **Expected outcome:** knowledge in both repos reflects the extracted lib.
 
 ### Step `5 / 6` — Publish a new workspace-cli version
 
-**5a. Bump the workspace-cli version** in `$PACKAGE/package.json` (minor bump, e.g. `0.0.18` → `0.1.0`).
+**5a. Bump the workspace-cli version** in `$ART_WORK/cli/work$/package.json` (minor bump, e.g. `0.0.18` → `0.1.0`).
 
 **5b. Publish:**
 
 ```bash
-cd $PACKAGE
+cd $ART_WORK/cli/work$
 npm publish --access public
 ```
 
 If the publish fails (npm auth missing), do NOT report a blocker — record the deferred publish in the report and continue.
 
-**5c. Update the npm-deployment record** `$PACKAGE/_records/npm-deployment.art` if it tracks versions.
+**5c. Update the npm-deployment record** `$ART_WORK/cli/work$/_records/npm-deployment.art` if it tracks versions.
 
 **Expected outcome:** a new workspace-cli version consuming `@art-cli/lib-records` is published (or the deferred publish is recorded).
 

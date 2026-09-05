@@ -24,12 +24,13 @@ This section describes how to report back to the delegator after completing the 
 
 ## Path Variables
 
-| Variable     | Resolved Path                           | Purpose                                |
-| ------------ | --------------------------------------- | -------------------------------------- |
-| `$WORKSPACE` | Current working directory               | Workspace root directory               |
-| `$PROJECT`   | Provided with prompt                    | Where work execution is taking place.  |
-| `$ART_CLI`   | `$WORKSPACE/art-cli`                    | Destination repo `noodlestan/art-cli`. |
-| `$TEMPLATE`  | `$WORKSPACE/checkouts/art-js-reference` | Scaffold template repo.                |
+| Variable       | Resolved Path                | Purpose                                                                            |
+| -------------- | ---------------------------- | ---------------------------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory    | Workspace root directory                                                           |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                         |
+| `$ART_DOMAINS` | Provided with prompt.        | Where this plan lives. Example: `$WORKSPACE/checkouts/art-domains-planning`        |
+| `$ART_CLI`     | Provided with prompt.        | The new repository to create. Example: `$WORKSPACE/checkouts/art-cli-building`     |
+| `$ART_JS`      | Provided with prompt.        | Repo used to scaffold by copying. Example: `$WORKSPACE/checkouts/art-js-reference` |
 
 ## Working Agreements
 
@@ -45,13 +46,13 @@ Populate the project, repository, and namespace records for the Art Cli project:
 
 ## Mandatory Reading
 
-- ::READ `$PROJECT/_backlog/4-next/plan-create-art-cli-project-repo/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
-- ::READ `$TEMPLATE/_records/project.art` (Source) — Template project record to copy and adapt.
-- ::READ `$TEMPLATE/_records/repository.art` (Source) — Template repository record to copy and adapt.
-- ::READ `$TEMPLATE/_records/namespace.art` (Source) — Template namespace record to copy and adapt.
-- ::READ `$TEMPLATE/_records/license.art` (Source) — Template license record to copy as-is.
-- ::READ `$TEMPLATE/_records/dependencies/` (Source) — Template dependency records to copy as-is.
-- ::READ `$TEMPLATE/_records/scripts/` (Source) — Template script records to copy as-is.
+- ::READ `$ART_DOMAINS/_backlog/4-next/plan-create-art-cli-project-repo/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$ART_JS/_records/project.art` (Source) — Template project record to copy and adapt.
+- ::READ `$ART_JS/_records/repository.art` (Source) — Template repository record to copy and adapt.
+- ::READ `$ART_JS/_records/namespace.art` (Source) — Template namespace record to copy and adapt.
+- ::READ `$ART_JS/_records/license.art` (Source) — Template license record to copy as-is.
+- ::READ `$ART_JS/_records/dependencies/` (Source) — Template dependency records to copy as-is.
+- ::READ `$ART_JS/_records/scripts/` (Source) — Template script records to copy as-is.
 
 - RULE: You MUST follow any links under `## Mandatory Reading` sections found in the listed files.
 - RULE: If you are unable to read a file linked under `## Mandatory Reading` you must stop and REPORT A BLOCKER.
@@ -73,7 +74,7 @@ npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+If any of these fail, resolve the issue before proceeding with implementation. D
 
 ### Writing Commit Message
 
@@ -88,7 +89,7 @@ If any of these fail, resolve the issue before proceeding with implementation. D
 
 **Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Instructions:** (From `$PROJECT/_guide.md`)
+**Instructions:** (From `$ART_DOMAINS/_guide.md`)
 
 Run from the package directory:
 
@@ -114,16 +115,16 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Step `1 / 4` — Copy the template records (except scaffolders)
 
-Copy the `_records` directory from `$TEMPLATE` to `$ART_CLI`, EXCLUDING the `scaffolders/` directory:
+Copy the `_records` directory from `$ART_JS` to `$ART_CLI`, EXCLUDING the `scaffolders/` directory:
 
-- `$TEMPLATE/_records/dependencies/` → `$ART_CLI/_records/dependencies/` (8 files, as-is)
-- `$TEMPLATE/_records/license.art` → `$ART_CLI/_records/license.art` (as-is)
-- `$TEMPLATE/_records/namespace.art` → `$ART_CLI/_records/namespace.art` (adapt in Step 2)
-- `$TEMPLATE/_records/project.art` → `$ART_CLI/_records/project.art` (adapt in Step 2)
-- `$TEMPLATE/_records/repository.art` → `$ART_CLI/_records/repository.art` (adapt in Step 2)
-- `$TEMPLATE/_records/scripts/` → `$ART_CLI/_records/scripts/` (5 files, as-is)
+- `$ART_JS/_records/dependencies/` → `$ART_CLI/_records/dependencies/` (8 files, as-is)
+- `$ART_JS/_records/license.art` → `$ART_CLI/_records/license.art` (as-is)
+- `$ART_JS/_records/namespace.art` → `$ART_CLI/_records/namespace.art` (adapt in Step 2)
+- `$ART_JS/_records/project.art` → `$ART_CLI/_records/project.art` (adapt in Step 2)
+- `$ART_JS/_records/repository.art` → `$ART_CLI/_records/repository.art` (adapt in Step 2)
+- `$ART_JS/_records/scripts/` → `$ART_CLI/_records/scripts/` (5 files, as-is)
 
-Do NOT copy `$TEMPLATE/_records/scaffolders/`.
+Do NOT copy `$ART_JS/_records/scaffolders/`.
 
 **Expected outcome:** `$ART_CLI/_records/` contains dependencies, license, namespace, project, repository, and scripts — no scaffolders.
 
@@ -169,7 +170,7 @@ Do NOT copy `$TEMPLATE/_records/scaffolders/`.
 **Message:**
 
 ```
-records(art-cli): populate project, repo, and namespace records
+records(art-cli): Populate project, repo, and namespace records.
 
 - Copy template records except scaffolders.
 - Set Namespace: Art Cli, Project: Art Cli, Repository remote art-cli.git.

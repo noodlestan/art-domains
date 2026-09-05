@@ -24,12 +24,12 @@ This section describes how to report back to the delegator after completing the 
 
 ## Path Variables
 
-| Variable     | Resolved Path                                             | Purpose                                        |
-| ------------ | --------------------------------------------------------- | ---------------------------------------------- |
-| `$WORKSPACE` | Current working directory                                 | Workspace root directory                       |
-| `$PROJECT`   | Provided with prompt                                      | Where work execution is taking place.          |
-| `$ART_WORK`  | `$WORKSPACE/art-work`                                     | Destination repo `noodlestan/art-work`.        |
-| `$SOURCE`    | `$WORKSPACE/checkouts/art-domains-planning/cli/workspace` | Current workspace-cli location in art-domains. |
+| Variable       | Resolved Path                | Purpose                                                                                 |
+| -------------- | ---------------------------- | --------------------------------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory    | Workspace root directory                                                                |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                              |
+| `$ART_WORK`    | Provided with prompt.        | Where the Cli is being miagrated to. Example: `$WORKSPACE/checkouts/art-work-building`  |
+| `$ART_DOMAINS` | Provided with prompt.        | Repo currently containing the Cli. Example: `$WORKSPACE/checkouts/art-domains-building` |
 
 ## Working Agreements
 
@@ -41,13 +41,13 @@ The plan workflow (see the entry point guide → Planning Workflow → Working T
 
 ## Goals
 
-Move the workspace-cli source code from `$SOURCE` (art-domains) to `$ART_WORK/cli/workspace` (art-work). Art Work remains a monorepo; the cli source stays in `cli/workspace`. The project record is NOT migrated (already copied to the root of Art Work in Plan: Create Art Work Repository and Project). Commit the addition in art-work and the removal in art-domains.
+Move the workspace-cli source code from `$ART_DOMAINS/cli/workspace` (art-domains) to `$ART_WORK/cli/work` (art-work). Art Work is also a monorepo; the cli source code will be at `cli/work`. The project record is NOT migrated (already copied to the root of Art Work in Plan: Create Art Work Repository and Project). Commit the addition in art-work and the removal in art-domains.
 
 ## Mandatory Reading
 
-- ::READ `$PROJECT/_backlog/4-next/plan-extract-workspace-cli-art-work/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
-- ::READ `$ART_WORK/_guide.md` (Source) — Art-work guide; confirms the repository layout (`cli/workspace`).
-- ::READ `$ART_WORK/_records/project.art` (Source) — Art-work root project record; confirms the project record is already at the root.
+- ::READ `$ART_DOMAINS/_backlog/4-next/plan-extract-workspace-cli-art-work/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$ART_DOMAINS/_guide.md` (Source) — Art-work guide; confirms the repository layout (`cli/workspace` in the source).
+- ::READ `$ART_DOMAINS/_records/project.art` (Source) — Art-work root project record;
 
 - RULE: You MUST follow any links under `## Mandatory Reading` sections found in the listed files.
 - RULE: If you are unable to read a file linked under `## Mandatory Reading` you must stop and REPORT A BLOCKER.
@@ -60,16 +60,16 @@ Move the workspace-cli source code from `$SOURCE` (art-domains) to `$ART_WORK/cl
 
 **Purpose:** Prepare the execution environment. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/setting-up.art`.
 
-**Instructions:** (From `$WORKSPACE/_guide.md`)
+**Instructions:** (From `$ART_DOMAINS/_guide.md`)
 
-Run from the `$WORKSPACE` root:
+Run from the `$ART_DOMAINS` root:
 
 ```bash
 npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$ART_DOMAINS/cli/work` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
 
 ### Writing Commit Message
 
@@ -84,7 +84,7 @@ If any of these fail, resolve the issue before proceeding with implementation. D
 
 **Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Instructions:** (From `$PROJECT/_guide.md`)
+**Instructions:** (From `$ART_DOMAINS/_guide.md`)
 
 Run from the package directory:
 
@@ -101,7 +101,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Changes
 
-- Step 1 / 5 — Copy the workspace-cli source to `$ART_WORK/cli/workspace`
+- Step 1 / 5 — Copy the workspace-cli source to `$ART_WORK/cli/work`
 - Step 2 / 5 — Commit `move-workspace-cli-source` in art-work
 - Step 3 / 5 — Remove the source from art-domains and commit `remove-workspace-cli-source`
 - Step 4 / 5 — Push both repositories (deferred if the GitHub repo does not exist yet)
@@ -109,7 +109,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ## Steps
 
-### Step `1 / 5` — Copy the workspace-cli source to `$ART_WORK/cli/workspace`
+### Step `1 / 5` — Copy the workspace-cli source to `$ART_WORK/cli/work`
 
 **1a. Create the destination directory:**
 
@@ -120,22 +120,22 @@ mkdir -p $ART_WORK/cli
 **1b. Copy the source:**
 
 ```bash
-cp -R $SOURCE $ART_WORK/cli/workspace
+cp -R $ART_DOMAINS/cli/workspace $ART_WORK/cli/work
 ```
 
 **1c. Remove the excluded items from the copy:**
 
-- `$ART_WORK/cli/workspace/node_modules/` — regenerated by `npm ci`
-- `$ART_WORK/cli/workspace/dist/` — regenerated by `npm run build`
-- `$ART_WORK/cli/workspace/.turbo/` — build cache
-- `$ART_WORK/cli/workspace/_records/project.art` — NOT migrated; the project record is already at the root of Art Work (`$ART_WORK/_records/project.art`)
+- `$ART_WORK/cli/work/node_modules/` — regenerated by `npm ci`
+- `$ART_WORK/cli/work/dist/` — regenerated by `npm run build`
+- `$ART_WORK/cli/work/.turbo/` — build cache
+- `$ART_WORK/cli/work/_records/project.art` — NOT migrated; the project record is already at the root of Art Work (`$ART_WORK/_records/project.art`)
 
 **1d. Verify the copy:**
 
-- `$ART_WORK/cli/workspace/` contains: `_backlog/`, `_guide.md`, `_records/` (package.art, npm-deployment.art), `_roadmap/`, `architecture/`, `CHANGELOG.md`, `package.json`, `README.md`, `src/`, `tsconfig.json`, `vitest.config.ts`, `.eslintignore`, `.gitignore`, `.vscode/`.
+- `$ART_WORK/cli/work/` contains: `_backlog/`, `_guide.md`, `_records/` (package.art, npm-deployment.art), `_roadmap/`, `architecture/`, `CHANGELOG.md`, `package.json`, `README.md`, `src/`, `tsconfig.json`, `vitest.config.ts`, `.eslintignore`, `.gitignore`, `.vscode/`.
 - No `node_modules/`, `dist/`, `.turbo/`, or `_records/project.art`.
 
-**Expected outcome:** the workspace-cli source lives at `$ART_WORK/cli/workspace` without build artifacts and without the project record.
+**Expected outcome:** the workspace-cli source lives at `$ART_WORK/cli/work` without build artifacts and without the project record.
 
 ---
 
@@ -146,10 +146,9 @@ cp -R $SOURCE $ART_WORK/cli/workspace
 **Message:**
 
 ```
-refs(art-work): move workspace-cli source to cli/workspace
+build(art-work): Move workspace-cli from Art Domains.
 
-- Copy workspace-cli source from art-domains to art-work/cli/workspace.
-- Keep the cli source in cli/workspace (Art Work remains a monorepo).
+- Copy workspace-cli source from art-domains to cli/work.
 ```
 
 ---
@@ -159,15 +158,19 @@ refs(art-work): move workspace-cli source to cli/workspace
 **3a. Remove the workspace-cli source from art-domains:**
 
 ```bash
-cd $PROJECT
+cd $ART_DOMAINS
 git rm -r cli/workspace
 ```
+
+Remove references from:
+
+- `$ART_DOMAINS/_guide.md`
 
 The `cli/` directory contains only `workspace`; remove the empty `cli/` directory as well.
 
 **3b. Verify the removal:**
 
-- `$PROJECT/cli/` no longer exists.
+- `$ART_DOMAINS/cli/` no longer exists.
 - The art-domains working tree has no other unexpected changes.
 
 **Expected outcome:** the workspace-cli source is removed from art-domains.
@@ -181,10 +184,9 @@ The `cli/` directory contains only `workspace`; remove the empty `cli/` director
 **Message:**
 
 ```
-refs(workspace-cli): remove workspace-cli source moved to art-work
+clean(workspace-cli): remove workspace-cli source moved to art-domains
 
 - Remove the workspace-cli source from art-domains.
-- The project record is not migrated (already copied to the root of Art Work).
 ```
 
 ---
@@ -201,7 +203,7 @@ git push -u origin main
 **4b. Push art-domains:**
 
 ```bash
-cd $PROJECT
+cd $ART_DOMAINS
 git push
 ```
 
@@ -222,6 +224,6 @@ Report according to the "How to Report Back to the Delegator" instructions, noti
 **Instructions:**
 
 - Verify that commits have been executed and pushed according to the commit's policy.
-- Verify that `$ART_WORK/cli/workspace` contains the moved source (no build artifacts, no project record) and that `$PROJECT/cli/` is removed.
+- Verify that `$ART_WORK/cli/work` contains the moved source (no build artifacts, no project record) and that `$ART_DOMAINS/cli/workspace` is removed.
 - Execute the **Verifying Completion** step as defined in the "Operating Instructions" section.
 - Report according to the "How to Report Back to the Delegator" instructions.

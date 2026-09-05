@@ -24,12 +24,12 @@ This section describes how to report back to the delegator after completing the 
 
 ## Path Variables
 
-| Variable     | Resolved Path             | Purpose                                 |
-| ------------ | ------------------------- | --------------------------------------- |
-| `$WORKSPACE` | Current working directory | Workspace root directory                |
-| `$PROJECT`   | Provided with prompt      | Where work execution is taking place.   |
-| `$ART_WORK`  | `$WORKSPACE/art-work`     | Destination repo `noodlestan/art-work`. |
-| `$PACKAGE`   | `$ART_WORK/cli/workspace` | The moved workspace-cli package.        |
+| Variable       | Resolved Path                | Purpose                                                                                 |
+| -------------- | ---------------------------- | --------------------------------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory    | Workspace root directory                                                                |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                              |
+| `$ART_WORK`    | Provided with prompt.        | Where the Cli is being miagrated to. Example: `$WORKSPACE/checkouts/art-work-building`  |
+| `$ART_DOMAINS` | Provided with prompt.        | Repo currently containing the Cli. Example: `$WORKSPACE/checkouts/art-domains-building` |
 
 ## Working Agreements
 
@@ -41,14 +41,14 @@ The plan workflow (see the entry point guide → Planning Workflow → Working T
 
 ## Goals
 
-Update the workspace-cli package record for its new home in Art Work: Owner: Project: Art Work, Namespace: Namespace: Art Work, Path: `cli/workspace`, Canonical Name: `@art-work/cli`, Bin: `art-work-cli: ./dist/index.js`. Keep package.json and the npm-deployment record consistent with the new canonical name.
+Update the workspace-cli package record for its new home in Art Work: Owner: Project: Art Work, Namespace: Namespace: Art Work, Path: `cli/work`, Canonical Name: `@art-work/cli`, Bin: `art-work-cli: ./dist/index.js`. Keep package.json and the npm-deployment record consistent with the new canonical name.
 
 ## Mandatory Reading
 
-- ::READ `$PROJECT/_backlog/4-next/plan-extract-workspace-cli-art-work/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
-- ::READ `$PACKAGE/_records/package.art` (Source) — The package record to update.
-- ::READ `$PACKAGE/_records/npm-deployment.art` (Source) — The npm-deployment record to update.
-- ::READ `$PACKAGE/package.json` (Source) — The package.json to update.
+- ::READ `$ART_DOMAINS/_backlog/4-next/plan-extract-workspace-cli-art-work/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$ART_DOMAINS/cli/workspace/_records/package.art` (Source) — The package record to update.
+- ::READ `$ART_DOMAINS/cli/workspace/_records/npm-deployment.art` (Source) — The npm-deployment record to update.
+- ::READ `$ART_DOMAINS/cli/workspace/package.json` (Source) — The package.json to update.
 - ::READ `$ART_WORK/_records/namespace.art` (Source) — Art-work namespace record (Namespace: Art Work).
 - ::READ `$ART_WORK/_records/project.art` (Source) — Art-work root project record (Project: Art Work).
 
@@ -65,14 +65,14 @@ Update the workspace-cli package record for its new home in Art Work: Owner: Pro
 
 **Instructions:** (From `$WORKSPACE/_guide.md`)
 
-Run from the `$WORKSPACE` root:
+Run from the `$ART_DOMAINS` root:
 
 ```bash
 npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$ART_WORK/cli/work` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
 
 ### Writing Commit Message
 
@@ -87,7 +87,7 @@ If any of these fail, resolve the issue before proceeding with implementation. D
 
 **Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Instructions:** (From `$PROJECT/_guide.md`)
+**Instructions:** (From `$ART_DOMAINS/_guide.md`)
 
 Run from the package directory:
 
@@ -98,6 +98,14 @@ npm run build
 npm run test
 ```
 
+Run from the package directory:
+
+Run from repository being modified `$ART_DOMAINS` or `$ART_WORK` root:
+
+```bash
+npm run ci # to verify build is green before starting
+```
+
 All steps MUST pass. No `it.todo()` tests may remain.
 
 ---
@@ -106,18 +114,18 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 - Step 1 / 4 — Update the package record
 - Step 2 / 4 — Update package.json and the npm-deployment record
-- Step 3 / 4 — Commit `update-workspace-cli-package-record` and push
+- Step 3 / 4 — Commit `update-work-cli-package-record` and push
 - Step 4 / 4 — Report
 
 ## Steps
 
 ### Step `1 / 4` — Update the package record
 
-Edit `$PACKAGE/_records/package.art`:
+Edit `$ART_WORK/lib/work/_records/package.art`:
 
 - **Owner:** `Project: Art Work`
 - **Namespace:** `Namespace: Art Work`
-- **Path:** `cli/workspace`
+- **Path:** `cli/work`
 - **Canonical Name:** `@art-work/cli`
 - **Bin:**
   - `art-work-cli`: `./dist/index.js`
@@ -128,16 +136,16 @@ Keep everything else (Purpose, Description, Author, Published, Private, Deployme
 
 ### Step `2 / 4` — Update package.json and the npm-deployment record
 
-**2a. Edit `$PACKAGE/package.json`:**
+**2a. Edit `$ART_WORK/lib/work/package.json`:**
 
 - `name`: `@art-work/cli`
 - `bin`: `{ "art-work-cli": "./dist/index.js" }`
 - `repository.url`: `https://github.com/noodlestan/art-work`
-- `repository.directory`: `cli/workspace`
+- `repository.directory`: `cli/work`
 
 Keep everything else unchanged.
 
-**2b. Edit `$PACKAGE/_records/npm-deployment.art`:**
+**2b. Edit `$ART_WORK/lib/work/_records/npm-deployment.art`:**
 
 - **Canonical Name:** `@art-work/cli`
 
@@ -147,14 +155,14 @@ Keep everything else unchanged.
 
 ---
 
-#### Commit: `update-workspace-cli-package-record`
+#### Commit: `update-work-cli-package-record`
 
 **Policy:** AUTONOMOUS — Agent should commit autonomously, push, and proceed to the next step.
 
 **Message:**
 
 ```
-records(art-work): update workspace-cli package record for art-work
+records(art-work): update work-cli package record for art-work
 
 - Set Owner: Project: Art Work, Namespace: Namespace: Art Work.
 - Set Path: cli/workspace, Canonical Name: @art-work/cli, Bin: art-work-cli.

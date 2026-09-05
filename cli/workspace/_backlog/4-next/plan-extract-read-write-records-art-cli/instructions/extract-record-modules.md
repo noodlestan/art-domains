@@ -24,13 +24,13 @@ This section describes how to report back to the delegator after completing the 
 
 ## Path Variables
 
-| Variable     | Resolved Path                       | Purpose                                        |
-| ------------ | ----------------------------------- | ---------------------------------------------- |
-| `$WORKSPACE` | Current working directory           | Workspace root directory                       |
-| `$PROJECT`   | Provided with prompt                | Where work execution is taking place.          |
-| `$ART_CLI`   | `$WORKSPACE/art-cli`                | Destination repo `noodlestan/art-cli`.         |
-| `$LIB`       | `$ART_CLI/libs/records`             | The Lib Records package.                       |
-| `$SOURCE`    | `$WORKSPACE/art-work/cli/workspace` | The moved workspace-cli package (in art-work). |
+| Variable       | Resolved Path                | Purpose                                                                                     |
+| -------------- | ---------------------------- | ------------------------------------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory    | Workspace root directory                                                                    |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                                  |
+| `$ART_DOMAINS` | Provided with prompt.        | Where this plan lives. Example: `$WORKSPACE/checkouts/art-domains-planning`                 |
+| `$ART_CLI`     | Provided with prompt.        | Where the functions are being migrated to. Example: `$WORKSPACE/checkouts/art-cli-building` |
+| `$ART_WORK`    | Provided with prompt.        | Repo currently containing the functions. Example: `$WORKSPACE/checkouts/art-work-building`  |
 
 ## Working Agreements
 
@@ -42,17 +42,17 @@ The plan workflow (see the entry point guide → Planning Workflow → Working T
 
 ## Goals
 
-Extract the generic record read/write modules and their tests from the workspace-cli source (`$SOURCE/src/private/records/`) into the Lib Records package (`$LIB/src/`), adapting imports, exports, and tests for the standalone lib package.
+Extract the generic record read/write modules and their tests from the workspace-cli source (`$ART_WORK/cli/work/src/private/records/`) into the Lib Records package (`$ART_CLI/lib/records/src/`), adapting imports, exports, and tests for the standalone lib package.
 
 ## Mandatory Reading
 
-- ::READ `$PROJECT/_backlog/4-next/plan-extract-read-write-records-art-cli/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
-- ::READ `$SOURCE/src/private/records/findRecordFiles.ts` (Source) — Module to extract.
-- ::READ `$SOURCE/src/private/records/readRecordFileContent.ts` (Source) — Module to extract.
-- ::READ `$SOURCE/src/private/records/types.ts` (Source) — Module to extract.
-- ::READ `$SOURCE/src/private/records/findRecordFiles.test.ts` (Source) — Test to extract and adapt.
-- ::READ `$SOURCE/src/config/types.ts` (Source) — The `WorkspaceRecordsPath` type the modules depend on; the lib defines its own equivalent.
-- ::READ `$LIB/package.json` (Source) — The lib package.json created in the previous iteration.
+- ::READ `$ART_DOMAINS/_backlog/4-next/plan-extract-read-write-records-art-cli/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$ART_WORK/cli/work/src/private/records/findRecordFiles.ts` (Source) — Module to extract.
+- ::READ `$ART_WORK/cli/work/src/private/records/readRecordFileContent.ts` (Source) — Module to extract.
+- ::READ `$ART_WORK/cli/work/src/private/records/types.ts` (Source) — Module to extract.
+- ::READ `$ART_WORK/cli/work/src/private/records/findRecordFiles.test.ts` (Source) — Test to extract and adapt.
+- ::READ `$ART_WORK/cli/work/src/config/types.ts` (Source) — The `WorkspaceRecordsPath` type the modules depend on; the lib defines its own equivalent.
+- ::READ `$ART_CLI/lib/records/package.json` (Source) — The lib package.json created in the previous iteration.
 
 - RULE: You MUST follow any links under `## Mandatory Reading` sections found in the listed files.
 - RULE: If you are unable to read a file linked under `## Mandatory Reading` you must stop and REPORT A BLOCKER.
@@ -74,7 +74,7 @@ npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$ART_WORK/cli/work` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
 
 ### Writing Commit Message
 
@@ -89,7 +89,7 @@ If any of these fail, resolve the issue before proceeding with implementation. D
 
 **Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Instructions:** (From `$PROJECT/_guide.md`)
+**Instructions:** (From `$ART_WORK/_guide.md`)
 
 Run from the package directory:
 
@@ -115,21 +115,21 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ### Step `1 / 4` — Copy the record modules into the lib
 
-Copy the generic record read/write modules from `$SOURCE/src/private/records/` to `$LIB/src/`:
+Copy the generic record read/write modules from `$ART_WORK/cli/work/src/private/records/` to `$ART_CLI/lib/records/src/`:
 
-- `findRecordFiles.ts` → `$LIB/src/findRecordFiles.ts`
-- `readRecordFileContent.ts` → `$LIB/src/readRecordFileContent.ts`
-- `types.ts` → `$LIB/src/types.ts`
-- `findRecordFiles.test.ts` → `$LIB/src/findRecordFiles.test.ts`
-- `private/` → `$LIB/src/private/` (createRecordFile, directoryExists, filterByKinds, findRecordFilesInPath, getGitIgnoredSet, globPath, normalizeExcludes, normalizePatterns)
+- `findRecordFiles.ts` → `$ART_CLI/lib/records/src/findRecordFiles.ts`
+- `readRecordFileContent.ts` → `$ART_CLI/lib/records/src/readRecordFileContent.ts`
+- `types.ts` → `$ART_CLI/lib/records/src/types.ts`
+- `findRecordFiles.test.ts` → `$ART_CLI/lib/records/src/findRecordFiles.test.ts`
+- `private/` → `$ART_CLI/lib/records/src/private/` (createRecordFile, directoryExists, filterByKinds, findRecordFilesInPath, getGitIgnoredSet, globPath, normalizeExcludes, normalizePatterns)
 
 Do NOT copy: the resource-specific readers/loaders (`src/private/resources/`), the config module, or the test helpers.
 
-**Expected outcome:** `$LIB/src/` contains the record modules and their private helpers.
+**Expected outcome:** `$ART_CLI/lib/records/src/` contains the record modules and their private helpers.
 
 ### Step `2 / 4` — Adapt imports, exports, and tests for the standalone lib
 
-**2a. Define the lib's own records path type.** Create `$LIB/src/types.ts` additions (or a new `$LIB/src/config.ts`):
+**2a. Define the lib's own records path type.** Create `$ART_CLI/lib/records/src/types.ts` additions (or a new `$ART_CLI/lib/records/src/config.ts`):
 
 ```ts
 export interface RecordsPath {
@@ -153,7 +153,7 @@ export interface RecordsConfig {
 
 The lib's `RecordsPath` is structurally identical to `WorkspaceRecordsPath`, so the workspace-cli can pass its config when consuming the lib.
 
-**2c. Create the lib entry point `$LIB/src/index.ts`:**
+**2c. Create the lib entry point `$ART_CLI/lib/records/src/index.ts`:**
 
 ```ts
 export { findRecordFiles } from './findRecordFiles';
@@ -164,7 +164,7 @@ export type { RecordsConfig, RecordsPath } from './types';
 
 **2d. Adapt the test.** `findRecordFiles.test.ts` uses `makeMockConfig` from `../../test/helpers/context/makeMockConfig`. Replace it with a local helper in the lib:
 
-- Create `$LIB/src/test/makeMockRecordsConfig.ts` returning a `RecordsConfig` with the same defaults as the workspace-cli helper:
+- Create `$ART_CLI/lib/records/src/test/makeMockRecordsConfig.ts` returning a `RecordsConfig` with the same defaults as the workspace-cli helper:
 
 ```ts
 import type { RecordsConfig } from '../types';
@@ -184,9 +184,9 @@ export function makeMockRecordsConfig(): RecordsConfig {
 }
 ```
 
-- Update the test imports: `makeMockConfig(tempDir).records` → `makeMockRecordsConfig()`, and the temp-dir helpers (`makeTempDir`, `removeTempDirs`) stay as-is (copy them into `$LIB/src/test/` if not already present).
+- Update the test imports: `makeMockConfig(tempDir).records` → `makeMockRecordsConfig()`, and the temp-dir helpers (`makeTempDir`, `removeTempDirs`) stay as-is (copy them into `$ART_CLI/lib/records/src/test/` if not already present).
 
-**2e. Verify the lib builds and tests pass** from `$LIB`:
+**2e. Verify the lib builds and tests pass** from `$ART_CLI/lib/records`:
 
 ```bash
 npm run lint:fix
@@ -238,7 +238,7 @@ Report according to the "How to Report Back to the Delegator" instructions, noti
 **Instructions:**
 
 - Verify that commits have been executed and pushed according to the commit's policy.
-- Verify that `$LIB/src/` contains the record modules, private helpers, and the adapted test, and that the lib builds and tests pass.
-- Verify that the workspace-cli source (`$SOURCE`) is unchanged by this iteration (its local copies remain until the consume iteration).
+- Verify that `$ART_CLI/lib/records/src/` contains the record modules, private helpers, and the adapted test, and that the lib builds and tests pass.
+- Verify that the workspace-cli source (`$ART_WORK/cli/work`) is unchanged by this iteration (its local copies remain until the consume iteration).
 - Execute the **Verifying Completion** step as defined in the "Operating Instructions" section.
 - Report according to the "How to Report Back to the Delegator" instructions.

@@ -24,12 +24,13 @@ This section describes how to report back to the delegator after completing the 
 
 ## Path Variables
 
-| Variable     | Resolved Path             | Purpose                                |
-| ------------ | ------------------------- | -------------------------------------- |
-| `$WORKSPACE` | Current working directory | Workspace root directory               |
-| `$PROJECT`   | Provided with prompt      | Where work execution is taking place.  |
-| `$ART_CLI`   | `$WORKSPACE/art-cli`      | Destination repo `noodlestan/art-cli`. |
-| `$LIB`       | `$ART_CLI/libs/records`   | The Lib Records package.               |
+| Variable       | Resolved Path                | Purpose                                                                                     |
+| -------------- | ---------------------------- | ------------------------------------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory    | Workspace root directory                                                                    |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                                  |
+| `$ART_DOMAINS` | Provided with prompt.        | Where this plan lives. Example: `$WORKSPACE/checkouts/art-domains-planning`                 |
+| `$ART_CLI`     | Provided with prompt.        | Where the functions are being migrated to. Example: `$WORKSPACE/checkouts/art-cli-building` |
+| `$ART_WORK`    | Provided with prompt.        | Repo currently containing the functions. Example: `$WORKSPACE/checkouts/art-work-building`  |
 
 ## Working Agreements
 
@@ -45,7 +46,7 @@ Create the Lib Records package in the art-cli repository: canonical name `@art-c
 
 ## Mandatory Reading
 
-- ::READ `$PROJECT/_backlog/4-next/plan-extract-read-write-records-art-cli/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$ART_DOMAINS/_backlog/4-next/plan-extract-read-write-records-art-cli/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
 - ::READ `$ART_CLI/package.json` (Source) — Art-cli root package.json; confirms the `libs/**` workspace pattern.
 - ::READ `$ART_CLI/_records/project.art` (Source) — Art-cli project record; confirms Package: Lib Records (PLANNED) is registered.
 - ::READ `$ART_CLI/tsconfig.json` (Source) — Art-cli root tsconfig to extend.
@@ -70,7 +71,7 @@ npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$ART_CLI/libs/records` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
 
 ### Writing Commit Message
 
@@ -85,7 +86,7 @@ If any of these fail, resolve the issue before proceeding with implementation. D
 
 **Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Instructions:** (From `$PROJECT/_guide.md`)
+**Instructions:** (From `$ART_CLI/_guide.md`)
 
 Run from the package directory:
 
@@ -114,10 +115,10 @@ All steps MUST pass. No `it.todo()` tests may remain.
 **1a. Create the package directory:**
 
 ```bash
-mkdir -p $LIB/src
+mkdir -p $ART_CLI/libs/records/src
 ```
 
-**1b. Create `$LIB/package.json`:**
+**1b. Create `$ART_CLI/libs/records/package.json`:**
 
 ```json
 {
@@ -153,7 +154,7 @@ mkdir -p $LIB/src
 }
 ```
 
-**1c. Create `$LIB/tsconfig.json`:**
+**1c. Create `$ART_CLI/libs/records/tsconfig.json`:**
 
 ```json
 {
@@ -166,7 +167,7 @@ mkdir -p $LIB/src
 }
 ```
 
-**1d. Create `$LIB/vitest.config.ts`:**
+**1d. Create `$ART_CLI/libs/records/vitest.config.ts`:**
 
 ```ts
 import { defineConfig } from 'vitest/config';
@@ -178,31 +179,55 @@ export default defineConfig({
 });
 ```
 
-**1e. Create the stub entry point `$LIB/src/index.ts`:**
+**1e. Create the stub entry point `$ART_CLI/libs/records/src/index.ts`:**
 
 ```ts
 export {};
 ```
 
-**1f. Create `$LIB/README.md`:**
+**1f. Create `$ART_CLI/libs/records/README.md`:**
 
 ```md
 # @art-cli/lib-records
 
-Generic record read/write modules for Art MD record files.
+> Generic record read/write modules for Art MD record files.
+
+This package is part of the [Art Cli toolkit](../../README.md).
+
+## Development
+
+Make sure you read the [Art Cli README](../../README.md) first.
+
+### Build Targets
+
+This library is packaged for use in bundlers such as Vite and Astro. The main entry point is the TypeScript source code.
+
+### Scripts
+
+- **$** `npm run dev` — Watch mode for development
+- **$** `npm run build` — Build the library
+- **$** `npm run lint` — Check formatting, lint, and type check
+- **$** `npm run lint:fix` — Fix formatting and lint issues
+- **$** `npm run build:clean` — Remove build artifacts
+- **$** `npm run ci` — Run CI pipeline
+- **$** `npm run test` — Run tests
+
+## Copyright (c) 2026 [Noodlestan](https://noodlestan.org/).
+
+Published under a [MIT license](https://noodlestan.mit-license.org/).
 ```
 
 **1g. Copy the license:**
 
 ```bash
-cp $ART_CLI/LICENSE-MIT $LIB/LICENSE-MIT
+cp $ART_CLI/LICENSE-MIT $ART_CLI/libs/records/LICENSE-MIT
 ```
 
-**Expected outcome:** `$LIB` contains the package skeleton; `npm ci` from `$ART_CLI` picks up the new workspace.
+**Expected outcome:** `$ART_CLI/libs/records` contains the package skeleton; `npm ci` from `$ART_CLI` picks up the new workspace.
 
 ### Step `2 / 4` — Add the package record
 
-Create `$LIB/_records/package.art`:
+Create `$ART_CLI/libs/records/_records/package.art`:
 
 ```art
 # Module
@@ -240,7 +265,7 @@ Create `$LIB/_records/package.art`:
 **License:** License: Noodlestan 2026 MIT
 ```
 
-**Expected outcome:** the package record exists at `$LIB/_records/package.art`.
+**Expected outcome:** the package record exists at `$ART_CLI/libs/records/_records/package.art`.
 
 ---
 
@@ -251,7 +276,7 @@ Create `$LIB/_records/package.art`:
 **Message:**
 
 ```
-scaffold(art-cli): create lib records package
+scaffold(art-cli): Create lib/records package `@art-cli/lib-records`.
 
 - Create Package: Lib Records at libs/records with canonical @art-cli/lib-records.
 - Add package record, scaffold, and stub entry point.
@@ -283,7 +308,7 @@ Report according to the "How to Report Back to the Delegator" instructions, noti
 **Instructions:**
 
 - Verify that commits have been executed and pushed according to the commit's policy.
-- Verify that `$LIB` exists with package.json (`@art-cli/lib-records`), tsconfig, vitest config, stub entry point, README, license, and package record.
+- Verify that `$ART_CLI/libs/records` exists with package.json (`@art-cli/lib-records`), tsconfig, vitest config, stub entry point, README, license, and package record.
 - Verify that `npm ci` from `$ART_CLI` recognizes the new workspace.
 - Execute the **Verifying Completion** step as defined in the "Operating Instructions" section.
 - Report according to the "How to Report Back to the Delegator" instructions.

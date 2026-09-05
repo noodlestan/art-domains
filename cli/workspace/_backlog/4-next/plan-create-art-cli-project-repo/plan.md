@@ -10,7 +10,7 @@
 
 **Purpose:** Create the `noodlestan/art-cli` repository scaffolded from the art-js-reference template, with project, repo, and namespace records for the Art Cli project.
 
-**Description:** Scaffold the art-cli repo from `$WORKSPACE/checkouts/art-js-reference` (dotfiles, lint configs, vite, license, README, `_records`, empty architecture index, `_backlog/_parking-lot.md`, `_roadmap/_parking-lot.md`); add the guide; populate records (copied from the template except scaffolders) with Namespace: Art Cli, Project: Art Cli, and Repository remote `git@github.com:noodlestan/art-cli.git`.
+**Description:** Scaffold the art-cli repo from `$ART_JS` (dotfiles, lint configs, vite, license, README, `_records`, empty architecture index, `_backlog/_parking-lot.md`, `_roadmap/_parking-lot.md`); add the guide; populate records (copied from the template except scaffolders) with Namespace: Art Cli, Project: Art Cli, and Repository remote `git@github.com:noodlestan/art-cli.git`.
 
 ## Mandatory Reading
 
@@ -20,12 +20,13 @@
 
 ## Path Variables
 
-| Variable     | Resolved Path                           | Purpose                                |
-| ------------ | --------------------------------------- | -------------------------------------- |
-| `$WORKSPACE` | Current working directory               | Workspace root directory               |
-| `$PROJECT`   | Provided with prompt                    | Where work execution is taking place.  |
-| `$ART_CLI`   | `$WORKSPACE/art-cli`                    | Destination repo `noodlestan/art-cli`. |
-| `$TEMPLATE`  | `$WORKSPACE/checkouts/art-js-reference` | Scaffold template repo.                |
+| Variable       | Resolved Path                | Purpose                                                                            |
+| -------------- | ---------------------------- | ---------------------------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory    | Workspace root directory                                                           |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                         |
+| `$ART_DOMAINS` | Provided with prompt.        | Where this plan lives. Example: `$WORKSPACE/checkouts/art-domains-planning`        |
+| `$ART_CLI`     | Provided with prompt.        | The new repository to create. Example: `$WORKSPACE/checkouts/art-cli-building`     |
+| `$ART_JS`      | Provided with prompt.        | Repo used to scaffold by copying. Example: `$WORKSPACE/checkouts/art-js-reference` |
 
 ## Summary
 
@@ -35,11 +36,11 @@ Create the `noodlestan/art-cli` repository scaffolded from the art-js-reference 
 
 ### Upstream Work
 
-| Kind                  | Path                                                               | Role                                                                 |
-| --------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------- |
-| Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers.      |
-| Architecture Briefing | `_roadmap/_architect.md`                                           | Workspace principles, NFRs, milestones.                              |
-| Milestone             | `$PROJECT/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan as Phase 3 of the Workspace CLI One milestone. |
+| Kind                  | Path                                                                   | Role                                                                 |
+| --------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Parking Lot           | `$ART_DOMAINS/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers.      |
+| Architecture Briefing | `_roadmap/_architect.md`                                               | Workspace principles, NFRs, milestones.                              |
+| Milestone             | `$ART_DOMAINS/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan as Phase 3 of the Workspace CLI One milestone. |
 
 ### Required Skills
 
@@ -54,8 +55,8 @@ Create the `noodlestan/art-cli` repository scaffolded from the art-js-reference 
 
 ### Knowledge
 
-::READ `_roadmap/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
-::READ `architecture/index.md` (Model) — Package layout, publishing, and execution model. Relevant for Planning Work Item.
+::READ `$ART_DOMAINS/_roadmap/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
+::READ `$ART_DOMAINS/architecture/index.md` (Model) — Package layout, publishing, and execution model. Relevant for Planning Work Item.
 ::READ `$DOMAINS/roadmaps/index.md` (Structure) — Roadmaps and milestones coordination. Relevant for Planning Work Item.
 
 ## Scope
@@ -89,7 +90,7 @@ npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+If any of these fail, resolve the issue before proceeding with implementation.
 
 ### Writing Commit Message
 
@@ -104,7 +105,7 @@ If any of these fail, resolve the issue before proceeding with implementation. D
 
 **Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Instructions:** (From `$PROJECT/_guide.md`)
+**Instructions:** (From `$ART_DOMAINS/_guide.md`)
 
 Run from the package directory:
 
@@ -135,13 +136,13 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 **Purpose:** Scaffold the art-cli repository from the art-js-reference template.
 
-**Description:** Scaffold all dotfiles, tslint, eslint, vite, license, README, package.json, tsconfig, turbo.json, lefthook.yml, architecture (empty index), and initialize `_backlog/_parking-lot.md` and `_roadmap/_parking-lot.md` from `$TEMPLATE`. Records are populated in the Populate Records iteration.
+**Description:** Scaffold all dotfiles, tslint, eslint, vite, license, README, package.json, tsconfig, turbo.json, lefthook.yml, architecture (empty index), and initialize `_backlog/_parking-lot.md` and `_roadmap/_parking-lot.md` from `$ART_JS`. Records are populated in the Populate Records iteration.
 
 **Instructions:** `./plan-create-art-cli-project-repo/instructions/scaffold-repository.md`
 
 **Changes:**
 
-- Scaffold the repo skeleton from `$TEMPLATE`: dotfiles, lint configs, vite, license, README, package.json, tsconfig, turbo.json, lefthook.yml.
+- Scaffold the repo skeleton from `$ART_JS` template: dotfiles, lint configs, vite, license, README, package.json, tsconfig, turbo.json, lefthook.yml.
 - Create an empty architecture index.
 - Initialize `_backlog/_parking-lot.md` and `_roadmap/_parking-lot.md`.
 
@@ -160,7 +161,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 **Message:**
 
 ```
-scaffold(art-cli): scaffold art-cli repository from art-js-reference template
+scaffold(art-cli): Scaffold Art Cli repository from Art Js template.
 
 - Copy dotfiles, lint configs, vite, license, README, package.json, tsconfig, turbo.json, and lefthook.yml.
 - Create empty architecture index.
@@ -198,9 +199,7 @@ scaffold(art-cli): scaffold art-cli repository from art-js-reference template
 **Message:**
 
 ```
-docs(art-cli): add the guide to the art-cli repository
-
-- Add _guide.md with repository layout, records, and operating instructions.
+guides(art-cli): Add root guide to Art Cli repository.
 ```
 
 ### Iteration: Populate Records
@@ -211,13 +210,13 @@ docs(art-cli): add the guide to the art-cli repository
 
 **Purpose:** Populate the project, repo, and namespace records for the Art Cli project.
 
-**Description:** Copy all records from `$TEMPLATE` except scaffolders; set Namespace.name: Art Cli, Namespace.owner: Project: Art Cli, Project.name: Art Cli, Project.resources: Package: Lib Records (PLANNED canonical `@art-cli/lib-records`), Repository.Remote: `git@github.com:noodlestan/art-cli.git`.
+**Description:** Copy all records from `$ART_JS` except scaffolders; set Namespace.name: Art Cli, Namespace.owner: Project: Art Cli, Project.name: Art Cli, Project.resources: Package: Lib Records (PLANNED canonical `@art-cli/lib-records`), Repository.Remote: `git@github.com:noodlestan/art-cli.git`.
 
 **Instructions:** `./plan-create-art-cli-project-repo/instructions/populate-records.md`
 
 **Changes:**
 
-- Copy all records from `$TEMPLATE` except scaffolders.
+- Copy all records from `$ART_JS` except scaffolders.
 - Set Namespace.name: Art Cli, Namespace.owner: Project: Art Cli.
 - Set Project.name: Art Cli, Project.resources: Package: Lib Records (PLANNED canonical `@art-cli/lib-records`).
 - Set Repository.Remote: `git@github.com:noodlestan/art-cli.git`.
@@ -237,7 +236,7 @@ docs(art-cli): add the guide to the art-cli repository
 **Message:**
 
 ```
-records(art-cli): populate project, repo, and namespace records
+records(art-cli): Populate project, repo, and namespace records.
 
 - Copy template records except scaffolders.
 - Set Namespace: Art Cli, Project: Art Cli, Repository remote art-cli.git.
@@ -264,7 +263,7 @@ records(art-cli): populate project, repo, and namespace records
 
 ### Decisions
 
-- The art-cli repo is scaffolded from `$WORKSPACE/checkouts/art-js-reference`.
+- The art-cli repo is scaffolded from `$ART_JS`. Example: `/checkouts/art-js-reference`.
 - Records are copied from the template except scaffolders.
 - Namespace: Art Cli, Project: Art Cli, Repository remote `git@github.com:noodlestan/art-cli.git`.
 - Commit order: scaffold → guide → records; each commit is self-contained in the art-cli repo.

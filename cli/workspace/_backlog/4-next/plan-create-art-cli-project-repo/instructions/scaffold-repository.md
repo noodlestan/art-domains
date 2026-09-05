@@ -24,12 +24,13 @@ This section describes how to report back to the delegator after completing the 
 
 ## Path Variables
 
-| Variable     | Resolved Path                           | Purpose                                |
-| ------------ | --------------------------------------- | -------------------------------------- |
-| `$WORKSPACE` | Current working directory               | Workspace root directory               |
-| `$PROJECT`   | Provided with prompt                    | Where work execution is taking place.  |
-| `$ART_CLI`   | `$WORKSPACE/art-cli`                    | Destination repo `noodlestan/art-cli`. |
-| `$TEMPLATE`  | `$WORKSPACE/checkouts/art-js-reference` | Scaffold template repo.                |
+| Variable       | Resolved Path                | Purpose                                                                            |
+| -------------- | ---------------------------- | ---------------------------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory    | Workspace root directory                                                           |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                         |
+| `$ART_DOMAINS` | Provided with prompt.        | Where this plan lives. Example: `$WORKSPACE/checkouts/art-domains-planning`        |
+| `$ART_CLI`     | Provided with prompt.        | The new repository to create. Example: `$WORKSPACE/checkouts/art-cli-building`     |
+| `$ART_JS`      | Provided with prompt.        | Repo used to scaffold by copying. Example: `$WORKSPACE/checkouts/art-js-reference` |
 
 ## Working Agreements
 
@@ -45,11 +46,11 @@ Create the `noodlestan/art-cli` repository at `$ART_CLI`, scaffolded from the ar
 
 ## Mandatory Reading
 
-- ::READ `$PROJECT/_backlog/4-next/plan-create-art-cli-project-repo/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
-- ::READ `$TEMPLATE/package.json` (Source) — Template package.json to copy and adjust.
-- ::READ `$TEMPLATE/README.md` (Source) — Template README to adapt for Art Cli.
-- ::READ `$TEMPLATE/_guide.md` (Source) — Template guide; reference for the guide added in the next iteration.
-- ::READ `$TEMPLATE/architecture/index.md` (Source) — Template architecture index; replaced with an empty index.
+- ::READ `$ART_DOMAINS/_backlog/4-next/plan-create-art-cli-project-repo/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$ART_JS/package.json` (Source) — Template package.json to copy and adjust.
+- ::READ `$ART_JS/README.md` (Source) — Template README to adapt for Art Cli.
+- ::READ `$ART_JS/_guide.md` (Source) — Template guide; reference for the guide added in the next iteration.
+- ::READ `$ART_JS/architecture/index.md` (Source) — Template architecture index; replaced with an empty index.
 
 - RULE: You MUST follow any links under `## Mandatory Reading` sections found in the listed files.
 - RULE: If you are unable to read a file linked under `## Mandatory Reading` you must stop and REPORT A BLOCKER.
@@ -71,7 +72,7 @@ npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+If any of these fail, resolve the issue before proceeding with implementation.
 
 ### Writing Commit Message
 
@@ -86,7 +87,7 @@ If any of these fail, resolve the issue before proceeding with implementation. D
 
 **Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Instructions:** (From `$PROJECT/_guide.md`)
+**Instructions:** (From `$ART_DOMAINS/_guide.md`)
 
 Run from the package directory:
 
@@ -119,7 +120,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 mkdir -p $ART_CLI
 ```
 
-**1b. Copy the skeleton files from `$TEMPLATE`:**
+**1b. Copy the skeleton files from `$ART_JS`:**
 
 - Dotfiles: `.eslintrc.cjs`, `.gitignore`, `.npmrc`, `.nvmrc`, `.prettierignore`, `.prettierrc`
 - Configs: `lefthook.yml`, `tsconfig.json`, `turbo.json`
@@ -174,7 +175,7 @@ This directory contains architecture documentation for the Art Cli packages.
 **Message:**
 
 ```
-scaffold(art-cli): scaffold art-cli repository from art-js-reference template
+scaffold(art-cli): Scaffold Art Cli repository from Art Js template.
 
 - Copy dotfiles, lint configs, vite, license, README, package.json, tsconfig, turbo.json, and lefthook.yml.
 - Create empty architecture index.

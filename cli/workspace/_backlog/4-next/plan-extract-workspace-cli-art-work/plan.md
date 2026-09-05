@@ -20,26 +20,26 @@
 
 ## Path Variables
 
-| Variable     | Resolved Path                                             | Purpose                                        |
-| ------------ | --------------------------------------------------------- | ---------------------------------------------- |
-| `$WORKSPACE` | Current working directory                                 | Workspace root directory                       |
-| `$PROJECT`   | Provided with prompt                                      | Where work execution is taking place.          |
-| `$ART_WORK`  | `$WORKSPACE/art-work`                                     | Destination repo `noodlestan/art-work`.        |
-| `$SOURCE`    | `$WORKSPACE/checkouts/art-domains-planning/cli/workspace` | Current workspace-cli location in art-domains. |
+| Variable       | Resolved Path                | Purpose                                                                                 |
+| -------------- | ---------------------------- | --------------------------------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory    | Workspace root directory                                                                |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                              |
+| `$ART_WORK`    | Provided with prompt.        | Where the Cli is being miagrated to. Example: `$WORKSPACE/checkouts/art-work-building`  |
+| `$ART_DOMAINS` | Provided with prompt.        | Repo currently containing the Cli. Example: `$WORKSPACE/checkouts/art-domains-building` |
 
 ## Summary
 
-Move the workspace-cli source code to `art-work/cli/workspace` and update the package record (Owner: Project: Art Work, Namespace: Namespace: Art Work, Path: `cli/workspace`, Canonical Name: `@art-work/cli`, Bin: `art-work-cli`).
+Move the workspace-cli source code to `$ART_WORK/cli/work` and update the package record (Owner: Project: Art Work, Namespace: Namespace: Art Work, Path: `cli/work`, Canonical Name: `@art-work/cli`, Bin: `art-work-cli`) and remove it from `$ART_DOMAINS`.
 
 ## Context
 
 ### Upstream Work
 
-| Kind                  | Path                                                               | Role                                                                 |
-| --------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------- |
-| Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers.      |
-| Architecture Briefing | `_roadmap/_architect.md`                                           | Workspace principles, NFRs, milestones.                              |
-| Milestone             | `$PROJECT/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan as Phase 3 of the Workspace CLI One milestone. |
+| Kind                  | Path                                                                   | Role                                                                 |
+| --------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Parking Lot           | `$ART_DOMAINS/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers.      |
+| Architecture Briefing | `$ART_DOMAINS/_roadmap/_architect.md`                                  | Workspace principles, NFRs, milestones.                              |
+| Milestone             | `$ART_DOMAINS/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan as Phase 3 of the Workspace CLI One milestone. |
 
 ### Required Skills
 
@@ -54,13 +54,13 @@ Move the workspace-cli source code to `art-work/cli/workspace` and update the pa
 
 ### Knowledge
 
-::READ `_roadmap/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
-::READ `architecture/index.md` (Model) — Package layout, publishing, and execution model. Relevant for Planning Work Item.
+::READ `$ART_DOMAINS/_roadmap/_architect.md` (Briefing) — Workspace principles, NFRs, milestones. Relevant for Planning Work Item.
+::READ `$ART_DOMAINS/architecture/index.md` (Model) — Package layout, publishing, and execution model. Relevant for Planning Work Item.
 ::READ `$DOMAINS/roadmaps/index.md` (Structure) — Roadmaps and milestones coordination. Relevant for Planning Work Item.
 
 ## Scope
 
-Move the workspace-cli source code from `$SOURCE` to `art-work/cli/workspace`; update the package record with the new owner, namespace, path, canonical name, and bin. The project record is not migrated (already copied to the root of Art Work).
+Move the workspace-cli source code from `$ART_DOMAINS/cli/workspace` to `$ART_WORK/cli/work`; update the package record with the new owner, namespace, path, canonical name, and bin. The project record is not migrated (already copied to the root of Art Work).
 
 ## Work
 
@@ -89,7 +89,7 @@ npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$ART_WORK` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
 
 ### Writing Commit Message
 
@@ -104,7 +104,7 @@ If any of these fail, resolve the issue before proceeding with implementation. D
 
 **Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Instructions:** (From `$PROJECT/_guide.md`)
+**Instructions:** (From `$ART_DOMAINS/_guide.md`)
 
 Run from the package directory:
 
@@ -134,14 +134,14 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 **Purpose:** Move the workspace-cli source code to the art-work repository.
 
-**Description:** Move the workspace-cli source code from `$SOURCE` to `art-work/cli/workspace`. Art Work remains a monorepo; the cli source stays in `cli/workspace`. The project record is not migrated.
+**Description:** Move the workspace-cli source code from `$ART_DOMAINS/cli/workspace` to `$ART_WORK/cli/work`. Art Work is also a monorepo; the cli source code path in the target is `cli/work`. The project record is not migrated.
 
 **Instructions:** `./plan-extract-workspace-cli-art-work/instructions/move-workspace-cli-source.md`
 
 **Changes:**
 
-- Move the workspace-cli source code to `art-work/cli/workspace`.
-- Keep the cli source in `cli/workspace` (Art Work remains a monorepo).
+- Move the workspace-cli source code to `$ART_WORK/cli/work`.
+- Remove from `$ART_DOMAINS/cli/workspace` (Art Work remains a monorepo).
 - Do not migrate the project record (already copied to the root of Art Work).
 
 **Dependencies:**
@@ -150,20 +150,19 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 #### Commits:
 
-| ID                            | Repository / Checkout / Branch    | Policy       | Hash | Status     |
-| ----------------------------- | --------------------------------- | ------------ | ---- | ---------- |
-| `move-workspace-cli-source`   | Art Work / `$ART_WORK` / `main`   | `AUTONOMOUS` | -    | `AUTHORED` |
-| `remove-workspace-cli-source` | Art Domains / `$PROJECT` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+| ID                            | Repository / Checkout / Branch            | Policy       | Hash | Status     |
+| ----------------------------- | ----------------------------------------- | ------------ | ---- | ---------- |
+| `move-workspace-cli-source`   | Art Work / `$ART_WORK` / `building`       | `AUTONOMOUS` | -    | `AUTHORED` |
+| `remove-workspace-cli-source` | Art Domains / `$ART_DOMAINS` / `building` | `AUTONOMOUS` | -    | `AUTHORED` |
 
 ##### Commit: `move-workspace-cli-source`
 
 **Message:**
 
 ```
-refs(art-work): move workspace-cli source to cli/workspace
+build(art-work): Move workspace-cli from Art Domains.
 
-- Copy workspace-cli source from art-domains to art-work/cli/workspace.
-- Keep the cli source in cli/workspace (Art Work remains a monorepo).
+- Copy workspace-cli source from art-domains to cli/work.
 ```
 
 ##### Commit: `remove-workspace-cli-source`
@@ -171,10 +170,9 @@ refs(art-work): move workspace-cli source to cli/workspace
 **Message:**
 
 ```
-refs(workspace-cli): remove workspace-cli source moved to art-work
+clean(workspace-cli): remove workspace-cli source moved to art-domains
 
 - Remove the workspace-cli source from art-domains.
-- The project record is not migrated (already copied to the root of Art Work).
 ```
 
 ### Iteration: Update Package Record
@@ -214,7 +212,7 @@ refs(workspace-cli): remove workspace-cli source moved to art-work
 **Message:**
 
 ```
-records(art-work): update workspace-cli package record for art-work
+records(art-work): update work-cli package record for art-work
 
 - Set Owner: Project: Art Work, Namespace: Namespace: Art Work.
 - Set Path: cli/workspace, Canonical Name: @art-work/cli, Bin: art-work-cli.

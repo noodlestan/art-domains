@@ -20,11 +20,13 @@
 
 ## Path Variables
 
-| Variable     | Resolved Path             | Purpose                                 |
-| ------------ | ------------------------- | --------------------------------------- |
-| `$WORKSPACE` | Current working directory | Workspace root directory                |
-| `$PROJECT`   | Provided with prompt      | Where work execution is taking place.   |
-| `$ART_WORK`  | `$WORKSPACE/art-work`     | Destination repo `noodlestan/art-work`. |
+| Variable       | Resolved Path                | Purpose                                                                            |
+| -------------- | ---------------------------- | ---------------------------------------------------------------------------------- |
+| `$WORKSPACE`   | Current working directory    | Workspace root directory                                                           |
+| `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                         |
+| `$ART_DOMAINS` | Provided with prompt.        | Where this plan lives. Example: `$WORKSPACE/checkouts/art-domains-planning`        |
+| `$ART_WORK`    | Provided with prompt.        | The new repository to create. Example: `$WORKSPACE/checkouts/art-work-building`    |
+| `$ART_JS`      | Provided with prompt.        | Repo used to scaffold by copying. Example: `$WORKSPACE/checkouts/art-js-reference` |
 
 ## Summary
 
@@ -34,11 +36,11 @@ Create the `noodlestan/art-work` repository with Namespace: Art Work, root proje
 
 ### Upstream Work
 
-| Kind                  | Path                                                               | Role                                                                 |
-| --------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------- |
-| Parking Lot           | `$PROJECT/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers.      |
-| Architecture Briefing | `_roadmap/_architect.md`                                           | Workspace principles, NFRs, milestones.                              |
-| Milestone             | `$PROJECT/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan as Phase 3 of the Workspace CLI One milestone. |
+| Kind                  | Path                                                                   | Role                                                                 |
+| --------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Parking Lot           | `$ART_DOMAINS/_backlog/_parking-lot.md`                                | Tracks short-term actionables, pending questions, and blockers.      |
+| Architecture Briefing | `_roadmap/_architect.md`                                               | Workspace principles, NFRs, milestones.                              |
+| Milestone             | `$ART_DOMAINS/_roadmap/3-now/milestone-workspace-cli-one/milestone.md` | Coordinates this plan as Phase 3 of the Workspace CLI One milestone. |
 
 ### Required Skills
 
@@ -88,7 +90,7 @@ npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. Do NOT run `npm install` inside `$PROJECT` (the package directory) — a local `node_modules` there shadows the monorepo resolution and breaks the build.
+If any of these fail, resolve the issue before proceeding with implementation.
 
 ### Writing Commit Message
 
@@ -103,7 +105,7 @@ If any of these fail, resolve the issue before proceeding with implementation. D
 
 **Purpose:** Confirms that the work item has been completed and satisfies its intended outcome. Operation of Workflow: Executing Work, defined in `$DOMAINS/work/workflows/executing-work/ops/verifying-completion.art`.
 
-**Instructions:** (From `$PROJECT/_guide.md`)
+**Instructions:** (From `$ART_DOMAINS/_guide.md`)
 
 Run from the package directory:
 
@@ -158,7 +160,7 @@ All steps MUST pass. No `it.todo()` tests may remain.
 **Message:**
 
 ```
-scaffold(art-work): scaffold art-work repository
+scaffold(art-work): Scaffold Art Work repository.
 
 - Add dotfiles, lint configs, license, README, package.json, tsconfig, turbo.json, and lefthook.yml.
 - Create empty architecture index.
@@ -170,9 +172,7 @@ scaffold(art-work): scaffold art-work repository
 **Message:**
 
 ```
-docs(art-work): add the guide to the art-work repository
-
-- Add _guide.md with repository layout, records, and operating instructions.
+guides(art-work): Add root guide to the Art Work repository.
 ```
 
 ### Iteration: Populate Records
@@ -210,7 +210,7 @@ docs(art-work): add the guide to the art-work repository
 **Message:**
 
 ```
-records(art-work): populate project, repo, and namespace records
+records(art-work): Populate project, repo, and namespace records.
 
 - Copy template records (namespace, project, repository, license, dependencies, scripts).
 - Set Namespace: Art Work.
