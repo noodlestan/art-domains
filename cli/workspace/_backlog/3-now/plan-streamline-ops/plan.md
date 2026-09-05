@@ -2,7 +2,7 @@
 
 **ID:** `streamline-ops`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Template:** `.agents/domains/plans/templates/plan.tart`
 
@@ -64,7 +64,7 @@ Refactor `$PROJECT/src/private/operations/types.ts` (fewer types), rename the op
 
 ### Next
 
-Delegate the `READY` iteration `streamline-operation-factories` (instructions written at `./plan-streamline-ops/instructions/streamline-operation-factories.md`).
+Delegating the `WORKING` iteration `streamline-operation-factories` (instructions written at `./plan-streamline-ops/instructions/streamline-operation-factories.md`).
 
 ### Blockers
 
@@ -127,13 +127,15 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 **Id:** `streamline-operation-factories`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Rename the operation-kind factories to `create*Operation`, move the generic factories into `src/private/operations/`, delete `src/private/context/operations/`, and reduce the operation types to pending + generic success/failure.
 
 **Description:** Rename `createPullPending` → `createPullOperation`, `createPushPending` → `createPushOperation`, `createClonePending` → `createCloneOperation`, `createBranchPending` → `createBranchOperation`, `createLinkedPending` → `createLinkedOperation`, `createPublishPending` → `createPublishOperation`, `createUnlinkPending` → `createUnlinkOperation`. Move `createOperationPending` → `createGenericOperation` and add `createOperationSuccess`/`createOperationFailure` in `src/private/operations/`. Delete `src/private/context/operations/`. Collapse the per-kind success/failure types into generic success/failure derived from the pending instance. Update all callers and tests. Present all fields in the Operations Report (checkout, truncated message, ms).
 
 **Instructions:** `./plan-streamline-ops/instructions/streamline-operation-factories.md`
+
+**Report:** `./plan-streamline-ops/instructions/streamline-operation-factories__report.md`
 
 **Changes:**
 
@@ -168,11 +170,11 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 Three commits, ordered: contract + generic factories first (not purely additive — the generic factories depend on `OperationBase` gaining `finishedTs`/`timing()`), refactor/deletions next, report presentation last.
 
-| ID                                     | Repository / Checkout / Branch      | Policy       | Status     |
-| -------------------------------------- | ----------------------------------- | ------------ | ---------- |
-| `add-generic-operation-factories`      | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `AUTHORED` |
-| `integrate-generic-operation-handling` | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `AUTHORED` |
-| `present-all-operation-report-fields`  | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `AUTHORED` |
+| ID                                     | Repository / Checkout / Branch      | Policy       | Status                  |
+| -------------------------------------- | ----------------------------------- | ------------ | ----------------------- |
+| `add-generic-operation-factories`      | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `COMMITTED` (`797e119`) |
+| `integrate-generic-operation-handling` | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `COMMITTED` (`5f5012c`) |
+| `present-all-operation-report-fields`  | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `COMMITTED` (`23512b4`) |
 
 ##### Commit: `add-generic-operation-factories`
 
@@ -264,4 +266,5 @@ build(workspace-cli-one): Present all fields in operation report.
 
 ### Feedback
 
-- None.
+- Worker added `OperationPending` to the `Operation` union (the written spec omitted it) so generic ops (boot/command/scan) remain loggable; `createGenericOperation` returns `OperationPending`.
+- `architecture/_pseudo.md` contained 20 stale references to removed per-kind success/failure factories; all pseudo call-sites updated to the pending → `createOperationSuccess`/`createOperationFailure` pattern.
