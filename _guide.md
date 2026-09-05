@@ -19,15 +19,13 @@ _backlog/           — plans, instructions, reports
 _roadmap/           — milestones, briefing, and roadmapping parking lot
 _records/           — records (project, repository, namespaces, scripts, scaffolding)
 architecture/       — index, ADRs, reference domain model and workflows
-cli/                - Node.JS CLI packages.
 ```
 
 ## Projects
 
-| Project            | Guide                     | Backlog                   | Roadmap                   |
-| ------------------ | ------------------------- | ------------------------- | ------------------------- |
-| Art Domains (root) | `_guide.md`               | `_backlog/`               | `_roadmap/`               |
-| Workspace CLI      | `cli/workspace/_guide.md` | `cli/workspace/_backlog/` | `cli/workspace/_roadmap/` |
+| Project            | Guide       | Backlog     | Roadmap     |
+| ------------------ | ----------- | ----------- | ----------- |
+| Art Domains (root) | `_guide.md` | `_backlog/` | `_roadmap/` |
 
 ## Records Management
 
