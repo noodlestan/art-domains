@@ -3,6 +3,7 @@
 import { Command } from 'commander';
 
 import { runBranch } from './commands/branch/runBranch';
+import { runCheckoutsRun } from './commands/checkouts/runCheckoutsRun';
 import { runClone } from './commands/clone/runClone';
 import { runLink } from './commands/link/runLink';
 import { runPublish } from './commands/publish/runPublish';
@@ -147,6 +148,28 @@ program
 		const ctx = createWorkspaceContext(config, store, log);
 
 		await runSync(ctx, { checkouts: options.checkouts, all: options.all });
+	});
+
+program
+	.command('checkouts')
+	.description('Checkout operations')
+	.command('run')
+	.description('Run a command in selected checkouts')
+	.argument('<command...>', 'command to run')
+	.option(
+		'-c, --checkouts <PATTERN...>',
+		'One or more. Matches checkout name and location. Wildcard asterisk * supported. Example: -c "* @ refactor" "lib-*"',
+	)
+	.option('-A, --all', 'Apply to all checkouts')
+	.action(async (command: string[], options: { checkouts?: string[]; all?: boolean }) => {
+		const root = process.cwd();
+		logger(createOperationPending('boot'));
+		const config = await loadWorkspaceConfig(root);
+		const store = createCheckoutStore();
+		const log = createOperationsLog(logger);
+		const ctx = createWorkspaceContext(config, store, log);
+
+		await runCheckoutsRun(ctx, { command, checkouts: options.checkouts, all: options.all });
 	});
 
 program
