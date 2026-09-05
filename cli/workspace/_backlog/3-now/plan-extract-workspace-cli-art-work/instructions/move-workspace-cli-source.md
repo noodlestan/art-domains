@@ -147,8 +147,6 @@ cp -R $ART_DOMAINS/cli/workspace $ART_WORK/cli/work
 
 ```
 build(art-work): Move workspace-cli from Art Domains.
-
-- Copy workspace-cli source from art-domains to cli/work.
 ```
 
 ---
@@ -184,9 +182,7 @@ The `cli/` directory contains only `workspace`; remove the empty `cli/` director
 **Message:**
 
 ```
-clean(workspace-cli): remove workspace-cli source moved to art-domains
-
-- Remove the workspace-cli source from art-domains.
+clean(workspace-cli): Remove workspace-cli (source moved to Art Work).
 ```
 
 ---
@@ -197,14 +193,14 @@ clean(workspace-cli): remove workspace-cli source moved to art-domains
 
 ```bash
 cd $ART_WORK
-git push -u origin main
+git push -u origin building
 ```
 
 **4b. Push art-domains:**
 
 ```bash
 cd $ART_DOMAINS
-git push
+git push -u origin building
 ```
 
 The GitHub repository `noodlestan/art-work` may not exist yet. If the push fails with `Repository not found`, do NOT report a blocker — record the deferred push in the report and continue. The push is executed once the repository is created on GitHub.

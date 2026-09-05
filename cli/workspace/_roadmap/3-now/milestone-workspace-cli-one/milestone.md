@@ -139,10 +139,11 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 2     | Plan: Workspace CLI — Checkouts Run Command `_backlog/0-archive/2026-09-04-plan-implement-checkouts-run/plan.md`             | `ARCHIVED` |
 | 2     | Plan: Streamline Operation Types and Factories `_backlog/0-archive/2026-09-05-plan-streamline-ops/plan.md`                   | `ARCHIVED` |
 | -     |                                                                                                                              |            |
-| 3     | Plan: Create Art Cli Project and Repo `_backlog/4-next/plan-create-art-cli-project-repo/plan.md`                             | `DONE`     |
-| 3     | Plan: Create Art Work Repository and Project `_backlog/4-next/plan-create-art-work-repository-project/plan.md`               | `DONE`     |
-| 3     | Plan: Extract Workspace Cli to Art Work `_backlog/4-next/plan-extract-workspace-cli-art-work/plan.md`                        | `READY`    |
+| 3     | Plan: Create Art Cli Project and Repo `_backlog/1-done/plan-create-art-cli-project-repo/plan.md`                             | `DONE`     |
+| 3     | Plan: Create Art Work Repository and Project `_backlog/1-done/plan-create-art-work-repository-project/plan.md`               | `DONE`     |
+| 3     | Plan: Extract Workspace Cli to Art Work `_backlog/3-now/plan-extract-workspace-cli-art-work/plan.md`                         | `READY`    |
 | 3     | Plan: Extract Read/Write Records to Art Cli `_backlog/4-next/plan-extract-read-write-records-art-cli/plan.md`                | `READY`    |
+| 3     | Plan: Make Art Work Cli work from global install `_backlog/4-next/plan-work-cli-global-install/plan.md`                      | (create)   |
 | -     |                                                                                                                              |            |
 | 4     | Plan: Replace Repo Command                                                                                                   | -          |
 | 4     | Plan: Replace Clone Command                                                                                                  | -          |

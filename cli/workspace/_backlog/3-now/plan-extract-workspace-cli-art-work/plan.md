@@ -161,8 +161,6 @@ All steps MUST pass. No `it.todo()` tests may remain.
 
 ```
 build(art-work): Move workspace-cli from Art Domains.
-
-- Copy workspace-cli source from art-domains to cli/work.
 ```
 
 ##### Commit: `remove-workspace-cli-source`
@@ -170,9 +168,7 @@ build(art-work): Move workspace-cli from Art Domains.
 **Message:**
 
 ```
-clean(workspace-cli): remove workspace-cli source moved to art-domains
-
-- Remove the workspace-cli source from art-domains.
+clean(workspace-cli): Remove workspace-cli (source moved to Art Work).
 ```
 
 ### Iteration: Update Package Record
@@ -203,16 +199,16 @@ clean(workspace-cli): remove workspace-cli source moved to art-domains
 
 #### Commits:
 
-| ID                                    | Repository / Checkout / Branch  | Policy       | Hash | Status     |
-| ------------------------------------- | ------------------------------- | ------------ | ---- | ---------- |
-| `update-workspace-cli-package-record` | Art Work / `$ART_WORK` / `main` | `AUTONOMOUS` | -    | `AUTHORED` |
+| ID                                    | Repository / Checkout / Branch      | Policy       | Hash | Status     |
+| ------------------------------------- | ----------------------------------- | ------------ | ---- | ---------- |
+| `update-workspace-cli-package-record` | Art Work / `$ART_WORK` / `building` | `AUTONOMOUS` | -    | `AUTHORED` |
 
 ##### Commit: `update-workspace-cli-package-record`
 
 **Message:**
 
 ```
-records(art-work): update work-cli package record for art-work
+records(art-work): Update Work Cli package record to Art Work.
 
 - Set Owner: Project: Art Work, Namespace: Namespace: Art Work.
 - Set Path: cli/workspace, Canonical Name: @art-work/cli, Bin: art-work-cli.

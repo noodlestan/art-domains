@@ -162,7 +162,7 @@ Keep everything else unchanged.
 **Message:**
 
 ```
-records(art-work): update work-cli package record for art-work
+records(art-work): Update Work Cli package record to Art Work.
 
 - Set Owner: Project: Art Work, Namespace: Namespace: Art Work.
 - Set Path: cli/workspace, Canonical Name: @art-work/cli, Bin: art-work-cli.
@@ -176,7 +176,7 @@ records(art-work): update work-cli package record for art-work
 
 ```bash
 cd $ART_WORK
-git push -u origin main
+git push -u origin building
 ```
 
 The GitHub repository `noodlestan/art-work` may not exist yet. If the push fails with `Repository not found`, do NOT report a blocker — record the deferred push in the report and continue. The push is executed once the repository is created on GitHub.
