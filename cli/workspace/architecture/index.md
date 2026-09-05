@@ -63,8 +63,10 @@ The CLI loads `.art-workspace.mts` at runtime by bundling it with esbuild (Vite-
 
 ## Use Cases
 
-- **Sanity** — check git status across all repos; with `--auto`, push clean unpushed repos.
-- **Clone** — bootstrap the workspace by cloning all repos (`clone --all`), clone a single repo (`clone <repo> [<location>]`), or report status without cloning (`clone`).
-- **Branch** — create and checkout the same feature branch across multiple repos for coordinated feature work.
-- **Publish** — push repos and publish packages to npm.
-- **Link / Unlink** — symlink local packages into consumers' `node_modules` for local dev; remove the symlinks and restore npm packages.
+**See detailed status of every checkout:** Command `sanity` shows detailed status of each checkout, branch, ahead/behind counts. Optional `--refetch` updates counts against remote. Optional `--auto` pulls and pushes every checkout that should and can be synchronised.
+
+**Synchronize checkouts:** Commands `pull`, `push`, and `sync` synchronize matching checkouts against remote. Optional `--all` executes in all checkouts, `--checkouts` defines one or more patterns for matching checkouts by name or location. Examples: `pull -c "art-js-*"`, `pull -c "* @ building" "*-planning"`
+
+**Run a command in multiple checkouts:** Command `checkouts run` executes an arbitrary command in matching checkouts displaying outcome and output. Example: `checkouts run "git status" --c "* @ building"`
+
+**Branch multitple checkouts:** Command `branch` switches branches idempotently. Example: `branch tmp-fix -c "* @ building"`

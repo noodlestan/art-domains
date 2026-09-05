@@ -11,7 +11,7 @@ Mostly useful for prototyping data structures or interactions (but these are det
 ```pseudo
 main
   parse args with commander
-  route to: clone | branch | repo | link | links | unlink | sanity | pull | push | sync | publish
+  route to: clone | branch | repo | link | links | unlink | sanity | pull | push | sync | checkouts run | publish
 ```
 
 ## Data Structures
@@ -71,8 +71,8 @@ Detailed definitions live in `architecture/operations-log.md`. Symbols relevant 
 
 - **OperationsLog** — append-only: `log(operation)`, `all()`, `since(ts)`, `latest(n)`
 - **Operation** — `operation` kind, `ts`, `checkout`, `outcome` (success/failure), `message()`
-- **Kinds** — `clone`, `push`, `pull`, `publish`, `branch`, `linked`, `unlink`
-- **Factories** — one per kind in `src/private/operations/`: `createCloneSuccess`, `createPushSuccess`, `createPushFailure`, `createPullSuccess`, `createPullFailure`, `createBranchSuccess`, `createBranchFailure`, `createLinkedSuccess`, `createLinkedFailure`, `createUnlinkSuccess`, `createUnlinkFailure`, etc. Read-only commands (`repo`, `links`) never log operations — their failures surface as report states.
+- **Kinds** — `clone`, `push`, `pull`, `publish`, `branch`, `linked`, `unlink`, `run`
+- **Factories** — one per kind in `src/private/operations/`: `createCloneSuccess`, `createPushSuccess`, `createPushFailure`, `createPullSuccess`, `createPullFailure`, `createBranchSuccess`, `createBranchFailure`, `createLinkedSuccess`, `createLinkedFailure`, `createUnlinkSuccess`, `createUnlinkFailure`, `createCheckoutRunPending`, `createCheckoutRunSuccess`, `createCheckoutRunFailure`, etc. Read-only commands (`repo`, `links`) never log operations — their failures surface as report states.
 
 ## Reports
 
@@ -476,6 +476,33 @@ sync(options)
   presentOperationsReport(ctx.log)
 ```
 
+### Command: checkouts run <command...> [-c <PATTERN...>] [-A, --all]
+
+**Responsibility:** Run an arbitrary shell command in each selected checkout. Either `-c` or `--all` must be provided. Inner flags are passed after `--`. See [Command Arguments](#command-arguments) for `--checkouts` and `--all` behaviour.
+
+```pseudo
+checkouts run(command, options)
+  ctx = createWorkspaceContext(config, store, log)
+  hydrate(ctx)
+  scanAllCheckoutsStates(ctx)
+
+  if not options.all and (not options.checkouts or options.checkouts is empty):
+    print "No checkouts matched."
+    print "Usage: Use `art-workspace checkouts run [options] -c <pattern>` or `art-workspace checkouts run [options] --all` if you want to run the command in all checkouts."
+    return
+
+  if options.all:
+    targets = ctx.store.getAllCheckouts()
+  else:
+    targets = ctx.store.getCheckoutsByPattern(options.checkouts)
+
+  for checkout in targets:
+    doCheckoutRun(ctx, checkout, command)
+
+  presentCheckoutReport(ctx.config, ctx.store.getAllCheckouts())
+  presentOperationsReport(ctx.log)
+```
+
 ### Command: publish [--auto]
 
 **Responsibility:** Push repos and publish packages to npm. Present Checkout Report + Operations Report. Records are updated by the commands themselves via `saveCheckoutRecord`; there is no global records sync step.
@@ -766,6 +793,49 @@ pushCheckout(ctx, checkout)
     updated = { ...checkout, issues: [...checkout.issues, op.message()] }
     ctx.store.updateCheckout(updated)
     ctx.log.log(op)
+```
+
+### Function: runCommandInDirectory(dir, command)
+
+**Responsibility:** Execute a shell command in a directory via spawn with `cwd` = dir. A single-element command string is split into `[cmd, ...args]`. Captures stdout/stderr and resolves with a `RunCommandOutcome { code, output, error }` (never rejects). Reusable by the future `package run` command.
+
+```pseudo
+runCommandInDirectory(dir, command)
+  [cmd, ...args] = command.length === 1 ? command[0].split(/\s+/) : command
+  child = spawn(cmd, args, { cwd: dir })
+  output = ""
+  error = ""
+  child.stdout.on("data", chunk => output += chunk)
+  child.stderr.on("data", chunk => error += chunk)
+  child.on("error", err => resolve({ code: null, output, error: err.message }))
+  child.on("exit", code => resolve({ code, output, error }))
+```
+
+### Function: doCheckoutRun(ctx, checkout, command)
+
+**Responsibility:** Run a command in a single checkout, logging pending → success/failure operations. Uncloned checkouts log a failure operation and are skipped. Renders captured output/error after the operation.
+
+```pseudo
+doCheckoutRun(ctx, checkout, command)
+  commandLine = command.join(" ")
+
+  if not checkout.scan?.state("exists").exists:
+    ctx.log.log(createCheckoutRunFailure(checkout, commandLine, "checkout not cloned"))
+    return null
+
+  try:
+    ctx.log.log(createCheckoutRunPending(checkout, commandLine))
+    runOutcome = await runCommandInDirectory(checkout.path, command)
+    if runOutcome.code === 0:
+      ctx.log.log(createCheckoutRunSuccess(checkout, commandLine))
+    else:
+      ctx.log.log(createCheckoutRunFailure(checkout, commandLine, "Exit code: " + runOutcome.code))
+    if runOutcome.output: print "--- Output:" + runOutcome.output
+    if runOutcome.error: print "--- Error:" + runOutcome.error
+    return checkout
+  catch error:
+    ctx.log.log(createCheckoutRunFailure(checkout, commandLine, error))
+    return null
 ```
 
 ### Function: hasLocalBranch(dir, branch)

@@ -4,19 +4,20 @@ The command surface of the workspace CLI, their procedures, and their edge cases
 
 ## Command Surface
 
-| command   | usage                                       | status      |
-| --------- | ------------------------------------------- | ----------- |
-| `sanity`  | `sanity [--auto]`                           | implemented |
-| `pull`    | `pull [-c <PATTERN...>] [--all]`            | implemented |
-| `push`    | `push [-c <PATTERN...>] [--all]`            | implemented |
-| `sync`    | `sync [-c <PATTERN...>] [--all]`            | implemented |
-| `repo`    | `repo [<location>...]`                      | implemented |
-| `clone`   | `clone [--all] [<repo>] [<location>]`       | implemented |
-| `branch`  | `branch <branch> [-c <PATTERN...>] [--all]` | implemented |
-| `link`    | `link <location> <package> [<target>]`      | designed    |
-| `links`   | `links`                                     | designed    |
-| `unlink`  | `unlink <location> <package> [<target>]`    | designed    |
-| `publish` | `publish [--auto]`                          | designed    |
+| command         | usage                                                      | status      |
+| --------------- | ---------------------------------------------------------- | ----------- |
+| `sanity`        | `sanity [--auto]`                                          | implemented |
+| `pull`          | `pull [-c <PATTERN...>] [--all]`                           | implemented |
+| `push`          | `push [-c <PATTERN...>] [--all]`                           | implemented |
+| `sync`          | `sync [-c <PATTERN...>] [--all]`                           | implemented |
+| `checkouts run` | `checkouts run <command...> [-c <PATTERN...>] [-A, --all]` | implemented |
+| `repo`          | `repo [<location>...]`                                     | implemented |
+| `clone`         | `clone [--all] [<repo>] [<location>]`                      | implemented |
+| `branch`        | `branch <branch> [-c <PATTERN...>] [--all]`                | implemented |
+| `link`          | `link <location> <package> [<target>]`                     | designed    |
+| `links`         | `links`                                                    | designed    |
+| `unlink`        | `unlink <location> <package> [<target>]`                   | designed    |
+| `publish`       | `publish [--auto]`                                         | designed    |
 
 Every command that touches checkouts presents reports (see `reports.md`).
 
@@ -251,6 +252,62 @@ Feature: Sync checkouts
 - Checkout has merge conflicts → skip, report state "merge conflicts".
 - Pull fails → log failure, skip push for this checkout.
 - Push fails → log failure, continue with other checkouts.
+
+## Checkout Run
+
+**Usage:** `checkouts run <command...> [-c <PATTERN...>] [-A, --all]`
+
+Run an arbitrary shell command in each selected checkout. The command string is the only positional; inner flags must be passed after `--` (e.g. `checkouts run npm run ci -- --filter x`). See [Command Arguments](#command-arguments) for `--checkouts` and `--all` behaviour.
+
+**BDD:**
+
+```gherkin
+Feature: Run a command across checkouts
+  Scenario: run executes the command in matching checkouts
+    Given checkout "Artificial" is cloned at "checkouts/artificial"
+    And checkout "Purrception" is cloned at "checkouts/purrception"
+    When I run "art-workspace checkouts run touch marker.txt -c art*"
+    Then a file "marker.txt" exists in checkout "Artificial"
+    And no file "marker.txt" exists in checkout "Purrception"
+    And a run operation is logged with outcome success for "Artificial"
+
+  Scenario: run --all executes in every checkout
+    Given checkout "Artificial" is cloned
+    And checkout "Purrception" is cloned
+    When I run "art-workspace checkouts run touch marker.txt --all"
+    Then a file "marker.txt" exists in checkout "Artificial"
+    And a file "marker.txt" exists in checkout "Purrception"
+
+  Scenario: run without -c or --all prints usage and exits
+    When I run "art-workspace checkouts run touch marker.txt"
+    Then a usage message is printed
+    And no run operation is logged
+
+  Scenario: run logs failure on non-zero exit
+    Given checkout "Artificial" is cloned
+    When I run "art-workspace checkouts run sh -c 'exit 1' --all"
+    Then a run operation is logged with outcome failure for "Artificial"
+
+  Scenario: run skips uncloned checkouts with a failure
+    Given checkout "Purrception" is recorded but not cloned
+    When I run "art-workspace checkouts run touch marker.txt --all"
+    Then a run operation is logged with outcome failure for "Purrception"
+    And the failure message is "checkout not cloned"
+
+  Scenario: run warns when no checkout matches
+    When I run "art-workspace checkouts run touch marker.txt -c nonexistent"
+    Then a warning is printed for "no checkout matches pattern"
+    And no run operation is logged
+```
+
+**Edge cases:**
+
+- Neither `-c` nor `--all` → usage message, no operation.
+- No checkout matches the pattern → warning, no operation.
+- Checkout not cloned → failure operation `checkout not cloned`, continue.
+- Command exits non-zero → failure operation, continue with other checkouts.
+- Spawn error (unknown command) → failure operation, continue.
+- Inner flags must be passed after `--` (e.g. `checkouts run npm run ci -- --filter x`).
 
 ## Repo
 
