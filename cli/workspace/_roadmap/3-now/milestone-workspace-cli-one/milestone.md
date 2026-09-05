@@ -137,7 +137,7 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 2     | Plan: Parallel Scanning `_backlog/1-done/plan-parallel-scanning/plan.md`                                                     | `DONE`     |
 | 2     | Plan: Scope Commands to Location `_backlog/1-done/plan-scope-commands-to-checkouts/plan.md`                                  | `DONE`     |
 | 2     | Plan: Workspace CLI — Checkouts Run Command `_backlog/3-now/plan-implement-checkouts-run/plan.md`                            | `READY`    |
-| 2     | Plan: Streamline Operation Types and Factories `_backlog/4-next/plan-streamline-ops/plan.md`                                 | `DRAFT`    |
+| 2     | Plan: Streamline Operation Types and Factories `_backlog/3-now/plan-streamline-ops/plan.md`                                  | `READY`    |
 | -     |                                                                                                                              |            |
 | 3     | Plan: Create Art Cli Project and Repo `_backlog/4-next/plan-create-art-cli-project-repo/plan.md`                             | `DRAFT`    |
 | 3     | Plan: Create Art Work Repository and Project `_backlog/4-next/plan-create-art-work-repository-project/plan.md`               | `DRAFT`    |
