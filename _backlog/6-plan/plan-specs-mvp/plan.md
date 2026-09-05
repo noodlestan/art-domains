@@ -34,11 +34,11 @@ Integrate specification-driven planning into the plan structure and template so 
 
 ### Upstream Work
 
-| Kind                  | Path                                                         | Role                                                            |
-| --------------------- | ------------------------------------------------------------ | --------------------------------------------------------------- |
-| Parking Lot           | `$PROJECT/_roadmap/_parking-lot.md`                          | Tracks short-term actionables, pending questions, and blockers. |
-| Architecture Briefing | `_roadmap/_architect.md`                                     | Workspace principles, NFRs, milestones.                         |
-| Milestone             | `$PROJECT/_roadmap/3-now/milestone-hello-world/milestone.md` | Coordinates this plan within the Art Domains roadmap.           |
+| Kind                  | Path                                                             | Role                                                            |
+| --------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------- |
+| Parking Lot           | `$PROJECT/_roadmap/_parking-lot.md`                              | Tracks short-term actionables, pending questions, and blockers. |
+| Architecture Briefing | `_roadmap/_architect.md`                                         | Workspace principles, NFRs, milestones.                         |
+| Milestone             | `$PROJECT/_roadmap/6-plan/milestone-extend-domains/milestone.md` | Coordinates this plan within the Art Domains roadmap.           |
 
 ### Required Skills
 

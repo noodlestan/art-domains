@@ -73,10 +73,10 @@ This plan updates the `write-milestone` and `write-plan` skills and refactors th
 
 ### Upstream Work
 
-| Kind        | Path                                                            | Role                                                            |
-| ----------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
-| Milestone   | `$MANAGEMENT/_roadmap/3-now/milestone-hello-world/milestone.md` | Coordinates this plan with other plans and milestones.          |
-| Parking Lot | `$ARTIFICIAL/art-domains/_backlog/_parking-lot.md`              | Tracks short-term actionables, pending questions, and blockers. |
+| Kind        | Path                                                             | Role                                                            |
+| ----------- | ---------------------------------------------------------------- | --------------------------------------------------------------- |
+| Milestone   | `$MANAGEMENT/_roadmap/1-done/milestone-hello-world/milestone.md` | Coordinates this plan with other plans and milestones.          |
+| Parking Lot | `$ARTIFICIAL/art-domains/_backlog/_parking-lot.md`               | Tracks short-term actionables, pending questions, and blockers. |
 
 ### Required Skills
 
@@ -1242,8 +1242,8 @@ For each `_guide.md` file to create or update:
 
 This project plans its work with the workflow defined in `$DOMAINS/work/workflows/planning-work/workflow.art`.
 
-- The roadmap lives at `_roadmap/` with subdirectories such as `/3-now` and `/4-next/`.
-- The backlog lives at `_backlog/` with subdirectories such as `/3-now` and `/4-next/`.
+- The roadmap lives at `_roadmap/` with subdirectories such as `/1-done` and `/4-next/`.
+- The backlog lives at `_backlog/` with subdirectories such as `/1-done` and `/4-next/`.
 - The short-term focus is captured in `_backlog/_parking-lot.md`.
 - The requirements, use cases, and principles are captured in `_backlog/_architect.md`.
 ```

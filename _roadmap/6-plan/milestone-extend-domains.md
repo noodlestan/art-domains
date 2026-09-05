@@ -84,10 +84,9 @@ Develop new domains, building on the distribution and installation capabilities,
 
 This section lists the downstream work items produced, coordinated, or advanced by the milestone.
 
-| Resource / Record                                                             | Status  |
-| ----------------------------------------------------------------------------- | ------- |
-| Plan: Extend Domains `$WORKSPACE/_backlog/6-plan/plan-extend-domains/plan.md` | `DRAFT` |
-| Plan: Specs MVP `$WORKSPACE/_roadmap/6-plan/plan-specs-mvp/plan.md`           | `DRAFT` |
+| Resource / Record                                                   | Status  |
+| ------------------------------------------------------------------- | ------- |
+| Plan: Specs MVP `$WORKSPACE/_backlog/6-plan/plan-specs-mvp/plan.md` | `DRAFT` |
 
 ---
 
