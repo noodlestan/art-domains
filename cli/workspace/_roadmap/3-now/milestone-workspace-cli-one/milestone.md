@@ -62,7 +62,8 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | ----- | ----------------------- | --------- |
 | 1     | Establish CLI baseline  | `DONE`    |
 | 2     | Implement more commands | `WORKING` |
-| 3     | Consolidate             | `DRAFT`   |
+| 3     | Implement more commands | `WORKING` |
+| 4     | Consolidate             | `DRAFT`   |
 
 ### Phase: 1 — Establish CLI baseline
 
@@ -76,11 +77,11 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 
 - None.
 
-### Phase: 2 — Implement more commands
+### Phase: 2 — Consolidate
 
-**Goal:** Deliver the remaining command surface.
+**Goal:** Consolidate the CLI into its own repo (art-work) and shared libraries (art-cli).
 
-**Description:** Link, links, publish, and unlink commands; update knowledge resources.
+**Description:** Performance optimizations. UI improvements (args, predictability, and feedback)
 
 **Status:** `WORKING`
 
@@ -88,11 +89,23 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 
 - None.
 
-### Phase: 3 — Consolidate
+### Phase: 3 — Decompose
 
-**Goal:** Consolidate the CLI into its own repo (art-work) and shared libraries (art-cli).
+**Goal:** Decompose into packages
 
-**Description:** Create the art-cli and art-work repositories; move the workspace CLI to art-work; extract record read/write units to a shared records lib in art-cli.
+**Description:** Create the art-cli and art-work repositories;
+
+**Status:** `PLANNING`
+
+**Dependencies:**
+
+- None.
+
+### Phase: 3 — Implement more commands
+
+**Goal:** Deliver the remaining command surface.
+
+**Description:** Link, links, publish, and unlink commands; update knowledge resources.
 
 **Status:** `DRAFT`
 
@@ -122,20 +135,23 @@ Complete the workspace CLI across 3 phases: establish the CLI baseline, implemen
 | 2     | Plan: Log Process as it Happens `_backlog/1-done/plan-log-process-as-it-happens/plan.md`                                     | `DONE`     |
 | 2     | Plan: Scoped Record Paths `_backlog/1-done/plan-scoped-record-paths/plan.md`                                                 | `DONE`     |
 | 2     | Plan: Parallel Scanning `_backlog/1-done/plan-parallel-scanning/plan.md`                                                     | `DONE`     |
-| 2     | Plan: Scope Commands to Location `_backlog/3-now/plan-scope-commands-to-checkouts/plan.md`                                   | `WORKING`  |
-| 2     | Plan: Workspace CLI — Checkouts Run Command `_backlog/4-next/plan-implement-checkouts-run/plan.md`                           | `PLANNING` |
-| 2     | Plan: Workspace CLI — Packages Run Command `_backlog/4-next/plan-implement-packages-run/plan.md`                             | `DRAFT`    |
-| -     |                                                                                                                              |            |
-| 2     | Plan: Make Behind Check Opt-in `_backlog/6-plan/plan-make-behind-check-opt-in/plan.md`                                       | `DRAFT`    |
-| 2     | Plan: Workspace CLI — Link Command `_backlog/6-plan/plan-implement-link/plan.md`                                             | `DRAFT`    |
-| 2     | Plan: Workspace CLI — Links Command `_backlog/6-plan/plan-implement-links/plan.md`                                           | `DRAFT`    |
-| 2     | Plan: Workspace CLI — Unlink Command `_backlog/6-plan/plan-implement-unlink/plan.md`                                         | `DRAFT`    |
-| 2     | Plan: Update Knowledge Resources `_backlog/6-plan/plan-update-knowledge-resources/plan.md`                                   | `DRAFT`    |
+| 2     | Plan: Scope Commands to Location `_backlog/3-now/plan-scope-commands-to-checkouts/plan.md`                                   | `DONE`     |
+| 2     | Plan: Workspace CLI — Checkouts Run Command `_backlog/3-now/plan-implement-checkouts-run/plan.md`                            | `READY`    |
+| 2     | Plan: Streamline Operation Types and Factories `_backlog/4-next/plan-streamline-ops/plan.md`                                 | `DRAFT`    |
 | -     |                                                                                                                              |            |
 | 3     | Plan: Create Art Cli Project and Repo `_backlog/4-next/plan-create-art-cli-project-repo/plan.md`                             | `DRAFT`    |
 | 3     | Plan: Create Art Work Repository and Project `_backlog/4-next/plan-create-art-work-repository-project/plan.md`               | `DRAFT`    |
 | 3     | Plan: Extract Workspace Cli to Art Work `_backlog/4-next/plan-extract-workspace-cli-art-work/plan.md`                        | `DRAFT`    |
 | 3     | Plan: Extract Read/Write Records to Art Cli `_backlog/4-next/plan-extract-read-write-records-art-cli/plan.md`                | `DRAFT`    |
+| -     |                                                                                                                              |            |
+| 4     | Plan: Replace Repo Command                                                                                                   | -          |
+| 4     | Plan: Replace Clone Command                                                                                                  | -          |
+| 4     | Plan: Workspace CLI — Packages Run Command `_backlog/4-next/plan-implement-packages-run/plan.md`                             | `DRAFT`    |
+| 4     | Plan: Make Behind Check Opt-in `_backlog/6-plan/plan-make-behind-check-opt-in/plan.md`                                       | `DRAFT`    |
+| 4     | Plan: Workspace CLI — Link Command `_backlog/6-plan/plan-implement-link/plan.md`                                             | `DRAFT`    |
+| 4     | Plan: Workspace CLI — Links Command `_backlog/6-plan/plan-implement-links/plan.md`                                           | `DRAFT`    |
+| 4     | Plan: Workspace CLI — Unlink Command `_backlog/6-plan/plan-implement-unlink/plan.md`                                         | `DRAFT`    |
+| 4     | Plan: Update Knowledge Resources `_backlog/6-plan/plan-update-knowledge-resources/plan.md`                                   | `DRAFT`    |
 
 ---
 
