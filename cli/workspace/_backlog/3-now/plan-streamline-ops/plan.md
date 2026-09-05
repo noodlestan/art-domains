@@ -175,6 +175,7 @@ Three commits, ordered: contract + generic factories first (not purely additive 
 | `add-generic-operation-factories`      | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `COMMITTED` (`797e119`) |
 | `integrate-generic-operation-handling` | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `COMMITTED` (`5f5012c`) |
 | `present-all-operation-report-fields`  | Workspace / `$PROJECT` / `building` | `AUTONOMOUS` | `COMMITTED` (`23512b4`) |
+| `refine-standalone-operation-log-line` | Workspace / `$PROJECT` / `building` | `MANUAL`     | `AUTHORED`              |
 
 ##### Commit: `add-generic-operation-factories`
 
@@ -211,6 +212,17 @@ build(workspace-cli-one): Present all fields in operation report.
 - Add checkout column (op.checkout?.record.location) after repo.
 - Middle-truncate message() to 50 chars via truncateMiddle.
 - Add ms column (op.timing()).
+```
+
+##### Commit: `refine-standalone-operation-log-line`
+
+**Message:**
+
+```
+build(workspace-cli-one): Refine standalone operation log line presentation.
+
+- Join standalone log lines with `|`; show timing as `(Xms)`.
+- Omit ms column for pending operations (no `NaN`).
 ```
 
 ---

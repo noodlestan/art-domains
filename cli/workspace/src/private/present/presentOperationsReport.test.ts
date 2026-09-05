@@ -68,7 +68,7 @@ describe('makeOperationLogLine', () => {
 		const line = makeOperationLogLine(makeClonePendingOperationMock());
 
 		expect(line[0]).toBe('⏳');
-		expect(line).toEqual(['⏳', 'clone', 'cloning my-repo', 'NaN']);
+		expect(line).toEqual(['⏳', 'clone', 'cloning my-repo']);
 	});
 
 	it('renders a success line with 🟢', () => {

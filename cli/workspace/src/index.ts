@@ -27,7 +27,7 @@ export type { WorkspaceConfig } from './config';
 const program = new Command();
 
 const logger = (op: Operation) => {
-	console.info(...makeOperationLogLine(op));
+	console.info(makeOperationLogLine(op, { standalone: true }).join(' | '));
 };
 
 program.name('art-workspace').description('Workspace orchestration CLI').version('0.0.18');
