@@ -1,4 +1,5 @@
 import type { WorkspaceContext } from '../../context/createWorkspaceContext';
+import { runCommandInDirectory } from '../../exec/runCommandInDirectory';
 import type { Checkout } from '../../store/createCheckout';
 import { createCheckoutRunFailure } from '../operations/createCheckoutRunFailure';
 import { createCheckoutRunPending } from '../operations/createCheckoutRunPending';
@@ -19,8 +20,28 @@ export async function doCheckoutRun(
 
 	try {
 		ctx.log.log(createCheckoutRunPending(checkout, commandLine));
-		// Execution placeholder: resolve the checkout. The real spawn is added in Step 5.
-		ctx.log.log(createCheckoutRunSuccess(checkout, commandLine));
+		const runOutcome = await runCommandInDirectory(checkout.path, command);
+		if (runOutcome.code === 0) {
+			ctx.log.log(createCheckoutRunSuccess(checkout, commandLine));
+		} else {
+			ctx.log.log(
+				createCheckoutRunFailure(checkout, commandLine, new Error(`Exit code: ${runOutcome.code}`)),
+			);
+		}
+		if (!runOutcome.output.trim() && !runOutcome.error.trim()) {
+			console.info('\n--- [No output]\n');
+		} else {
+			if (runOutcome.output) {
+				console.info('\n--- Output:\n');
+				console.info(runOutcome.output);
+				console.info('');
+			}
+			if (runOutcome.error) {
+				console.error('\n--- Error:\n');
+				console.error(runOutcome.error);
+				console.error('');
+			}
+		}
 		return checkout;
 	} catch (error) {
 		const op = createCheckoutRunFailure(checkout, commandLine, error);
