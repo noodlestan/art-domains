@@ -1,6 +1,6 @@
 # Instructions: `populate-records`
 
-**Plan:** `create-art-cli-project-repo`
+**Plan:** `create-art-work-repository-project`
 
 **Iteration Id:** `populate-records`
 
@@ -18,7 +18,7 @@ This section describes how to report back to the delegator after completing the 
 
 1. Summarise the current context, asking: are you reporting completion or a BLOCKER?
 2. Gather the evidence of changes made and outcomes achieved, or the blocker error details.
-3. Use the `render-template` skill with the `.agents/domains/plans/templates/instructions-report.tart` to render your report and write it next to this instruction file: `plan-create-art-cli-project-repo/instructions/populate-records__report.md`. No separate delegation record is created.
+3. Use the `render-template` skill with the `.agents/domains/plans/templates/instructions-report.tart` to render your report and write it next to this instruction file: `plan-create-art-work-repository-project/instructions/populate-records__report.md`. No separate delegation record is created.
 4. Generate the response and send it back to the delegator.
 5. Keep the response terse per the Working Agreements: happy face + up to 3 bullet points (done `populate-records`, created `{artefacts}`, thumbs up). The full trail lives in the report file; never repeat it in chat.
 
@@ -29,7 +29,7 @@ This section describes how to report back to the delegator after completing the 
 | `$WORKSPACE`   | Current working directory    | Workspace root directory                                                           |
 | `$DOMAINS`     | `$WORKSPACE/.agents/domains` | Domain resources directory                                                         |
 | `$ART_DOMAINS` | Provided with prompt.        | Where this plan lives. Example: `$WORKSPACE/checkouts/art-domains-planning`        |
-| `$ART_CLI`     | Provided with prompt.        | The new repository to create. Example: `$WORKSPACE/checkouts/art-cli-building`     |
+| `$ART_WORK`    | Provided with prompt.        | The new repository to create. Example: `$WORKSPACE/checkouts/art-work-building`    |
 | `$ART_JS`      | Provided with prompt.        | Repo used to scaffold by copying. Example: `$WORKSPACE/checkouts/art-js-reference` |
 
 ## Working Agreements
@@ -42,17 +42,18 @@ The plan workflow (see the entry point guide → Planning Workflow → Working T
 
 ## Goals
 
-Populate the project, repository, and namespace records for the Art Cli project: copy the template records (except scaffolders) and set Namespace: Art Cli, Project: Art Cli (resources: Package: Lib Records PLANNED), and Repository remote `git@github.com:noodlestan/art-cli.git`.
+Populate the project, repository, and namespace records for the Art Work project: copy the template records (except scaffolders) from `$ART_JS`; Set Namespace: Art Work; Set Repository remote to `git@github.com:noodlestan/art-work.git`. Create `$ART_JS/_records/project.art` (root project record) based on the content of `$ART_DOMANS/cli/workspace/_records/project.art` (re-scoped). Set Project.Resources (Package: Workspace CLI, Application: Workspace Website PLANNED, Tool: Workspace Tool PLANNED).
 
 ## Mandatory Reading
 
-- ::READ `$ART_DOMAINS/_backlog/4-next/plan-create-art-cli-project-repo/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$ART_DOMAINS/_backlog/3-now/plan-create-art-work-repository-project/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$ART_JS/_records/namespace.art` (Source) — Template namespace record to copy and adapt.
 - ::READ `$ART_JS/_records/project.art` (Source) — Template project record to copy and adapt.
 - ::READ `$ART_JS/_records/repository.art` (Source) — Template repository record to copy and adapt.
-- ::READ `$ART_JS/_records/namespace.art` (Source) — Template namespace record to copy and adapt.
 - ::READ `$ART_JS/_records/license.art` (Source) — Template license record to copy as-is.
 - ::READ `$ART_JS/_records/dependencies/` (Source) — Template dependency records to copy as-is.
 - ::READ `$ART_JS/_records/scripts/` (Source) — Template script records to copy as-is.
+- ::READ `$ART_DOMANS/cli/workspace/_records/project.art` (Source) — Current root project record (Project: Workspace) to re-scope for Art Work.
 
 - RULE: You MUST follow any links under `## Mandatory Reading` sections found in the listed files.
 - RULE: If you are unable to read a file linked under `## Mandatory Reading` you must stop and REPORT A BLOCKER.
@@ -74,7 +75,7 @@ npm ci # to install dependencies.
 npm run ci # to verify build is green before starting
 ```
 
-If any of these fail, resolve the issue before proceeding with implementation. D
+If any of these fail, resolve the issue before proceeding with implementation.
 
 ### Writing Commit Message
 
@@ -107,74 +108,81 @@ All steps MUST pass. No `it.todo()` tests may remain.
 ## Changes
 
 - Step 1 / 4 — Copy the template records (except scaffolders)
-- Step 2 / 4 — Adapt the namespace, project, and repository records for Art Cli
-- Step 3 / 4 — Commit `populate-art-cli-records` and push
+- Step 2 / 4 — Adapt the namespace, project, and repository records for Art Work
+- Step 3 / 4 — Commit `populate-art-work-records` and push
 - Step 4 / 4 — Report
 
 ## Steps
 
 ### Step `1 / 4` — Copy the template records (except scaffolders)
 
-Copy the `_records` directory from `$ART_JS` to `$ART_CLI`, EXCLUDING the `scaffolders/` directory:
+Copy the `_records` directory from `$ART_JS` to `$ART_WORK`, EXCLUDING the `scaffolders/` directory:
 
-- `$ART_JS/_records/dependencies/` → `$ART_CLI/_records/dependencies/` (8 files, as-is)
-- `$ART_JS/_records/license.art` → `$ART_CLI/_records/license.art` (as-is)
-- `$ART_JS/_records/namespace.art` → `$ART_CLI/_records/namespace.art` (adapt in Step 2)
-- `$ART_JS/_records/project.art` → `$ART_CLI/_records/project.art` (adapt in Step 2)
-- `$ART_JS/_records/repository.art` → `$ART_CLI/_records/repository.art` (adapt in Step 2)
-- `$ART_JS/_records/scripts/` → `$ART_CLI/_records/scripts/` (5 files, as-is)
+- `$ART_JS/_records/dependencies/` → `$ART_WORK/_records/dependencies/` (8 files, as-is)
+- `$ART_JS/_records/license.art` → `$ART_WORK/_records/license.art` (as-is)
+- `$ART_JS/_records/namespace.art` → `$ART_WORK/_records/namespace.art` (adapt in Step 2)
+- `$ART_JS/_records/project.art` → `$ART_WORK/_records/project.art` (adapt in Step 2)
+- `$ART_JS/_records/repository.art` → `$ART_WORK/_records/repository.art` (adapt in Step 2)
+- `$ART_JS/_records/scripts/` → `$ART_WORK/_records/scripts/` (5 files, as-is)
 
 Do NOT copy `$ART_JS/_records/scaffolders/`.
 
-**Expected outcome:** `$ART_CLI/_records/` contains dependencies, license, namespace, project, repository, and scripts — no scaffolders.
+**Expected outcome:** `$ART_WORK/_records/` contains dependencies, license, namespace, project, repository, and scripts — no scaffolders.
 
-### Step `2 / 4` — Adapt the namespace, project, and repository records for Art Cli
+### Step `2 / 4` — Adapt the namespace, project, and repository records for Art Work
 
-**2a. `$ART_CLI/_records/namespace.art`:**
+**2a. `$ART_WORK/_records/namespace.art`:**
 
-- `## Namespace: Art Cli`
-- **Purpose:** Shared libraries and tools for the Noodlestan ecosystem.
-- **Description:** Libraries and tools shared across Noodlestan projects.
-- **Owner:** Project: Art Cli
+- `## Namespace: Art Work`
+- **Purpose:** Workspace orchestration tools and applications for the Noodlestan ecosystem.
+- **Description:** Tools and applications for managing multi-repository development environments.
+- **Owner:** Project: Art Work
 - Keep Author, Scaffolders, and License as in the template.
 
-**2b. `$ART_CLI/_records/project.art`:**
+**2b. `$ART_WORK/_records/project.art`:**
 
-- `## Project: Art Cli`
-- **Purpose:** Shared libraries and tools for the Noodlestan ecosystem.
-- **Description:** Libraries and tools shared across Noodlestan projects.
-- **Owner:** Project: Artificials (unchanged from template)
-- **Repository:** Repository: Art Cli
-- **Code:** `https://github.com/noodlestan/art-cli`
+Take the current content of `$ART_DOMAINS/cli/workspace/_records/project.art` (Project: Workspace) and re-scope it:
+
+- `## Project: Art Work`
+- **Purpose:** Manage multi-repository development environments for parallel planning and execution. (unchanged from source)
+- **Description:** Tools for discovering projects, managing knowledge and context resources, and operating across multiple checkouts: cloning, visualizing, synchronizing, and executing commands. (unchanged from source)
+- **Owner:** Project: Art Domains (unchanged from source)
+- **Author:** Noodlestan Collective (unchanged from source)
+- **Repository:** Repository: Art Work
 - **Resources:**
-  - Package: Lib Records (PLANNED canonical `@art-cli/lib-records`)
-- Keep Author, Private, Management, and License as in the template.
+  - Package: Workspace CLI
+  - Application: Workspace Website (PLANNED)
+  - Tool: Workspace Tool (PLANNED)
+- **Private:** `false` (unchanged from source)
+- **Management:** (unchanged from source)
+- **License:** License: Noodlestan 2026 MIT (unchanged from source)
 
-**2c. `$ART_CLI/_records/repository.art`:**
+**2c. `$ART_WORK/_records/repository.art`:**
 
-- `## Repository: Art Cli`
-- **Purpose:** Host and manage the Art Cli shared libraries and tools, and their planning artefacts.
-- **Description:** Monorepo containing the Art Cli shared libraries and tools, and their backlogs.
-- **Owner:** Project: Art Cli
-- **Remote:** `git@github.com:noodlestan/art-cli.git`
+- `## Repository: Art Work`
+- **Purpose:** Host and manage the Art Work workspace orchestration tools and applications, and their planning artefacts.
+- **Description:** Monorepo containing the Art Work roadmap, workspace orchestration source code, and their backlogs.
+- **Owner:** Project: Art Work
+- **Remote:** `git@github.com:noodlestan/art-work.git`
 - Keep the rest as in the template.
 
-**Expected outcome:** the three records are scoped to Art Cli; the license, dependencies, and scripts records are unchanged copies.
+**Expected outcome:** the three records are scoped to Art Work; the license, dependencies, and scripts records are unchanged copies.
 
 ---
 
-#### Commit: `populate-art-cli-records`
+#### Commit: `populate-art-work-records`
 
 **Policy:** AUTONOMOUS — Agent should commit autonomously, push, and proceed to the next step.
 
 **Message:**
 
 ```
-records(art-cli): Populate project, repo, and namespace records.
+records(art-work): Populate project, repo, and namespace records.
 
-- Copy template records except scaffolders.
-- Set Namespace: Art Cli, Project: Art Cli, Repository remote art-cli.git.
-- Register Package: Lib Records (PLANNED) in the project record.
+- Copy template records (namespace, project, repository, license, dependencies, scripts).
+- Set Namespace: Art Work.
+- Root project record from cli/workspace/_records/project.art.
+- Set Project.Resources and Repository remote art-work.git.
 ```
 
 ---
@@ -182,11 +190,11 @@ records(art-cli): Populate project, repo, and namespace records.
 ### Step `3 / 4` — Push
 
 ```bash
-cd $ART_CLI
+cd $ART_WORK
 git push -u origin main
 ```
 
-The GitHub repository `noodlestan/art-cli` may not exist yet. If the push fails with `Repository not found`, do NOT report a blocker — record the deferred push in the report and continue. The push is executed once the repository is created on GitHub.
+The GitHub repository `noodlestan/art-work` may not exist yet. If the push fails with `Repository not found`, do NOT report a blocker — record the deferred push in the report and continue. The push is executed once the repository is created on GitHub.
 
 **Expected outcome:** the commit is pushed to `origin/main`, or the deferred push is recorded in the report.
 
@@ -203,7 +211,7 @@ Report according to the "How to Report Back to the Delegator" instructions, noti
 **Instructions:**
 
 - Verify that commits have been executed and pushed according to the commit's policy.
-- Verify that `$ART_CLI/_records/` contains the copied records (no scaffolders) and that namespace, project, and repository records are scoped to Art Cli with the correct remote.
-- Verify that Package: Lib Records (PLANNED) is registered in the project record.
+- Verify that `$ART_WORK/_records/` contains the copied records (no scaffolders) and that namespace, project, and repository records are scoped to Art Work with the correct remote.
+- Verify that the project record carries the source content (Purpose, Description, Owner, Author, Management, License) with Repository: Art Work and the three Resources.
 - Execute the **Verifying Completion** step as defined in the "Operating Instructions" section.
 - Report according to the "How to Report Back to the Delegator" instructions.

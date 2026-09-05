@@ -46,7 +46,7 @@ Add the `_guide.md` to the art-cli repository, modeled on the art-js-reference g
 
 ## Mandatory Reading
 
-- ::READ `$ART_DOMAINS/_backlog/4-next/plan-create-art-cli-project-repo/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
+- ::READ `$ART_DOMAINS/_backlog/3-now/plan-create-art-cli-project-repo/plan.md` (Plan) — Full plan context, scope, and commit blueprints.
 - ::READ `$ART_JS/_guide.md` (Source) — Template guide to model the art-cli guide on.
 - ::READ `$ART_CLI/package.json` (Source) — The scaffolded package.json (scripts and workspaces for the guide).
 
