@@ -1,5 +1,42 @@
 # CHANGELOG
 
+## 0.0.19
+
+### Added
+
+- **Checkouts run command:** Run arbitrary commands across selected checkouts with `art-workspace checkouts run <command...> [-c <PATTERN...>] [-A, --all]`.
+- **Scoped operations:** Add `--checkouts <PATTERN...>` (shorthand `-c`) to `pull`, `push`, `sync`, and `branch` with exact and wildcard matching against checkout name and location.
+- **Scoped records discovery:** Add `records.paths` configuration for additive, base-anchored record scans with per-path `ignored`/`excluded`/`gitignore` options.
+- **Live operation logging:** Stream pending operations as `...doing: {operation} {repo} {details}` before they complete, with ⏳/🟢/🔴 rendering.
+- **Parallel scanning:** Scan and process checkouts concurrently with bounded concurrency in `sanity`, `pull`, `push`, and `sync`.
+- **Opt-in refetch:** Add `--refetch` to `sanity` for fresh ahead/behind data; cheap local counts by default.
+
+### Fixed
+
+- **Sync decision:** Use the post-pull checkout state for the push decision in `sync` (stale-checkout bug).
+- **Ahead/behind counting:** Replace per-branch network fetches with a single `remoteFetch` plus one local `rev-list` inspection; remove redundant workspace pre-scan in `sync`.
+
+### Changed
+
+- **Operation model:** Rename operation-kind factories to `create*Operation`; derive success/failure generically from the pending instance; add `finishedTs`/`timing()` to the operation base.
+- **Operations report:** Add checkout and timing columns; middle-truncate messages to 50 chars.
+- **Command arguments:** Require `-c` or `--all` in `pull`, `push`, `sync`, and `branch`; remove the implicit all-checkouts fallback.
+- **Branch command:** Replace the positional `[checkouts...]` argument with the `--checkouts` option.
+- **Record discovery:** Drop `included` and RegExp patterns in favour of scoped `paths` scans.
+- **Operation rename:** Rename `branch created` operation to `branch`.
+
+### Tested
+
+- **Checkout run:** Pattern filtering, `--all`, usage guard, execution success/failure, uncloned checkout, and inner-flag `--` convention.
+- **Pattern matching:** Exact and wildcard matching, deduplication, no-match warnings, and unscoped invocations.
+- **Parallel scanning:** Concurrent scanning with deterministic ordering; combined ahead/behind counting and fallbacks.
+- **Refetch:** Cheap-vs-refetch scan behaviour and `sanity --refetch`.
+- **Operations:** Pending/success/failure log lines and live streaming.
+
+### Documented
+
+- **Architecture:** Update `commands.md`, `_pseudo.md`, `config.md`, `operations-log.md`, and `reports.md` for the new command surface, operation model, and record discovery options.
+
 ## 0.0.18
 
 ### Added
