@@ -2,6 +2,15 @@
   "name": "noodlestan/art-domains",
   "version": "0.0.1",
   "description": "Distributable artificial resources within knowledge and work domains: agent instructions, structures, processes, CLIs, and tools.",
+  "keywords": [
+    "agentic-workflows",
+    "agent-instructions",
+    "skills",
+    "knowledge-management",
+    "structured-data",
+    "workspaces",
+    "records"
+  ],
   "author": "Noodlestan",
   "license": "MIT",
   "private": true,

@@ -4,6 +4,8 @@
 
 Distributable artificial resources within knowledge and work domains: agent instructions, structures, processes, CLIs, and tools.
 
+**Keywords:** agentic-workflows, agent-instructions, skills, knowledge-management, structured-data, workspaces, records.
+
 ## Development
 
 ### Scripts
