@@ -22,10 +22,11 @@
 
 This section lists the path variables used throughout the milestone file and its downstream work items. All file references in the milestone and downstream work items MUST use these variables — never bare filesystem paths.
 
-| Variable     | Resolved Path                | Purpose                                        |
-| ------------ | ---------------------------- | ---------------------------------------------- |
-| `$WORKSPACE` | Current working directory    | Repository where this milestone and plans live |
-| `$DOMAINS`   | `$WORKSPACE/.agents/domains` | Domain resources directory                     |
+| Variable     | Resolved Path                | Purpose                                               |
+| ------------ | ---------------------------- | ----------------------------------------------------- |
+| `$WORKSPACE` | Current working directory    | Repository where the domain resources directory lives |
+| `$PROJECT`   | Provided with prompt         | Where this milestone and plans live                   |
+| `$DOMAINS`   | `$WORKSPACE/.agents/domains` | Domain resources directory                            |
 
 ## Summary
 
@@ -35,11 +36,10 @@ Continue evolving the domain prototype. All work and commits remain in the `$WOR
 
 ### Upstream Work
 
-| Kind                  | Path                                  | Role                                                            |
-| --------------------- | ------------------------------------- | --------------------------------------------------------------- |
-| Parking Lot           | `$WORKSPACE/_roadmap/_parking-lot.md` | Tracks short-term actionables, pending questions, and blockers. |
-| Architecture Briefing | `$WORKSPACE/_roadmap/_architect.md`   | Principles, Constraints, NFRs. Planned, not yet created.        |
-| Roadmap               | `$WORKSPACE/_roadmap/_roadmap.md`     | Coordinates this milestone with other milestones and plans.     |
+| Kind                  | Path                                | Role                                                            |
+| --------------------- | ----------------------------------- | --------------------------------------------------------------- |
+| Parking Lot           | `$PROJECT/_roadmap/_parking-lot.md` | Tracks short-term actionables, pending questions, and blockers. |
+| Architecture Briefing | `$PROJECT/_roadmap/_architect.md`   | Principles, Constraints, NFRs. Planned, not yet created.        |
 
 ### Required Skills
 
@@ -86,7 +86,7 @@ This section describes the ordered phases used to organise downstream work, iden
 
 **Goal:** Develop new domains.
 
-**Description:** Support authoring and extending domains, including spec-driven planning.
+**Description:** Develop new domains, building on the distribution and installation capabilities, and including spec-driven planning.
 
 **Status:** `PLANNING`
 
@@ -100,15 +100,21 @@ This section describes the ordered phases used to organise downstream work, iden
 
 This section lists the downstream work items produced, coordinated, or advanced by the milestone.
 
-| Phase | Resource / Record                                                                                                    | Status  |
-| ----- | -------------------------------------------------------------------------------------------------------------------- | ------- |
-| 1     | Milestone: POC Domain Package Distribution `$WORKSPACE/_roadmap/6-plan/milestone-poc-domain-package-distribution.md` | `DRAFT` |
-| -     |                                                                                                                      |         |
-| 1     | Milestone: Distributable Domains `$WORKSPACE/_roadmap/6-plan/milestone-distributable-domains.md`                     | `DRAFT` |
-| -     |                                                                                                                      |         |
-| 2     | Milestone: Extend Domains `$WORKSPACE/_roadmap/6-plan/milestone-extend-domains.md`                                   | `DRAFT` |
-| -     |                                                                                                                      |         |
-| 2     | Milestone: Specs MVP `$WORKSPACE/_roadmap/6-plan/milestone-extend-domains.md`                                        | `DRAFT` |
+| Phase | Resource / Record                                                                                                         | Status  |
+| ----- | ------------------------------------------------------------------------------------------------------------------------- | ------- |
+| 1     | Milestone: POC Domain Package Distribution `$PROJECT/_roadmap/6-plan/milestone-poc-domain-package-distribution.md`        | `DRAFT` |
+| -     |                                                                                                                           |         |
+| 1     | Milestone: Distributable Domains `$PROJECT/_roadmap/6-plan/milestone-distributable-domains.md`                            | `DRAFT` |
+| -     |                                                                                                                           |         |
+| 2     | Plan: Add Guides Domain `$PROJECT/_backlog/3-now/plan-add-guides-domain/plan.md`                                          | `READY` |
+| -     |                                                                                                                           |         |
+| 2     | Plan: Add Backlogs Domain `$PROJECT/_backlog/3-now/plan-add-backlogs-domain/plan.md`                                      | `READY` |
+| -     |                                                                                                                           |         |
+| 2     | Plan: Add Domain Record in Commits and Projects `$PROJECT/_backlog/3-now/plan-add-domain-record-commits-projects/plan.md` | `READY` |
+| -     |                                                                                                                           |         |
+| 2     | Plan: Add Boundaries to Active Domains `$PROJECT/_backlog/3-now/plan-add-boundaries-active-domains/plan.md`               | `READY` |
+| -     |                                                                                                                           |         |
+| 2     | Plan: Specs MVP `$PROJECT/_backlog/6-plan/plan-specs-mvp.md`                                                              | `DRAFT` |
 
 ---
 
@@ -141,6 +147,7 @@ No iteration has been delegated yet; dry-run the POC distribution plan first to 
 ### Decisions
 
 - All work and commits are currently in the `$WORKSPACE` repository.
+- Roadmap and backlogs are currently in the `$PROJECT` repository.
 
 ### Knowledge to Update
 
