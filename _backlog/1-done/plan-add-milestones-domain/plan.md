@@ -2,7 +2,7 @@
 
 **ID:** `add-milestones-domain`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -103,17 +103,17 @@ Execution is coordinated from `$WORKSPACE`. All changes land in `$WORKSPACE/.age
 
 ## Items:
 
-| Iteration / Instructions                 | Status  |
-| ---------------------------------------- | ------- |
-| Iteration: Extract Milestone Resources   | `READY` |
-| Iteration: Repoint Stale Domain Paths    | `READY` |
-| Iteration: Reword Roadmapping Operations | `READY` |
+| Iteration / Instructions                 | Status |
+| ---------------------------------------- | ------ |
+| Iteration: Extract Milestone Resources   | `DONE` |
+| Iteration: Repoint Stale Domain Paths    | `DONE` |
+| Iteration: Reword Roadmapping Operations | `DONE` |
 
 ### Iteration: Extract Milestone Resources
 
 **Id:** `extract-milestone-resources`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Split the Roadmaps domain so that Milestones owns the milestone work item and its supporting resources, and Roadmaps owns the `roadmapping` workflow and its operations.
 
@@ -143,28 +143,26 @@ Execution is coordinated from `$WORKSPACE`. All changes land in `$WORKSPACE/.age
 
 #### Commits:
 
-| ID                            | Repository / Checkout / Branch      | Policy       | Hash | Status        |
-| ----------------------------- | ----------------------------------- | ------------ | ---- | ------------- |
-| `extract-milestone-resources` | Art Domains / `$WORKSPACE` / `main` | `AUTONOMOUS` | `-`  | `PLACEHOLDER` |
+| ID                            | Repository / Checkout / Branch      | Policy       | Hash      | Status      |
+| ----------------------------- | ----------------------------------- | ------------ | --------- | ----------- |
+| `extract-milestone-resources` | Art Domains / `$WORKSPACE` / `main` | `AUTONOMOUS` | `0096ee0` | `COMMITTED` |
 
 **Message:**
 
 ```
-refactor(art-domains): Extract milestone resources into the Milestones domain
+build(domain-roadmapping): Frame roadmapping operations on abstract work items
 
-- Move the Milestone definition to milestones/definitions/index.art.
-- Move Structure: Milestone and the milestone template to the Milestones domain.
-- Move the six milestone routines to the Milestones domain.
-- Author milestones/domain.art with purpose, description, and boundaries.
-- Author roadmaps/domain.art for the roadmapping workflow it owns.
-- Regenerate the Milestones and Roadmaps domain indexes.
+- Rename the strategizing, prioritizing, and coordinating operations to work framing.
+- Rewrite the operation purposes and descriptions in work item terms.
+- Update the Roadmapping workflow description and operations list.
+- Regenerate the Roadmaps domain index.
 ```
 
 ### Iteration: Repoint Stale Domain Paths
 
 **Id:** `repoint-stale-domain-paths`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Repoint every path across `$WORKSPACE/.agents` that referenced the extracted milestone resources so it resolves to `$DOMAINS/milestones`.
 
@@ -197,14 +195,14 @@ refactor(art-domains): Extract milestone resources into the Milestones domain
 
 #### Commits:
 
-| ID                           | Repository / Checkout / Branch      | Policy       | Hash | Status        |
-| ---------------------------- | ----------------------------------- | ------------ | ---- | ------------- |
-| `repoint-stale-domain-paths` | Art Domains / `$WORKSPACE` / `main` | `AUTONOMOUS` | `-`  | `PLACEHOLDER` |
+| ID                           | Repository / Checkout / Branch      | Policy       | Hash      | Status      |
+| ---------------------------- | ----------------------------------- | ------------ | --------- | ----------- |
+| `repoint-stale-domain-paths` | Art Domains / `$WORKSPACE` / `main` | `AUTONOMOUS` | `eb0c754` | `COMMITTED` |
 
 **Message:**
 
 ```
-refactor(art-domains): Repoint milestone resource paths to the Milestones domain
+refactor(domain-milestones): Repoint milestone resource paths to the Milestones domain
 
 - Retarget ::READ directives and inline references in the moved files.
 - Retarget the milestone structure and template examples in domain resources.
@@ -217,7 +215,7 @@ refactor(art-domains): Repoint milestone resource paths to the Milestones domain
 
 **Id:** `reword-roadmapping-operations`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Remove milestone framing from the `roadmapping` workflow operations so they describe their relationship with abstract work items, and propagate the renames everywhere the operation names are cited.
 
@@ -246,14 +244,14 @@ refactor(art-domains): Repoint milestone resource paths to the Milestones domain
 
 #### Commits:
 
-| ID                              | Repository / Checkout / Branch      | Policy       | Hash | Status        |
-| ------------------------------- | ----------------------------------- | ------------ | ---- | ------------- |
-| `rework-roadmapping-operations` | Art Domains / `$WORKSPACE` / `main` | `AUTONOMOUS` | `-`  | `PLACEHOLDER` |
+| ID                              | Repository / Checkout / Branch      | Policy       | Hash      | Status      |
+| ------------------------------- | ----------------------------------- | ------------ | --------- | ----------- |
+| `rework-roadmapping-operations` | Art Domains / `$WORKSPACE` / `main` | `AUTONOMOUS` | `469d516` | `COMMITTED` |
 
 **Message:**
 
 ```
-refactor(art-domains): Frame roadmapping operations on abstract work items
+build(domain-milestones): Add Milestones domain with resources extracted from Roadmapping.
 
 - Rename the strategizing, prioritizing, and coordinating operations to work framing.
 - Rewrite the operation purposes and descriptions in work item terms.

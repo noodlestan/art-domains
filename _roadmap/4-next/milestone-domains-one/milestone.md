@@ -109,7 +109,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | 2     | Plan: Add Backlogs Domain `$PROJECT/_backlog/1-done/plan-add-backlogs-domain/plan.md`                                      | `DONE`  |
 | 2     | Plan: Add Domain Record in Commits and Projects `$PROJECT/_backlog/1-done/plan-add-domain-record-commits-projects/plan.md` | `DONE`  |
 | 2     | Plan: Add Boundaries to Active Domains `$PROJECT/_backlog/1-done/plan-add-boundaries-active-domains/plan.md`               | `DONE`  |
-| 2     | Plan: Add Milestones Domain `$PROJECT/_backlog/4-next/plan-add-milestones-domain/plan.md`                                  | `DRAFT` |
+| 2     | Plan: Add Milestones Domain `$PROJECT/_backlog/1-done/plan-add-milestones-domain/plan.md`                                  | `DONE`  |
 | 2     | Plan: Specs MVP `$PROJECT/_backlog/6-plan/plan-specs-mvp.md`                                                               | `DRAFT` |
 
 ---
