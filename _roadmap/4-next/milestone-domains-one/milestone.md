@@ -68,7 +68,7 @@ This section describes the ordered phases used to organise downstream work, iden
 | Index | Name       | Status     |
 | ----- | ---------- | ---------- |
 | #1    | Distribute | `PLANNING` |
-| #2    | Extend     | `PLANNING` |
+| #2    | Extend     | `WORKING`  |
 
 ### Phase: 1 — Distribute
 
@@ -88,7 +88,7 @@ This section describes the ordered phases used to organise downstream work, iden
 
 **Description:** Develop new domains, building on the distribution and installation capabilities, and including spec-driven planning.
 
-**Status:** `PLANNING`
+**Status:** `WORKING`
 
 **Dependencies:**
 
@@ -103,17 +103,13 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | Phase | Resource / Record                                                                                                          | Status  |
 | ----- | -------------------------------------------------------------------------------------------------------------------------- | ------- |
 | 1     | Milestone: POC Domain Package Distribution `$PROJECT/_roadmap/6-plan/milestone-poc-domain-package-distribution.md`         | `DRAFT` |
-| -     |                                                                                                                            |         |
 | 1     | Milestone: Distributable Domains `$PROJECT/_roadmap/6-plan/milestone-distributable-domains.md`                             | `DRAFT` |
 | -     |                                                                                                                            |         |
 | 2     | Plan: Add Guides Domain `$PROJECT/_backlog/1-done/plan-add-guides-domain/plan.md`                                          | `DONE`  |
-| -     |                                                                                                                            |         |
 | 2     | Plan: Add Backlogs Domain `$PROJECT/_backlog/1-done/plan-add-backlogs-domain/plan.md`                                      | `DONE`  |
-| -     |                                                                                                                            |         |
 | 2     | Plan: Add Domain Record in Commits and Projects `$PROJECT/_backlog/1-done/plan-add-domain-record-commits-projects/plan.md` | `DONE`  |
-| -     |                                                                                                                            |         |
 | 2     | Plan: Add Boundaries to Active Domains `$PROJECT/_backlog/1-done/plan-add-boundaries-active-domains/plan.md`               | `DONE`  |
-| -     |                                                                                                                            |         |
+| 2     | Plan: Add Milestones Domain `$PROJECT/_backlog/4-next/plan-add-milestones-domain/plan.md`                                  | `DRAFT` |
 | 2     | Plan: Specs MVP `$PROJECT/_backlog/6-plan/plan-specs-mvp.md`                                                               | `DRAFT` |
 
 ---
