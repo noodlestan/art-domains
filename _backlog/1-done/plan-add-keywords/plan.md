@@ -273,8 +273,6 @@ This section lists the iterations produced, coordinated, or advanced by the plan
 
 **Repository:** Workspace
 
-**Hash:** `cdb944d` — committed and pushed to `origin/main` on 2026-09-26.
-
 **Message:**
 
 ```
@@ -319,8 +317,6 @@ build(art-domains): add `keywords` to project and package record structures.
 ##### Commit: apply-keywords-to-art-domains
 
 **Repository:** Art Domains
-
-**Hash:** `0588137` — committed locally on 2026-09-26. Not yet pushed.
 
 **Message:**
 

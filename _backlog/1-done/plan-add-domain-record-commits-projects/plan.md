@@ -2,7 +2,7 @@
 
 **ID:** `add-domain-record-commits-projects`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -158,15 +158,15 @@ Execution is performed from `$WORKSPACE/` on branch `main`. Both commits land in
 
 This section lists the iterations produced, coordinated, or advanced by the plan, identifying blocking dependencies across resources of different owners.
 
-| Iteration                                          | Status  |
-| -------------------------------------------------- | ------- |
-| Iteration: Add Commits and Projects Domain Records | `READY` |
+| Iteration                                          | Status |
+| -------------------------------------------------- | ------ |
+| Iteration: Add Commits and Projects Domain Records | `DONE` |
 
 ### Iteration: Add Commits and Projects Domain Records
 
 **Id:** `add-commits-and-projects-domain-records`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Add the missing domain records for Commits and Projects.
 
@@ -184,10 +184,10 @@ This section lists the iterations produced, coordinated, or advanced by the plan
 
 #### Commits:
 
-| ID                      | Repository / Checkout / Branch    | Policy       | Hash  | Status     |
-| ----------------------- | --------------------------------- | ------------ | ----- | ---------- |
-| `build-domain-commits`  | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `build-domain-projects` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                      | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| ----------------------- | --------------------------------- | ------------ | --------- | ----------- |
+| `build-domain-commits`  | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `4da0345` | `COMMITTED` |
+| `build-domain-projects` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `5a03f2f` | `COMMITTED` |
 
 ##### Commit: build-domain-commits
 
@@ -221,7 +221,7 @@ build(domain-projects): Add Domain: Projects.
 
 ### Next
 
-Delegate the single `READY` iteration.
+No next move; the iteration is `DONE` and both commits are `COMMITTED` in `$WORKSPACE`.
 
 ---
 

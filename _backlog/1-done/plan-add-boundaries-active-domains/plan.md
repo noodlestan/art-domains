@@ -2,7 +2,7 @@
 
 **ID:** `add-boundaries-active-domains`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -215,15 +215,15 @@ Execution is performed from `$WORKSPACE/` on branch `main`. A single squashed co
 
 This section lists the iterations produced, coordinated, or advanced by the plan, identifying blocking dependencies across resources of different owners.
 
-| Iteration                                       | Status  |
-| ----------------------------------------------- | ------- |
-| Iteration: Add Boundaries Across Active Domains | `READY` |
+| Iteration                                       | Status |
+| ----------------------------------------------- | ------ |
+| Iteration: Add Boundaries Across Active Domains | `DONE` |
 
 ### Iteration: Add Boundaries Across Active Domains
 
 **Id:** `add-boundaries-across-active-domains`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Give every domain record that lacks one a `**Boundaries:**` field.
 
@@ -250,9 +250,9 @@ This section lists the iterations produced, coordinated, or advanced by the plan
 
 #### Commits:
 
-| ID                         | Repository / Checkout / Branch    | Policy       | Hash  | Status     |
-| -------------------------- | --------------------------------- | ------------ | ----- | ---------- |
-| `build-domains-boundaries` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                         | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| -------------------------- | --------------------------------- | ------------ | --------- | ----------- |
+| `build-domains-boundaries` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `6d7d095` | `COMMITTED` |
 
 ##### Commit: build-domains-boundaries
 
@@ -273,7 +273,7 @@ build(domains): Add boundaries fields across 11 domains.
 
 ### Next
 
-Delegate the single `READY` iteration.
+No next move; the iteration is `DONE` and its commit is `COMMITTED` in `$WORKSPACE`.
 
 ---
 

@@ -2,7 +2,7 @@
 
 **ID:** `add-backlogs-domain`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -177,15 +177,15 @@ Execution is performed from `$WORKSPACE/` on branch `main`. The single commit la
 
 This section lists the iterations produced, coordinated, or advanced by the plan, identifying blocking dependencies across resources of different owners.
 
-| Iteration                            | Status  |
-| ------------------------------------ | ------- |
-| Iteration: Establish Backlogs Domain | `READY` |
+| Iteration                            | Status |
+| ------------------------------------ | ------ |
+| Iteration: Establish Backlogs Domain | `DONE` |
 
 ### Iteration: Establish Backlogs Domain
 
 **Id:** `establish-backlogs-domain`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Land the `backlogs` domain with its structure, definitions, and creation routine.
 
@@ -206,9 +206,9 @@ This section lists the iterations produced, coordinated, or advanced by the plan
 
 #### Commits:
 
-| ID                      | Repository / Checkout / Branch    | Policy       | Hash  | Status     |
-| ----------------------- | --------------------------------- | ------------ | ----- | ---------- |
-| `build-domain-backlogs` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                      | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| ----------------------- | --------------------------------- | ------------ | --------- | ----------- |
+| `build-domain-backlogs` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `652aae7` | `COMMITTED` |
 
 ##### Commit: build-domain-backlogs
 
@@ -231,7 +231,7 @@ build(domain-backlogs): Add Domain: Backlogs.
 
 ### Next
 
-Delegate the single `READY` iteration.
+No next move; the iteration is `DONE` and its commit is `COMMITTED` in `$WORKSPACE`.
 
 ---
 

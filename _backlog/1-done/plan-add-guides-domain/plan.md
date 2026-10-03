@@ -2,7 +2,7 @@
 
 **ID:** `add-guides-domain`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -178,15 +178,15 @@ Execution is performed from `$WORKSPACE/` on branch `main`. All three commits la
 
 This section lists the iterations produced, coordinated, or advanced by the plan, identifying blocking dependencies across resources of different owners.
 
-| Iteration                                             | Status  |
-| ----------------------------------------------------- | ------- |
-| Iteration: Promote Guides Domain and Migrate Routines | `READY` |
+| Iteration                                             | Status |
+| ----------------------------------------------------- | ------ |
+| Iteration: Promote Guides Domain and Migrate Routines | `DONE` |
 
 ### Iteration: Promote Guides Domain and Migrate Routines
 
 **Id:** `promote-guides-domain-and-migrate-routines`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Land the `guides` domain and the two migrate routines in their owning domains.
 
@@ -209,11 +209,11 @@ This section lists the iterations produced, coordinated, or advanced by the plan
 
 #### Commits:
 
-| ID                      | Repository / Checkout / Branch    | Policy       | Hash  | Status     |
-| ----------------------- | --------------------------------- | ------------ | ----- | ---------- |
-| `build-domain-guides`   | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `build-domain-plans`    | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
-| `build-domain-roadmaps` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                      | Repository / Checkout / Branch    | Policy       | Hash      | Status      |
+| ----------------------- | --------------------------------- | ------------ | --------- | ----------- |
+| `build-domain-guides`   | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `d2ce39b` | `COMMITTED` |
+| `build-domain-plans`    | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `880e82b` | `COMMITTED` |
+| `build-domain-roadmaps` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | `09ff514` | `COMMITTED` |
 
 ##### Commit: build-domain-guides
 
@@ -264,7 +264,7 @@ build(domain-roadmaps): Add Routine: Migrate Milestone.
 
 ### Next
 
-Delegate the single `READY` iteration.
+No next move; all iterations are `DONE` and their commits are `COMMITTED` in `$WORKSPACE`.
 
 ---
 
