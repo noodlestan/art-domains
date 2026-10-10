@@ -56,7 +56,7 @@ This section lists the documentation and reference files the sub-agent needs to 
 
 ::READ `$DOMAINS/projects/structures/project.art` (Structure) — The structure the project record must satisfy; read the `keywords` declaration and the `Project: Purrfect` example. Relevant for Step 1.
 
-::READ `$MANAGEMENT/_roadmap/3-now/milestone-rollout-project-keywords/milestone__keywords.md` (Milestone Attachment) — The authoritative keyword list, section `Keywords: Art Domains`. Relevant for Steps 1 and 2.
+::READ `$MANAGEMENT/_backlog/3-now/plan-rollout-project-keywords/plan__keywords.md` (Plan Attachment) — The authoritative keyword list, section `Keywords: Art Domains`. Relevant for Steps 1 and 2.
 
 ::READ `$WORKSPACE/knowledge/conventions/writing-commit-message.art` (Conventions) — Allowed commit types, scopes, and message format. Relevant for the commit step.
 

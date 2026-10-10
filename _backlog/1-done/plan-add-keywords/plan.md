@@ -37,12 +37,12 @@ Extend the Project and Package record structures with a `keywords` field in the 
 
 ### Upstream Work
 
-| Kind                 | Path                                                                                   | Role                                                            |
-| -------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| Milestone            | `$MANAGEMENT/_roadmap/3-now/milestone-rollout-project-keywords/milestone.md`           | Coordinates Phase 1 of the keyword rollout; owns this plan.     |
-| Milestone Attachment | `$MANAGEMENT/_roadmap/3-now/milestone-rollout-project-keywords/milestone__keywords.md` | Source list of keywords per project, including Art Domains.     |
-| Milestone            | `$PROJECT/_roadmap/6-plan/milestone-extend-domains.md`                                 | Coordinates domain structure evolution in the Art Domains repo. |
-| Parking Lot          | `$PROJECT/_roadmap/_parking-lot.md`                                                    | Tracks short-term actionables, pending questions, and blockers. |
+| Kind            | Path                                                                         | Role                                                               |
+| --------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Plan            | `$MANAGEMENT/_backlog/3-now/plan-rollout-project-keywords/plan.md`           | Parent rollout plan; absorbed Milestone: Rollout Project Keywords. |
+| Plan Attachment | `$MANAGEMENT/_backlog/3-now/plan-rollout-project-keywords/plan__keywords.md` | Source list of keywords per project, including Art Domains.        |
+| Milestone       | `$PROJECT/_roadmap/6-plan/milestone-extend-domains.md`                       | Coordinates domain structure evolution in the Art Domains repo.    |
+| Parking Lot     | `$PROJECT/_roadmap/_parking-lot.md`                                          | Tracks short-term actionables, pending questions, and blockers.    |
 
 ### Required Skills
 
@@ -90,7 +90,7 @@ Extend the Project and Package record structures with a `keywords` field in the 
 
 ::READ `$WORKSPACE/knowledge/conventions/writing-commit-message.art` (Conventions) — Allowed commit types, scopes, and message format. Relevant for Writing Commit Message.
 
-::READ `$MANAGEMENT/_roadmap/3-now/milestone-rollout-project-keywords/milestone__keywords.md` (Milestone Attachment) — Source keywords per project; the Art Domains list feeds the project record. Relevant for Planning Work Item.
+::READ `$MANAGEMENT/_backlog/3-now/plan-rollout-project-keywords/plan__keywords.md` (Plan Attachment) — Source keywords per project; the Art Domains list feeds the project record. Relevant for Planning Work Item.
 
 ::READ `$DOMAINS/projects/structures/project.art` (Structure) — Target of the `keywords` field addition. Relevant for Planning Work Item.
 
@@ -298,7 +298,7 @@ build(art-domains): add `keywords` to project and package record structures.
 
 **Changes:**
 
-- Add a `Keywords` field to `$PROJECT/_records/project.art`, between `**Resources:**` and `**Private:**`, with the 7 keywords listed in `$MANAGEMENT/_roadmap/3-now/milestone-rollout-project-keywords/milestone__keywords.md` under `Keywords: Art Domains`, in that order.
+- Add a `Keywords` field to `$PROJECT/_records/project.art`, between `**Resources:**` and `**Private:**`, with the 7 keywords listed in `$MANAGEMENT/_backlog/3-now/plan-rollout-project-keywords/plan__keywords.md` under `Keywords: Art Domains`, in that order.
 - Add a `**Keywords:**` field to `$PROJECT/README.md`, placed after the description paragraph and before `## Development`, rendering the same 7 keywords as an inline comma-separated list in the same order as the record.
 - Add a `keywords` array to `$PROJECT/package.json`, placed after `description` and before `author`, carrying the same 7 keywords in the same order.
 - Change the short license form in `$PROJECT/_records/license.art` from "Published under a [MIT license](https://noodlestan.mit-license.org/)." to "Published under an [MIT license](https://noodlestan.mit-license.org/)."
