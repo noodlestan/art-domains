@@ -12,7 +12,6 @@ The high level briefing, principles, requirements, and milestones are in `_roadm
 
 ### PENDING
 
-- **"Conventions Adoption recording"** — what does this mean? Just tracking whether a convention has been applied to the codebase, or something more?
 - **Spec file conventions** — should the specs domain define file conventions (like `plan-{plan.id}/specs/{spec.id}.md`) or keep them generic via Work Attachment?
 
 ### BLOCKER
@@ -21,4 +20,4 @@ The high level briefing, principles, requirements, and milestones are in `_roadm
 
 ### FOLLOW-UPS (not in scope)
 
-None current.
+- **Track ad-hoc `build(domain*)` work** — record untracked `build(domain*)` commits in dedicated backlog plans for future reference (see `_backlog/1-done/`).

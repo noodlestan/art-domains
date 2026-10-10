@@ -1,4 +1,4 @@
-# Parking Lot: Art Domains BAcklog
+# Parking Lot: Art Domains Backlog
 
 ## Actionable Items
 
