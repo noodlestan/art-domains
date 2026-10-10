@@ -110,6 +110,17 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | 2     | Plan: Add Domain Record in Commits and Projects `$PROJECT/_backlog/0-archive/2026-10-03-plan-add-domain-record-commits-projects/plan.md` | `DONE`  |
 | 2     | Plan: Add Boundaries to Active Domains `$PROJECT/_backlog/0-archive/2026-10-03-plan-add-boundaries-active-domains/plan.md`               | `DONE`  |
 | 2     | Plan: Add Milestones Domain `$PROJECT/_backlog/0-archive/2026-10-03-plan-add-milestones-domain/plan.md`                                  | `DONE`  |
+| 2     | Plan: Instruction Inlining `$PROJECT/_backlog/1-done/plan-instruction-inlining/plan.md`                                                  | `DONE`  |
+| 2     | Plan: Validation Updates `$PROJECT/_backlog/1-done/plan-validation-updates/plan.md`                                                      | `DONE`  |
+| 2     | Plan: File Patterns `$PROJECT/_backlog/1-done/plan-file-patterns/plan.md`                                                                | `DONE`  |
+| 2     | Plan: Conventions Adoption `$PROJECT/_backlog/1-done/plan-conventions-adoption/plan.md`                                                  | `DONE`  |
+| 2     | Plan: Changelog Section Types `$PROJECT/_backlog/1-done/plan-changelog-section-types/plan.md`                                            | `DONE`  |
+| 2     | Plan: Projects Management Contents `$PROJECT/_backlog/1-done/plan-projects-management-contents/plan.md`                                  | `DONE`  |
+| 2     | Plan: Roadmap Purpose Wording `$PROJECT/_backlog/1-done/plan-roadmap-purpose-wording/plan.md`                                            | `DONE`  |
+| 2     | Plan: Workspace Guide Workflows `$PROJECT/_backlog/1-done/plan-workspace-guide-workflows/plan.md`                                        | `DONE`  |
+| 2     | Plan: Milestone Template Domains `$PROJECT/_backlog/1-done/plan-milestone-template-domains/plan.md`                                      | `DONE`  |
+| 2     | Plan: Refine Domain Structures `$PROJECT/_backlog/1-done/plan-refine-domain-structures/plan.md`                                          | `DONE`  |
+| 2     | Plan: Normalize Structure Inheritance `$PROJECT/_backlog/1-done/plan-normalize-structure-inheritance/plan.md`                            | `DONE`  |
 | 2     | Plan: Specs MVP `$PROJECT/_backlog/6-plan/plan-specs-mvp.md`                                                                             | `DRAFT` |
 
 ---
