@@ -1,8 +1,8 @@
-# Architecture
+# Knowledge: Art domains
 
-Domain architecture knowledge: reference model, workflows, and design decisions.
+Domain knowledge: reference model, workflows, and design decisions.
 
-## Contents
+## Documents
 
 - [reference-model.md](reference-model.md) — Domain boundaries for 14 domains, expressed as relationships ordered from strongest to weakest.
 - [reference-workflows.md](reference-workflows.md) — 5 workflows (Planning Work, Executing Work, Delegating Work, Roadmapping, Deploying) with stage Input/Output/Gates/Operating Resources.

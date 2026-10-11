@@ -28,7 +28,7 @@ Three kinds of relationships are distinguished throughout:
 ### Domain Boundaries: Plans
 
 - **Work** is directly depended upon — Plans extend abstract work items and use Work abstractions for work scope, upstream work items, downstream work items, workflows, operations, status, context, attachments, and phases.
-- **Knowledge** is consumed — Plans use knowledge resources to provide context for planning and execution, including architecture, patterns, conventions, guides, and decision records, but make no assumptions about their shape.
+- **Knowledge** is consumed — Plans use knowledge resources to provide context for planning and execution, including knowledge, patterns, conventions, guides, and decision records, but make no assumptions about their shape.
 - **Work** advancing items through execution — Plans express execution intent (setup, verification, instructions) that the Executing Work workflow consumes as input, but Plans make no assumptions about how implementation is performed or verified.
 - **Work** may inform Plans — Plans may receive direction, state, or work from work items, but can be created and used independently.
 - **Roadmaps** may inform Plans — Roadmaps may provide upstream work, direction, or context for Plans, but Plans can be created and used independently of Roadmaps and make no assumptions about their shape.

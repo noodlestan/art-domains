@@ -2,7 +2,7 @@
 
 > Host and manage the Art Domains packages and tools, and their planning artefacts.
 
-Monorepo containing the Art Domains roadmap, architecture knowledge, domain libraries source code and their backlogs.
+Monorepo containing the Art Domains roadmap, knowledge, domain libraries source code and their backlogs.
 
 Uses Workflow: Planning Work with one backlog per package, coordinating with Workflow: Roadmapping from one project-wide roadmap.
 
@@ -18,7 +18,7 @@ Agents SHOULD scan these files for relevant clarifications when faced with ambig
 _backlog/           — plans, instructions, reports
 _roadmap/           — milestones, briefing, and roadmapping parking lot
 _records/           — records (project, repository, namespaces, scripts, scaffolding)
-architecture/       — index, ADRs, reference domain model and workflows
+knowledge/       — index, ADRs, reference domain model and workflows
 ```
 
 ## Projects
@@ -40,7 +40,7 @@ Records are co-located with the resources they describe in `_records/` directori
 
 ## Knowledge References
 
-This repository maintains an architecture reference at `architecture/index.md` and decision records at `architecture/records/adr`.
+This repository maintains a knowledge reference at `knowledge/index.md` and decision records at `knowledge/records/adr`.
 
 ## Conventions
 
