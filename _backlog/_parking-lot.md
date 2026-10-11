@@ -2,7 +2,8 @@
 
 ## Actionable Items
 
-- None yet.
+- Fix `$DOMAINS/conventions/_wip.md` — still says "Processes" after the `processes` → `routines` rename.
+- Delete the duplicate `$SKILLS/agents-modes.md` (or fold it into `$SKILLS/agent-modes.md`).
 
 ## Pending Questions
 
