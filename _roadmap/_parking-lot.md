@@ -9,6 +9,7 @@ The high level briefing, principles, requirements, and milestones are in `_roadm
 - **Add spec content rules to specs domain** — no implementation details, no code snippets, no tables unless prescribed (from old write-task-files.art).
 - **Create `domains/specs/index.md`** — specs domain needs an index file with definitions, types, and file conventions.
 - **Sweep files for legacy naming** ("domain Record", "Record Structure", "Attachment File") — blocked on fundamentals cleanup being finalised.
+- **Investigate `$WORKSPACE/.agents/domains/changelogs/`** — separate domain for changelog management. Should be dependency of engineering domain (like plans). Own structures, agent modes (if any), skills. `write-changelog` skill already exists — may need expansion. Changelogs generated from completed plans in backlogs. Example: `_backlog/1-done/`.
 
 ### PENDING
 
