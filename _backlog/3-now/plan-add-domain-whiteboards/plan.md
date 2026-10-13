@@ -85,7 +85,7 @@ Add a new `$DOMAINS/whiteboards/` domain with structures, types, a template, a f
 
 ### Next
 
-Delegate iteration `add-whiteboard-template-and-file` with `./instructions/add-whiteboard-template-and-file.md`, then the three following iterations in dependency order.
+Delegate iteration `add-whiteboard-routines` with `./instructions/add-whiteboard-routines.md`, then the two following iterations in dependency order.
 
 ### Blockers
 
@@ -136,7 +136,7 @@ npm run ci # lint, build and test
 | Iteration / Instructions                          | Status  |
 | ------------------------------------------------- | ------- |
 | Iteration: Add Whiteboard Structures              | `DONE`  |
-| Iteration: Add Whiteboard Template and File       | `READY` |
+| Iteration: Add Whiteboard Template and File       | `DONE`  |
 | Iteration: Add Whiteboard Routines                | `READY` |
 | Iteration: Add Whiteboard Skill and Commands      | `READY` |
 | Iteration: Register Whiteboards Domain and Skills | `READY` |
@@ -196,7 +196,7 @@ build(domain-whiteboards): Add Whiteboard structures and types.
 
 **Id:** `add-whiteboard-template-and-file`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Define how a whiteboard is presented and where the whiteboard file lives.
 
@@ -205,6 +205,8 @@ build(domain-whiteboards): Add Whiteboard structures and types.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/add-whiteboard-template-and-file.md`
+
+**Report:** `./instructions/add-whiteboard-template-and-file__report.md`
 
 **Changes:**
 
@@ -217,9 +219,9 @@ build(domain-whiteboards): Add Whiteboard structures and types.
 
 #### Commits:
 
-| ID                          | Repository / Checkout / Branch        | Policy       | Hash  | Status     |
-| --------------------------- | ------------------------------------- | ------------ | ----- | ---------- |
-| `build-whiteboard-template` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                          | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
+| --------------------------- | ------------------------------------- | ------------ | --------- | ----------- |
+| `build-whiteboard-template` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `ad95178` | `COMMITTED` |
 
 ##### Commit: build-whiteboard-template
 
@@ -379,6 +381,7 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 ### Evidence
 
 - Iteration `add-whiteboard-structures` — 9 files under `$DOMAINS/whiteboards/` (4 structures, 3 types, `domain.art`, `index.md`), `npm run ci` green, committed and pushed as `8d493b3` on the workspace `building` branch.
+- Iteration `add-whiteboard-template-and-file` — `templates/whiteboard.tart` (7 sections + 3-part Instructions constitution, no Contracts) and `files/whiteboard.art` (naming `whiteboard-{whiteboard.id}.md`, template reference, workspace-vs-`checkouts/*` scoping); committed and pushed as `ad95178`.
 
 ### Findings
 
