@@ -1,7 +1,7 @@
 {
   "name": "noodlestan/art-domains",
   "version": "0.0.1",
-  "description": "Distributable artificial resources within knowledge and work domains: agent instructions, structures, processes, CLIs, and tools.",
+  "description": "Art Domains planning repository: roadmap, backlogs, knowledge references, and records.",
   "keywords": [
     "agentic-workflows",
     "agent-instructions",

@@ -2,9 +2,11 @@
 
 ## Repository: Art Domains
 
-**Purpose:** Host and manage the Art Domains packages and tools, and their planning artefacts.
+**Purpose:** Host and manage the Art Domains planning artefacts.
 
-**Description:** Monorepo containing the Art Domains roadmap, knowledge, domain libraries source code and their backlogs.
+**Description:** This repository hosts the Art Domains planning artefacts only: the roadmap, the backlogs, the knowledge references, and the records.
+
+The Art Domains source code lives in the workspace repository, in `$DOMAINS` (Domains) and `$SKILLS` (Skills). Nothing in this repository defines or ships domain or skill source; it plans and tracks the work that changes them.
 
 **Owner:** Project: Art Domains
 

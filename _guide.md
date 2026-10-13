@@ -1,10 +1,21 @@
 # Guide: Art Domains
 
-> Host and manage the Art Domains packages and tools, and their planning artefacts.
+> Host and manage the Art Domains planning artefacts.
 
-Monorepo containing the Art Domains roadmap, knowledge, domain libraries source code and their backlogs.
+This repository hosts the Art Domains planning artefacts only: the roadmap, the backlogs, the knowledge references, and the records.
+
+The Art Domains source code lives in the workspace repository, in `$DOMAINS` (Domains) and `$SKILLS` (Skills). Nothing in this repository defines or ships domain or skill source; it plans and tracks the work that changes them.
 
 Uses Workflow: Planning Work with one backlog per package, coordinating with Workflow: Roadmapping from one project-wide roadmap.
+
+## Path Variables
+
+| Variable     | Resolved Path                | Description                                               |
+| ------------ | ---------------------------- | --------------------------------------------------------- |
+| `$WORKSPACE` | Current working directory    | Workspace repository hosting the domain and skill source. |
+| `$DOMAINS`   | `$WORKSPACE/.agents/domains` | Art-managed domains (source code).                        |
+| `$SKILLS`    | `$WORKSPACE/.agents/skills`  | Art-managed agent modes and skills (source code).         |
+| `$PROJECT`   | Current checkout             | This repository: the Art Domains roadmap and backlogs.    |
 
 ## Recommended Reading
 
@@ -18,7 +29,7 @@ Agents SHOULD scan these files for relevant clarifications when faced with ambig
 _backlog/           — plans, instructions, reports
 _roadmap/           — milestones, briefing, and roadmapping parking lot
 _records/           — records (project, repository, namespaces, scripts, scaffolding)
-knowledge/       — index, ADRs, reference domain model and workflows
+knowledge/          — index, ADRs, reference domain model and workflows
 ```
 
 ## Projects
@@ -40,7 +51,7 @@ Records are co-located with the resources they describe in `_records/` directori
 
 ## Knowledge References
 
-This repository maintains a knowledge reference at `knowledge/index.md` and decision records at `knowledge/records/adr`.
+This repository maintains a knowledge reference at `knowledge/index.md` and decision records at `knowledge/adr`.
 
 ## Conventions
 
