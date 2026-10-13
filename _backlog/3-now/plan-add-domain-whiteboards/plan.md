@@ -2,7 +2,7 @@
 
 **ID:** `add-domain-whiteboards`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -34,8 +34,8 @@ Add a Whiteboards domain so that multiple participants can collaborate across se
 
 ## Attachments
 
-- `./plan__report-examples.md` (Reference) — Report and sentiment examples for the whiteboard reporting and update routines.
-- `./plan__whiteboard-snapshot.md` (Reference) — Snapshot of the `Art Records` whiteboard, used as source material for structures, templates, types, routines, skills, and commands.
+- `./plan__report-examples.md` (Reference) — Report and sentiment examples for the whiteboard reporting and update routines (to be incluided in relevant routine).
+- `./plan__whiteboard-snapshot.md` (Reference) — Snapshot of the `Art Records` whiteboard, used as source material for structures, templates, types, routines, skills, and commands (note this whiteboard as already evolved from the initial status so not everything should be included, it constitutes onl;y an example of the whiteboard domain can be applied).
 
 ## Context
 
@@ -85,7 +85,7 @@ Add a new `$DOMAINS/whiteboards/` domain with structures, types, a template, a f
 
 ### Next
 
-Write the instructions for iteration `add-whiteboard-structures`.
+Delegate iteration `add-whiteboard-structures` with `./instructions/add-whiteboard-structures.md`, then the four following iterations in dependency order.
 
 ### Blockers
 
@@ -133,19 +133,19 @@ npm run ci # lint, build and test
 
 ## Items:
 
-| Iteration / Instructions                          | Status     |
-| ------------------------------------------------- | ---------- |
-| Iteration: Add Whiteboard Structures              | `PLANNING` |
-| Iteration: Add Whiteboard Template and File       | `PLANNING` |
-| Iteration: Add Whiteboard Routines                | `PLANNING` |
-| Iteration: Add Whiteboard Skill and Commands      | `PLANNING` |
-| Iteration: Register Whiteboards Domain and Skills | `PLANNING` |
+| Iteration / Instructions                          | Status  |
+| ------------------------------------------------- | ------- |
+| Iteration: Add Whiteboard Structures              | `READY` |
+| Iteration: Add Whiteboard Template and File       | `READY` |
+| Iteration: Add Whiteboard Routines                | `READY` |
+| Iteration: Add Whiteboard Skill and Commands      | `READY` |
+| Iteration: Register Whiteboards Domain and Skills | `READY` |
 
 ### Iteration: Add Whiteboard Structures
 
 **Id:** `add-whiteboard-structures`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Model the whiteboard data so that facilitation state and participant introductions can be recorded and rendered.
 
@@ -153,16 +153,18 @@ npm run ci # lint, build and test
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
+**Instructions:** `./instructions/add-whiteboard-structures.md`
+
 **Changes:**
 
-- Add `$DOMAINS/whiteboards/structures/whiteboard.art` with fields `id`, `purpose`, `description`, `facilitation`, `participants`, `attachments`, `changes`, and `follow-ups`.
-- Add `$DOMAINS/whiteboards/structures/facilitation.art` with `turn` (Identifier of the participant expected to update next, or the special value `FACILITATOR`), `goal` (NaturalExpression), `tasks` (List(Type: Short Task)), `done` (List(Type: Short Task), one entry per finished goal: goal name plus its last step), `expected-final-outline` (NaturalExpression — the board's own structural contract among participants), `participant-statuses` (List(EnumValue), e.g. `INTRODUCING`), `working-agreements` (List(NaturalExpression)), and `sentiment` (List(NaturalExpression), one line per participant, self-authored and holding current state only).
-- Add `$DOMAINS/whiteboards/structures/participant.art` with `planning` (Path), `goals`, `deliverables`, `expectations` (optional NaturalExpression), `status` (one of `%whiteboard.facilitation.participant-status`), and `attachment` (Path).
-- Add `$DOMAINS/whiteboards/structures/attachment.art` with `path` (Path) and `purpose` (NaturalExpression), covering both participant introductions and the resolved parking-lot archive.
-- Add `$DOMAINS/whiteboards/types/short-task.art` with `done` (Boolean) and `description` (NaturalExpression).
-- Add `$DOMAINS/whiteboards/types/change-entry.art` with `participant` (Identifier), `date` (Date), and `description` (NaturalExpression) — the unit behind the one-bullet-per-turn rule.
-- Add `$DOMAINS/whiteboards/types/participant-status.art` as a controlled list, e.g. `INTRODUCING` — The participant is still curating their record and attachment and is not fully engaged in the discussion; `READY` — The participant is participating in the discussion; `LEFT` — The participant has left the whiteboarding session and is no longer eligible to take turns.
-- Add the full domain scaffold: `$DOMAINS/whiteboards/domain.art` following `Structure: Domain` — purpose plus `boundaries` ordered relationships (owns `whiteboards`; depends on `parking-lot`; excludes `Structure: Plan` and the work-item model), in the format of `$DOMAINS/plans/domain.art` — and `$DOMAINS/whiteboards/index.md` rendered with `Routine: Build Domain Index` and `templates/domain-index-file.tart`.
+- Add `$DOMAINS/whiteboards/structures/whiteboard.art` — id, purpose, description, facilitation, participants, attachments, changes, follow-ups.
+- Add `$DOMAINS/whiteboards/structures/facilitation.art` — turn (or `FACILITATOR`), goal, tasks, done, expected-final-outline, statuses, working-agreements, sentiment.
+- Add `$DOMAINS/whiteboards/structures/participant.art` — planning, goals, deliverables, expectations, status, attachment.
+- Add `$DOMAINS/whiteboards/structures/attachment.art` — path, purpose.
+- Add `$DOMAINS/whiteboards/types/short-task.art` — done, description.
+- Add `$DOMAINS/whiteboards/types/change-entry.art` — participant, date, description.
+- Add `$DOMAINS/whiteboards/types/participant-status.art` — `INTRODUCING`, `READY`, `LEFT`.
+- Add the domain scaffold: `$DOMAINS/whiteboards/domain.art` — purpose + boundaries; `$DOMAINS/whiteboards/index.md` — generated with `Routine: Build Domain Index`.
 
 **Dependencies:**
 
@@ -170,9 +172,9 @@ npm run ci # lint, build and test
 
 #### Commits:
 
-| ID                            | Repository / Checkout / Branch    | Policy       | Hash  | Status     |
-| ----------------------------- | --------------------------------- | ------------ | ----- | ---------- |
-| `build-whiteboard-structures` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                            | Repository / Checkout / Branch        | Policy       | Hash  | Status     |
+| ----------------------------- | ------------------------------------- | ------------ | ----- | ---------- |
+| `build-whiteboard-structures` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
 
 ##### Commit: build-whiteboard-structures
 
@@ -192,7 +194,7 @@ build(domain-whiteboards): Add Whiteboard structures and types.
 
 **Id:** `add-whiteboard-template-and-file`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Define how a whiteboard is presented and where the whiteboard file lives.
 
@@ -200,14 +202,12 @@ build(domain-whiteboards): Add Whiteboard structures and types.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
+**Instructions:** `./instructions/add-whiteboard-template-and-file.md`
+
 **Changes:**
 
-- Add `$DOMAINS/whiteboards/templates/whiteboard.tart` rendering `Facilitation` (with `Done:` and `Expected final outline`), `Participants`, `Attachments`, `Parking lot`, `Changes`, `Follow-ups`, and `Instructions`. Sections outside the base set are late-emerging and optional; no contract or domain-specific section is rendered.
-- Add `$DOMAINS/whiteboards/files/whiteboard.art` defining the naming pattern and the template, and stating that the board lives in the workspace repository while participants' planning artefacts live in their own `checkouts/*` repositories and follow their own conventions.
-- Render `## Instructions` as the full three-part constitution, not the Turn rules alone:
-  - `### Turn` — run `Routine: Validate Whiteboard` before any write; only the participant named in `turn` writes; stage workspace files only (board and attachments), leave your own turn unstaged for the next participant, or let the facilitator commit; update your own `sentiment` line only; append rather than rewrite; add exactly one succinct `changes` bullet (≤120 chars); keep a rolling `changes` window retaining at least one entry per active participant; update `turn` preserving fair turn-taking; and carry the standing instruction: _apply all updates to your content in order to maintain the whiteboard validated, and free of redundancies, duplications and obsolete historical facts — and provide feedback to other architects so that they update their content as well on their next turn_.
-  - `### Document Structure` — no section added or removed without approval; >100-line section → propose a move to an attachment; out-of-scope → `Follow-ups`; every `changes` bullet and parking-lot item ≤120 chars; never fix a settled statement by appending an italic note — rewrite the headline; resolved parking-lot items are annotated in place and archived at goal close; item grammar includes `Review request {from} – plan file: …` and `**One question most worth challenging:** …`.
-  - `### Goals` — goal shape (approval step first, end state last); all-participant approval; clean the `Actionable` parking lot before archiving the goal under `Done:`; out-of-scope → `Blocker` and `turn: FACILITATOR`.
+- Add `$DOMAINS/whiteboards/templates/whiteboard.tart` — seven sections (no `Contracts`) plus the three-part `Instructions`: `Turn`, `Document Structure`, `Goals`.
+- Add `$DOMAINS/whiteboards/files/whiteboard.art` — naming pattern, template reference, workspace-vs-`checkouts/*` scoping.
 
 **Dependencies:**
 
@@ -215,9 +215,9 @@ build(domain-whiteboards): Add Whiteboard structures and types.
 
 #### Commits:
 
-| ID                          | Repository / Checkout / Branch    | Policy       | Hash  | Status     |
-| --------------------------- | --------------------------------- | ------------ | ----- | ---------- |
-| `build-whiteboard-template` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                          | Repository / Checkout / Branch        | Policy       | Hash  | Status     |
+| --------------------------- | ------------------------------------- | ------------ | ----- | ---------- |
+| `build-whiteboard-template` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
 
 ##### Commit: build-whiteboard-template
 
@@ -236,7 +236,7 @@ build(domain-whiteboards): Add Whiteboard template and file convention.
 
 **Id:** `add-whiteboard-routines`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Define the participant lifecycle routines so that turns are validated, read, prepared, and answered consistently, and so that new participants and new goals follow the canon.
 
@@ -244,16 +244,18 @@ build(domain-whiteboards): Add Whiteboard template and file convention.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
+**Instructions:** `./instructions/add-whiteboard-routines.md`
+
 **Changes:**
 
-- Add `$DOMAINS/whiteboards/routines/read-whiteboard-before-turn.art` — read `git diff` **and** `git diff --cached` (a staged turn hides itself), re-read immediately before writing because attachments change mid-turn, and stage only the board and its attachments in the workspace repository.
-- Add `$DOMAINS/whiteboards/routines/validate-whiteboard.art` — executed at the start of every turn, before any write. Checks: the goal is aligned with the whiteboard purpose and within its description; sections follow `Expected final outline` and that outline preserves the whiteboard base rules; every `changes` bullet and parking-lot item is ≤120 chars; the fair-turn rule is computable from the retained `changes` window; content is free of redundancies, duplications, and obsolete historical facts; every participant block is consistent with what its owner's turns have since falsified. Report violations to the turn holder and to the affected participants so they correct their content on their next turn.
-- Add `$DOMAINS/whiteboards/routines/prepare-whiteboard-update.art` — decide what to update and what to annotate as resolved in the parking lot; re-read your own participant block and correct anything your turn falsified; sync your own plan or milestone with the agreements you accepted; update status and your own sentiment.
-- Add `$DOMAINS/whiteboards/routines/prepare-response.art` — compose the session-chat response.
-- Add `$DOMAINS/whiteboards/routines/update-participant-sentiment.art` — self-authored only: each participant writes their own line, overwritten every turn as current state, never another seat's.
-- Add `$DOMAINS/whiteboards/routines/report-to-user.art` — scaled report formats for `DIVERGENCE`, `LAZY`, `SLOPPY`, `UNCOOPERATIVE`, `QUESTIONABLE`, `CONFUSING`, `GOOD`, `SOLID`, and `BEAUTIFUL` outcomes, using the examples in `./plan__report-examples.md`, naming what was corrected and what was synced.
-- Add `$DOMAINS/whiteboards/routines/join-whiteboard.art` — for an agent joining a whiteboard whose participants do not expect them: create the introduction attachment in the whiteboard's attachments directory following the existing canon (`## Architect: {Name} ({Role})` with identity, role, scope, use cases, planning, and scope boundaries — not a prose message), and on the whiteboard file itself only add a parking-lot request asking all participants to approve the join plus a `changes` entry; approvals accumulate as italic annotations on your own request item; once complete, the pen-holder moves you into `Participants`, sets `READY`, hands you the first turn, and records in `changes` who your arrival displaced.
-- Add `$DOMAINS/whiteboards/routines/set-new-goal.art` — propose a new goal as checkbox steps aligned with the whiteboard purpose and within its description: first step is approval by all active participants, middle steps are the concrete work, last step is the end state; only proposed once the finished goal's `Actionable` parking lot is cleaned, and the previous goal is archived under `Done:`.
+- Add `$DOMAINS/whiteboards/routines/read-whiteboard-before-turn.art` — `git diff` plus `--cached`; stage workspace files only.
+- Add `$DOMAINS/whiteboards/routines/validate-whiteboard.art` — six checks at turn start; report violations to affected participants.
+- Add `$DOMAINS/whiteboards/routines/prepare-whiteboard-update.art` — update, self-correct own block, sync own plan, sentiment, turn.
+- Add `$DOMAINS/whiteboards/routines/prepare-response.art` — compose the session response.
+- Add `$DOMAINS/whiteboards/routines/update-participant-sentiment.art` — self-authored, current state.
+- Add `$DOMAINS/whiteboards/routines/report-to-user.art` — nine outcome formats from `./plan__report-examples.md`.
+- Add `$DOMAINS/whiteboards/routines/join-whiteboard.art` — attachment, gated request, approvals, pen-holder admission.
+- Add `$DOMAINS/whiteboards/routines/set-new-goal.art` — goal canon, cleanup, archive under `Done:`.
 
 **Dependencies:**
 
@@ -261,9 +263,9 @@ build(domain-whiteboards): Add Whiteboard template and file convention.
 
 #### Commits:
 
-| ID                          | Repository / Checkout / Branch    | Policy       | Hash  | Status     |
-| --------------------------- | --------------------------------- | ------------ | ----- | ---------- |
-| `build-whiteboard-routines` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                          | Repository / Checkout / Branch        | Policy       | Hash  | Status     |
+| --------------------------- | ------------------------------------- | ------------ | ----- | ---------- |
+| `build-whiteboard-routines` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
 
 ##### Commit: build-whiteboard-routines
 
@@ -282,7 +284,7 @@ build(domain-whiteboards): Add Whiteboard routines.
 
 **Id:** `add-whiteboard-commands-and-skills`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Expose whiteboard entry points as a single skill so participants can be onboarded and take turns without imitation.
 
@@ -290,15 +292,12 @@ build(domain-whiteboards): Add Whiteboard routines.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
+**Instructions:** `./instructions/add-whiteboard-commands-and-skills.md`
+
 **Changes:**
 
-- Add `$SKILLS/whiteboard/SKILL.md` — the one whiteboard skill; every use-case routine is exposed as a command inside it, with triggers phrased as "when the user says …" and, where the routine should run unaided, as an automatic trigger (example: the current goal is `DONE` → `set-new-goal`).
-- Add the command `init-whiteboard` — create a whiteboard at a path.
-- Add the command `invite-participant` — prompt a participant with the skill context needed to create their attachment and join.
-- Add the command `join-whiteboard` — register a participant and their attachment, following `Routine: Join Whiteboard` when the participants do not expect them.
-- Add the command `take-turn` — read before turn, validate, prepare the update, and prepare the response.
-- Add the command `validate-whiteboard` — run `Routine: Validate Whiteboard`; automatic trigger at the start of every turn, plus a user-said trigger.
-- Add the command `set-new-goal` — run `Routine: Set New Goal`.
+- Add `$SKILLS/whiteboard/SKILL.md` — front-matter, definitions, `ALL` access, turn processes.
+- Add commands `init-whiteboard`, `invite-participant`, `join-whiteboard`, `take-turn`, `validate-whiteboard`, `set-new-goal` — each delegating to a routine, with user-said and automatic triggers.
 
 **Dependencies:**
 
@@ -306,9 +305,9 @@ build(domain-whiteboards): Add Whiteboard routines.
 
 #### Commits:
 
-| ID                       | Repository / Checkout / Branch    | Policy       | Hash  | Status     |
-| ------------------------ | --------------------------------- | ------------ | ----- | ---------- |
-| `build-whiteboard-skill` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                       | Repository / Checkout / Branch        | Policy       | Hash  | Status     |
+| ------------------------ | ------------------------------------- | ------------ | ----- | ---------- |
+| `build-whiteboard-skill` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
 
 ##### Commit: build-whiteboard-skill
 
@@ -327,7 +326,7 @@ build(domain-whiteboards): Add the whiteboard skill with commands.
 
 **Id:** `register-whiteboards-domain-and-skills`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Make the new domain and skills discoverable to agents.
 
@@ -335,12 +334,14 @@ build(domain-whiteboards): Add the whiteboard skill with commands.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
+**Instructions:** `./instructions/register-whiteboards-domain-and-skills.md`
+
 **Changes:**
 
-- Generate `$DOMAINS/whiteboards/index.md` with `Routine: Build Domain Index` and `templates/domain-index-file.tart`; do not write it by hand.
-- List the new domain and its resources in the domains listing through `generate-domain-listing`, via skill `update-domains`.
-- Register the `whiteboard` skill in the skills listing, via skill `update-skills`.
-- Add the `whiteboard` skill to the **allowed** skills of **all** agent modes — agent-modes index, Codex agent files, and `$WORKSPACE/opencode.json` — via skill `update-agents`.
+- Modify `$DOMAINS/whiteboards/index.md` — regenerate with `Routine: Build Domain Index`.
+- Modify `$DOMAINS/index.md` — list `Domain: Whiteboards` and its resources (`update-domains`).
+- Modify `$SKILLS/index.md` — list `whiteboard` (`update-skills`).
+- Modify the agent-modes index, the Codex agent files, and `$WORKSPACE/opencode.json` — allow `whiteboard` in all agent modes (`update-agents`).
 
 **Dependencies:**
 
@@ -348,9 +349,9 @@ build(domain-whiteboards): Add the whiteboard skill with commands.
 
 #### Commits:
 
-| ID                            | Repository / Checkout / Branch    | Policy       | Hash  | Status     |
-| ----------------------------- | --------------------------------- | ------------ | ----- | ---------- |
-| `register-domain-whiteboards` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                            | Repository / Checkout / Branch        | Policy       | Hash  | Status     |
+| ----------------------------- | ------------------------------------- | ------------ | ----- | ---------- |
+| `register-domain-whiteboards` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
 
 ##### Commit: register-domain-whiteboards
 
