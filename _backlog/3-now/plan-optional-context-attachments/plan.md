@@ -2,7 +2,7 @@
 
 **ID:** `optional-context-attachments`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -96,29 +96,31 @@ Domain-code changes are coordinated from `$WORKSPACE` and land in the **workspac
 
 ## Items:
 
-| Iteration / Instructions                     | Status     |
-| -------------------------------------------- | ---------- |
-| Iteration: Split Work Item Context Templates | `PLANNING` |
-| Iteration: Wire Plan And Milestone Rendering | `PLANNING` |
-| Iteration: Thread Create Context File Input  | `PLANNING` |
+| Iteration / Instructions                     | Status  |
+| -------------------------------------------- | ------- |
+| Iteration: Split Work Item Context Templates | `READY` |
+| Iteration: Wire Plan And Milestone Rendering | `READY` |
+| Iteration: Thread Create Context File Input  | `READY` |
 
 ### Iteration: Split Work Item Context Templates
 
 **Id:** `split-work-item-context-templates`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Break the monolithic work-item context into a reusable summary template, a full-context attachment template, and a compact inline section template, and record the choice on the work item with a new `has-context-file` field.
 
 **Description:** Add the `has-context-file` Boolean to the abstract work item, split `$DOMAINS/work/templates/work-item-context.tart` into `work-item-summary.tart` (Path Variables, Summary, Attachments) and `work-item-context-attachment.tart` (the full context rendered into the standalone `plan|milestone__context.md`), add the compact `work-item-context-section.tart`, remove the original, and repoint the references that read it.
 
-**Instructions Mode:** `INSTRUCTIONS_INLINED_IN_ITERATION`
+**Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./plan-optional-context-attachments/instructions/split-work-item-context-templates.md`
 
 **Changes:**
 
 - Add `has-context-file` — Boolean — to the **Shape** section of `$DOMAINS/work/structures/work-item-abstract.art`, indicating whether the work item carries a context attachment. Example value `FALSE`.
-- Create `$DOMAINS/work/templates/work-item-summary.tart` rendering only **Path Variables**, **Summary**, and **Attachments** (lifted from the current `work-item-context.tart`), keeping the same `::TEMPLATE` preamble and `%kind` / `%work-item` parameters.
-- Create `$DOMAINS/work/templates/work-item-context-attachment.tart` rendering the full context as `## h2` sections — **Upstream Work**, **Required Skills**, **Domains**, **Resource Kinds in Scope**, **Workflows**, **Workflow Operations**, and **Knowledge** — plus the **Scope** and **Execution Context** material (the remainder of the current `work-item-context.tart`); used to render the standalone `plan|milestone__context.md` titled `# {Plan|Milestone}: {name} (Context)`.
+- Create `$DOMAINS/work/templates/work-item-summary.tart` rendering the always-inline main-file skeleton — **Path Variables**, **Summary**, **Attachments**, **Scope**, and **Execution Context** (the non-`## Context` sections of the current `work-item-context.tart`), keeping the same `::TEMPLATE` preamble and `%kind` / `%work-item` parameters.
+- Create `$DOMAINS/work/templates/work-item-context-attachment.tart` rendering the full context as `## h2` sections — **Upstream Work**, **Required Skills**, **Domains**, **Resource Kinds in Scope**, **Workflows**, **Workflow Operations**, and **Knowledge** — titled `# {Plan|Milestone}: {name} (Context)`; used to render the standalone `plan|milestone__context.md`. Scope and Execution Context are NOT part of the attachment.
 - Create `$DOMAINS/work/templates/work-item-context-section.tart`, based on `work-item-context-attachment.tart`, where **Upstream Work**, **Required Skills**, **Domains**, **Resource Kinds in Scope**, **Workflows**, and **Knowledge** each render only a bullet list of `- {name} – \`path\`` and nothing else; **Workflow Operations** is omitted.
 - Remove `$DOMAINS/work/templates/work-item-context.tart` (superseded by the split).
 - Repoint `$DOMAINS/work/routines/validate-work-item.art` (the `::READ ... work-item-context.tart` step) to the new `work-item-summary.tart` and `work-item-context-section.tart`.
@@ -135,9 +137,9 @@ Domain-code changes are coordinated from `$WORKSPACE` and land in the **workspac
 
 #### Commits:
 
-| ID                                  | Repository / Checkout / Branch    | Policy       | Hash | Status    |
-| ----------------------------------- | --------------------------------- | ------------ | ---- | --------- |
-| `split-work-item-context-templates` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | —    | `PLANNED` |
+| ID                                  | Repository / Checkout / Branch    | Policy   | Hash | Status     |
+| ----------------------------------- | --------------------------------- | -------- | ---- | ---------- |
+| `split-work-item-context-templates` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
 
 **Message:**
 
@@ -153,13 +155,15 @@ build(domain-work): Split work item context into summary, attachment, and sectio
 
 **Id:** `wire-plan-milestone-rendering`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Render the summary unconditionally and the context conditionally in both plan and milestone, and expose the `has-context-file` choice as a rendered record field.
 
 **Description:** Declare the inherited `has-context-file` on the plan and milestone structures, render `**Has Context File:**` right after `**Template:**` in both templates, replace the single `work-item-context.tart` render with an unconditional `work-item-summary.tart` render plus a conditional context render, and repoint the migrate routines that read the removed template.
 
-**Instructions Mode:** `INSTRUCTIONS_INLINED_IN_ITERATION`
+**Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./plan-optional-context-attachments/instructions/wire-plan-milestone-rendering.md`
 
 **Changes:**
 
@@ -179,9 +183,9 @@ build(domain-work): Split work item context into summary, attachment, and sectio
 
 #### Commits:
 
-| ID                              | Repository / Checkout / Branch    | Policy       | Hash | Status    |
-| ------------------------------- | --------------------------------- | ------------ | ---- | --------- |
-| `wire-plan-milestone-rendering` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | —    | `PLANNED` |
+| ID                              | Repository / Checkout / Branch    | Policy   | Hash | Status     |
+| ------------------------------- | --------------------------------- | -------- | ---- | ---------- |
+| `wire-plan-milestone-rendering` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
 
 **Message:**
 
@@ -198,13 +202,15 @@ build(context-attachments): Render summary always and context conditionally in p
 
 **Id:** `thread-create-context-file`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Let authors choose a context attachment at creation time, persist the choice on the work item, and render + save the `plan|milestone__context.md` file when it is enabled.
 
 **Description:** Add a `%create-context-file` input to the `write-plan` and `write-milestone` skills, carry it through the create/recompose routines so `has-context-file` is set and survives refinement, and extend the Review-or-Save commands to render `work-item-context-attachment.tart` into the attachment file when the flag is set.
 
-**Instructions Mode:** `INSTRUCTIONS_INLINED_IN_ITERATION`
+**Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./plan-optional-context-attachments/instructions/thread-create-context-file.md`
 
 **Changes:**
 
@@ -225,9 +231,9 @@ build(context-attachments): Render summary always and context conditionally in p
 
 #### Commits:
 
-| ID                           | Repository / Checkout / Branch    | Policy       | Hash | Status    |
-| ---------------------------- | --------------------------------- | ------------ | ---- | --------- |
-| `thread-create-context-file` | Workspace / `$WORKSPACE` / `main` | `AUTONOMOUS` | —    | `PLANNED` |
+| ID                           | Repository / Checkout / Branch    | Policy   | Hash | Status     |
+| ---------------------------- | --------------------------------- | -------- | ---- | ---------- |
+| `thread-create-context-file` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
 
 **Message:**
 
@@ -249,7 +255,7 @@ Execute `split-work-item-context-templates` first — the other two iterations d
 
 ### Blockers
 
-- None blocking. Two decisions to confirm before refining iteration 2 (captured in Coordination → Decisions): the `**Has Context File:**` label wording, and whether the TRUE branch renders the attachment inline or only into the separate `plan__context.md`.
+- None. All design decisions are confirmed (see Coordination → Decisions).
 
 ---
 
@@ -313,9 +319,12 @@ npm ci # to install dependencies.
 
 ### Decisions
 
-- **`**Has Context File:**` label** — the field is `has-context-file`, so the rendered label uses "Context", not "Content". (Confirm — the request literally wrote `**Has Content File:**`.)
-- **The TRUE branch renders into the separate `plan__context.md`, not inline** — to keep the main file lean, the full context is persisted to the attachment by the save routine and referenced via the Attachments list; the plan body does not also inline it. (Confirm — the request's conditional directive was phrased as a render inside `plan.tart`.)
-- **`work-item-context.tart` is removed on split** — the monolith is superseded, and every reader is repointed. (Confirm — "split in 2" read as replace-and-remove.)
+- **`**Has Context File:**` label uses "Context"** — the field is `has-context-file` and the attachment is `__context.md`, so the rendered label is `**Has Context File:**`, not "Content". (Confirmed.)
+- **Declare in the structures, render in the templates** — `has-context-file` is added to the **Inherits** lists of `plan.art` and `milestone.art`; the `**Has Context File:**` field is rendered in `plan.tart` and `milestone.tart` immediately after `**Template:**`. Structures do not render. (Confirmed.)
+- **The TRUE branch renders ONLY into the separate `plan__context.md`** — to keep the main file lean, the full context is persisted to the attachment by the save routine and referenced via the Attachments list; `plan.md` does not also inline it. (Confirmed.)
+- **`work-item-context.tart` is removed on split** — the monolith is superseded and every reader (`validate-work-item.art`, `migrate-plan.art`, `migrate-milestone.art`, and the `work/index.md` + `domains/index.md` listings) is repointed. (Confirmed.)
+- **Scope and Execution Context stay inline via `work-item-summary.tart`** — they are not part of the `## Context` block and not in the attachment's section list, so they live in the always-inline summary template to keep the main file coherent in both modes.
+- **Implementation commits target the workspace repo** — `.agents/domains/...` is versioned in `noodlestan/workspace`, not the art-domains checkout. (Confirmed.)
 
 ### Knowledge to Update
 
