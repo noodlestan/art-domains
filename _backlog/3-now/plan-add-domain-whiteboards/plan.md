@@ -85,7 +85,7 @@ Add a new `$DOMAINS/whiteboards/` domain with structures, types, a template, a f
 
 ### Next
 
-Delegate iteration `add-whiteboard-routines` with `./instructions/add-whiteboard-routines.md`, then the two following iterations in dependency order.
+Delegate iteration `add-whiteboard-commands-and-skills` with `./instructions/add-whiteboard-commands-and-skills.md`, then `register-whiteboards-domain-and-skills`.
 
 ### Blockers
 
@@ -137,7 +137,7 @@ npm run ci # lint, build and test
 | ------------------------------------------------- | ------- |
 | Iteration: Add Whiteboard Structures              | `DONE`  |
 | Iteration: Add Whiteboard Template and File       | `DONE`  |
-| Iteration: Add Whiteboard Routines                | `READY` |
+| Iteration: Add Whiteboard Routines                | `DONE`  |
 | Iteration: Add Whiteboard Skill and Commands      | `READY` |
 | Iteration: Register Whiteboards Domain and Skills | `READY` |
 
@@ -240,7 +240,7 @@ build(domain-whiteboards): Add Whiteboard template and file convention.
 
 **Id:** `add-whiteboard-routines`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Define the participant lifecycle routines so that turns are validated, read, prepared, and answered consistently, and so that new participants and new goals follow the canon.
 
@@ -249,6 +249,8 @@ build(domain-whiteboards): Add Whiteboard template and file convention.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/add-whiteboard-routines.md`
+
+**Report:** `./instructions/add-whiteboard-routines__report.md`
 
 **Changes:**
 
@@ -267,9 +269,9 @@ build(domain-whiteboards): Add Whiteboard template and file convention.
 
 #### Commits:
 
-| ID                          | Repository / Checkout / Branch        | Policy       | Hash  | Status     |
-| --------------------------- | ------------------------------------- | ------------ | ----- | ---------- |
-| `build-whiteboard-routines` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                          | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
+| --------------------------- | ------------------------------------- | ------------ | --------- | ----------- |
+| `build-whiteboard-routines` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `55097a9` | `COMMITTED` |
 
 ##### Commit: build-whiteboard-routines
 
@@ -382,6 +384,7 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 
 - Iteration `add-whiteboard-structures` — 9 files under `$DOMAINS/whiteboards/` (4 structures, 3 types, `domain.art`, `index.md`), `npm run ci` green, committed and pushed as `8d493b3` on the workspace `building` branch.
 - Iteration `add-whiteboard-template-and-file` — `templates/whiteboard.tart` (7 sections + 3-part Instructions constitution, no Contracts) and `files/whiteboard.art` (naming `whiteboard-{whiteboard.id}.md`, template reference, workspace-vs-`checkouts/*` scoping); committed and pushed as `ad95178`.
+- Iteration `add-whiteboard-routines` — 8 routines under `$DOMAINS/whiteboards/routines/` (read, validate, prepare update, prepare response, sentiment, report-to-user with nine formats, join, set-new-goal); `npm run ci` green; committed and pushed as `55097a9`.
 
 ### Findings
 
@@ -411,4 +414,7 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 
 ### Feedback
 
-- Iteration `add-whiteboard-structures`: the instruction's Step 5 says "`facilitation.art` declares all nine fields" but lists eight; the worker declared the eight listed fields (`turn`, `goal`, `tasks`, `done`, `expected-final-outline`, `participant-statuses`, `working-agreements`, `sentiment`). Miscount in the instruction; no action taken.
+- Iteration `add-whiteboard-routines`: the instruction's Step 5 says "`facilitation.art` declares all nine fields" but lists eight; the worker declared the eight listed fields (`turn`, `goal`, `tasks`, `done`, `expected-final-outline`, `participant-statuses`, `working-agreements`, `sentiment`). Miscount in the instruction; no action taken.
+- Iteration `add-whiteboard-routines` (open, for the owner): sentiment-marker set is declared open (markers observed on the reference board, never invent one silently) — amend the routine if a closed set was intended.
+- Iteration `add-whiteboard-routines` (open, for the owner): possible tension between `read-whiteboard-before-turn.art` ("stage what you read") and the template's rule allowing an unstaged own turn — settle in the skill-commands iteration.
+- Iteration `add-whiteboard-routines` (open, for the writers): CONFUSING has no dedicated marker (shares 🤔 with QUESTIONABLE); CONFUSING/UNCOOPERATIVE examples in `plan__report-examples.md` end truncated.
