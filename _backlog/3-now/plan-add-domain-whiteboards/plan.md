@@ -2,7 +2,7 @@
 
 **ID:** `add-domain-whiteboards`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -85,7 +85,7 @@ Add a new `$DOMAINS/whiteboards/` domain with structures, types, a template, a f
 
 ### Next
 
-Delegate iteration `add-whiteboard-structures` with `./instructions/add-whiteboard-structures.md`, then the four following iterations in dependency order.
+Delegate iteration `add-whiteboard-template-and-file` with `./instructions/add-whiteboard-template-and-file.md`, then the three following iterations in dependency order.
 
 ### Blockers
 
@@ -135,7 +135,7 @@ npm run ci # lint, build and test
 
 | Iteration / Instructions                          | Status  |
 | ------------------------------------------------- | ------- |
-| Iteration: Add Whiteboard Structures              | `READY` |
+| Iteration: Add Whiteboard Structures              | `DONE`  |
 | Iteration: Add Whiteboard Template and File       | `READY` |
 | Iteration: Add Whiteboard Routines                | `READY` |
 | Iteration: Add Whiteboard Skill and Commands      | `READY` |
@@ -145,7 +145,7 @@ npm run ci # lint, build and test
 
 **Id:** `add-whiteboard-structures`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Model the whiteboard data so that facilitation state and participant introductions can be recorded and rendered.
 
@@ -154,6 +154,8 @@ npm run ci # lint, build and test
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/add-whiteboard-structures.md`
+
+**Report:** `./instructions/add-whiteboard-structures__report.md`
 
 **Changes:**
 
@@ -172,9 +174,9 @@ npm run ci # lint, build and test
 
 #### Commits:
 
-| ID                            | Repository / Checkout / Branch        | Policy       | Hash  | Status     |
-| ----------------------------- | ------------------------------------- | ------------ | ----- | ---------- |
-| `build-whiteboard-structures` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                            | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
+| ----------------------------- | ------------------------------------- | ------------ | --------- | ----------- |
+| `build-whiteboard-structures` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `8d493b3` | `COMMITTED` |
 
 ##### Commit: build-whiteboard-structures
 
@@ -376,7 +378,7 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 
 ### Evidence
 
-- None.
+- Iteration `add-whiteboard-structures` — 9 files under `$DOMAINS/whiteboards/` (4 structures, 3 types, `domain.art`, `index.md`), `npm run ci` green, committed and pushed as `8d493b3` on the workspace `building` branch.
 
 ### Findings
 
@@ -406,4 +408,4 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 
 ### Feedback
 
-- None.
+- Iteration `add-whiteboard-structures`: the instruction's Step 5 says "`facilitation.art` declares all nine fields" but lists eight; the worker declared the eight listed fields (`turn`, `goal`, `tasks`, `done`, `expected-final-outline`, `participant-statuses`, `working-agreements`, `sentiment`). Miscount in the instruction; no action taken.
