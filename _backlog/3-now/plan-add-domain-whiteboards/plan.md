@@ -2,7 +2,7 @@
 
 **ID:** `add-domain-whiteboards`
 
-**Status:** `WORKING`
+**Status:** `DONE`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -85,7 +85,7 @@ Add a new `$DOMAINS/whiteboards/` domain with structures, types, a template, a f
 
 ### Next
 
-Delegate iteration `register-whiteboards-domain-and-skills` with `./instructions/register-whiteboards-domain-and-skills.md` (the last iteration of this plan).
+- None. All five iterations are `DONE`; the plan is complete.
 
 ### Blockers
 
@@ -133,13 +133,13 @@ npm run ci # lint, build and test
 
 ## Items:
 
-| Iteration / Instructions                          | Status  |
-| ------------------------------------------------- | ------- |
-| Iteration: Add Whiteboard Structures              | `DONE`  |
-| Iteration: Add Whiteboard Template and File       | `DONE`  |
-| Iteration: Add Whiteboard Routines                | `DONE`  |
-| Iteration: Add Whiteboard Skill and Commands      | `DONE`  |
-| Iteration: Register Whiteboards Domain and Skills | `READY` |
+| Iteration / Instructions                          | Status |
+| ------------------------------------------------- | ------ |
+| Iteration: Add Whiteboard Structures              | `DONE` |
+| Iteration: Add Whiteboard Template and File       | `DONE` |
+| Iteration: Add Whiteboard Routines                | `DONE` |
+| Iteration: Add Whiteboard Skill and Commands      | `DONE` |
+| Iteration: Register Whiteboards Domain and Skills | `DONE` |
 
 ### Iteration: Add Whiteboard Structures
 
@@ -334,7 +334,7 @@ build(domain-whiteboards): Add the whiteboard skill with commands.
 
 **Id:** `register-whiteboards-domain-and-skills`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Make the new domain and skills discoverable to agents.
 
@@ -343,6 +343,8 @@ build(domain-whiteboards): Add the whiteboard skill with commands.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/register-whiteboards-domain-and-skills.md`
+
+**Report:** `./instructions/register-whiteboards-domain-and-skills__report.md`
 
 **Changes:**
 
@@ -357,9 +359,9 @@ build(domain-whiteboards): Add the whiteboard skill with commands.
 
 #### Commits:
 
-| ID                            | Repository / Checkout / Branch        | Policy       | Hash  | Status     |
-| ----------------------------- | ------------------------------------- | ------------ | ----- | ---------- |
-| `register-domain-whiteboards` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                            | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
+| ----------------------------- | ------------------------------------- | ------------ | --------- | ----------- |
+| `register-domain-whiteboards` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `064880c` | `COMMITTED` |
 
 ##### Commit: register-domain-whiteboards
 
@@ -388,6 +390,7 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 - Iteration `add-whiteboard-template-and-file` — `templates/whiteboard.tart` (7 sections + 3-part Instructions constitution, no Contracts) and `files/whiteboard.art` (naming `whiteboard-{whiteboard.id}.md`, template reference, workspace-vs-`checkouts/*` scoping); committed and pushed as `ad95178`.
 - Iteration `add-whiteboard-routines` — 8 routines under `$DOMAINS/whiteboards/routines/` (read, validate, prepare update, prepare response, sentiment, report-to-user with nine formats, join, set-new-goal); `npm run ci` green; committed and pushed as `55097a9`.
 - Iteration `add-whiteboard-commands-and-skills` — `$SKILLS/whiteboard/SKILL.md` with `ALL` access, a turn process, and six commands (init-whiteboard, invite-participant, join-whiteboard, take-turn, validate-whiteboard, set-new-goal) with user-said and automatic triggers; committed and pushed as `07199ef`.
+- Iteration `register-whiteboards-domain-and-skills` — `Domain: Whiteboards` in the domains listing, `$DOMAINS/whiteboards/index.md` regenerated with all 17 resources, `whiteboard` in the skills listing, allowed in all 12 agent modes, generated artefacts verified in sync; committed and pushed as `064880c`.
 
 ### Findings
 
@@ -413,7 +416,8 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 
 ### Follow Ups
 
-- None. All stakeholder answers applied.
+- `agent-reference-curator`'s allowed-skills list references `write-knowledge-files`, which does not exist as a skill directory — flagged during the skills-listing regeneration (out of this plan's scope).
+- Pre-existing skills-listing staleness was fixed in passing by iteration `register-whiteboards-domain-and-skills` (`execute-plan` removed; `delegate-plan`, `scaffold`, `write-milestone`, `write-reference-files` listed) — review the regenerated `$SKILLS/index.md`.
 
 ### Feedback
 
@@ -423,3 +427,5 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 - Iteration `add-whiteboard-routines` (open, for the writers): CONFUSING has no dedicated marker (shares 🤔 with QUESTIONABLE); CONFUSING/UNCOOPERATIVE examples in `plan__report-examples.md` end truncated.
 - Iteration `add-whiteboard-commands-and-skills` (open, for the owner): Final Verification asks every command's `**Procedure:**` to name a routine, but `init-whiteboard` delegates to the template and `invite-participant` routes through Join Whiteboard — no init/invite routines exist; soften the verification or add routines later.
 - Iteration `add-whiteboard-commands-and-skills` (open, for the owner): `report-to-user` is not named by any command; it is reachable only from within the routines domain.
+- Iteration `register-whiteboards-domain-and-skills` (open, for the owner): the three registration skills (`update-domains`, `update-skills`, `update-agents`) gate to `assistant` while `agent-worker` may not use them; the worker executed their procedures as mandatory-reading instructions and disclosed it. Consider widening the gate or the worker's allowed list.
+- Iteration `register-whiteboards-domain-and-skills` (open, for the owner): Step 3 expected per-skill changes in the agent-modes index, Codex agent files, and `opencode.json`, but allowed skills live only in the agent-mode SKILL.md files; verification phrasing could be softened.
