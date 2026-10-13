@@ -85,7 +85,7 @@ Add a new `$DOMAINS/whiteboards/` domain with structures, types, a template, a f
 
 ### Next
 
-Delegate iteration `add-whiteboard-commands-and-skills` with `./instructions/add-whiteboard-commands-and-skills.md`, then `register-whiteboards-domain-and-skills`.
+Delegate iteration `register-whiteboards-domain-and-skills` with `./instructions/register-whiteboards-domain-and-skills.md` (the last iteration of this plan).
 
 ### Blockers
 
@@ -138,7 +138,7 @@ npm run ci # lint, build and test
 | Iteration: Add Whiteboard Structures              | `DONE`  |
 | Iteration: Add Whiteboard Template and File       | `DONE`  |
 | Iteration: Add Whiteboard Routines                | `DONE`  |
-| Iteration: Add Whiteboard Skill and Commands      | `READY` |
+| Iteration: Add Whiteboard Skill and Commands      | `DONE`  |
 | Iteration: Register Whiteboards Domain and Skills | `READY` |
 
 ### Iteration: Add Whiteboard Structures
@@ -290,7 +290,7 @@ build(domain-whiteboards): Add Whiteboard routines.
 
 **Id:** `add-whiteboard-commands-and-skills`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Expose whiteboard entry points as a single skill so participants can be onboarded and take turns without imitation.
 
@@ -299,6 +299,8 @@ build(domain-whiteboards): Add Whiteboard routines.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/add-whiteboard-commands-and-skills.md`
+
+**Report:** `./instructions/add-whiteboard-commands-and-skills__report.md`
 
 **Changes:**
 
@@ -311,9 +313,9 @@ build(domain-whiteboards): Add Whiteboard routines.
 
 #### Commits:
 
-| ID                       | Repository / Checkout / Branch        | Policy       | Hash  | Status     |
-| ------------------------ | ------------------------------------- | ------------ | ----- | ---------- |
-| `build-whiteboard-skill` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | (TBD) | `AUTHORED` |
+| ID                       | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
+| ------------------------ | ------------------------------------- | ------------ | --------- | ----------- |
+| `build-whiteboard-skill` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `07199ef` | `COMMITTED` |
 
 ##### Commit: build-whiteboard-skill
 
@@ -385,6 +387,7 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 - Iteration `add-whiteboard-structures` — 9 files under `$DOMAINS/whiteboards/` (4 structures, 3 types, `domain.art`, `index.md`), `npm run ci` green, committed and pushed as `8d493b3` on the workspace `building` branch.
 - Iteration `add-whiteboard-template-and-file` — `templates/whiteboard.tart` (7 sections + 3-part Instructions constitution, no Contracts) and `files/whiteboard.art` (naming `whiteboard-{whiteboard.id}.md`, template reference, workspace-vs-`checkouts/*` scoping); committed and pushed as `ad95178`.
 - Iteration `add-whiteboard-routines` — 8 routines under `$DOMAINS/whiteboards/routines/` (read, validate, prepare update, prepare response, sentiment, report-to-user with nine formats, join, set-new-goal); `npm run ci` green; committed and pushed as `55097a9`.
+- Iteration `add-whiteboard-commands-and-skills` — `$SKILLS/whiteboard/SKILL.md` with `ALL` access, a turn process, and six commands (init-whiteboard, invite-participant, join-whiteboard, take-turn, validate-whiteboard, set-new-goal) with user-said and automatic triggers; committed and pushed as `07199ef`.
 
 ### Findings
 
@@ -418,3 +421,5 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 - Iteration `add-whiteboard-routines` (open, for the owner): sentiment-marker set is declared open (markers observed on the reference board, never invent one silently) — amend the routine if a closed set was intended.
 - Iteration `add-whiteboard-routines` (open, for the owner): possible tension between `read-whiteboard-before-turn.art` ("stage what you read") and the template's rule allowing an unstaged own turn — settle in the skill-commands iteration.
 - Iteration `add-whiteboard-routines` (open, for the writers): CONFUSING has no dedicated marker (shares 🤔 with QUESTIONABLE); CONFUSING/UNCOOPERATIVE examples in `plan__report-examples.md` end truncated.
+- Iteration `add-whiteboard-commands-and-skills` (open, for the owner): Final Verification asks every command's `**Procedure:**` to name a routine, but `init-whiteboard` delegates to the template and `invite-participant` routes through Join Whiteboard — no init/invite routines exist; soften the verification or add routines later.
+- Iteration `add-whiteboard-commands-and-skills` (open, for the owner): `report-to-user` is not named by any command; it is reachable only from within the routines domain.
