@@ -83,7 +83,7 @@ Add a new `$DOMAINS/messages/` domain — `domain.art`, a definitions file, one 
 
 ### Next
 
-Write instructions for iteration `scaffold-messages-domain` and delegate the top-down pass, iteration by iteration.
+Delegate the first `READY` instruction: `scaffold-messages-domain`, then the following `READY` iterations in order; the final review iteration is executed in-session by the stakeholder and the architect.
 
 ### Blockers
 
@@ -133,25 +133,27 @@ npm run ci # lint, build and test
 
 | Iteration / Instructions                            | Status     |
 | --------------------------------------------------- | ---------- |
-| Iteration: Scaffold Messages Domain                 | `PLANNING` |
-| Iteration: Add Messaging Skill and Commands         | `PLANNING` |
-| Iteration: Add Message Routines                     | `PLANNING` |
-| Iteration: Add Message Templates and File           | `PLANNING` |
-| Iteration: Add Message Board Structure and Types    | `PLANNING` |
-| Iteration: Integrate Message Board into Whiteboards | `PLANNING` |
+| Iteration: Scaffold Messages Domain                 | `READY`    |
+| Iteration: Add Messaging Skill and Commands         | `READY`    |
+| Iteration: Add Message Routines                     | `READY`    |
+| Iteration: Add Message Templates and File           | `READY`    |
+| Iteration: Add Message Board Structure and Types    | `READY`    |
+| Iteration: Integrate Message Board into Whiteboards | `READY`    |
 | Iteration: Review Messages Domain Bottom-up         | `PLANNING` |
 
 ### Iteration: Scaffold Messages Domain
 
 **Id:** `scaffold-messages-domain`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Establish the domain's identity and boundaries so every later layer lands in a registered home.
 
 **Description:** Add the Messages domain scaffold with its purpose, boundaries, and definitions, and register the domain in the domains listing.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/scaffold-messages-domain.md`
 
 **Changes:**
 
@@ -186,13 +188,15 @@ build(domain-messages): Add Messages domain scaffold.
 
 **Id:** `add-messaging-skill-and-commands`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Give every agent one entry point to send and read messages, with commands owning every session-chat write and response.
 
 **Description:** Add one `messaging` skill, allowed to all agent modes, whose commands declare their inputs, invoke the domain routines, capture their outputs, and perform all session-chat writes and responses. Register the skill everywhere agent skills are listed.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/add-messaging-skill-and-commands.md`
 
 **Changes:**
 
@@ -229,13 +233,15 @@ build(domain-messages): Add the messaging skill with commands.
 
 **Id:** `add-message-routines`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Define the messaging lifecycle so inboxes are found, messages processed and acted upon, and writes respect medium availability and response cleanup.
 
 **Description:** Add the four routines that drive message flow; every routine takes data in and returns data out — session-chat writes and responses belong to the skill commands.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/add-message-routines.md`
 
 **Changes:**
 
@@ -271,13 +277,15 @@ build(domain-messages): Add message routines.
 
 **Id:** `add-message-templates`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Define how a message board and a long message are presented, and where long-message files live.
 
 **Description:** Add the message board template, the long-message template, and the message file convention.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/add-message-templates.md`
 
 **Changes:**
 
@@ -312,13 +320,15 @@ build(domain-messages): Add message board and message templates.
 
 **Id:** `add-message-structures-and-types`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Model the messaging data so boards can hold messages and every message can be typed by its response expectation.
 
 **Description:** Add the Message Board structure and the Message and Message Type types, following the parking-lot spec captured in the source parking lot.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/add-message-structures-and-types.md`
 
 **Changes:**
 
@@ -353,13 +363,15 @@ build(domain-messages): Add Message Board structure and message types.
 
 **Id:** `integrate-message-board-into-whiteboards`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Route Whiteboards inter-participant messaging through message boards and stop parking-lot items from carrying messages.
 
 **Description:** Model the message board parallel to the parking lot in Domain: Whiteboards — ahead of it in structure, template, and routine logic — and classify every item as a message or a parking-lot item, routing each accordingly.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/integrate-message-board-into-whiteboards.md`
 
 **Changes:**
 
