@@ -12,7 +12,7 @@
 
 | Goal (per instruction)                                              | Result                                                                                                                    |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Create `types/participant-status.art`                               | Done — `Type: Participant Status` as `Enum(String)` with `INTRODUCING`, `READY`, `LEFT`, one-line meaning each.           |
+| Create `types/participant-statuses.art`                             | Done — `Type: Participant Status` as `Enum(String)` with `INTRODUCING`, `READY`, `LEFT`, one-line meaning each.           |
 | Create `types/short-task.art`                                       | Done — `Type: Short Task` with `done` (Boolean) and `description` (NaturalExpression).                                    |
 | Create `types/change-entry.art`                                     | Done — `Type: Change Entry` with `participant` (Identifier), `date` (Date), `description` (NaturalExpression).            |
 | Create `structures/participant.art` and `structures/attachment.art` | Done — both declare `Inherits` and `Shape` following the `plans/structures/plan.art` format.                              |
@@ -30,7 +30,7 @@ All files are new, under `$WORKSPACE/.agents/domains/whiteboards/` (committed in
 | `$DOMAINS/whiteboards/types/short-task.art`         | `Type: Short Task` — `done` + `description`; reused for goal steps and `done` goal entries.                                                                                                               |
 | `$DOMAINS/whiteboards/types/change-entry.art`       | `Type: Change Entry` — `participant`, `date`, `description`; the unit behind the one-bullet-per-turn rule.                                                                                                |
 | `$DOMAINS/whiteboards/structures/participant.art`   | `Structure: Participant` — `planning`, `goals`, `deliverables`, `expectations` (optional), `status` (Type: Participant Status), `attachment`.                                                             |
-| `$DOMAINS/whiteboards/structures/attachment.art`    | `Structure: Attachment` — `path` + `purpose`; covers introductions and the resolved parking-lot archive.                                                                                                  |
+| `$DOMAINS/whiteboards/structures/attachment.art`    | `Type: Attachment` — `path` + `purpose`; covers introductions and the resolved parking-lot archive.                                                                                                       |
 | `$DOMAINS/whiteboards/structures/facilitation.art`  | `Structure: Facilitation` — `turn` (Identifier or reserved `FACILITATOR`), `goal`, `tasks`, `done`, `expected-final-outline`, `participant-statuses`, `working-agreements`, `sentiment`.                  |
 | `$DOMAINS/whiteboards/structures/whiteboard.art`    | `Structure: Whiteboard` — `id`, `purpose`, `description`, `facilitation`, `participants`, `attachments`, `changes`, `follow-ups`.                                                                         |
 | `$DOMAINS/whiteboards/domain.art`                   | Domain scaffold mirroring `$DOMAINS/plans/domain.art`: purpose, description, and boundaries (owns `whiteboards`; depends on the `parking-lot` skill; excludes `Structure: Plan` and the work-item model). |

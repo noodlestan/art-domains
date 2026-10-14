@@ -85,7 +85,7 @@ Add a new `$DOMAINS/whiteboards/` domain with structures, types, a template, a f
 
 ### Next
 
-- None. All five iterations are `DONE`; the plan is complete.
+- None. All six iterations are `DONE`; the plan is complete.
 
 ### Blockers
 
@@ -140,6 +140,7 @@ npm run ci # lint, build and test
 | Iteration: Add Whiteboard Routines                | `DONE` |
 | Iteration: Add Whiteboard Skill and Commands      | `DONE` |
 | Iteration: Register Whiteboards Domain and Skills | `DONE` |
+| Iteration: Consolidate Whiteboard Domain          | `DONE` |
 
 ### Iteration: Add Whiteboard Structures
 
@@ -160,12 +161,12 @@ npm run ci # lint, build and test
 **Changes:**
 
 - Add `$DOMAINS/whiteboards/structures/whiteboard.art` — id, purpose, description, facilitation, participants, attachments, changes, follow-ups.
-- Add `$DOMAINS/whiteboards/structures/facilitation.art` — turn (or `FACILITATOR`), goal, tasks, done, expected-final-outline, statuses, working-agreements, sentiment.
+- Add `$DOMAINS/whiteboards/structures/facilitation.art` — turn (or `FACILITATOR`), goal, tasks, done, whiteboard-structure, statuses, working-agreements, sentiment.
 - Add `$DOMAINS/whiteboards/structures/participant.art` — planning, goals, deliverables, expectations, status, attachment.
 - Add `$DOMAINS/whiteboards/structures/attachment.art` — path, purpose.
 - Add `$DOMAINS/whiteboards/types/short-task.art` — done, description.
 - Add `$DOMAINS/whiteboards/types/change-entry.art` — participant, date, description.
-- Add `$DOMAINS/whiteboards/types/participant-status.art` — `INTRODUCING`, `READY`, `LEFT`.
+- Add `$DOMAINS/whiteboards/types/participant-statuses.art` — `INTRODUCING`, `READY`, `LEFT`.
 - Add the domain scaffold: `$DOMAINS/whiteboards/domain.art` — purpose + boundaries; `$DOMAINS/whiteboards/index.md` — generated with `Routine: Build Domain Index`.
 
 **Dependencies:**
@@ -376,6 +377,53 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 - Register domains, skills, and agent modes with update-domains, update-skills, update-agents
 ```
 
+### Iteration: Consolidate Whiteboard Domain
+
+**Id:** `consolidate-whiteboard-domain`
+
+**Status:** `DONE`
+
+**Purpose:** Consolidate the domain's resource kinds and vocabulary after the first execution pass.
+
+**Description:** Demote non-resources to types, add Definitions, rework the turn lifecycle and the statuses, and generalise the prose. Executed by the stakeholder and the architect in session, not delegated — hence no instructions file and no report.
+
+**Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Changes:**
+
+- Move `Participant`, `Facilitation`, `Attachment` from `structures/` to `types/`; `Whiteboard` becomes the only Structure.
+- Add `$DOMAINS/whiteboards/definitions/index.art`; add `owner` to Whiteboard; rename `expected-final-outline` to `whiteboard-structure`.
+- Rename `participant-status.art` to `participant-statuses.art` — a per-whiteboard list with a default value; `active` is derived from a status description, never from a status name.
+- Replace `prepare-whiteboard-update.art` and `update-participant-sentiment.art` with `create-whiteboard-record.art` and `generate-whiteboard-updates.art`.
+- Repair references broken by the move, generalise prose to artefacts and participants, and cut every routine purpose to one clause.
+
+**Dependencies:**
+
+- Iteration `register-whiteboards-domain-and-skills`.
+
+#### Commits:
+
+| ID                        | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
+| ------------------------- | ------------------------------------- | ------------ | --------- | ----------- |
+| `consolidate-whiteboards` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `8bd0efc` | `COMMITTED` |
+
+##### Commit: consolidate-whiteboards
+
+**Repository:** Workspace
+
+**Message:**
+
+```
+build(domain-whiteboards): Consolidate definitions, commands, routines, structures, types, templates.
+
+- Demoted non-resources to types (Participant, Attachment, Facilitation).
+- Added domain Definitions and one `whiteboard` skill exposing every routine as a command.
+- Made statuses a per-whiteboard list; rules derive "active" from descriptions, not names.
+- Reworked the turn lifecycle: create the record, generate updates, then respond and report.
+- Template renders `owner` and participant-defined sections; keeps the three-part constitution.
+- Generalised prose to artefacts and participants, cut purposes to one clause, fixed moved paths.
+```
+
 ---
 
 ## Coordination
@@ -391,6 +439,7 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 - Iteration `add-whiteboard-routines` — 8 routines under `$DOMAINS/whiteboards/routines/` (read, validate, prepare update, prepare response, sentiment, report-to-user with nine formats, join, set-new-goal); `npm run ci` green; committed and pushed as `55097a9`.
 - Iteration `add-whiteboard-commands-and-skills` — `$SKILLS/whiteboard/SKILL.md` with `ALL` access, a turn process, and six commands (init-whiteboard, invite-participant, join-whiteboard, take-turn, validate-whiteboard, set-new-goal) with user-said and automatic triggers; committed and pushed as `07199ef`.
 - Iteration `register-whiteboards-domain-and-skills` — `Domain: Whiteboards` in the domains listing, `$DOMAINS/whiteboards/index.md` regenerated with all 17 resources, `whiteboard` in the skills listing, allowed in all 12 agent modes, generated artefacts verified in sync; committed and pushed as `064880c`.
+- Iteration `consolidate-whiteboard-domain` — 21 files (1 Structure, 6 Types, 8 Routines, Definitions, template, file convention, plus the `whiteboard` skill), prettier clean, `npm run ci` green; committed as `8bd0efc` on the workspace `building` branch.
 
 ### Findings
 
@@ -405,7 +454,9 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 - Base components only: outline, goals, turn-taking, participants. No contract or domain-specific modelling; the reference board's `Contracts` section is treated as late-emerging and optional.
 - One `whiteboard` skill: every use-case routine is exposed as a command inside it, with user-said and automatic triggers.
 - The `parking-lot` skill stays unaware of whiteboards; the board's section is initialised canonically and agents may deviate from it.
-- `changes` keeps a rolling window retaining at least one entry per active participant, so fair turn-taking stays computable while resolved items archive out.
+- `changes` keeps a rolling window of at least the last `N × 2` entries (`N` = active participants), so fair turn-taking stays computable while resolved items archive out.
+- Statuses are per-whiteboard: `participant-statuses` is a customisable list with a default value, and no rule names a status — `active` is derived from a status description.
+- **Work, Plans, Milestones** are unknown: whiteboards make no assumption about being used for planning, work coordination, or authoring specific artefact types.
 - No unclaimed-turn escalation: turns advance by user nudge or by an external process.
 - `validate-whiteboard` runs at the start of every turn and is also a `whiteboard` skill command.
 
@@ -425,6 +476,7 @@ build(domain-whiteboards): Register Whiteboards domain and skills.
 - Iteration `add-whiteboard-routines` (open, for the owner): sentiment-marker set is declared open (markers observed on the reference board, never invent one silently) — amend the routine if a closed set was intended.
 - Iteration `add-whiteboard-routines` (open, for the owner): possible tension between `read-whiteboard-before-turn.art` ("stage what you read") and the template's rule allowing an unstaged own turn — settle in the skill-commands iteration.
 - Iteration `add-whiteboard-routines` (open, for the writers): CONFUSING has no dedicated marker (shares 🤔 with QUESTIONABLE); CONFUSING/UNCOOPERATIVE examples in `plan__report-examples.md` end truncated.
+- Post-`DONE` stakeholder feedback (from `$PROJECT/_backlog/_parking-lot.md`) applied to the domain and skill: `Prepare Whiteboard Update` replaced by `Generate Whiteboard Updates` (`%whiteboard` + `%updates` + `%response` in → `%updates` out; attachments handled; sentiment inlined and its routine deleted); `Report To User` rewritten as comparative classification with all report examples; markdown-integrity check added to `Validate Whiteboard` (born from the `ART_LIB` stray-backtick/prettier corruption incident); severities normalised to `MINE`/`FEEDBACK`/`BLOCKING`; skill definitions moved to `definitions/index.art`; `whiteboard` skill restructured with mandatory reading and standard routine invocations. The `FIX_NOW` references in the parking-lot note were treated as stale (superseded by `MINE`).
 - Iteration `add-whiteboard-commands-and-skills` (open, for the owner): Final Verification asks every command's `**Procedure:**` to name a routine, but `init-whiteboard` delegates to the template and `invite-participant` routes through Join Whiteboard — no init/invite routines exist; soften the verification or add routines later.
 - Iteration `add-whiteboard-commands-and-skills` (open, for the owner): `report-to-user` is not named by any command; it is reachable only from within the routines domain.
 - Iteration `register-whiteboards-domain-and-skills` (open, for the owner): the three registration skills (`update-domains`, `update-skills`, `update-agents`) gate to `assistant` while `agent-worker` may not use them; the worker executed their procedures as mandatory-reading instructions and disclosed it. Consider widening the gate or the worker's allowed list.

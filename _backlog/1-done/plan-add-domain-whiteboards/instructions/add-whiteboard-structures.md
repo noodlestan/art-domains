@@ -153,7 +153,7 @@ Create `$DOMAINS/whiteboards/structures/participant.art` declaring **Structure: 
 - `status` (one of `%whiteboard.facilitation.participant-status`).
 - `attachment` (Path) — the introduction attachment file.
 
-Create `$DOMAINS/whiteboards/structures/attachment.art` declaring **Structure: Attachment** with `path` (Path) and `purpose` (NaturalExpression). It covers both participant introductions and the resolved parking-lot archive (`parking-lot--resolved.md`).
+Create `$DOMAINS/whiteboards/structures/attachment.art` declaring **Type: Attachment** with `path` (Path) and `purpose` (NaturalExpression). It covers both participant introductions and the resolved parking-lot archive (`parking-lot--resolved.md`).
 
 Expected outcome: both structures declare their `Inherits` and `Shape` following `$DOMAINS/plans/structures/plan.art`.
 
@@ -179,7 +179,7 @@ Expected outcome: `facilitation.art` declares all nine fields.
 
 ### Step `6 / 7` — Create `structures/whiteboard.art`, `domain.art`, and `index.md`
 
-Create `$DOMAINS/whiteboards/structures/whiteboard.art` declaring **Structure: Whiteboard** with fields `id`, `purpose`, `description`, `facilitation`, `participants` (List(Structure: Participant)), `attachments` (List(Structure: Attachment)), `changes` (List(Type: Change Entry)), and `follow-ups` (List(NaturalExpression)).
+Create `$DOMAINS/whiteboards/structures/whiteboard.art` declaring **Structure: Whiteboard** with fields `id`, `purpose`, `description`, `facilitation`, `participants` (List(Structure: Participant)), `attachments` (List(Type: Attachment)), `changes` (List(Type: Change Entry)), and `follow-ups` (List(NaturalExpression)).
 
 Create `$DOMAINS/whiteboards/domain.art` mirroring `$DOMAINS/plans/domain.art`: purpose for the Whiteboards domain, plus `boundaries` ordered relationships stating — owns `whiteboards`; depends on the `parking-lot` skill; excludes `Structure: Plan` and the work-item model.
 

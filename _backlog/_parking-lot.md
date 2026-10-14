@@ -2,7 +2,7 @@
 
 ## Actionable Items
 
-- **Delegate `add-domain-whiteboards`** — plan is `READY`; instructions in `$PROJECT/_backlog/3-now/plan-add-domain-whiteboards/instructions/`. Run in order: `add-whiteboard-structures` → `add-whiteboard-template-and-file` → `add-whiteboard-routines` → `add-whiteboard-commands-and-skills` → `register-whiteboards-domain-and-skills`.
+- None.
 
 ## Pending Questions
 

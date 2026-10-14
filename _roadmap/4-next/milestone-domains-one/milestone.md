@@ -122,7 +122,8 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | 2     | Plan: Refine Domain Structures `$PROJECT/_backlog/1-done/plan-refine-domain-structures/plan.md`                                          | `DONE`  |
 | 2     | Plan: Normalize Structure Inheritance `$PROJECT/_backlog/1-done/plan-normalize-structure-inheritance/plan.md`                            | `DONE`  |
 | 2     | Plan: Specs MVP `$PROJECT/_backlog/6-plan/plan-specs-mvp/plan.md`                                                                        | `DRAFT` |
-| 2     | Plan: Add Domain Whiteboards `$PROJECT/_backlog/3-now/plan-add-domain-whiteboards/plan.md`                                               | `READY` |
+| 2     | Plan: Add Domain Whiteboards `$PROJECT/_backlog/1-done/plan-add-domain-whiteboards/plan.md`                                              | `DONE`  |
+| 2     | Plan: Streamline Operating Instructions `$PROJECT/_backlog/4-next/plan-streamline-operating-instructions/plan.md`                        | `DRAFT` |
 
 ---
 
@@ -130,7 +131,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 
 ### Next
 
-Delegate Plan: Add Domain Whiteboards iteration `add-whiteboard-structures` — its instructions are ready. The POC distribution plan still needs a dry-run to validate the distribution model.
+Plan `add-domain-whiteboards` is `DONE` and archived to `1-done`. Next candidates: Plan: Streamline Operating Instructions (`DRAFT`, in `4-next`) and Plan: Specs MVP (`DRAFT`). The POC distribution plan still needs a dry-run to validate the distribution model.
 
 ### Blockers
 
