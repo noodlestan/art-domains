@@ -2,11 +2,12 @@
 
 ## Actionable Items
 
-- None.
+- Aplly STAKEHOLDER review `_backlog/4-next/plan-add-messages-domain/plan.md`
+  - Add to `$DOMAINS/messages/templates/message-board.tart` directive before first section ::TEMPLATE If rendering inside another resource, incrase the headling level of all sections to become children of the nesting parent section in the target resource"
 
 ## Pending Questions
 
-- None yet.
+- None.
 
 ## Blockers
 

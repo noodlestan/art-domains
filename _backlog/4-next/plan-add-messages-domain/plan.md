@@ -10,7 +10,7 @@
 
 **Purpose:** Give agents an effective, low-noise tool to send persisted messages to other agents, routed through message boards and discarded once processed.
 
-**Description:** Add a standalone Messages domain — a `Message Board` structure, `Message` and `Message Type` types, `message-board` and `message` templates plus a message file convention, and four routines (identify inboxes, process messages, read message, write message) exposed through a single `messaging` skill allowed to all agent modes, where commands own every session-chat write and response and routines only transform data. Then integrate into Domain: Whiteboards — model the message board parallel to the parking lot, ahead of it in structures, templates, and routine logic — so that every item is classified as a message or a parking-lot item and messages stop polluting parking lots. Built top-down (domain, skill, structures, types, templates, routines) and consolidated bottom-up in a final review pass.
+**Description:** Add a standalone Messages domain — a `Message Board` structure, `Message` and `Message Type` types, `message-board` and `message` templates plus a message file convention, and four routines (identify inboxes, process messages, read message, write message) exposed through a single `messaging` skill allowed to all agent modes, where commands own every session-chat write and response and routines only transform data. Then integrate into Domain: Whiteboards — model the message board parallel to the parking lot, ahead of it in structures, templates, and routine logic — so that every item is classified as a message or a parking-lot item and messages stop polluting parking lots. Built top-down (index and definitions, skill, commands, routines, templates and files, structures, types) and consolidated bottom-up in a final review pass.
 
 ## Mandatory Reading
 
@@ -33,7 +33,7 @@ Replace the noisy parking-lot-based messaging proven inefficient in Domain: Whit
 
 ## Attachments
 
-- `./plan__parking-lot-spec.md` (Reference) — Verbatim copy of the source parking-lot item, preserving the original spec — including write-message availability rules and response-cleanup rules — before the item was removed from the parking lot.
+- `./plan__messages-spec.md` (Reference) — Structured spec for the whole domain per resource kind — Definitions, Skill, Routines, Structures, Types, Templates, Files, Integration — plus the `## Conventions` review criteria applied in the final review pass, and a verbatim appendix of the source parking-lot item.
 
 ## Context
 
@@ -65,7 +65,7 @@ Replace the noisy parking-lot-based messaging proven inefficient in Domain: Whit
 
 ## Scope
 
-Add a new `$DOMAINS/messages/` domain — `domain.art`, one Structure (Message Board), two Types (Message, Message Type), two templates (message board, message), a message file convention, and four routines — expose it through one `messaging` skill allowed to all agent modes, and integrate the message board into Domain: Whiteboards ahead of its parking lot.
+Add a new `$DOMAINS/messages/` domain — `domain.art`, a definitions file, one Structure (Message Board), two Types (Message, Message Type), two templates (message board, message), a message file convention, and four routines — expose it through one `messaging` skill allowed to all agent modes, and integrate the message board into Domain: Whiteboards ahead of its parking lot.
 
 ### Constraints
 
@@ -135,9 +135,9 @@ npm run ci # lint, build and test
 | --------------------------------------------------- | ---------- |
 | Iteration: Scaffold Messages Domain                 | `PLANNING` |
 | Iteration: Add Messaging Skill and Commands         | `PLANNING` |
-| Iteration: Add Message Board Structure and Types    | `PLANNING` |
-| Iteration: Add Message Templates and File           | `PLANNING` |
 | Iteration: Add Message Routines                     | `PLANNING` |
+| Iteration: Add Message Templates and File           | `PLANNING` |
+| Iteration: Add Message Board Structure and Types    | `PLANNING` |
 | Iteration: Integrate Message Board into Whiteboards | `PLANNING` |
 | Iteration: Review Messages Domain Bottom-up         | `PLANNING` |
 
@@ -149,13 +149,14 @@ npm run ci # lint, build and test
 
 **Purpose:** Establish the domain's identity and boundaries so every later layer lands in a registered home.
 
-**Description:** Add the Messages domain scaffold with its purpose and boundaries, and register the domain in the domains listing.
+**Description:** Add the Messages domain scaffold with its purpose, boundaries, and definitions, and register the domain in the domains listing.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Changes:**
 
 - Add `$DOMAINS/messages/domain.art` — purpose + boundaries: low-noise persisted agent-to-agent messaging; messages short-lived and discarded after processing; no plans or work-item assumptions.
+- Add `$DOMAINS/messages/definitions/index.art` — message, message board, medium, and inbox definitions (from `./plan__messages-spec.md`, ## Definitions).
 - Modify `$DOMAINS/index.md` — list `Domain: Messages` and its resources (`update-domains`).
 
 **Dependencies:**
@@ -177,7 +178,7 @@ npm run ci # lint, build and test
 ```
 build(domain-messages): Add Messages domain scaffold.
 
-- Add .agents/domains/messages/domain.art with purpose and boundaries.
+- Add domain.art with purpose and boundaries, and the domain definitions.
 - Register Domain: Messages in the domains listing.
 ```
 
@@ -224,23 +225,24 @@ build(domain-messages): Add the messaging skill with commands.
 - Commands own session-chat writes; routines only transform data.
 ```
 
-### Iteration: Add Message Board Structure and Types
+### Iteration: Add Message Routines
 
-**Id:** `add-message-structures-and-types`
+**Id:** `add-message-routines`
 
 **Status:** `PLANNING`
 
-**Purpose:** Model the messaging data so boards can hold messages and every message can be typed by its response expectation.
+**Purpose:** Define the messaging lifecycle so inboxes are found, messages processed and acted upon, and writes respect medium availability and response cleanup.
 
-**Description:** Add the Message Board structure and the Message and Message Type types, following the parking-lot spec captured in the source parking lot.
+**Description:** Add the four routines that drive message flow; every routine takes data in and returns data out — session-chat writes and responses belong to the skill commands.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Changes:**
 
-- Add `$DOMAINS/messages/structures/message-board.art` — name, purpose, description, messages (List of messages), instructions (custom instructions to observe when reading from or writing to the board).
-- Add `$DOMAINS/messages/types/message.art` — from, to, type, timestamp, content, medium (path to message file, or artefact carrying a message board).
-- Add `$DOMAINS/messages/types/message-type.art` — Primitive: OpenEnum — `ASK` (expects a response), `REQUEST` (may expect a response), `INFORM` (may expect an acknowledgement), `ANSWER` (alias of `INFORM` for responses to `ASK`), `REPORT` (alias of `INFORM` for responses to `REQUEST`).
+- Add `$DOMAINS/messages/routines/identify-inboxes.art` — scan the current context for artefacts carrying a message board; output the inboxes.
+- Add `$DOMAINS/messages/routines/process-messages.art` — input the inboxes; extract and classify the incoming messages.
+- Add `$DOMAINS/messages/routines/write-message.art` — input `%message`, `%bypass-clean-check`, `%response-to` (optional); resolve medium availability (board turn instructions, clean-check on the checkout and on the medium file, bypass flag); for long messages decide the path on the recipient's side from the current context, reading the recipient's relevant instructions when there is no obvious path (example: `_guide`); when available write and stage+commit per the medium's rules — if the write was impeded for some reason then the medium is unavailable; when unavailable park short messages at the top of the writer's own actionable parking-lot column; when responding, purge the incoming board message, and integrate, attach, or delete incoming file messages — integrating contents without citing the message as source.
+- Add `$DOMAINS/messages/routines/read-message.art` — input `%message` and `%medium`; take action on the message (convert to an own parking-lot item, synchronously update resources, or purge); reply through Routine: Write Message with `%response-to`; response length rules — over 1000 characters goes to a file, under 200 characters to the incoming board (default), in between the writer decides, compressing or filing and adding detail when it helps the recipient.
 
 **Dependencies:**
 
@@ -248,21 +250,21 @@ build(domain-messages): Add the messaging skill with commands.
 
 #### Commits:
 
-| ID                         | Repository / Checkout / Branch        | Policy       | Hash    | Status     |
-| -------------------------- | ------------------------------------- | ------------ | ------- | ---------- |
-| `build-message-structures` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `(TBD)` | `AUTHORED` |
+| ID                       | Repository / Checkout / Branch        | Policy       | Hash    | Status     |
+| ------------------------ | ------------------------------------- | ------------ | ------- | ---------- |
+| `build-message-routines` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `(TBD)` | `AUTHORED` |
 
-##### Commit: build-message-structures
+##### Commit: build-message-routines
 
 **Repository:** Workspace
 
 **Message:**
 
 ```
-build(domain-messages): Add Message Board structure and message types.
+build(domain-messages): Add message routines.
 
-- Add Message Board with messages and board instructions.
-- Add Message and Message Type (ASK, REQUEST, INFORM, ANSWER, REPORT).
+- Add identify-inboxes, process-messages, read-message, write-message.
+- Routines transform data only; commands own session-chat writes.
 ```
 
 ### Iteration: Add Message Templates and File
@@ -285,7 +287,7 @@ build(domain-messages): Add Message Board structure and message types.
 
 **Dependencies:**
 
-- Iteration `add-message-structures-and-types`.
+- Iteration `add-message-routines`.
 
 #### Commits:
 
@@ -306,24 +308,23 @@ build(domain-messages): Add message board and message templates.
 - Add the message file convention for long messages.
 ```
 
-### Iteration: Add Message Routines
+### Iteration: Add Message Board Structure and Types
 
-**Id:** `add-message-routines`
+**Id:** `add-message-structures-and-types`
 
 **Status:** `PLANNING`
 
-**Purpose:** Define the messaging lifecycle so inboxes are found, messages processed and acted upon, and writes respect medium availability and response cleanup.
+**Purpose:** Model the messaging data so boards can hold messages and every message can be typed by its response expectation.
 
-**Description:** Add the four routines that drive message flow; every routine takes data in and returns data out — session-chat writes and responses belong to the skill commands.
+**Description:** Add the Message Board structure and the Message and Message Type types, following the parking-lot spec captured in the source parking lot.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Changes:**
 
-- Add `$DOMAINS/messages/routines/identify-inboxes.art` — scan the current context for artefacts carrying a message board; output the inboxes.
-- Add `$DOMAINS/messages/routines/process-messages.art` — input the inboxes; extract and classify the incoming messages.
-- Add `$DOMAINS/messages/routines/read-message.art` — input `%message` and `%medium`; take action on the message (convert to an own parking-lot item, synchronously update resources, or purge); reply through Routine: Write Message with `%response-to`; response length rules — over 1000 characters goes to a file, under 200 characters to the incoming board (default), in between the writer decides, compressing or filing and adding detail when it helps the recipient.
-- Add `$DOMAINS/messages/routines/write-message.art` — input `%message`, `%bypass-clean-check`, `%response-to` (optional); resolve medium availability (board turn instructions, clean-check on the checkout and on the medium file, bypass flag); when available write and stage+commit per the medium's rules; when unavailable park short messages at the top of the writer's own actionable parking-lot column; when responding, purge the incoming board message, and integrate, attach, or delete incoming file messages — integrating contents without citing the message as source.
+- Add `$DOMAINS/messages/types/message-type.art` — Primitive: OpenEnum — `ASK` (expects a response), `REQUEST` (may expect a response), `INFORM` (may expect an acknowledgement), `ANSWER` (alias of `INFORM` for responses to `ASK`), `REPORT` (alias of `INFORM` for responses to `REQUEST`).
+- Add `$DOMAINS/messages/types/message.art` — from, to, type, timestamp, content, medium (path to message file, or artefact carrying a message board).
+- Add `$DOMAINS/messages/structures/message-board.art` — name, purpose, description, messages (List of messages), instructions (custom instructions to observe when reading from or writing to the board); uses the Message and Message Type types.
 
 **Dependencies:**
 
@@ -331,21 +332,21 @@ build(domain-messages): Add message board and message templates.
 
 #### Commits:
 
-| ID                       | Repository / Checkout / Branch        | Policy       | Hash    | Status     |
-| ------------------------ | ------------------------------------- | ------------ | ------- | ---------- |
-| `build-message-routines` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `(TBD)` | `AUTHORED` |
+| ID                         | Repository / Checkout / Branch        | Policy       | Hash    | Status     |
+| -------------------------- | ------------------------------------- | ------------ | ------- | ---------- |
+| `build-message-structures` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `(TBD)` | `AUTHORED` |
 
-##### Commit: build-message-routines
+##### Commit: build-message-structures
 
 **Repository:** Workspace
 
 **Message:**
 
 ```
-build(domain-messages): Add message routines.
+build(domain-messages): Add Message Board structure and message types.
 
-- Add identify-inboxes, process-messages, read-message, write-message.
-- Routines transform data only; commands own session-chat writes.
+- Add Message Board with messages and board instructions.
+- Add Message and Message Type (ASK, REQUEST, INFORM, ANSWER, REPORT).
 ```
 
 ### Iteration: Integrate Message Board into Whiteboards
@@ -363,7 +364,7 @@ build(domain-messages): Add message routines.
 **Changes:**
 
 - Modify `$DOMAINS/whiteboards/structures/whiteboard.art` — add `message-board` ahead of the parking-lot modelling in the whiteboard shape.
-- Modify `$DOMAINS/whiteboards/templates/whiteboard.tart` — render `## Message board` before `## Parking lot` (and in the Whiteboard Structure outline); rewrite the Turn and Document Structure instructions to classify every item: a message has a sender and a receiver, is typed `ASK`/`INFORM`/`REQUEST`/`ANSWER`/`REPORT`, never lands in the parking lot, and is written to the message board following its rules (example: line length limit); a parking-lot item has an owner, no sender, and an async outcome — actionable items removed only when captured somewhere else AND the whiteboard is not pending on the outcome, pending items tracked until they become actionable or are superseded, blockers identifying what they impede; deduplicate and compress other related items.
+- Modify `$DOMAINS/whiteboards/templates/whiteboard.tart` — render `## Message board` before `## Parking lot` (and in the Whiteboard Structure outline); rewrite the Turn and Document Structure instructions to classify every item: a message has a sender and a receiver, is typed `ASK`/`INFORM`/`REQUEST`/`ANSWER`/`REPORT`, never lands in the parking lot, and is written to the message board following its rules (example: line length limit); a parking-lot item has an owner, no sender, and an async outcome — actionable items removed only when captured somewhere else AND the whiteboard is not pending on the outcome (examples: "`ART-JS` – Write plan instructions for participants to review" kept until plan is authored and shared with whiteboard; "`ART_MD` - Archive previous milestone to reduce noise" kept until milestone is archived), pending items tracked until they become actionable or are superseded, blockers identifying what they impede; deduplicate and compress other related items.
 - Modify `$DOMAINS/whiteboards/routines/generate-whiteboard-updates.art` — classify each send/receive update as a message or a parking-lot item and route it; messages never enter `%whiteboard.parking-lot`.
 - Modify `$DOMAINS/whiteboards/routines/validate-whiteboard.art` — detect messages sitting in the parking lot, and stale messages left on the board after being processed.
 - Modify `$SKILLS/whiteboard/SKILL.md` — take-turn and related commands route send/receive through the `messaging` commands.
@@ -371,7 +372,7 @@ build(domain-messages): Add message routines.
 
 **Dependencies:**
 
-- Iteration `add-message-routines`.
+- Iteration `add-message-structures-and-types`.
 
 #### Commits:
 
@@ -400,18 +401,14 @@ integrate(domain-messages): Route Whiteboards messaging through message boards.
 
 **Purpose:** Consolidate the domain after the first top-down pass so every layer agrees bottom-up.
 
-**Description:** Walk the resources bottom-up — refine templates, types, structures, routines, then the skill commands and the domain artefacts — applying the review criteria to every layer, and trickle all changes up to the routine-invocation format in the skill commands and finally to `domain.art` and the domain index. Executed by the stakeholder and the architect in session, not delegated — hence no instructions file and no report.
+**Description:** Walk the resources bottom-up — refine types, structures, templates and files, routines, then the skill commands and the domain artefacts — applying the review conventions in `./plan__messages-spec.md` (`## Conventions`) to every layer, and trickle all changes up to the routine-invocation format in the skill commands and finally to `domain.art` and the domain index. Executed by the stakeholder and the architect in session, not delegated — hence no instructions file and no report.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Changes:**
 
-- Refine `$DOMAINS/messages/templates/` — `message-board.tart` and `message.tart` consistent with the final types and structures; then `$DOMAINS/messages/types/`; then `$DOMAINS/messages/structures/`; then `$DOMAINS/messages/routines/`.
-- Verify every `::READ` directive references all resources used in the file — in `$DOMAINS/messages/` and `$SKILLS/messaging/SKILL.md`; repair or add directives.
-- Verify each routine follows the standard format with clear Inputs and Outputs; fix every routine missing them.
-- Verify no routine writes to files directly — file writes and session-chat responses belong to the skill commands.
-- Verify every routine always returns something; add the missing returns.
-- Verify examples in routines, structures, and templates carry no assumption that messages are about plans — plans may only appear as an example.
+- Apply the review conventions — `./plan__messages-spec.md`, `## Conventions` — to every resource: `::READ` directives reference all resources used in file; routine format with clear Inputs and Outputs; no routine writes to files directly; every routine always returns something; examples carry no assumption that messages are about plans — plans may only appear as an example.
+- Refine `$DOMAINS/messages/types/` — `message-type.art` and `message.art`; then `$DOMAINS/messages/structures/` — `message-board.art`; then `$DOMAINS/messages/templates/` — `message-board.tart` and `message.tart` — and `$DOMAINS/messages/files/message.art`; then `$DOMAINS/messages/routines/` — `identify-inboxes.art`, `process-messages.art`, `write-message.art`, `read-message.art`.
 - Trickle all changes up to the routine-invocation format in skill commands — each routine call preceded by its `::READ` directive — in `$SKILLS/messaging/SKILL.md` and `$SKILLS/whiteboard/SKILL.md`.
 - Update `$DOMAINS/messages/domain.art` — final purpose, boundaries, and summary; regenerate `$DOMAINS/messages/index.md` with `Routine: Build Domain Index`; top up `$DOMAINS/index.md` with the finished resource list.
 - Repair references broken by the review; run `npm run ci`.
@@ -467,7 +464,7 @@ refactor(domain-messages): Review messages domain bottom-up.
 - Messages are discarded after being processed; integrated content never cites the message as its source.
 - Response types reuse the `INFORM` alias pattern: `ANSWER` for `ASK`, `REPORT` for `REQUEST`.
 - Domain: Whiteboards models the message board parallel to the parking lot, ahead of it in structure, template, and routine logic, with item classification at every send/receive point.
-- Built top-down (domain, skill, structures, types, templates, routines) and consolidated bottom-up in a final review pass.
+- Built top-down (index and definitions, skill, commands, routines, templates and files, structures, types) and consolidated bottom-up in a final review pass applying the conventions in `./plan__messages-spec.md`.
 
 ### Knowledge to Update
 
@@ -477,7 +474,7 @@ refactor(domain-messages): Review messages domain bottom-up.
 
 ### Follow Ups
 
-- The source parking-lot item "Create Plan: Add Messages Domain" was removed from `$PROJECT/_backlog/_parking-lot.md` once this plan was created; its verbatim spec is preserved in `./plan__parking-lot-spec.md`.
+- The source parking-lot item "Create Plan: Add Messages Domain" was removed from `$PROJECT/_backlog/_parking-lot.md` once this plan was created; its verbatim spec — plus the structured per-kind spec and the review conventions — is preserved in `./plan__messages-spec.md`.
 - The parking lot references evidence `_backlog/whiteboard-art-records/whiteboard__feedback-1.md`, which does not resolve in the checkout — confirm with the owner whether it moved or was deleted.
 - Milestone `domains-one` items table and `Next` were updated when this plan was created; reflect the plan upstream again when it starts executing.
 
