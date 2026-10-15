@@ -46,7 +46,7 @@ Model the messaging data so boards can hold messages and every message can be ty
 ## Mandatory Reading
 
 - `$WORKSPACE/_guide.md` — workspace overview, path variables, and operating instructions.
-- `$PROJECT/_backlog/4-next/plan-add-messages-domain/plan__messages-spec.md` — the domain spec; read `## Structures` and `## Types` in full — field names and the OpenEnum values are normative — and follow its `## Conventions`.
+- `../plan__messages-spec.md` — the domain spec; read `## Structures` and `## Types` in full — field names and the OpenEnum values are normative — and follow its `## Conventions`.
 - `$DOMAINS/plans/structures/plan.art` — reference structure: how structures declare `## Uses`, `Inherits`, and `Shape`.
 - `$DOMAINS/whiteboards/structures/whiteboard.art` — reference structure: the format to mirror for the Message Board.
 - `$DOMAINS/whiteboards/types/change-entry.art` — reference type: the format to mirror for Message and Message Type.

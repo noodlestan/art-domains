@@ -46,7 +46,7 @@ Define how a message board and a long message are presented, and where long-mess
 ## Mandatory Reading
 
 - `$WORKSPACE/_guide.md` — workspace overview, path variables, and operating instructions.
-- `$PROJECT/_backlog/4-next/plan-add-messages-domain/plan__messages-spec.md` — the domain spec; read `## Templates` and `## Files` in full and follow its `## Conventions`.
+- `../plan__messages-spec.md` — the domain spec; read `## Templates` and `## Files` in full and follow its `## Conventions`.
 - `$DOMAINS/whiteboards/templates/whiteboard.tart` — reference template: the `::TEMPLATE`/`::EXAMPLE` directive format to mirror.
 - `$DOMAINS/whiteboards/files/whiteboard.art` — reference file convention: naming pattern, template reference, and scoping to mirror.
 

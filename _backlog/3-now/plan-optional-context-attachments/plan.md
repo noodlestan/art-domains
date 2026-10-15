@@ -114,7 +114,7 @@ Domain-code changes are coordinated from `$WORKSPACE` and land in the **workspac
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
-**Instructions:** `./plan-optional-context-attachments/instructions/split-work-item-context-templates.md`
+**Instructions:** `./instructions/split-work-item-context-templates.md`
 
 **Changes:**
 
@@ -163,7 +163,7 @@ build(domain-work): Split work item context into summary, attachment, and sectio
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
-**Instructions:** `./plan-optional-context-attachments/instructions/wire-plan-milestone-rendering.md`
+**Instructions:** `./instructions/wire-plan-milestone-rendering.md`
 
 **Changes:**
 
@@ -210,7 +210,7 @@ build(context-attachments): Render summary always and context conditionally in p
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
-**Instructions:** `./plan-optional-context-attachments/instructions/thread-create-context-file.md`
+**Instructions:** `./instructions/thread-create-context-file.md`
 
 **Changes:**
 

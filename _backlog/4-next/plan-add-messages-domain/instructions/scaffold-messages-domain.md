@@ -46,7 +46,7 @@ Establish the Messages domain's identity and boundaries so every later layer lan
 ## Mandatory Reading
 
 - `$WORKSPACE/_guide.md` — workspace overview, path variables, and operating instructions.
-- `$PROJECT/_backlog/4-next/plan-add-messages-domain/plan__messages-spec.md` — the domain spec; read `## Definitions` in full and follow its `## Conventions`.
+- `../plan__messages-spec.md` — the domain spec; read `## Definitions` in full and follow its `## Conventions`.
 - `$DOMAINS/domains/structures/domain.art` — `Structure: Domain`, the shape `domain.art` must follow.
 - `$DOMAINS/plans/domain.art` — reference domain record: the format to mirror for purpose and boundaries.
 - `$DOMAINS/whiteboards/definitions/index.art` — reference definitions file: the format to mirror for the messages definitions.

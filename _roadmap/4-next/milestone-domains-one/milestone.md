@@ -123,8 +123,9 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | 2     | Plan: Normalize Structure Inheritance `$PROJECT/_backlog/1-done/plan-normalize-structure-inheritance/plan.md`                            | `DONE`     |
 | 2     | Plan: Specs MVP `$PROJECT/_backlog/6-plan/plan-specs-mvp/plan.md`                                                                        | `DRAFT`    |
 | 2     | Plan: Add Domain Whiteboards `$PROJECT/_backlog/1-done/plan-add-domain-whiteboards/plan.md`                                              | `DONE`     |
+| 2     | Plan: Add Optional Context Attachments `$PROJECT/_backlog/1-done/plan-optional-context-attachments`                                      | `DONE`     |
 | 2     | Plan: Streamline Operating Instructions `$PROJECT/_backlog/4-next/plan-streamline-operating-instructions/plan.md`                        | `DRAFT`    |
-| 2     | Plan: Add Messages Domain `$PROJECT/_backlog/4-next/plan-add-messages-domain/plan.md`                                                    | `PLANNING` |
+| 2     | Plan: Add Messages Domain `$PROJECT/_backlog/3-now/plan-add-messages-domain/plan.md`                                                     | `PLANNING` |
 
 ---
 

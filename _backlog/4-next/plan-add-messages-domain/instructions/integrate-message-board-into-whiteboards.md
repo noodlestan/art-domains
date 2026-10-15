@@ -47,7 +47,7 @@ Route Whiteboards inter-participant messaging through message boards and stop pa
 ## Mandatory Reading
 
 - `$WORKSPACE/_guide.md` — workspace overview, path variables, and operating instructions.
-- `$PROJECT/_backlog/4-next/plan-add-messages-domain/plan__messages-spec.md` — the domain spec; read `## Integration` in full — every classification rule and both actionable-item examples are normative — and follow its `## Conventions`.
+- `../plan__messages-spec.md` — the domain spec; read `## Integration` in full — every classification rule and both actionable-item examples are normative — and follow its `## Conventions`.
 - `$DOMAINS/whiteboards/index.md` — the domain being changed: all resources in scope.
 - `$DOMAINS/whiteboards/structures/whiteboard.art` — the structure to modify.
 - `$DOMAINS/whiteboards/templates/whiteboard.tart` — the template to modify: Whiteboard Structure outline, Turn, and Document Structure instructions.

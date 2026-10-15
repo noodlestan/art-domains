@@ -47,7 +47,7 @@ Give every agent one entry point to send and read messages: add the `messaging` 
 ## Mandatory Reading
 
 - `$WORKSPACE/_guide.md` — workspace overview, path variables, and operating instructions.
-- `$PROJECT/_backlog/4-next/plan-add-messages-domain/plan__messages-spec.md` — the domain spec; read `## Skill` in full — including the command inputs and the "commands own session-chat writes" rule — and follow its `## Conventions`.
+- `../plan__messages-spec.md` — the domain spec; read `## Skill` in full — including the command inputs and the "commands own session-chat writes" rule — and follow its `## Conventions`.
 - `$SKILLS/whiteboard/SKILL.md` — reference skill: front-matter, allowed agent modes, mandatory reading, and command format to mirror.
 - `$SKILLS/update-skills/SKILL.md` — procedure to list `messaging` in the skills listing.
 - `$SKILLS/update-agents/SKILL.md` — procedure to allow `messaging` in the agent modes.

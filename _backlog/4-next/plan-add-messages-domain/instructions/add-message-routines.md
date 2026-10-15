@@ -46,7 +46,7 @@ Define the messaging lifecycle so inboxes are found, messages processed and acte
 ## Mandatory Reading
 
 - `$WORKSPACE/_guide.md` — workspace overview, path variables, and operating instructions.
-- `$PROJECT/_backlog/4-next/plan-add-messages-domain/plan__messages-spec.md` — the domain spec; read `## Routines` in full — every availability rule, path rule, fallback, and cleanup rule is normative — and follow its `## Conventions`.
+- `../plan__messages-spec.md` — the domain spec; read `## Routines` in full — every availability rule, path rule, fallback, and cleanup rule is normative — and follow its `## Conventions`.
 - `$DOMAINS/plans/routines/draft-iterations.art` — reference routine: the standard format with Purpose, Inputs, Output, and Procedure to mirror.
 - `$DOMAINS/whiteboards/routines/generate-whiteboard-updates.art` — reference routine: data-in/data-out discipline without file writes.
 
