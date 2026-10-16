@@ -4,7 +4,7 @@
 
 **Purpose:** Curated domains for operational knowledge and workflows.
 
-**Description:** Domains are self-contained areas of knowledge and operations — structures, types, routines, commands, and vocabulary. This namespace hosts domain packages that can be distributed and reused across repositories. Examples: plans, tasks, references, workspaces, changelogs.
+**Description:** Distributable artificial resources within knowledge and work domains: structures, templates, processes, agent instructions, modes, and skills.
 
 **Owner:** Project: Art Domains
 
