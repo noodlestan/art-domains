@@ -2,7 +2,7 @@
 
 **ID:** `add-messages-domain`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -84,7 +84,7 @@ Add a new `$DOMAINS/messages/` domain — `domain.art`, a definitions file, one 
 
 ### Next
 
-Delegate the first `READY` instruction: `scaffold-messages-domain`, then the following `READY` iterations in order; the final review iteration is executed in-session by the stakeholder and the architect.
+Delegate the next `READY` instruction: `add-messaging-skill-and-commands`, then the following `READY` iterations in order; the final review iteration is executed in-session by the stakeholder and the architect.
 
 ### Blockers
 
@@ -134,7 +134,7 @@ npm run ci # lint, build and test
 
 | Iteration / Instructions                            | Status  |
 | --------------------------------------------------- | ------- |
-| Iteration: Scaffold Messages Domain                 | `READY` |
+| Iteration: Scaffold Messages Domain                 | `DONE`  |
 | Iteration: Add Messaging Skill and Commands         | `READY` |
 | Iteration: Add Message Routines                     | `READY` |
 | Iteration: Add Message Templates and File           | `READY` |
@@ -146,7 +146,7 @@ npm run ci # lint, build and test
 
 **Id:** `scaffold-messages-domain`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Establish the domain's identity and boundaries so every later layer lands in a registered home.
 
@@ -155,6 +155,8 @@ npm run ci # lint, build and test
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/scaffold-messages-domain.md`
+
+**Report:** `./instructions/scaffold-messages-domain__report.md`
 
 **Changes:**
 
@@ -168,9 +170,9 @@ npm run ci # lint, build and test
 
 #### Commits:
 
-| ID                               | Repository / Checkout / Branch        | Policy       | Hash    | Status     |
-| -------------------------------- | ------------------------------------- | ------------ | ------- | ---------- |
-| `build-messages-domain-scaffold` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `(TBD)` | `AUTHORED` |
+| ID                               | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
+| -------------------------------- | ------------------------------------- | ------------ | --------- | ----------- |
+| `build-messages-domain-scaffold` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `8b691bc` | `COMMITTED` |
 
 ##### Commit: build-messages-domain-scaffold
 
@@ -497,4 +499,8 @@ refactor(domain-messages): Review messages domain bottom-up.
 
 ### Feedback
 
-- None yet.
+- [x] Iteration `scaffold-messages-domain` — DONE, commit `8b691bc` pushed to `origin/main`; report at `./instructions/scaffold-messages-domain__report.md`. Created `domain.art`, `definitions/index.art`, registered `Domain: Messages` in `.agents/domains/index.md`. `npm run ci` green.
+- [ ] Plan section order vs template — `Items:` should appear before `Work` (currently after `Operating Instructions`); template order is `Items:` → `Work` → `Operating Instructions` → `Coordination`. Also missing `Execution Context` after `Scope`.
+- [ ] Missing context subsections required by `work-item-context.tart` — `Resource Kinds in Scope`, `Workflows`, `Workflow Operations`, and `Execution Context` are absent.
+- [ ] `## Scope` is a descriptive paragraph; template expects structured `(Scope) {resource}` entries with Record, Role, Partial, Changes, Operations, Dependencies. May be intentional for a domain-level plan.
+- [ ] Follow-up unresolved path `_backlog/whiteboard-art-records/whiteboard__feedback-1.md` — does not resolve in the checkout; confirm with owner whether it moved or was deleted.
