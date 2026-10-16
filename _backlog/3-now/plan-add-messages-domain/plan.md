@@ -84,7 +84,7 @@ Add a new `$DOMAINS/messages/` domain — `domain.art`, a definitions file, one 
 
 ### Next
 
-Delegate the next `READY` instruction: `add-messaging-skill-and-commands`, then the following `READY` iterations in order; the final review iteration is executed in-session by the stakeholder and the architect.
+Delegate the next `READY` instruction: `add-message-routines`, then the following `READY` iterations in order; the final review iteration is executed in-session by the stakeholder and the architect.
 
 ### Blockers
 
@@ -135,7 +135,7 @@ npm run ci # lint, build and test
 | Iteration / Instructions                            | Status  |
 | --------------------------------------------------- | ------- |
 | Iteration: Scaffold Messages Domain                 | `DONE`  |
-| Iteration: Add Messaging Skill and Commands         | `READY` |
+| Iteration: Add Messaging Skill and Commands         | `DONE`  |
 | Iteration: Add Message Routines                     | `READY` |
 | Iteration: Add Message Templates and File           | `READY` |
 | Iteration: Add Message Board Structure and Types    | `READY` |
@@ -191,7 +191,7 @@ build(domain-messages): Scaffold Domain: Messages.
 
 **Id:** `add-messaging-skill-and-commands`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Give every agent one entry point to send and read messages, with commands owning every session-chat write and response.
 
@@ -200,6 +200,8 @@ build(domain-messages): Scaffold Domain: Messages.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/add-messaging-skill-and-commands.md`
+
+**Report:** `./instructions/add-messaging-skill-and-commands__report.md`
 
 **Changes:**
 
@@ -215,9 +217,9 @@ build(domain-messages): Scaffold Domain: Messages.
 
 #### Commits:
 
-| ID                      | Repository / Checkout / Branch        | Policy       | Hash    | Status     |
-| ----------------------- | ------------------------------------- | ------------ | ------- | ---------- |
-| `build-messaging-skill` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `(TBD)` | `AUTHORED` |
+| ID                      | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
+| ----------------------- | ------------------------------------- | ------------ | --------- | ----------- |
+| `build-messaging-skill` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `b12c0f7` | `COMMITTED` |
 
 ##### Commit: build-messaging-skill
 
@@ -500,6 +502,7 @@ refactor(domain-messages): Review messages domain bottom-up.
 ### Feedback
 
 - [x] Iteration `scaffold-messages-domain` — DONE, commit `8b691bc` pushed to `origin/main`; report at `./instructions/scaffold-messages-domain__report.md`. Created `domain.art`, `definitions/index.art`, registered `Domain: Messages` in `.agents/domains/index.md`. `npm run ci` green.
+- [x] Iteration `add-messaging-skill-and-commands` — DONE, commit `b12c0f7` pushed to `origin/main`; report at `./instructions/add-messaging-skill-and-commands__report.md`. Created `$SKILLS/messaging/SKILL.md`, listed `messaging` in `$SKILLS/index.md`, allowed in all 12 agent modes. `npm run ci` green.
 - [ ] Plan section order vs template — `Items:` should appear before `Work` (currently after `Operating Instructions`); template order is `Items:` → `Work` → `Operating Instructions` → `Coordination`. Also missing `Execution Context` after `Scope`.
 - [ ] Missing context subsections required by `work-item-context.tart` — `Resource Kinds in Scope`, `Workflows`, `Workflow Operations`, and `Execution Context` are absent.
 - [ ] `## Scope` is a descriptive paragraph; template expects structured `(Scope) {resource}` entries with Record, Role, Partial, Changes, Operations, Dependencies. May be intentional for a domain-level plan.
