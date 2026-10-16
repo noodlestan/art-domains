@@ -84,7 +84,7 @@ Add a new `$DOMAINS/messages/` domain — `domain.art`, a definitions file, one 
 
 ### Next
 
-Delegate the next `READY` instruction: `add-message-routines`, then the following `READY` iterations in order; the final review iteration is executed in-session by the stakeholder and the architect.
+Delegate the next `READY` instruction: `add-message-templates`, then the following `READY` iterations in order; the final review iteration is executed in-session by the stakeholder and the architect.
 
 ### Blockers
 
@@ -136,7 +136,7 @@ npm run ci # lint, build and test
 | --------------------------------------------------- | ------- |
 | Iteration: Scaffold Messages Domain                 | `DONE`  |
 | Iteration: Add Messaging Skill and Commands         | `DONE`  |
-| Iteration: Add Message Routines                     | `READY` |
+| Iteration: Add Message Routines                     | `DONE`  |
 | Iteration: Add Message Templates and File           | `READY` |
 | Iteration: Add Message Board Structure and Types    | `READY` |
 | Iteration: Integrate Message Board into Whiteboards | `READY` |
@@ -238,7 +238,7 @@ build(domain-messages): Add the messaging skill with commands.
 
 **Id:** `add-message-routines`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Define the messaging lifecycle so inboxes are found, messages processed and acted upon, and writes respect medium availability and response cleanup.
 
@@ -247,6 +247,8 @@ build(domain-messages): Add the messaging skill with commands.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/add-message-routines.md`
+
+**Report:** `./instructions/add-message-routines__report.md`
 
 **Changes:**
 
@@ -261,9 +263,9 @@ build(domain-messages): Add the messaging skill with commands.
 
 #### Commits:
 
-| ID                       | Repository / Checkout / Branch        | Policy       | Hash    | Status     |
-| ------------------------ | ------------------------------------- | ------------ | ------- | ---------- |
-| `build-message-routines` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `(TBD)` | `AUTHORED` |
+| ID                       | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
+| ------------------------ | ------------------------------------- | ------------ | --------- | ----------- |
+| `build-message-routines` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `d1f2ce0` | `COMMITTED` |
 
 ##### Commit: build-message-routines
 
@@ -503,6 +505,7 @@ refactor(domain-messages): Review messages domain bottom-up.
 
 - [x] Iteration `scaffold-messages-domain` — DONE, commit `8b691bc` pushed to `origin/main`; report at `./instructions/scaffold-messages-domain__report.md`. Created `domain.art`, `definitions/index.art`, registered `Domain: Messages` in `.agents/domains/index.md`. `npm run ci` green.
 - [x] Iteration `add-messaging-skill-and-commands` — DONE, commit `b12c0f7` pushed to `origin/main`; report at `./instructions/add-messaging-skill-and-commands__report.md`. Created `$SKILLS/messaging/SKILL.md`, listed `messaging` in `$SKILLS/index.md`, allowed in all 12 agent modes. `npm run ci` green.
+- [x] Iteration `add-message-routines` — DONE, commit `d1f2ce0` pushed to `origin/main`; report at `./instructions/add-message-routines__report.md`. Created 4 routines (identify-inboxes, process-messages, write-message, read-message). `npm run ci` green.
 - [ ] Plan section order vs template — `Items:` should appear before `Work` (currently after `Operating Instructions`); template order is `Items:` → `Work` → `Operating Instructions` → `Coordination`. Also missing `Execution Context` after `Scope`.
 - [ ] Missing context subsections required by `work-item-context.tart` — `Resource Kinds in Scope`, `Workflows`, `Workflow Operations`, and `Execution Context` are absent.
 - [ ] `## Scope` is a descriptive paragraph; template expects structured `(Scope) {resource}` entries with Record, Role, Partial, Changes, Operations, Dependencies. May be intentional for a domain-level plan.
