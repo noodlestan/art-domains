@@ -2,7 +2,7 @@
 
 **ID:** `add-messages-domain`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -20,12 +20,13 @@
 
 ## Path Variables
 
-| Variable     | Resolved Path                | Purpose                                            |
-| ------------ | ---------------------------- | -------------------------------------------------- |
-| `$WORKSPACE` | Current working directory    | Workspace root directory; hosts the domain source. |
-| `$PROJECT`   | Provided with prompt         | Where this plan and its backlogs live.             |
-| `$DOMAINS`   | `$WORKSPACE/.agents/domains` | Domain resources under change.                     |
-| `$SKILLS`    | `$WORKSPACE/.agents/skills`  | Agent modes and skills directory.                  |
+| Variable     | Resolved Path                 | Purpose                                                              |
+| ------------ | ----------------------------- | -------------------------------------------------------------------- |
+| `$WORKSPACE` | Current working directory     | Workspace root directory; hosts the domain source.                   |
+| `$PROJECT`   | Provided with prompt          | Where this plan and its backlogs live.                               |
+| `$DOMAINS`   | `$WORKSPACE/.agents/domains`  | Domain resources under change.                                       |
+| `$SKILLS`    | `$WORKSPACE/.agents/skills`   | Agent modes and skills directory.                                    |
+| `$ART_JS`    | `$WORKSPACE/checkouts/art-js` | Example of poor comunication and message board in action (see spec). |
 
 ## Summary
 
@@ -131,15 +132,15 @@ npm run ci # lint, build and test
 
 ## Items:
 
-| Iteration / Instructions                            | Status     |
-| --------------------------------------------------- | ---------- |
-| Iteration: Scaffold Messages Domain                 | `READY`    |
-| Iteration: Add Messaging Skill and Commands         | `READY`    |
-| Iteration: Add Message Routines                     | `READY`    |
-| Iteration: Add Message Templates and File           | `READY`    |
-| Iteration: Add Message Board Structure and Types    | `READY`    |
-| Iteration: Integrate Message Board into Whiteboards | `READY`    |
-| Iteration: Review Messages Domain Bottom-up         | `PLANNING` |
+| Iteration / Instructions                            | Status  |
+| --------------------------------------------------- | ------- |
+| Iteration: Scaffold Messages Domain                 | `READY` |
+| Iteration: Add Messaging Skill and Commands         | `READY` |
+| Iteration: Add Message Routines                     | `READY` |
+| Iteration: Add Message Templates and File           | `READY` |
+| Iteration: Add Message Board Structure and Types    | `READY` |
+| Iteration: Integrate Message Board into Whiteboards | `READY` |
+| Iteration: Review Messages Domain Bottom-up         | `READY` |
 
 ### Iteration: Scaffold Messages Domain
 
@@ -178,7 +179,7 @@ npm run ci # lint, build and test
 **Message:**
 
 ```
-build(domain-messages): Add Messages domain scaffold.
+build(domain-messages): Scaffold Domain: Messages.
 
 - Add domain.art with purpose and boundaries, and the domain definitions.
 - Register Domain: Messages in the domains listing.
@@ -376,7 +377,7 @@ build(domain-messages): Add Message Board structure and message types.
 **Changes:**
 
 - Modify `$DOMAINS/whiteboards/structures/whiteboard.art` — add `message-board` ahead of the parking-lot modelling in the whiteboard shape.
-- Modify `$DOMAINS/whiteboards/templates/whiteboard.tart` — render `## Message board` before `## Parking lot` (and in the Whiteboard Structure outline); rewrite the Turn and Document Structure instructions to classify every item: a message has a sender and a receiver, is typed `ASK`/`INFORM`/`REQUEST`/`ANSWER`/`REPORT`, never lands in the parking lot, and is written to the message board following its rules (example: line length limit); a parking-lot item has an owner, no sender, and an async outcome — actionable items removed only when captured somewhere else AND the whiteboard is not pending on the outcome (examples: "`ART-JS` – Write plan instructions for participants to review" kept until plan is authored and shared with whiteboard; "`ART_MD` - Archive previous milestone to reduce noise" kept until milestone is archived), pending items tracked until they become actionable or are superseded, blockers identifying what they impede; deduplicate and compress other related items.
+- Modify `$DOMAINS/whiteboards/templates/whiteboard.tart` — render `## Message board` before `## Parking lot` (and in the Whiteboard Structure outline); rewrite the Turn and Document Structure instructions to classify every item: a message has a sender and a receiver, is typed `ASK`/`INFORM`/`REQUEST`/`ANSWER`/`REPORT`, never lands in the parking lot, and is written to the message board following its rules (example: line length limit); a parking-lot item has an owner, no sender, and an async outcome — actionable items removed only when captured somewhere else AND the whiteboard is not pending on the outcome (examples: "`ART-JS` – Write plan instructions for participants to review" kept until plan is AUTHORED and shared with whiteboard; "`ART_MD` - Archive previous milestone to reduce noise" kept until milestone is archived), pending items tracked until they become actionable or are superseded, blockers identifying what they impede; deduplicate and compress other related items.
 - Modify `$DOMAINS/whiteboards/routines/generate-whiteboard-updates.art` — classify each send/receive update as a message or a parking-lot item and route it; messages never enter `%whiteboard.parking-lot`.
 - Modify `$DOMAINS/whiteboards/routines/validate-whiteboard.art` — detect messages sitting in the parking lot, and stale messages left on the board after being processed.
 - Modify `$SKILLS/whiteboard/SKILL.md` — take-turn and related commands route send/receive through the `messaging` commands.
@@ -399,7 +400,7 @@ build(domain-messages): Add Message Board structure and message types.
 **Message:**
 
 ```
-integrate(domain-messages): Route Whiteboards messaging through message boards.
+build(domain-messages): Route Whiteboards messaging through message boards.
 
 - Render the message board ahead of the parking lot; classify every item.
 - Messages carry sender/receiver and are discarded after processing.
@@ -415,7 +416,7 @@ integrate(domain-messages): Route Whiteboards messaging through message boards.
 
 **Description:** Walk the resources bottom-up — refine types, structures, templates and files, routines, then the skill commands and the domain artefacts — applying the review conventions in `./plan__messages-spec.md` (`## Conventions`) to every layer, and trickle all changes up to the routine-invocation format in the skill commands and finally to `domain.art` and the domain index. Executed by the stakeholder and the architect in session, not delegated — hence no instructions file and no report.
 
-**Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+**Instructions Mode:** `INSTRUCTIONS_INLINED_IN_ITERATION`
 
 **Changes:**
 
@@ -425,15 +426,20 @@ integrate(domain-messages): Route Whiteboards messaging through message boards.
 - Update `$DOMAINS/messages/domain.art` — final purpose, boundaries, and summary; regenerate `$DOMAINS/messages/index.md` with `Routine: Build Domain Index`; top up `$DOMAINS/index.md` with the finished resource list.
 - Repair references broken by the review; run `npm run ci`.
 
+**Instructions:**
+
+- Execute all the changes listed above.
+- Present for user review.
+
 **Dependencies:**
 
 - Iteration `integrate-message-board-into-whiteboards`.
 
 #### Commits:
 
-| ID                       | Repository / Checkout / Branch        | Policy       | Hash    | Status     |
-| ------------------------ | ------------------------------------- | ------------ | ------- | ---------- |
-| `review-messages-domain` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `(TBD)` | `AUTHORED` |
+| ID                       | Repository / Checkout / Branch        | Policy     | Hash    | Status     |
+| ------------------------ | ------------------------------------- | ---------- | ------- | ---------- |
+| `review-messages-domain` | Workspace / `$WORKSPACE` / `building` | `NOCOMMIT` | `(TBD)` | `AUTHORED` |
 
 ##### Commit: review-messages-domain
 
@@ -460,7 +466,6 @@ refactor(domain-messages): Review messages domain bottom-up.
 
 ### Evidence
 
-- Source parking-lot item — `$PROJECT/_backlog/_parking-lot.md` carries the full Messages Domain draft: skills, routines, types, and the write-message availability rules distilled into this plan's constraints.
 - Domain: Whiteboards — `$DOMAINS/whiteboards/templates/whiteboard.tart` renders actionable parking-lot items whose grammar is already message-shaped ("Decision + message from ART_JS to ART_MD — your question is answered … DELETE THIS ITEM WHEN READ"), evidence that messages are being misfiled in parking lots.
 
 ### Findings
