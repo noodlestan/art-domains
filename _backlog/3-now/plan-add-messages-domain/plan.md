@@ -84,7 +84,7 @@ Add a new `$DOMAINS/messages/` domain — `domain.art`, a definitions file, one 
 
 ### Next
 
-Delegate the next `READY` instruction: `integrate-message-board-into-whiteboards`, then the final review iteration is executed in-session by the stakeholder and the architect.
+The final review iteration `review-messages-domain-bottom-up` is executed in-session by the stakeholder and the architect — not delegated. All delegated iterations are DONE.
 
 ### Blockers
 
@@ -139,7 +139,7 @@ npm run ci # lint, build and test
 | Iteration: Add Message Routines                     | `DONE`  |
 | Iteration: Add Message Templates and File           | `DONE`  |
 | Iteration: Add Message Board Structure and Types    | `DONE`  |
-| Iteration: Integrate Message Board into Whiteboards | `READY` |
+| Iteration: Integrate Message Board into Whiteboards | `DONE`  |
 | Iteration: Review Messages Domain Bottom-up         | `READY` |
 
 ### Iteration: Scaffold Messages Domain
@@ -374,7 +374,7 @@ build(domain-messages): Add Message Board structure and message types.
 
 **Id:** `integrate-message-board-into-whiteboards`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Route Whiteboards inter-participant messaging through message boards and stop parking-lot items from carrying messages.
 
@@ -383,6 +383,8 @@ build(domain-messages): Add Message Board structure and message types.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/integrate-message-board-into-whiteboards.md`
+
+**Report:** `./instructions/integrate-message-board-into-whiteboards__report.md`
 
 **Changes:**
 
@@ -399,9 +401,9 @@ build(domain-messages): Add Message Board structure and message types.
 
 #### Commits:
 
-| ID                                    | Repository / Checkout / Branch        | Policy       | Hash    | Status     |
-| ------------------------------------- | ------------------------------------- | ------------ | ------- | ---------- |
-| `integrate-message-board-whiteboards` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `(TBD)` | `AUTHORED` |
+| ID                                    | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
+| ------------------------------------- | ------------------------------------- | ------------ | --------- | ----------- |
+| `integrate-message-board-whiteboards` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `3e35cd7` | `COMMITTED` |
 
 ##### Commit: integrate-message-board-whiteboards
 
@@ -502,7 +504,7 @@ refactor(domain-messages): Review messages domain bottom-up.
 ### Follow Ups
 
 - The source parking-lot item "Create Plan: Add Messages Domain" was removed from `$PROJECT/_backlog/_parking-lot.md` once this plan was created; its verbatim spec — plus the structured per-kind spec and the review conventions — is preserved in `./plan__messages-spec.md`.
-- The parking lot references evidence `_backlog/whiteboard-art-records/whiteboard__feedback-1.md`, which does not resolve in the checkout — confirm with the owner whether it moved or was deleted.
+- The parking lot references evidence `$ART_JS/_backlog/whiteboard-art-records/whiteboard__feedback-1.md`, which does not resolve in the checkout — confirm with the owner whether it moved or was deleted.
 - Milestone `domains-one` items table and `Next` were updated when this plan was created; reflect the plan upstream again when it starts executing.
 
 ### Feedback
@@ -512,7 +514,8 @@ refactor(domain-messages): Review messages domain bottom-up.
 - [x] Iteration `add-message-routines` — DONE, commit `d1f2ce0` pushed to `origin/main`; report at `./instructions/add-message-routines__report.md`. Created 4 routines (identify-inboxes, process-messages, write-message, read-message). `npm run ci` green.
 - [x] Iteration `add-message-templates` — DONE, commit `a42c501` pushed to `origin/main`; report at `./instructions/add-message-templates__report.md`. Created `message-board.tart`, `message.tart`, `files/message.art`. `npm run ci` green.
 - [x] Iteration `add-message-structures-and-types` — DONE, commit `d277f69` pushed to `origin/main`; report at `./instructions/add-message-structures-and-types__report.md`. Created `types/message-type.art`, `types/message.art`, `structures/message-board.art`. `npm run ci` green.
+- [x] Iteration `integrate-message-board-into-whiteboards` — DONE, commit `3e35cd7` pushed to `origin/main`; report at `./instructions/integrate-message-board-into-whiteboards__report.md`. Modified whiteboard structure, template, routines, skill, and index; stakeholder's `whiteboard.tart` edits included in commit. `npm run ci` green.
 - [ ] Plan section order vs template — `Items:` should appear before `Work` (currently after `Operating Instructions`); template order is `Items:` → `Work` → `Operating Instructions` → `Coordination`. Also missing `Execution Context` after `Scope`.
 - [ ] Missing context subsections required by `work-item-context.tart` — `Resource Kinds in Scope`, `Workflows`, `Workflow Operations`, and `Execution Context` are absent.
 - [ ] `## Scope` is a descriptive paragraph; template expects structured `(Scope) {resource}` entries with Record, Role, Partial, Changes, Operations, Dependencies. May be intentional for a domain-level plan.
-- [ ] Follow-up unresolved path `_backlog/whiteboard-art-records/whiteboard__feedback-1.md` — does not resolve in the checkout; confirm with owner whether it moved or was deleted.
+- [x] Follow-up unresolved path `_backlog/whiteboard-art-records/whiteboard__feedback-1.md` — does not resolve in the checkout; confirm with owner whether it moved or was deleted.
