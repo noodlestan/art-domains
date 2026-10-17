@@ -84,7 +84,7 @@ Add a new `$DOMAINS/messages/` domain — `domain.art`, a definitions file, one 
 
 ### Next
 
-Delegate the next `READY` instruction: `add-message-structures-and-types`, then the following `READY` iterations in order; the final review iteration is executed in-session by the stakeholder and the architect.
+Delegate the next `READY` instruction: `integrate-message-board-into-whiteboards`, then the final review iteration is executed in-session by the stakeholder and the architect.
 
 ### Blockers
 
@@ -138,7 +138,7 @@ npm run ci # lint, build and test
 | Iteration: Add Messaging Skill and Commands         | `DONE`  |
 | Iteration: Add Message Routines                     | `DONE`  |
 | Iteration: Add Message Templates and File           | `DONE`  |
-| Iteration: Add Message Board Structure and Types    | `READY` |
+| Iteration: Add Message Board Structure and Types    | `DONE`  |
 | Iteration: Integrate Message Board into Whiteboards | `READY` |
 | Iteration: Review Messages Domain Bottom-up         | `READY` |
 
@@ -329,7 +329,7 @@ build(domain-messages): Add message board and message templates.
 
 **Id:** `add-message-structures-and-types`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Model the messaging data so boards can hold messages and every message can be typed by its response expectation.
 
@@ -338,6 +338,8 @@ build(domain-messages): Add message board and message templates.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/add-message-structures-and-types.md`
+
+**Report:** `./instructions/add-message-structures-and-types__report.md`
 
 **Changes:**
 
@@ -351,9 +353,9 @@ build(domain-messages): Add message board and message templates.
 
 #### Commits:
 
-| ID                         | Repository / Checkout / Branch        | Policy       | Hash    | Status     |
-| -------------------------- | ------------------------------------- | ------------ | ------- | ---------- |
-| `build-message-structures` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `(TBD)` | `AUTHORED` |
+| ID                         | Repository / Checkout / Branch        | Policy       | Hash      | Status      |
+| -------------------------- | ------------------------------------- | ------------ | --------- | ----------- |
+| `build-message-structures` | Workspace / `$WORKSPACE` / `building` | `AUTONOMOUS` | `d277f69` | `COMMITTED` |
 
 ##### Commit: build-message-structures
 
@@ -509,6 +511,7 @@ refactor(domain-messages): Review messages domain bottom-up.
 - [x] Iteration `add-messaging-skill-and-commands` — DONE, commit `b12c0f7` pushed to `origin/main`; report at `./instructions/add-messaging-skill-and-commands__report.md`. Created `$SKILLS/messaging/SKILL.md`, listed `messaging` in `$SKILLS/index.md`, allowed in all 12 agent modes. `npm run ci` green.
 - [x] Iteration `add-message-routines` — DONE, commit `d1f2ce0` pushed to `origin/main`; report at `./instructions/add-message-routines__report.md`. Created 4 routines (identify-inboxes, process-messages, write-message, read-message). `npm run ci` green.
 - [x] Iteration `add-message-templates` — DONE, commit `a42c501` pushed to `origin/main`; report at `./instructions/add-message-templates__report.md`. Created `message-board.tart`, `message.tart`, `files/message.art`. `npm run ci` green.
+- [x] Iteration `add-message-structures-and-types` — DONE, commit `d277f69` pushed to `origin/main`; report at `./instructions/add-message-structures-and-types__report.md`. Created `types/message-type.art`, `types/message.art`, `structures/message-board.art`. `npm run ci` green.
 - [ ] Plan section order vs template — `Items:` should appear before `Work` (currently after `Operating Instructions`); template order is `Items:` → `Work` → `Operating Instructions` → `Coordination`. Also missing `Execution Context` after `Scope`.
 - [ ] Missing context subsections required by `work-item-context.tart` — `Resource Kinds in Scope`, `Workflows`, `Workflow Operations`, and `Execution Context` are absent.
 - [ ] `## Scope` is a descriptive paragraph; template expects structured `(Scope) {resource}` entries with Record, Role, Partial, Changes, Operations, Dependencies. May be intentional for a domain-level plan.
