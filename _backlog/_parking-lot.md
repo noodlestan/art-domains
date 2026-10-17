@@ -1,25 +1,29 @@
 # Parking Lot: Art Domains Backlog
 
-## Actionable Items
+## Ongoing
 
-- Aplly STAKEHOLDER review `_backlog/4-next/plan-add-messages-domain/plan.md`
-  - Add to `$DOMAINS/messages/templates/message-board.tart` directive before first section ::TEMPLATE If rendering inside another resource, incrase the headling level of all sections to become children of the nesting parent section in the target resource"
-
+- **Participate in the Art Boards Inception Whiteboard (owned by `ART_BOARDS`)** — board at `$ART_BOARDS/cli/whiteboard/_roadmap/whiteboard-art-boards-inception/whiteboard.md`;
 - **Missing Architecture Docs/Sections** – In `knowledge/overview.md` add Why, Use Cases Vision, NFRs (or separate into own file leaving at the knowledge root if content of section longer than 25 lines)
 
-## Pending Questions
+---
+
+## ACTIONABLE
 
 - None.
 
-## Blockers
+## PENDING
 
-- None yet.
+- None.
+
+## BLOCKERS
+
+- None.
+
+---
 
 ## Follow-ups
 
 - None yet.
-
----
 
 ## Notes:
 

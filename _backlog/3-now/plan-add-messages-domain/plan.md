@@ -84,7 +84,7 @@ Add a new `$DOMAINS/messages/` domain — `domain.art`, a definitions file, one 
 
 ### Next
 
-The final review iteration `review-messages-domain-bottom-up` is executed in-session by the stakeholder and the architect — not delegated. All delegated iterations are DONE.
+All iterations DONE — plan complete.
 
 ### Blockers
 
@@ -449,9 +449,9 @@ build(domain-messages): Route Whiteboards messaging through message boards.
 
 #### Commits:
 
-| ID                       | Repository / Checkout / Branch        | Policy     | Hash    | Status     |
-| ------------------------ | ------------------------------------- | ---------- | ------- | ---------- |
-| `review-messages-domain` | Workspace / `$WORKSPACE` / `building` | `NOCOMMIT` | `(TBD)` | `AUTHORED` |
+| ID                       | Repository / Checkout / Branch        | Policy     | Hash      | Status      |
+| ------------------------ | ------------------------------------- | ---------- | --------- | ----------- |
+| `review-messages-domain` | Workspace / `$WORKSPACE` / `building` | `NOCOMMIT` | `18b2fa5` | `COMMITTED` |
 
 ##### Commit: review-messages-domain
 
@@ -515,7 +515,7 @@ refactor(domain-messages): Review messages domain bottom-up.
 - [x] Iteration `add-message-templates` — DONE, commit `a42c501` pushed to `origin/main`; report at `./instructions/add-message-templates__report.md`. Created `message-board.tart`, `message.tart`, `files/message.art`. `npm run ci` green.
 - [x] Iteration `add-message-structures-and-types` — DONE, commit `d277f69` pushed to `origin/main`; report at `./instructions/add-message-structures-and-types__report.md`. Created `types/message-type.art`, `types/message.art`, `structures/message-board.art`. `npm run ci` green.
 - [x] Iteration `integrate-message-board-into-whiteboards` — DONE, commit `3e35cd7` pushed to `origin/main`; report at `./instructions/integrate-message-board-into-whiteboards__report.md`. Modified whiteboard structure, template, routines, skill, and index; stakeholder's `whiteboard.tart` edits included in commit. `npm run ci` green.
-- [ ] Plan section order vs template — `Items:` should appear before `Work` (currently after `Operating Instructions`); template order is `Items:` → `Work` → `Operating Instructions` → `Coordination`. Also missing `Execution Context` after `Scope`.
+- [x] Iteration `review-messages-domain-bottom-up` — DONE, commit `18b2fa5` in workspace repo. Reviewed bottom-up: added `::READ` directives to routines, replaced inline type enumerations with `Type: Message Type` refs, created `messages/index.md`, fixed bare `board` → `message board`, added `::READ` before `Routine: Set New Goal` in whiteboard skill. `npm run ci` green.
 - [ ] Missing context subsections required by `work-item-context.tart` — `Resource Kinds in Scope`, `Workflows`, `Workflow Operations`, and `Execution Context` are absent.
 - [ ] `## Scope` is a descriptive paragraph; template expects structured `(Scope) {resource}` entries with Record, Role, Partial, Changes, Operations, Dependencies. May be intentional for a domain-level plan.
 - [x] Follow-up unresolved path `_backlog/whiteboard-art-records/whiteboard__feedback-1.md` — does not resolve in the checkout; confirm with owner whether it moved or was deleted.
