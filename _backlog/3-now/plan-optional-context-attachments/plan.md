@@ -2,7 +2,7 @@
 
 **ID:** `optional-context-attachments`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -96,17 +96,17 @@ Domain-code changes are coordinated from `$WORKSPACE` and land in the **workspac
 
 ## Items:
 
-| Iteration / Instructions                     | Status  |
-| -------------------------------------------- | ------- |
-| Iteration: Split Work Item Context Templates | `READY` |
-| Iteration: Wire Plan And Milestone Rendering | `READY` |
-| Iteration: Thread Create Context File Input  | `READY` |
+| Iteration / Instructions                     | Status |
+| -------------------------------------------- | ------ |
+| Iteration: Split Work Item Context Templates | `DONE` |
+| Iteration: Wire Plan And Milestone Rendering | `DONE` |
+| Iteration: Thread Create Context File Input  | `DONE` |
 
 ### Iteration: Split Work Item Context Templates
 
 **Id:** `split-work-item-context-templates`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Break the monolithic work-item context into a reusable summary template, a full-context attachment template, and a compact inline section template, and record the choice on the work item with a new `has-context-file` field.
 
@@ -115,6 +115,8 @@ Domain-code changes are coordinated from `$WORKSPACE` and land in the **workspac
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/split-work-item-context-templates.md`
+
+**Report:** `./instructions/split-work-item-context-templates__report.md`
 
 **Changes:**
 
@@ -137,9 +139,9 @@ Domain-code changes are coordinated from `$WORKSPACE` and land in the **workspac
 
 #### Commits:
 
-| ID                                  | Repository / Checkout / Branch    | Policy   | Hash | Status     |
-| ----------------------------------- | --------------------------------- | -------- | ---- | ---------- |
-| `split-work-item-context-templates` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
+| ID                                  | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| ----------------------------------- | --------------------------------- | -------- | --------- | ----------- |
+| `split-work-item-context-templates` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | `b0cb6de` | `COMMITTED` |
 
 **Message:**
 
@@ -155,7 +157,7 @@ build(domain-work): Split work item context into summary, attachment, and sectio
 
 **Id:** `wire-plan-milestone-rendering`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Render the summary unconditionally and the context conditionally in both plan and milestone, and expose the `has-context-file` choice as a rendered record field.
 
@@ -164,6 +166,8 @@ build(domain-work): Split work item context into summary, attachment, and sectio
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/wire-plan-milestone-rendering.md`
+
+**Report:** `./instructions/wire-plan-milestone-rendering__report.md`
 
 **Changes:**
 
@@ -183,9 +187,9 @@ build(domain-work): Split work item context into summary, attachment, and sectio
 
 #### Commits:
 
-| ID                              | Repository / Checkout / Branch    | Policy   | Hash | Status     |
-| ------------------------------- | --------------------------------- | -------- | ---- | ---------- |
-| `wire-plan-milestone-rendering` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
+| ID                              | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| ------------------------------- | --------------------------------- | -------- | --------- | ----------- |
+| `wire-plan-milestone-rendering` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | `339b112` | `COMMITTED` |
 
 **Message:**
 
@@ -202,7 +206,7 @@ build(context-attachments): Render summary always and context conditionally in p
 
 **Id:** `thread-create-context-file`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Let authors choose a context attachment at creation time, persist the choice on the work item, and render + save the `plan|milestone__context.md` file when it is enabled.
 
@@ -211,6 +215,8 @@ build(context-attachments): Render summary always and context conditionally in p
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/thread-create-context-file.md`
+
+**Report:** `./instructions/thread-create-context-file__report.md`
 
 **Changes:**
 
@@ -231,9 +237,9 @@ build(context-attachments): Render summary always and context conditionally in p
 
 #### Commits:
 
-| ID                           | Repository / Checkout / Branch    | Policy   | Hash | Status     |
-| ---------------------------- | --------------------------------- | -------- | ---- | ---------- |
-| `thread-create-context-file` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
+| ID                           | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| ---------------------------- | --------------------------------- | -------- | --------- | ----------- |
+| `thread-create-context-file` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | `1b13336` | `COMMITTED` |
 
 **Message:**
 
@@ -251,7 +257,7 @@ build(context-attachments): Thread create-context-file through plan and mileston
 
 ### Next
 
-Execute `split-work-item-context-templates` first — the other two iterations depend on the new templates and the `has-context-file` field existing.
+All three iterations are delegated, executed, and integrated — commits `b0cb6de`, `339b112`, and `1b13336` on `main` (policy `NOPUSH`: created but **not pushed**). Plan execution is complete; the next action is to push the three commits to the workspace remote.
 
 ### Blockers
 
