@@ -2,7 +2,7 @@
 
 **ID:** `add-operations-domain`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -95,7 +95,7 @@ Add a new `$DOMAINS/operations/` domain — `domain.art`, a definitions file, ty
 
 ### Next
 
-Refine the first `DRAFT` iteration: `scaffold-operations-domain`.
+All 7 iterations are `READY` with commit blueprints (`NOPUSH` policy, `AUTHORED` status). Next: Write Instructions to generate self-contained instruction files, then validate for delegation.
 
 ### Blockers
 
@@ -144,19 +144,19 @@ npm run ci # lint, build and test
 
 | Iteration / Instructions                       | Status  |
 | ---------------------------------------------- | ------- |
-| Iteration: Scaffold Operations Domain          | `DRAFT` |
-| Iteration: Add Operations Skill and Commands   | `DRAFT` |
-| Iteration: Add Operations Types and Structure  | `DRAFT` |
-| Iteration: Add Operations Routines             | `DRAFT` |
-| Iteration: Add Operations Templates and File   | `DRAFT` |
-| Iteration: Integrate Operations into Consumers | `DRAFT` |
-| Iteration: Review Operations Domain Bottom-up  | `DRAFT` |
+| Iteration: Scaffold Operations Domain          | `READY` |
+| Iteration: Add Operations Skill and Commands   | `READY` |
+| Iteration: Add Operations Types and Structure  | `READY` |
+| Iteration: Add Operations Routines             | `READY` |
+| Iteration: Add Operations Templates and File   | `READY` |
+| Iteration: Review Operations Domain Bottom-up  | `READY` |
+| Iteration: Integrate Operations into Consumers | `READY` |
 
 ### Iteration: Scaffold Operations Domain
 
 **Id:** `scaffold-operations-domain`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Establish the domain's identity and boundaries so every later layer lands in a registered home.
 
@@ -176,11 +176,30 @@ npm run ci # lint, build and test
 
 - None.
 
+#### Commits:
+
+| ID                           | Repository / Checkout / Branch    | Policy   | Hash | Status     |
+| ---------------------------- | --------------------------------- | -------- | ---- | ---------- |
+| `scaffold-operations-domain` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
+
+##### Commit: scaffold-operations-domain
+
+**Repository:** Workspace
+
+**Message:**
+
+```
+build(domain-operations): Scaffold Domain: Operations.
+
+- Add domain.art with purpose and boundaries, and the domain definitions.
+- Register Domain: Operations in the domains listing.
+```
+
 ### Iteration: Add Operations Skill and Commands
 
 **Id:** `add-operations-skill-and-commands`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Give every agent one entry point to register operating instructions on an artefact, with commands owning every session-chat write and response.
 
@@ -201,11 +220,30 @@ npm run ci # lint, build and test
 
 - Iteration `scaffold-operations-domain`.
 
+#### Commits:
+
+| ID                       | Repository / Checkout / Branch    | Policy   | Hash | Status     |
+| ------------------------ | --------------------------------- | -------- | ---- | ---------- |
+| `build-operations-skill` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
+
+##### Commit: build-operations-skill
+
+**Repository:** Workspace
+
+**Message:**
+
+```
+build(domain-operations): Add operations skill with commands.
+
+- Expose add-instructions command for all agent modes.
+- Commands own session-chat writes; routines only transform data.
+```
+
 ### Iteration: Add Operations Types and Structure
 
 **Id:** `add-operations-types-and-structure`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Model the operating-instructions data so each instruction can declare what it is relevant for, and the operation structure can carry its workflow.
 
@@ -226,11 +264,30 @@ npm run ci # lint, build and test
 
 - Iteration `add-operations-templates-and-file`.
 
+#### Commits:
+
+| ID                       | Repository / Checkout / Branch    | Policy   | Hash | Status     |
+| ------------------------ | --------------------------------- | -------- | ---- | ---------- |
+| `build-operations-types` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
+
+##### Commit: build-operations-types
+
+**Repository:** Workspace
+
+**Message:**
+
+```
+build(domain-operations): Add operating-instructions type and operation structure.
+
+- Add Operating Instruction type with relevantFor field.
+- Add Operation structure with workflow and definition.
+```
+
 ### Iteration: Add Operations Routines
 
 **Id:** `add-operations-routines`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Define the operating-instructions lifecycle so instructions are composed, matched by relevance, and read from guides.
 
@@ -252,11 +309,31 @@ npm run ci # lint, build and test
 
 - Iteration `add-operations-skill-and-commands`.
 
+#### Commits:
+
+| ID                          | Repository / Checkout / Branch    | Policy   | Hash | Status     |
+| --------------------------- | --------------------------------- | -------- | ---- | ---------- |
+| `build-operations-routines` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
+
+##### Commit: build-operations-routines
+
+**Repository:** Workspace
+
+**Message:**
+
+```
+build(domain-operations): Add operating-instructions routines.
+
+- Add compose-operating-instructions with relevantFor matching.
+- Add read-work-guides and compose-work-operations.
+- Add register-operating-instructions routine.
+```
+
 ### Iteration: Add Operations Templates and File
 
 **Id:** `add-operations-templates-and-file`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Define how operating instructions are presented and where long-instruction files live, with placeholder defaults and project-side override.
 
@@ -277,37 +354,31 @@ npm run ci # lint, build and test
 
 - Iteration `add-operations-routines`.
 
-### Iteration: Integrate Operations into Consumers
+#### Commits:
 
-**Id:** `integrate-operations-into-consumers`
+| ID                           | Repository / Checkout / Branch    | Policy   | Hash | Status     |
+| ---------------------------- | --------------------------------- | -------- | ---- | ---------- |
+| `build-operations-templates` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
 
-**Status:** `DRAFT`
+##### Commit: build-operations-templates
 
-**Purpose:** Route all operating-instructions consumption through the Operations domain so every consumer passes a consuming context and selects only relevant instructions.
+**Repository:** Workspace
 
-**Description:** Update Work, Plans, and Whiteboards to consume the Operations domain instead of the Work domain's operating-instructions resources, with `relevantFor` matching at every point.
+**Message:**
 
-**Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+```
+build(domain-operations): Add operating-instructions template and flat-file convention.
 
-**Instructions:** `./instructions/integrate-operations-into-consumers.md`
-
-**Changes:**
-
-- Update `$DOMAINS/work/index.md` — remove operating-instructions resources from Work domain listings (moved to Operations).
-- Update `$DOMAINS/plans/index.md` and `$DOMAINS/plans/templates/plan.tart` — consume from `$DOMAINS/operations/` instead of `$DOMAINS/work/`.
-- Update `$DOMAINS/whiteboards/index.md` and `$DOMAINS/whiteboards/templates/whiteboard.tart` — consume from `$DOMAINS/operations/`.
-- Update `$DOMAINS/guides/` — project guides register and override operating instructions via the flat-file convention.
-- Repoint all references from `$DOMAINS/work/types/operating-instructions.art`, `$DOMAINS/work/routines/compose-operating-instructions.art`, `$DOMAINS/work/routines/read-work-guides.art`, `$DOMAINS/work/routines/compose-work-operations.art`, and `$DOMAINS/work/templates/operating-instructions.tart` to their new `$DOMAINS/operations/` paths.
-
-**Dependencies:**
-
-- Iteration `add-operations-types-and-structure`.
+- Add operating-instructions.tart with consuming-context input and matching.
+- Add flat-file convention with placeholder defaults and CommandList override.
+- Create workspace-tooling package with default command lists.
+```
 
 ### Iteration: Review Operations Domain Bottom-up
 
 **Id:** `review-operations-domain-bottom-up`
 
-**Status:** `DRAFT`
+**Status:** `READY`
 
 **Purpose:** Consolidate the domain after the first top-down pass so every layer agrees bottom-up.
 
@@ -330,7 +401,71 @@ npm run ci # lint, build and test
 
 **Dependencies:**
 
-- Iteration `integrate-operations-into-consumers`.
+- Iteration `add-operations-types-and-structure`.
+
+#### Commits:
+
+| ID                         | Repository / Checkout / Branch    | Policy     | Hash | Status     |
+| -------------------------- | --------------------------------- | ---------- | ---- | ---------- |
+| `review-operations-domain` | Workspace / `$WORKSPACE` / `main` | `NOCOMMIT` | —    | `AUTHORED` |
+
+##### Commit: review-operations-domain
+
+**Repository:** Workspace
+
+**Message:**
+
+```
+refactor(domain-operations): Review Operations domain bottom-up.
+
+- Refine templates, types, structures, routines, and the operations skill.
+- Update domain.art and regenerate the domain index.
+```
+
+### Iteration: Integrate Operations into Consumers
+
+**Id:** `integrate-operations-into-consumers`
+
+**Status:** `READY`
+
+**Purpose:** Route all operating-instructions consumption through the Operations domain so every consumer passes a consuming context and selects only relevant instructions.
+
+**Description:** Update Work, Plans, and Whiteboards to consume the Operations domain instead of the Work domain's operating-instructions resources, with `relevantFor` matching at every point.
+
+**Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/integrate-operations-into-consumers.md`
+
+**Changes:**
+
+- Update `$DOMAINS/work/index.md` — remove operating-instructions resources from Work domain listings (moved to Operations).
+- Update `$DOMAINS/plans/index.md` and `$DOMAINS/plans/templates/plan.tart` — consume from `$DOMAINS/operations/` instead of `$DOMAINS/work/`.
+- Update `$DOMAINS/whiteboards/index.md` and `$DOMAINS/whiteboards/templates/whiteboard.tart` — consume from `$DOMAINS/operations/`.
+- Update `$DOMAINS/guides/` — project guides register and override operating instructions via the flat-file convention.
+- Repoint all references from `$DOMAINS/work/types/operating-instructions.art`, `$DOMAINS/work/routines/compose-operating-instructions.art`, `$DOMAINS/work/routines/read-work-guides.art`, `$DOMAINS/work/routines/compose-work-operations.art`, and `$DOMAINS/work/templates/operating-instructions.tart` to their new `$DOMAINS/operations/` paths.
+
+**Dependencies:**
+
+- Iteration `review-operations-domain-bottom-up`.
+
+#### Commits:
+
+| ID                               | Repository / Checkout / Branch    | Policy   | Hash | Status     |
+| -------------------------------- | --------------------------------- | -------- | ---- | ---------- |
+| `integrate-operations-consumers` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | —    | `AUTHORED` |
+
+##### Commit: integrate-operations-consumers
+
+**Repository:** Workspace
+
+**Message:**
+
+```
+build(domain-operations): Integrate Operations into consumers.
+
+- Repoint Work, Plans, Whiteboards, and Guides to consume from Operations.
+- Update index listings and repoint all migrated references.
+```
 
 ---
 

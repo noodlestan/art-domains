@@ -70,7 +70,7 @@ A project-side customization of a published operating-instruction fragment, supp
 
 Only `Register Operating Instructions` is exposed as a skill command. The other three are internal routines invoked by plan/milestone lifecycle commands and by `Register Operating Instructions` itself.
 
-## Skill
+### Routine: Compose Operating Instructions
 
 - input: `%workflows`, `%upstream`, `%scope`, `%knowledge`, `%mode`, `%consuming-context` (workflows and operations of the artefact being rendered)
 - output: `%operating-instructions` — only instructions whose `relevantFor` matches `%consuming-context`
