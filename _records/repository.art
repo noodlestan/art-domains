@@ -14,6 +14,8 @@ The Art Domains source code lives in the workspace repository, in `$DOMAINS` (Do
 
 **Remote:** `git@github.com:noodlestan/art-domains.git`
 
+**Canonical:** `noodlestan/art-domains`
+
 **Consumers:** TBD
 
 **Private:** `false`
