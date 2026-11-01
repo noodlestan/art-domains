@@ -26,7 +26,11 @@
 
 ### Definition: Article
 
-A markdown file with an H1 title, `**Purpose:**`, `**Tags:**` and `**Status:**` head fields, carrying taxonomy annotations that remain in the text after every pass.
+A written piece modelled by `Structure: Article` — purpose, description, titles (the possible titles), tags, status — materialised as a markdown file carrying taxonomy annotations that remain in the text after every pass.
+
+### Definition: Article Status
+
+The lifecycle of an article: `DRAFT` → `REVIEWED` → `AUTHORED` → `READY`. Drafting sets `DRAFT`, review sets `REVIEWED`, feedback integration sets `AUTHORED`; the switch to `READY` is manual — no routine performs it yet.
 
 ### Definition: Annotation
 
@@ -105,25 +109,40 @@ Resolved by Routine: Read Writing Articles Instructions for every `write-article
 
 - inputs: `%seed`, `%advice`, `%templates`, `%annotation-taxonomy`, `%tone-of-voice`, `%comms`
 - output: `%contents` — fully written, annotated article
-- behaviour carried over from `$MANAGEMENT/_ops/writing/routines/draft-article.md`: establish intent; load the guides; choose a skeleton; design structure; outline the head and sections; develop — ALWAYS authoring an annotation with the content it describes, tags plus an optional note; five review passes. Annotations remain in the article.
+- behaviour carried over from `$MANAGEMENT/_ops/writing/routines/draft-article.md`: establish intent; load the guides; choose a skeleton; design structure; outline the head and sections; develop — ALWAYS authoring an annotation with the content it describes, tags plus an optional note; five review passes. Annotations remain in the article. Sets the article `**Status:**` to `DRAFT`, head aligned to `Structure: Article`.
 
 ### Routine: Review Article
 
 - inputs: `%file`, `%templates`, `%annotation-taxonomy`, `%tone-of-voice`, `%comms`
 - outputs: the article annotated in place with `## Review` appended; `%findings` — status and counts
-- annotate every item (lists as one block); five passes; write the review back; never touch the article's own `**Status:**`.
+- annotate every item (lists as one block); five passes; write the review back; set the article `**Status:**` to `REVIEWED` — the `## Review` `**Status:**` remains the review verdict (`READY`/`CHANGES PROPOSED`), distinct from the article lifecycle.
 
 ### Routine: Integrate Feedback
 
 - inputs: `%file`, `%templates`, `%annotation-taxonomy`, `%tone-of-voice`, `%comms`
 - outputs: the integrated, swept article; `%swept` — confirmation and counts
-- scan markers (`<!-- WIP -->`, `<!-- FEEDBACK -->`, `(...)`, `## Review`); apply `proposed`, verify `fixed`; complete incomplete prose; eliminate markers and the review; update annotations; run the five passes with a stopping rule; final sweep; set `**Status:**` to `READY`.
+- scan markers (`<!-- WIP -->`, `<!-- FEEDBACK -->`, `(...)`, `## Review`); apply `proposed`, verify `fixed`; complete incomplete prose; eliminate markers and the review; update annotations; run the five passes with a stopping rule; final sweep; set the article `**Status:**` to `AUTHORED` — the `READY` switch stays manual.
 
 ### Routine: Read Writing Articles Instructions
 
 - inputs: `%repo-guide` — path to the repo guide (defaults to the `_guide.md` of the current checkout)
 - outputs: `%writing-resources` — registered templates, tone of voice, annotation taxonomy, comms guides and other references; `%missing` — absent section or resources
 - read the guide's `## Writing Articles` section; resolve every listed resource; report what is missing rather than assuming defaults.
+
+## Structures
+
+### Structure: Article
+
+- shape: purpose, description, titles — List(NaturalExpression) — the possible titles —, tags, status (Type: Article Status)
+- mirror: `Structure: Message Board` in Domain: Messages — compare structure against structure.
+
+## Types
+
+### Type: Article Status
+
+- Primitive: Enum
+- values: `DRAFT` — drafted, awaiting review, `REVIEWED` — review written back, `AUTHORED` — feedback integrated and clean, `READY` — manually switched; no routine yet
+- mirror: `Type: Message Type` in Domain: Messages — compare type against type.
 
 ## Integration
 
@@ -135,6 +154,23 @@ Resolved by Routine: Read Writing Articles Instructions for every `write-article
 
 Agent-mode `writer` binds the `write-article` skill; its mandatory writing reading is discovered from the `## Writing Articles` section of the current repo's guide through Routine: Read Writing Articles Instructions — the agent scans the guide, discovers the section, and identifies templates and other references.
 
+## Reference Domain
+
+### Reference: Messages
+
+Domain: Messages is the reference domain — every resource kind here has a counterpart whose requirements and rules apply:
+
+| This plan                  | Counterpart in Domain: Messages |
+| -------------------------- | ------------------------------- |
+| Skill: Write Article       | Skill: Messaging                |
+| Commands (one per routine) | Commands (one per routine)      |
+| Routines                   | Routines                        |
+| Structure: Article         | Structure: Message Board        |
+| Type: Article Status       | Type: Message Type              |
+| Templates and files        | None — presentation stays repo-side |
+
+Instructions that create a resource embed the matching example from its counterpart — routine against routine, structure against structure, type against type.
+
 ## Conventions
 
 Review criteria applied bottom-up to every resource in the final review pass:
@@ -145,6 +181,8 @@ Review criteria applied bottom-up to every resource in the final review pass:
 - verify every skill command invokes Routine: Read Writing Articles Instructions before any other routine
 - verify annotations in examples carry taxonomy tags plus one or two notes
 - verify examples stay platform-free — the blog appears only as an example
+- verify every instructions file that creates a resource embeds its comparable example from Domain: Messages
+- verify each routine sets the article status explicitly — draft `DRAFT`, review `REVIEWED`, integrate `AUTHORED`
 - trickling all changes up to routine invocation format in skill commands — includes routine call preceded by `::READ`
 - finally to domain.art summary and domain index.md, topping up with domains/index.md
 
