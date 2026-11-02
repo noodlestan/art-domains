@@ -2,7 +2,7 @@
 
 **ID:** `add-writing-domain`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -83,7 +83,7 @@ Extract `$MANAGEMENT/_ops/writing/routines/` into a new `$DOMAINS/writing/` doma
 
 ### Next
 
-All iterations `PLANNING` — start with `scaffold-writing-domain`.
+All iterations `READY` — start with `scaffold-writing-domain`.
 
 ### Blockers
 
@@ -131,28 +131,30 @@ npm run ci # lint, build and test
 
 ## Items:
 
-| Iteration / Instructions                             | Status     |
-| ----------------------------------------------------- | ---------- |
-| Iteration: Scaffold Writing Domain                    | `PLANNING` |
-| Iteration: Add Article Structure and Status Type       | `PLANNING` |
-| Iteration: Extract Writing Routines                   | `PLANNING` |
-| Iteration: Add Read Writing Instructions Routine      | `PLANNING` |
-| Iteration: Add Write Article Skill and Commands       | `PLANNING` |
-| Iteration: Add Writer Agent Mode                      | `PLANNING` |
-| Iteration: Register Management Writing Articles       | `PLANNING` |
-| Iteration: Review Writing Domain Bottom-up            | `PLANNING` |
+| Iteration / Instructions                             | Status  |
+| ----------------------------------------------------- | ------- |
+| Iteration: Scaffold Writing Domain                    | `READY` |
+| Iteration: Add Article Structure and Status Type       | `READY` |
+| Iteration: Extract Writing Routines                   | `READY` |
+| Iteration: Add Read Writing Instructions Routine      | `READY` |
+| Iteration: Add Write Article Skill and Commands       | `READY` |
+| Iteration: Add Writer Agent Mode                      | `READY` |
+| Iteration: Register Management Writing Articles       | `READY` |
+| Iteration: Review Writing Domain Bottom-up            | `READY` |
 
 ### Iteration: Scaffold Writing Domain
 
 **Id:** `scaffold-writing-domain`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Establish the domain's identity and boundaries so every later resource lands in a registered home.
 
 **Description:** Add the Writing domain scaffold — purpose, boundaries, definitions — and register it in the domains listing.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/scaffold-writing-domain.md`
 
 **Changes:**
 
@@ -184,13 +186,15 @@ build(domain-writing): Scaffold Domain: Writing.
 
 **Id:** `add-article-structure-and-status-type`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Model the article so routines can set its lifecycle explicitly and commands can reason about its state.
 
 **Description:** Add the Article structure and the article status enum, mirroring how Domain: Messages models its subject — structure against structure, type against type.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/add-article-structure-and-status-type.md`
 
 **Changes:**
 
@@ -222,13 +226,15 @@ build(domain-writing): Add Article structure and article status type.
 
 **Id:** `extract-writing-routines`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Make the three article routines distributable: same behaviour, no hard-coded repo paths.
 
 **Description:** Move the routines from `$MANAGEMENT/_ops/writing/routines/` into the domain, convert them to domain routine format, replace the `$MANAGEMENT` reads with injected inputs, and give each routine a return value.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/extract-writing-routines.md`
 
 **Changes:**
 
@@ -248,6 +254,7 @@ build(domain-writing): Add Article structure and article status type.
 | ID                     | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
 | ---------------------- | ------------------------------------ | -------- | ------ | ---------- |
 | `extract-writing-routines` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | (TBD)  | `AUTHORED` |
+| `repoint-management-writing-index` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | (TBD)  | `AUTHORED` |
 
 ##### Commit: extract-writing-routines
 
@@ -259,17 +266,29 @@ build(domain-writing): Add Article structure and article status type.
 migrate(domain-writing): Extract article routines from _ops/writing.
 ```
 
+##### Commit: repoint-management-writing-index
+
+**Repository:** Management
+
+**Message:**
+
+```
+migrate(management): Drop _ops/writing routines; point index at Domain: Writing.
+```
+
 ### Iteration: Add Read Writing Instructions Routine
 
 **Id:** `add-read-writing-instructions-routine`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Resolve the current repo's writing resources in one place instead of assuming them.
 
 **Description:** Add the routine every skill command calls: identify the `## Writing Articles` section in the repo's guide and extract the registered resources.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/add-read-writing-instructions-routine.md`
 
 **Changes:**
 
@@ -299,13 +318,15 @@ build(domain-writing): Add read-writing-instructions routine.
 
 **Id:** `add-write-article-skill`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Give agents one entry point to draft, review and finish articles, with local resources resolved before every action.
 
 **Description:** Add the `write-article` skill — five commands, each starting with Routine: Read Writing Articles Instructions and passing the resolved resources into the routine it drives.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/add-write-article-skill.md`
 
 **Changes:**
 
@@ -341,13 +362,15 @@ build(domain-writing): Add write-article skill with commands.
 
 **Id:** `add-writer-agent-mode`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Bind the skill to a dedicated mode whose writing mandatory reading is discovered from the repo's guide.
 
 **Description:** Add agent-mode `writer`, allowed the `write-article` skill, discovering its mandatory reading from the `## Writing Articles` section of the current repo's `_guide.md`.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/add-writer-agent-mode.md`
 
 **Changes:**
 
@@ -378,13 +401,15 @@ build(domain-writing): Add writer agent mode.
 
 **Id:** `register-management-writing-articles`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Roll the skill out where the writing kit already lives: management becomes the first registered repo.
 
 **Description:** Use the register command in `$MANAGEMENT` to advertise its `_ops/writing` kit in the `_guide.md` `## Writing Articles` section, then verify resolution.
 
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
+
+**Instructions:** `./instructions/register-management-writing-articles.md`
 
 **Changes:**
 
@@ -415,7 +440,7 @@ docs(management): Add Writing Articles section to guide.
 
 **Id:** `review-writing-domain-bottom-up`
 
-**Status:** `PLANNING`
+**Status:** `READY`
 
 **Purpose:** Consolidate the domain after the first top-down pass so every layer agrees bottom-up.
 
