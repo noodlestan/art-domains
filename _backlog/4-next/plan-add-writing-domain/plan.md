@@ -83,7 +83,7 @@ Extract `$MANAGEMENT/_ops/writing/routines/` into a new `$DOMAINS/writing/` doma
 
 ### Next
 
-Iterations 1–7 DONE — all delegations complete. Remaining: `review-writing-domain-bottom-up` (inlined, NOCOMMIT, executed in session with the stakeholder).
+All 8 iterations DONE — plan complete.
 
 ### Blockers
 
@@ -454,7 +454,7 @@ docs(management): Add Writing Articles section to guide.
 
 **Id:** `review-writing-domain-bottom-up`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Consolidate the domain after the first top-down pass so every layer agrees bottom-up.
 
@@ -552,3 +552,4 @@ refactor(domain-writing): Review writing domain bottom-up.
 - [x] Iteration `add-write-article-skill` — DONE, commit `be460b4` (NOPUSH, not pushed); report at `./instructions/add-write-article-skill__report.md`. Created `$SKILLS/write-article/SKILL.md` with 5 commands, all resolving resources via Routine: Read Writing Articles Instructions; listed in `$SKILLS/index.md`. `npm run ci` green; no blockers.
 - [x] Iteration `add-writer-agent-mode` — DONE, commit `8371154` (NOPUSH, not pushed); report at `./instructions/add-writer-agent-mode__report.md`. Created `$SKILLS/agent-writer/SKILL.md`; registered `writer` in the agent-modes index, `.codex/agents/writer.toml`, and `opencode.json`. `npm run ci` green; no blockers; update-agents mode-gating nuance noted in the report.
 - [x] Iteration `register-management-writing-articles` — DONE, commit `a7d8bf5` (management, NOPUSH not pushed); report at `./instructions/register-management-writing-articles__report.md`. Added `## Writing Articles` to `$MANAGEMENT/_guide.md` with 5 resolving `::READ` directives; Routine: Read Writing Articles Instructions resolved 5/5 with `%missing` empty. `npm run ci` green; no blockers.
+- [x] Iteration `review-writing-domain-bottom-up` — reviewed all resources bottom-up against `./plan__writing-spec.md`, `## Conventions`; fixed a stray scaffolding comment in `domain.art`, aligned the draft routine's example head with `Structure: Article` (added `Description` and `Titles`), generated `$DOMAINS/writing/index.md`. Verified: 13 comparable-example anchors across the instructions, statuses explicit in every routine, all five skill commands resolve resources first, `::READ` before every routine call. `npm run ci` green. Workspace changes STAGED, not committed — policy `NOCOMMIT`; commit awaiting approval.
