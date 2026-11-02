@@ -2,7 +2,7 @@
 
 **ID:** `add-writing-domain`
 
-**Status:** `READY`
+**Status:** `WORKING`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -83,7 +83,7 @@ Extract `$MANAGEMENT/_ops/writing/routines/` into a new `$DOMAINS/writing/` doma
 
 ### Next
 
-All iterations `READY` — start with `scaffold-writing-domain`.
+Iteration `scaffold-writing-domain` DONE — next: `add-article-structure-and-status-type`.
 
 ### Blockers
 
@@ -133,7 +133,7 @@ npm run ci # lint, build and test
 
 | Iteration / Instructions                             | Status  |
 | ----------------------------------------------------- | ------- |
-| Iteration: Scaffold Writing Domain                    | `READY` |
+| Iteration: Scaffold Writing Domain                    | `DONE`   |
 | Iteration: Add Article Structure and Status Type       | `READY` |
 | Iteration: Extract Writing Routines                   | `READY` |
 | Iteration: Add Read Writing Instructions Routine      | `READY` |
@@ -146,7 +146,7 @@ npm run ci # lint, build and test
 
 **Id:** `scaffold-writing-domain`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Establish the domain's identity and boundaries so every later resource lands in a registered home.
 
@@ -155,6 +155,8 @@ npm run ci # lint, build and test
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/scaffold-writing-domain.md`
+
+**Report:** `./instructions/scaffold-writing-domain__report.md`
 
 **Changes:**
 
@@ -170,7 +172,7 @@ npm run ci # lint, build and test
 
 | ID                             | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
 | ------------------------------ | ------------------------------------ | -------- | ------ | ---------- |
-| `build-writing-domain-scaffold` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | (TBD)  | `AUTHORED` |
+| `build-writing-domain-scaffold` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `2a0e3fb` | `COMMITTED` |
 
 ##### Commit: build-writing-domain-scaffold
 
@@ -531,4 +533,4 @@ refactor(domain-writing): Review writing domain bottom-up.
 
 ### Feedback
 
-- None yet.
+- [x] Iteration `scaffold-writing-domain` — DONE, commit `2a0e3fb` (NOPUSH, not pushed); report at `./instructions/scaffold-writing-domain__report.md`. Created `domain.art` and `definitions/index.art` (5 definitions); registered `Domain: Writing` in `$DOMAINS/index.md`. `npm run ci` green; no blockers.
