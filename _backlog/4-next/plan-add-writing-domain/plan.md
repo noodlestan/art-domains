@@ -83,7 +83,7 @@ Extract `$MANAGEMENT/_ops/writing/routines/` into a new `$DOMAINS/writing/` doma
 
 ### Next
 
-Iterations 1–5 DONE (`scaffold-writing-domain` → `add-write-article-skill`) — next: `add-writer-agent-mode`, then `register-management-writing-articles`.
+Iterations 1–6 DONE — next: `register-management-writing-articles` (last delegatable; then `review-writing-domain-bottom-up` in session).
 
 ### Blockers
 
@@ -138,7 +138,7 @@ npm run ci # lint, build and test
 | Iteration: Extract Writing Routines                   | `DONE`   |
 | Iteration: Add Read Writing Instructions Routine      | `DONE`   |
 | Iteration: Add Write Article Skill and Commands       | `DONE`   |
-| Iteration: Add Writer Agent Mode                      | `READY` |
+| Iteration: Add Writer Agent Mode                      | `DONE`   |
 | Iteration: Register Management Writing Articles       | `READY` |
 | Iteration: Review Writing Domain Bottom-up            | `READY` |
 
@@ -372,7 +372,7 @@ build(domain-writing): Add write-article skill with commands.
 
 **Id:** `add-writer-agent-mode`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Bind the skill to a dedicated mode whose writing mandatory reading is discovered from the repo's guide.
 
@@ -381,6 +381,8 @@ build(domain-writing): Add write-article skill with commands.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/add-writer-agent-mode.md`
+
+**Report:** `./instructions/add-writer-agent-mode__report.md`
 
 **Changes:**
 
@@ -395,7 +397,7 @@ build(domain-writing): Add write-article skill with commands.
 
 | ID                 | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
 | ------------------ | ------------------------------------ | -------- | ------ | ---------- |
-| `add-writer-agent-mode` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | (TBD)  | `AUTHORED` |
+| `add-writer-agent-mode` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `8371154` | `COMMITTED` |
 
 ##### Commit: add-writer-agent-mode
 
@@ -546,3 +548,4 @@ refactor(domain-writing): Review writing domain bottom-up.
 - [x] Iteration `extract-writing-routines` — DONE, commits `7991af1` (workspace) and `a5ae869` (management), both NOPUSH not pushed; report at `./instructions/extract-writing-routines__report.md`. Created 3 routines with injected inputs and explicit statuses (`DRAFT`/`REVIEWED`/`AUTHORED`); deleted the source routines and repointed the kit index. `npm run ci` green in both repos; no blockers.
 - [x] Iteration `add-read-writing-instructions-routine` — DONE, commit `6a22f23` (NOPUSH, not pushed); report at `./instructions/add-read-writing-instructions-routine__report.md`. Created `routines/read-writing-instructions.art` returning `%writing-resources` and `%missing`, data only, no defaults. `npm run ci` green; no blockers.
 - [x] Iteration `add-write-article-skill` — DONE, commit `be460b4` (NOPUSH, not pushed); report at `./instructions/add-write-article-skill__report.md`. Created `$SKILLS/write-article/SKILL.md` with 5 commands, all resolving resources via Routine: Read Writing Articles Instructions; listed in `$SKILLS/index.md`. `npm run ci` green; no blockers.
+- [x] Iteration `add-writer-agent-mode` — DONE, commit `8371154` (NOPUSH, not pushed); report at `./instructions/add-writer-agent-mode__report.md`. Created `$SKILLS/agent-writer/SKILL.md`; registered `writer` in the agent-modes index, `.codex/agents/writer.toml`, and `opencode.json`. `npm run ci` green; no blockers; update-agents mode-gating nuance noted in the report.
