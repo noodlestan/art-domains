@@ -83,7 +83,7 @@ Extract `$MANAGEMENT/_ops/writing/routines/` into a new `$DOMAINS/writing/` doma
 
 ### Next
 
-Iterations 1–6 DONE — next: `register-management-writing-articles` (last delegatable; then `review-writing-domain-bottom-up` in session).
+Iterations 1–7 DONE — all delegations complete. Remaining: `review-writing-domain-bottom-up` (inlined, NOCOMMIT, executed in session with the stakeholder).
 
 ### Blockers
 
@@ -139,7 +139,7 @@ npm run ci # lint, build and test
 | Iteration: Add Read Writing Instructions Routine      | `DONE`   |
 | Iteration: Add Write Article Skill and Commands       | `DONE`   |
 | Iteration: Add Writer Agent Mode                      | `DONE`   |
-| Iteration: Register Management Writing Articles       | `READY` |
+| Iteration: Register Management Writing Articles       | `DONE`   |
 | Iteration: Review Writing Domain Bottom-up            | `READY` |
 
 ### Iteration: Scaffold Writing Domain
@@ -413,7 +413,7 @@ build(domain-writing): Add writer agent mode.
 
 **Id:** `register-management-writing-articles`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Roll the skill out where the writing kit already lives: management becomes the first registered repo.
 
@@ -422,6 +422,8 @@ build(domain-writing): Add writer agent mode.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/register-management-writing-articles.md`
+
+**Report:** `./instructions/register-management-writing-articles__report.md`
 
 **Changes:**
 
@@ -436,7 +438,7 @@ build(domain-writing): Add writer agent mode.
 
 | ID                             | Repository / Checkout / Branch   | Policy   | Hash   | Status     |
 | ------------------------------ | -------------------------------- | -------- | ------ | ---------- |
-| `register-management-writing-articles` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | (TBD)  | `AUTHORED` |
+| `register-management-writing-articles` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | `a7d8bf5`  | `COMMITTED` |
 
 ##### Commit: register-management-writing-articles
 
@@ -549,3 +551,4 @@ refactor(domain-writing): Review writing domain bottom-up.
 - [x] Iteration `add-read-writing-instructions-routine` — DONE, commit `6a22f23` (NOPUSH, not pushed); report at `./instructions/add-read-writing-instructions-routine__report.md`. Created `routines/read-writing-instructions.art` returning `%writing-resources` and `%missing`, data only, no defaults. `npm run ci` green; no blockers.
 - [x] Iteration `add-write-article-skill` — DONE, commit `be460b4` (NOPUSH, not pushed); report at `./instructions/add-write-article-skill__report.md`. Created `$SKILLS/write-article/SKILL.md` with 5 commands, all resolving resources via Routine: Read Writing Articles Instructions; listed in `$SKILLS/index.md`. `npm run ci` green; no blockers.
 - [x] Iteration `add-writer-agent-mode` — DONE, commit `8371154` (NOPUSH, not pushed); report at `./instructions/add-writer-agent-mode__report.md`. Created `$SKILLS/agent-writer/SKILL.md`; registered `writer` in the agent-modes index, `.codex/agents/writer.toml`, and `opencode.json`. `npm run ci` green; no blockers; update-agents mode-gating nuance noted in the report.
+- [x] Iteration `register-management-writing-articles` — DONE, commit `a7d8bf5` (management, NOPUSH not pushed); report at `./instructions/register-management-writing-articles__report.md`. Added `## Writing Articles` to `$MANAGEMENT/_guide.md` with 5 resolving `::READ` directives; Routine: Read Writing Articles Instructions resolved 5/5 with `%missing` empty. `npm run ci` green; no blockers.
