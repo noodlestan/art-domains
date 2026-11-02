@@ -83,7 +83,7 @@ Extract `$MANAGEMENT/_ops/writing/routines/` into a new `$DOMAINS/writing/` doma
 
 ### Next
 
-Iteration `scaffold-writing-domain` DONE — next: `add-article-structure-and-status-type`.
+Iterations `scaffold-writing-domain` and `add-article-structure-and-status-type` DONE — next: `extract-writing-routines`.
 
 ### Blockers
 
@@ -134,7 +134,7 @@ npm run ci # lint, build and test
 | Iteration / Instructions                             | Status  |
 | ----------------------------------------------------- | ------- |
 | Iteration: Scaffold Writing Domain                    | `DONE`   |
-| Iteration: Add Article Structure and Status Type       | `READY` |
+| Iteration: Add Article Structure and Status Type       | `DONE`   |
 | Iteration: Extract Writing Routines                   | `READY` |
 | Iteration: Add Read Writing Instructions Routine      | `READY` |
 | Iteration: Add Write Article Skill and Commands       | `READY` |
@@ -188,7 +188,7 @@ build(domain-writing): Scaffold Domain: Writing.
 
 **Id:** `add-article-structure-and-status-type`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Model the article so routines can set its lifecycle explicitly and commands can reason about its state.
 
@@ -197,6 +197,8 @@ build(domain-writing): Scaffold Domain: Writing.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/add-article-structure-and-status-type.md`
+
+**Report:** `./instructions/add-article-structure-and-status-type__report.md`
 
 **Changes:**
 
@@ -212,7 +214,7 @@ build(domain-writing): Scaffold Domain: Writing.
 
 | ID                               | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
 | -------------------------------- | ------------------------------------ | -------- | ------ | ---------- |
-| `add-article-structure-and-type` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | (TBD)  | `AUTHORED` |
+| `add-article-structure-and-type` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `3358fad` | `COMMITTED` |
 
 ##### Commit: add-article-structure-and-type
 
@@ -534,3 +536,4 @@ refactor(domain-writing): Review writing domain bottom-up.
 ### Feedback
 
 - [x] Iteration `scaffold-writing-domain` — DONE, commit `2a0e3fb` (NOPUSH, not pushed); report at `./instructions/scaffold-writing-domain__report.md`. Created `domain.art` and `definitions/index.art` (5 definitions); registered `Domain: Writing` in `$DOMAINS/index.md`. `npm run ci` green; no blockers.
+- [x] Iteration `add-article-structure-and-status-type` — DONE, commit `3358fad` (NOPUSH, not pushed); report at `./instructions/add-article-structure-and-status-type__report.md`. Created `types/article-status.art` (4 lifecycle options) and `structures/article.art` (5 fields, status by reference); refreshed `$DOMAINS/index.md`. `npm run ci` green; no blockers.
