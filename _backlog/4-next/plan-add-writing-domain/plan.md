@@ -83,7 +83,7 @@ Extract `$MANAGEMENT/_ops/writing/routines/` into a new `$DOMAINS/writing/` doma
 
 ### Next
 
-Iterations `scaffold-writing-domain` and `add-article-structure-and-status-type` DONE — next: `extract-writing-routines`.
+Iterations 1–3 DONE (`scaffold-writing-domain`, `add-article-structure-and-status-type`, `extract-writing-routines`) — next: `add-read-writing-instructions-routine`.
 
 ### Blockers
 
@@ -135,7 +135,7 @@ npm run ci # lint, build and test
 | ----------------------------------------------------- | ------- |
 | Iteration: Scaffold Writing Domain                    | `DONE`   |
 | Iteration: Add Article Structure and Status Type       | `DONE`   |
-| Iteration: Extract Writing Routines                   | `READY` |
+| Iteration: Extract Writing Routines                   | `DONE`   |
 | Iteration: Add Read Writing Instructions Routine      | `READY` |
 | Iteration: Add Write Article Skill and Commands       | `READY` |
 | Iteration: Add Writer Agent Mode                      | `READY` |
@@ -230,7 +230,7 @@ build(domain-writing): Add Article structure and article status type.
 
 **Id:** `extract-writing-routines`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Make the three article routines distributable: same behaviour, no hard-coded repo paths.
 
@@ -239,6 +239,8 @@ build(domain-writing): Add Article structure and article status type.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/extract-writing-routines.md`
+
+**Report:** `./instructions/extract-writing-routines__report.md`
 
 **Changes:**
 
@@ -257,8 +259,8 @@ build(domain-writing): Add Article structure and article status type.
 
 | ID                     | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
 | ---------------------- | ------------------------------------ | -------- | ------ | ---------- |
-| `extract-writing-routines` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | (TBD)  | `AUTHORED` |
-| `repoint-management-writing-index` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | (TBD)  | `AUTHORED` |
+| `extract-writing-routines` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `7991af1` | `COMMITTED` |
+| `repoint-management-writing-index` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | `a5ae869`  | `COMMITTED` |
 
 ##### Commit: extract-writing-routines
 
@@ -537,3 +539,4 @@ refactor(domain-writing): Review writing domain bottom-up.
 
 - [x] Iteration `scaffold-writing-domain` — DONE, commit `2a0e3fb` (NOPUSH, not pushed); report at `./instructions/scaffold-writing-domain__report.md`. Created `domain.art` and `definitions/index.art` (5 definitions); registered `Domain: Writing` in `$DOMAINS/index.md`. `npm run ci` green; no blockers.
 - [x] Iteration `add-article-structure-and-status-type` — DONE, commit `3358fad` (NOPUSH, not pushed); report at `./instructions/add-article-structure-and-status-type__report.md`. Created `types/article-status.art` (4 lifecycle options) and `structures/article.art` (5 fields, status by reference); refreshed `$DOMAINS/index.md`. `npm run ci` green; no blockers.
+- [x] Iteration `extract-writing-routines` — DONE, commits `7991af1` (workspace) and `a5ae869` (management), both NOPUSH not pushed; report at `./instructions/extract-writing-routines__report.md`. Created 3 routines with injected inputs and explicit statuses (`DRAFT`/`REVIEWED`/`AUTHORED`); deleted the source routines and repointed the kit index. `npm run ci` green in both repos; no blockers.
