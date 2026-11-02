@@ -83,7 +83,7 @@ Extract `$MANAGEMENT/_ops/writing/routines/` into a new `$DOMAINS/writing/` doma
 
 ### Next
 
-Iterations 1–3 DONE (`scaffold-writing-domain`, `add-article-structure-and-status-type`, `extract-writing-routines`) — next: `add-read-writing-instructions-routine`.
+Iterations 1–4 DONE (`scaffold-writing-domain` → `add-read-writing-instructions-routine`) — next: `add-write-article-skill`.
 
 ### Blockers
 
@@ -136,7 +136,7 @@ npm run ci # lint, build and test
 | Iteration: Scaffold Writing Domain                    | `DONE`   |
 | Iteration: Add Article Structure and Status Type       | `DONE`   |
 | Iteration: Extract Writing Routines                   | `DONE`   |
-| Iteration: Add Read Writing Instructions Routine      | `READY` |
+| Iteration: Add Read Writing Instructions Routine      | `DONE`   |
 | Iteration: Add Write Article Skill and Commands       | `READY` |
 | Iteration: Add Writer Agent Mode                      | `READY` |
 | Iteration: Register Management Writing Articles       | `READY` |
@@ -286,7 +286,7 @@ migrate(management): Drop _ops/writing routines; point index at Domain: Writing.
 
 **Id:** `add-read-writing-instructions-routine`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Resolve the current repo's writing resources in one place instead of assuming them.
 
@@ -295,6 +295,8 @@ migrate(management): Drop _ops/writing routines; point index at Domain: Writing.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/add-read-writing-instructions-routine.md`
+
+**Report:** `./instructions/add-read-writing-instructions-routine__report.md`
 
 **Changes:**
 
@@ -308,7 +310,7 @@ migrate(management): Drop _ops/writing routines; point index at Domain: Writing.
 
 | ID                          | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
 | --------------------------- | ------------------------------------ | -------- | ------ | ---------- |
-| `add-read-writing-instructions` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | (TBD)  | `AUTHORED` |
+| `add-read-writing-instructions` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `6a22f23` | `COMMITTED` |
 
 ##### Commit: add-read-writing-instructions
 
@@ -540,3 +542,4 @@ refactor(domain-writing): Review writing domain bottom-up.
 - [x] Iteration `scaffold-writing-domain` — DONE, commit `2a0e3fb` (NOPUSH, not pushed); report at `./instructions/scaffold-writing-domain__report.md`. Created `domain.art` and `definitions/index.art` (5 definitions); registered `Domain: Writing` in `$DOMAINS/index.md`. `npm run ci` green; no blockers.
 - [x] Iteration `add-article-structure-and-status-type` — DONE, commit `3358fad` (NOPUSH, not pushed); report at `./instructions/add-article-structure-and-status-type__report.md`. Created `types/article-status.art` (4 lifecycle options) and `structures/article.art` (5 fields, status by reference); refreshed `$DOMAINS/index.md`. `npm run ci` green; no blockers.
 - [x] Iteration `extract-writing-routines` — DONE, commits `7991af1` (workspace) and `a5ae869` (management), both NOPUSH not pushed; report at `./instructions/extract-writing-routines__report.md`. Created 3 routines with injected inputs and explicit statuses (`DRAFT`/`REVIEWED`/`AUTHORED`); deleted the source routines and repointed the kit index. `npm run ci` green in both repos; no blockers.
+- [x] Iteration `add-read-writing-instructions-routine` — DONE, commit `6a22f23` (NOPUSH, not pushed); report at `./instructions/add-read-writing-instructions-routine__report.md`. Created `routines/read-writing-instructions.art` returning `%writing-resources` and `%missing`, data only, no defaults. `npm run ci` green; no blockers.
