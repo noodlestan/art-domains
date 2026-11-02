@@ -83,7 +83,7 @@ Extract `$MANAGEMENT/_ops/writing/routines/` into a new `$DOMAINS/writing/` doma
 
 ### Next
 
-Iterations 1–4 DONE (`scaffold-writing-domain` → `add-read-writing-instructions-routine`) — next: `add-write-article-skill`.
+Iterations 1–5 DONE (`scaffold-writing-domain` → `add-write-article-skill`) — next: `add-writer-agent-mode`, then `register-management-writing-articles`.
 
 ### Blockers
 
@@ -137,7 +137,7 @@ npm run ci # lint, build and test
 | Iteration: Add Article Structure and Status Type       | `DONE`   |
 | Iteration: Extract Writing Routines                   | `DONE`   |
 | Iteration: Add Read Writing Instructions Routine      | `DONE`   |
-| Iteration: Add Write Article Skill and Commands       | `READY` |
+| Iteration: Add Write Article Skill and Commands       | `DONE`   |
 | Iteration: Add Writer Agent Mode                      | `READY` |
 | Iteration: Register Management Writing Articles       | `READY` |
 | Iteration: Review Writing Domain Bottom-up            | `READY` |
@@ -326,7 +326,7 @@ build(domain-writing): Add read-writing-instructions routine.
 
 **Id:** `add-write-article-skill`
 
-**Status:** `READY`
+**Status:** `DONE`
 
 **Purpose:** Give agents one entry point to draft, review and finish articles, with local resources resolved before every action.
 
@@ -335,6 +335,8 @@ build(domain-writing): Add read-writing-instructions routine.
 **Instructions Mode:** `INSTRUCTIONS_SELF_CONTAINED_FILE`
 
 **Instructions:** `./instructions/add-write-article-skill.md`
+
+**Report:** `./instructions/add-write-article-skill__report.md`
 
 **Changes:**
 
@@ -354,7 +356,7 @@ build(domain-writing): Add read-writing-instructions routine.
 
 | ID                   | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
 | -------------------- | ------------------------------------ | -------- | ------ | ---------- |
-| `add-write-article-skill` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | (TBD)  | `AUTHORED` |
+| `add-write-article-skill` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `be460b4` | `COMMITTED` |
 
 ##### Commit: add-write-article-skill
 
@@ -543,3 +545,4 @@ refactor(domain-writing): Review writing domain bottom-up.
 - [x] Iteration `add-article-structure-and-status-type` — DONE, commit `3358fad` (NOPUSH, not pushed); report at `./instructions/add-article-structure-and-status-type__report.md`. Created `types/article-status.art` (4 lifecycle options) and `structures/article.art` (5 fields, status by reference); refreshed `$DOMAINS/index.md`. `npm run ci` green; no blockers.
 - [x] Iteration `extract-writing-routines` — DONE, commits `7991af1` (workspace) and `a5ae869` (management), both NOPUSH not pushed; report at `./instructions/extract-writing-routines__report.md`. Created 3 routines with injected inputs and explicit statuses (`DRAFT`/`REVIEWED`/`AUTHORED`); deleted the source routines and repointed the kit index. `npm run ci` green in both repos; no blockers.
 - [x] Iteration `add-read-writing-instructions-routine` — DONE, commit `6a22f23` (NOPUSH, not pushed); report at `./instructions/add-read-writing-instructions-routine__report.md`. Created `routines/read-writing-instructions.art` returning `%writing-resources` and `%missing`, data only, no defaults. `npm run ci` green; no blockers.
+- [x] Iteration `add-write-article-skill` — DONE, commit `be460b4` (NOPUSH, not pushed); report at `./instructions/add-write-article-skill__report.md`. Created `$SKILLS/write-article/SKILL.md` with 5 commands, all resolving resources via Routine: Read Writing Articles Instructions; listed in `$SKILLS/index.md`. `npm run ci` green; no blockers.
