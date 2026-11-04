@@ -260,7 +260,7 @@ build(domain-writing): Add Article structure and article status type.
 | ID                     | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
 | ---------------------- | ------------------------------------ | -------- | ------ | ---------- |
 | `extract-writing-routines` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `7991af1` | `COMMITTED` |
-| `repoint-management-writing-index` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | `a5ae869`  | `COMMITTED` |
+| `repoint-management-writing-index` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | `59cdf31`  | `COMMITTED` |
 
 ##### Commit: extract-writing-routines
 
@@ -438,7 +438,7 @@ build(domain-writing): Add writer agent mode.
 
 | ID                             | Repository / Checkout / Branch   | Policy   | Hash   | Status     |
 | ------------------------------ | -------------------------------- | -------- | ------ | ---------- |
-| `register-management-writing-articles` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | `a7d8bf5`  | `COMMITTED` |
+| `register-management-writing-articles` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | `ecb29c4`  | `COMMITTED` |
 
 ##### Commit: register-management-writing-articles
 
@@ -549,9 +549,9 @@ refactor(domain-writing): Review writing domain bottom-up.
 
 - [x] Iteration `scaffold-writing-domain` — DONE, commit `2a0e3fb` (NOPUSH, not pushed); report at `./instructions/scaffold-writing-domain__report.md`. Created `domain.art` and `definitions/index.art` (5 definitions); registered `Domain: Writing` in `$DOMAINS/index.md`. `npm run ci` green; no blockers.
 - [x] Iteration `add-article-structure-and-status-type` — DONE, commit `3358fad` (NOPUSH, not pushed); report at `./instructions/add-article-structure-and-status-type__report.md`. Created `types/article-status.art` (4 lifecycle options) and `structures/article.art` (5 fields, status by reference); refreshed `$DOMAINS/index.md`. `npm run ci` green; no blockers.
-- [x] Iteration `extract-writing-routines` — DONE, commits `7991af1` (workspace) and `a5ae869` (management), both NOPUSH not pushed; report at `./instructions/extract-writing-routines__report.md`. Created 3 routines with injected inputs and explicit statuses (`DRAFT`/`REVIEWED`/`AUTHORED`); deleted the source routines and repointed the kit index. `npm run ci` green in both repos; no blockers.
+- [x] Iteration `extract-writing-routines` — DONE, commits `7991af1` (workspace) and `59cdf31` (management), both NOPUSH not pushed; report at `./instructions/extract-writing-routines__report.md`. Created 3 routines with injected inputs and explicit statuses (`DRAFT`/`REVIEWED`/`AUTHORED`); deleted the source routines and repointed the kit index. `npm run ci` green in both repos; no blockers.
 - [x] Iteration `add-read-writing-instructions-routine` — DONE, commit `6a22f23` (NOPUSH, not pushed); report at `./instructions/add-read-writing-instructions-routine__report.md`. Created `routines/read-writing-instructions.art` returning `%writing-resources` and `%missing`, data only, no defaults. `npm run ci` green; no blockers.
 - [x] Iteration `add-write-article-skill` — DONE, commit `be460b4` (NOPUSH, not pushed); report at `./instructions/add-write-article-skill__report.md`. Created `$SKILLS/write-article/SKILL.md` with 5 commands, all resolving resources via Routine: Read Writing Articles Instructions; listed in `$SKILLS/index.md`. `npm run ci` green; no blockers.
 - [x] Iteration `add-writer-agent-mode` — DONE, commit `8371154` (NOPUSH, not pushed); report at `./instructions/add-writer-agent-mode__report.md`. Created `$SKILLS/agent-writer/SKILL.md`; registered `writer` in the agent-modes index, `.codex/agents/writer.toml`, and `opencode.json`. `npm run ci` green; no blockers; update-agents mode-gating nuance noted in the report.
-- [x] Iteration `register-management-writing-articles` — DONE, commit `a7d8bf5` (management, NOPUSH not pushed); report at `./instructions/register-management-writing-articles__report.md`. Added `## Writing Articles` to `$MANAGEMENT/_guide.md` with 5 resolving `::READ` directives; Routine: Read Writing Articles Instructions resolved 5/5 with `%missing` empty. `npm run ci` green; no blockers.
+- [x] Iteration `register-management-writing-articles` — DONE, commit `ecb29c4` (management, NOPUSH not pushed); report at `./instructions/register-management-writing-articles__report.md`. Added `## Writing Articles` to `$MANAGEMENT/_guide.md` with 5 resolving `::READ` directives; Routine: Read Writing Articles Instructions resolved 5/5 with `%missing` empty. `npm run ci` green; no blockers.
 - [x] Iteration `review-writing-domain-bottom-up` — reviewed all resources bottom-up against `./plan__writing-spec.md`, `## Conventions`; fixed a stray scaffolding comment in `domain.art`, aligned the draft routine's example head with `Structure: Article` (added `Description` and `Titles`), generated `$DOMAINS/writing/index.md`. Verified: 13 comparable-example anchors across the instructions, statuses explicit in every routine, all five skill commands resolve resources first, `::READ` before every routine call. `npm run ci` green. Workspace changes STAGED, not committed — policy `NOCOMMIT`; commit awaiting approval.
