@@ -2,7 +2,7 @@
 
 **ID:** `add-writing-domain`
 
-**Status:** `WORKING`
+**Status:** `DONE`
 
 **Template:** `$DOMAINS/plans/templates/plan.tart`
 
@@ -10,7 +10,7 @@
 
 **Purpose:** Give agents reusable, repo-agnostic article writing — an Article structure with an explicit lifecycle, and routines to draft, review and integrate feedback — exposed through one `write-article` skill, with each repo advertising its own writing resources through its `_guide.md`.
 
-**Description:** Extract the three article-writing routines that grew inside `$MANAGEMENT/_ops/writing/routines/` into a new Writing domain, refactored so templates, tone of voice, annotation taxonomy and comms guides arrive as injected inputs instead of hard-coded `$MANAGEMENT` paths. The domain models its subject — `Structure: Article` (purpose, description, titles, tags, status) and `Type: Article Status` (`DRAFT` → `REVIEWED` → `AUTHORED` → `READY`) — and every routine sets the article status explicitly. Add a fourth routine — Read Writing Articles Instructions — that identifies the writing resources registered in the current repo's `## Writing Articles` section, and make every `write-article` skill command call it before acting. Expose the four routines plus one `register writing resources` command, bind them to a new `writer` agent-mode, and roll out first in `$MANAGEMENT`, whose `_guide.md` advertises its `_ops/writing` kit. Domain: Messages is the reference domain throughout — every resource kind is checked against its counterpart.
+**Description:** Extract the three article-writing routines that grew inside `$MANAGEMENT/_ops/writing/routines/` into a new Writing domain, refactored so templates, tone of voice, annotations and guides arrive as injected inputs instead of hard-coded `$MANAGEMENT` paths. The domain models its subject — `Structure: Article` (purpose, description, titles, tags, status) and `Type: Article Status` (`DRAFT` → `REVIEWED` → `AUTHORED` → `READY`) — and every routine sets the article status explicitly. Add a fourth routine — Read Writing Articles Instructions — that identifies the writing resources registered in the current repo's `## Writing Articles` section, and make every `write-article` skill command call it before acting. Expose the four routines plus one `register writing resources` command, bind them to a new `writer` agent-mode, and roll out first in `$MANAGEMENT`, whose `_guide.md` advertises its `_ops/writing` kit. Domain: Messages is the reference domain throughout — every resource kind is checked against its counterpart.
 
 ## Mandatory Reading
 
@@ -30,7 +30,7 @@
 
 ## Summary
 
-One `Domain: Writing` modelling articles with `Structure: Article` and the `Type: Article Status` lifecycle, holding four article routines whose inputs — templates, tone of voice, annotation taxonomy, comms guides — are injected per repo; one `write-article` skill whose five commands all resolve local writing resources through Routine: Read Writing Articles Instructions; a `register writing resources` command that writes the `## Writing Articles` section of a repo's `_guide.md`; the `writer` agent-mode binding it all. Each routine sets the article status explicitly — draft `DRAFT`, review `REVIEWED`, integrate `AUTHORED`; the `READY` switch has no routine yet. First rollout in `$MANAGEMENT`.
+One `Domain: Writing` modelling articles with `Structure: Article` and the `Type: Article Status` lifecycle, holding four article routines whose inputs — templates, tone of voice, annotations and guides — are injected per repo; one `write-article` skill whose five commands all resolve local writing resources through Routine: Read Writing Articles Instructions; a `register writing resources` command that writes the `## Writing Articles` section of a repo's `_guide.md`; the `writer` agent-mode binding it all. Each routine sets the article status explicitly — draft `DRAFT`, review `REVIEWED`, integrate `AUTHORED`; the `READY` switch has no routine yet. First rollout in `$MANAGEMENT`.
 
 ## Attachments
 
@@ -70,13 +70,13 @@ Extract `$MANAGEMENT/_ops/writing/routines/` into a new `$DOMAINS/writing/` doma
 
 ### Constraints
 
-- **Resources are injected** — domain routines carry no repo paths; templates, tone of voice, annotation taxonomy and comms guides arrive as inputs, resolved per repo by Routine: Read Writing Articles Instructions.
-- **Annotations stay in articles** — every authored item carries an annotation: taxonomy tags, plus an optional note explaining, justifying or doubting; annotations are never stripped.
+- **Resources are injected** — domain routines carry no repo paths; templates, tone of voice, annotations and guides arrive as inputs, resolved per repo by Routine: Read Writing Articles Instructions.
+- **Annotations stay in articles** — every authored item carries an annotation: taxonomy tags, plus an optional note explaining, justifying or doubting; annotations are removed only when the article is published.
 - **The lifecycle is explicit** — `Type: Article Status`: `DRAFT` → `REVIEWED` → `AUTHORED` → `READY`; each routine sets it — draft `DRAFT`, review `REVIEWED`, integrate `AUTHORED`; the `READY` switch has no routine yet and stays manual.
 - **Instructions carry a comparable example** — every instructions file that creates a resource embeds the matching resource kind from Domain: Messages — routine against routine, structure against structure, type against type.
 - **Routines update the article in place** — the file is the medium; commands own session-chat responses and `_guide.md` writes.
 - **Every command reads instructions first** — all five skill commands call Routine: Read Writing Articles Instructions before acting; no command assumes the existence or location of a template or guide.
-- **Repo-local resources are advertised, not distributed** — the domain ships the routines; templates, tone of voice, taxonomy and comms stay in the repos that own them, discovered through the guide section.
+- **Repo-local resources are advertised, not distributed** — the domain ships the routines; templates, tone of voice, annotations and guides stay in the repos that own them, discovered through the guide section.
 - **No publishing or blog assumptions** — routines operate on any article file; the Artificials blog is one consumer, not a dependency.
 
 ## Work
@@ -244,9 +244,9 @@ build(domain-writing): Add Article structure and article status type.
 
 **Changes:**
 
-- Add `$DOMAINS/writing/routines/draft-article.art` — from `$MANAGEMENT/_ops/writing/routines/draft-article.md`; inputs `%seed`, `%advice`, `%templates`, `%annotation-taxonomy`, `%tone-of-voice`, `%comms`; output `%contents` (the annotated article, annotations remaining in the text); sets the article `**Status:**` to `DRAFT`.
-- Add `$DOMAINS/writing/routines/review-article.art` — from `$MANAGEMENT/_ops/writing/routines/review-article.md`; inputs `%file`, `%templates`, `%annotation-taxonomy`, `%tone-of-voice`, `%comms`; outputs the annotated article with its `## Review` appended plus `%findings` (status and counts); sets the article `**Status:**` to `REVIEWED`.
-- Add `$DOMAINS/writing/routines/integrate-feedback.art` — from `$MANAGEMENT/_ops/writing/routines/integrate-feedback.md`; inputs `%file`, `%templates`, `%annotation-taxonomy`, `%tone-of-voice`, `%comms`; outputs the integrated, swept article plus `%swept` (confirmation and counts); sets the article `**Status:**` to `AUTHORED`.
+- Add `$DOMAINS/writing/routines/draft-article.art` — from `$MANAGEMENT/_ops/writing/routines/draft-article.md`; inputs `%seed`, `%advice`, `%templates`, `%annotations`, `%tone-of-voice`, `%guides`; output `%contents` (the annotated article, annotations remaining in the text); sets the article `**Status:**` to `DRAFT`.
+- Add `$DOMAINS/writing/routines/review-article.art` — from `$MANAGEMENT/_ops/writing/routines/review-article.md`; inputs `%file`, `%templates`, `%annotations`, `%tone-of-voice`, `%guides`; outputs the annotated article with its `## Review` appended plus `%findings` (status and counts); sets the article `**Status:**` to `REVIEWED`.
+- Add `$DOMAINS/writing/routines/integrate-feedback.art` — from `$MANAGEMENT/_ops/writing/routines/integrate-feedback.md`; inputs `%file`, `%templates`, `%annotations`, `%tone-of-voice`, `%guides`; outputs the integrated, swept article plus `%swept` (confirmation and counts); sets the article `**Status:**` to `AUTHORED`.
 - Align the article head with `Structure: Article` — `**Purpose:**`, `**Description:**`, `**Titles:**` (candidate titles), `**Tags:**`, `**Status:**` — replacing the draft routine's current head fields.
 - Modify `$MANAGEMENT/_ops/writing/index.md` — repoint or drop the routines section; the routines now live in Domain: Writing.
 - Delete `$MANAGEMENT/_ops/writing/routines/draft-article.md`, `$MANAGEMENT/_ops/writing/routines/review-article.md`, `$MANAGEMENT/_ops/writing/routines/integrate-feedback.md`.
@@ -300,7 +300,7 @@ migrate(management): Drop _ops/writing routines; point index at Domain: Writing.
 
 **Changes:**
 
-- Add `$DOMAINS/writing/routines/read-writing-instructions.art` — input `%repo-guide` (defaults to the `_guide.md` of the current checkout); read its `## Writing Articles` section; output `%writing-resources` — registered templates, tone of voice, annotation taxonomy, comms guides and other references — plus `%missing` when the section or a resource is absent.
+- Add `$DOMAINS/writing/routines/read-writing-instructions.art` — input `%repo-guide` (defaults to the `_guide.md` of the current checkout); read its `## Writing Articles` section; output `%writing-resources` — registered `templates`, `tone of voice`, `annotations`, and `guides` — plus `%missing` when the section or a resource is absent.
 
 **Dependencies:**
 
@@ -542,6 +542,8 @@ refactor(domain-writing): Review writing domain bottom-up.
 - The source parking-lot item and note "Extract Domain: Writing" were removed from `$MANAGEMENT/_backlog/_parking-lot.md` once this plan was created; their verbatim spec — plus the structured per-kind spec and the review conventions — is preserved in `./plan__writing-spec.md`.
 - Reflect this plan in milestone `domains-one` items when it starts executing.
 - The ad-hoc writer prompt used in sessions before the skill lands becomes obsolete once `write-article` ships.
+- `update-agents` declares `## Allowed Agent Modes: assistant` and is not in `agent-worker`'s allowed skills, so workers execute it as mandatory-reading instructions rather than as a skill — add `update-agents` and siblings to `agent-worker`'s allowed list, or gate them to `ALL`, so the machinery and the delegation workflow agree (disclosed in `./instructions/add-writer-agent-mode__report.md`).
+- `update-agents/SKILL.md` refers to the agent-modes index as `agents-mode.md` (actual: `agent-modes.md`) and its index template omits the `---` separators the live file uses — small drift between the documented process and the artefact.
 
 ### Feedback
 

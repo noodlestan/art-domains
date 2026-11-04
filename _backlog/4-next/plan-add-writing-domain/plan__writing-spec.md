@@ -15,7 +15,7 @@
 
 ## Context
 
-**Use Case:** As a user I want agents to write, review and finish articles consistently, using the templates, tone of voice and taxonomy of the repo they are working in.
+**Use Case:** As a user I want agents to write, review and finish articles consistently, using the templates, tone of voice and annotations of the repo they are working in.
 
 **Examples:**
 
@@ -26,7 +26,7 @@
 
 ### Definition: Article
 
-A written piece modelled by `Structure: Article` — purpose, description, titles (the possible titles), tags, status — materialised as a markdown file carrying taxonomy annotations that remain in the text after every pass.
+A written piece modelled by `Structure: Article` — purpose, description, titles (the possible titles), tags, status — materialised as a markdown file carrying taxonomy annotations that remain in the text throughout the writing process — removed only when the article is published.
 
 ### Definition: Article Status
 
@@ -46,7 +46,7 @@ A `## Review` section appended after `---`: a `**Status:**` (`READY` when every 
 
 ### Definition: Writing Resources
 
-The repo-side references an article routine needs: article templates, tone of voice, annotation taxonomy, comms guidance, and any extra writing guides the repo registers.
+The repo-side references an article routine needs: article templates, tone of voice, annotations, and any extra guides the repo registers.
 
 ## Skill
 
@@ -58,7 +58,7 @@ The repo-side references an article routine needs: article templates, tone of vo
 - command review article (uses routine review article)
 - command integrate feedback (uses routine integrate feedback)
 - command read writing articles instructions (uses routine read writing articles instructions)
-- command register writing resources (command only — writes the guide section)
+- command register writing resources (command only — writes the artefact's `## Writing Articles` section)
 
 Every command starts by invoking Routine: Read Writing Articles Instructions against the current repo's guide, and passes the resolved `%writing-resources` into the routine it drives. Commands own session-chat responses and `_guide.md` writes.
 
@@ -66,7 +66,7 @@ Every command starts by invoking Routine: Read Writing Articles Instructions aga
 
 - inputs: `%seed` + optional `%advice`
 - resolves `%writing-resources` via Routine: Read Writing Articles Instructions
-- invokes Routine: Draft Article with the seed, advice, and the resolved templates, taxonomy, tone of voice and comms
+- invokes Routine: Draft Article with the seed, advice, and the resolved templates, annotations, tone of voice and guides
 
 ### Command: Review Article
 
@@ -87,8 +87,8 @@ Every command starts by invoking Routine: Read Writing Articles Instructions aga
 
 ### Command: Register Writing Resources
 
-- inputs: the repo's writing resources — paths to templates, tone of voice, taxonomy, comms, extras
-- writes the `## Writing Articles` section into the repo's `_guide.md`, in this format:
+- inputs: `%templates`, `%annotations`, `%tone-of-voice`, `%guides` — the repo's writing resources — plus `%artefact`, the artefact to write into (defaults to the current project `_guide.md`)
+- writes the `## Writing Articles` section into the `%artefact`, in this format:
 
 ```md
 ## Writing Articles
@@ -98,7 +98,7 @@ Resolved by Routine: Read Writing Articles Instructions for every `write-article
 
 - ::READ `./_ops/writing/index.md` (Kit) — writing kit index: references and routines.
 - ::READ `./_ops/writing/article-templates.md` (Templates) — article outline templates.
-- ::READ `./_ops/writing/annotation-taxonomy.md` (Taxonomy) — annotation vocabulary.
+- ::READ `./_ops/writing/annotation-taxonomy.md` (Annotations) — annotation vocabulary.
 - ::READ `./_ops/writing/tone-of-voice.md` (Guide) — tone of voice.
 - ::READ `./_ops/writing/noodlestan-comms.md` (Guide) — communication guidance.
 ```
@@ -107,26 +107,26 @@ Resolved by Routine: Read Writing Articles Instructions for every `write-article
 
 ### Routine: Draft Article
 
-- inputs: `%seed`, `%advice`, `%templates`, `%annotation-taxonomy`, `%tone-of-voice`, `%comms`
+- inputs: `%seed`, `%advice`, `%templates`, `%annotations`, `%tone-of-voice`, `%guides`
 - output: `%contents` — fully written, annotated article
 - behaviour carried over from `$MANAGEMENT/_ops/writing/routines/draft-article.md`: establish intent; load the guides; choose a skeleton; design structure; outline the head and sections; develop — ALWAYS authoring an annotation with the content it describes, tags plus an optional note; five review passes. Annotations remain in the article. Sets the article `**Status:**` to `DRAFT`, head aligned to `Structure: Article`.
 
 ### Routine: Review Article
 
-- inputs: `%file`, `%templates`, `%annotation-taxonomy`, `%tone-of-voice`, `%comms`
+- inputs: `%file`, `%templates`, `%annotations`, `%tone-of-voice`, `%guides`
 - outputs: the article annotated in place with `## Review` appended; `%findings` — status and counts
 - annotate every item (lists as one block); five passes; write the review back; set the article `**Status:**` to `REVIEWED` — the `## Review` `**Status:**` remains the review verdict (`READY`/`CHANGES PROPOSED`), distinct from the article lifecycle.
 
 ### Routine: Integrate Feedback
 
-- inputs: `%file`, `%templates`, `%annotation-taxonomy`, `%tone-of-voice`, `%comms`
+- inputs: `%file`, `%templates`, `%annotations`, `%tone-of-voice`, `%guides`
 - outputs: the integrated, swept article; `%swept` — confirmation and counts
 - scan markers (`<!-- WIP -->`, `<!-- FEEDBACK -->`, `(...)`, `## Review`); apply `proposed`, verify `fixed`; complete incomplete prose; eliminate markers and the review; update annotations; run the five passes with a stopping rule; final sweep; set the article `**Status:**` to `AUTHORED` — the `READY` switch stays manual.
 
 ### Routine: Read Writing Articles Instructions
 
 - inputs: `%repo-guide` — path to the repo guide (defaults to the `_guide.md` of the current checkout)
-- outputs: `%writing-resources` — registered templates, tone of voice, annotation taxonomy, comms guides and other references; `%missing` — absent section or resources
+- outputs: `%writing-resources` — registered `templates`, `tone of voice`, `annotations`, and `guides`, each classified with its resolved path; `%missing` — absent section or resources
 - read the guide's `## Writing Articles` section; resolve every listed resource; report what is missing rather than assuming defaults.
 
 ## Structures
