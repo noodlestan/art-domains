@@ -20,13 +20,13 @@
 
 ## Path Variables
 
-| Variable     | Resolved Path                    | Purpose                                            |
-| ------------ | -------------------------------- | -------------------------------------------------- |
-| `$WORKSPACE` | Current working directory        | Workspace root directory; hosts the domain source. |
-| `$PROJECT`   | `$WORKSPACE/checkouts/art-domains` | Where this plan and its backlogs live.           |
-| `$DOMAINS`   | `$WORKSPACE/.agents/domains`     | Domain resources under change.                     |
-| `$SKILLS`    | `$WORKSPACE/.agents/skills`      | Agent modes and skills directory.                  |
-| `$MANAGEMENT`| `$WORKSPACE/checkouts/management`| Source of the routines; first rollout target.      |
+| Variable      | Resolved Path                      | Purpose                                            |
+| ------------- | ---------------------------------- | -------------------------------------------------- |
+| `$WORKSPACE`  | Current working directory          | Workspace root directory; hosts the domain source. |
+| `$PROJECT`    | `$WORKSPACE/checkouts/art-domains` | Where this plan and its backlogs live.             |
+| `$DOMAINS`    | `$WORKSPACE/.agents/domains`       | Domain resources under change.                     |
+| `$SKILLS`     | `$WORKSPACE/.agents/skills`        | Agent modes and skills directory.                  |
+| `$MANAGEMENT` | `$WORKSPACE/checkouts/management`  | Source of the routines; first rollout target.      |
 
 ## Summary
 
@@ -40,10 +40,10 @@ One `Domain: Writing` modelling articles with `Structure: Article` and the `Type
 
 ### Upstream Work
 
-| Kind        | Path                                                            | Role                                                                       |
-| ----------- | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Parking Lot | `$MANAGEMENT/_backlog/_parking-lot.md`                          | Source of this plan: actionable item "Extract Domain: Writing" and its note. |
-| Milestone   | `$PROJECT/_roadmap/4-next/milestone-domains-one/milestone.md`   | Coordinates this plan within the Art Domains roadmap.                      |
+| Kind        | Path                                                          | Role                                                                         |
+| ----------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Parking Lot | `$MANAGEMENT/_backlog/_parking-lot.md`                        | Source of this plan: actionable item "Extract Domain: Writing" and its note. |
+| Milestone   | `$PROJECT/_roadmap/4-next/milestone-domains-one/milestone.md` | Coordinates this plan within the Art Domains roadmap.                        |
 
 ### Required Skills
 
@@ -52,11 +52,11 @@ One `Domain: Writing` modelling articles with `Structure: Article` and the `Type
 
 ### Domains
 
-| Domain / Path                                          | Description                                                                     |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| Domain: Plans `$DOMAINS/plans/index.md`                | Inspiration for a new domain with a skill, and the plan-structure conventions.  |
-| Domain: Messages `$DOMAINS/messages/index.md`          | Reference domain: comparable skill, commands, routines, structures, types, and the rules each resource kind must satisfy. |
-| Domain: Work `$DOMAINS/work/index.md`                  | Shared work-item model and file and template conventions.                       |
+| Domain / Path                                 | Description                                                                                                               |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Domain: Plans `$DOMAINS/plans/index.md`       | Inspiration for a new domain with a skill, and the plan-structure conventions.                                            |
+| Domain: Messages `$DOMAINS/messages/index.md` | Reference domain: comparable skill, commands, routines, structures, types, and the rules each resource kind must satisfy. |
+| Domain: Work `$DOMAINS/work/index.md`         | Shared work-item model and file and template conventions.                                                                 |
 
 ### Knowledge
 
@@ -131,16 +131,16 @@ npm run ci # lint, build and test
 
 ## Items:
 
-| Iteration / Instructions                             | Status  |
-| ----------------------------------------------------- | ------- |
-| Iteration: Scaffold Writing Domain                    | `DONE`   |
-| Iteration: Add Article Structure and Status Type       | `DONE`   |
-| Iteration: Extract Writing Routines                   | `DONE`   |
-| Iteration: Add Read Writing Instructions Routine      | `DONE`   |
-| Iteration: Add Write Article Skill and Commands       | `DONE`   |
-| Iteration: Add Writer Agent Mode                      | `DONE`   |
-| Iteration: Register Management Writing Articles       | `DONE`   |
-| Iteration: Review Writing Domain Bottom-up            | `READY` |
+| Iteration / Instructions                         | Status  |
+| ------------------------------------------------ | ------- |
+| Iteration: Scaffold Writing Domain               | `DONE`  |
+| Iteration: Add Article Structure and Status Type | `DONE`  |
+| Iteration: Extract Writing Routines              | `DONE`  |
+| Iteration: Add Read Writing Instructions Routine | `DONE`  |
+| Iteration: Add Write Article Skill and Commands  | `DONE`  |
+| Iteration: Add Writer Agent Mode                 | `DONE`  |
+| Iteration: Register Management Writing Articles  | `DONE`  |
+| Iteration: Review Writing Domain Bottom-up       | `READY` |
 
 ### Iteration: Scaffold Writing Domain
 
@@ -170,9 +170,9 @@ npm run ci # lint, build and test
 
 #### Commits:
 
-| ID                             | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
-| ------------------------------ | ------------------------------------ | -------- | ------ | ---------- |
-| `build-writing-domain-scaffold` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `2a0e3fb` | `COMMITTED` |
+| ID                              | Repository / Checkout / Branch        | Policy   | Hash      | Status      |
+| ------------------------------- | ------------------------------------- | -------- | --------- | ----------- |
+| `build-writing-domain-scaffold` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `d17a1a8` | `COMMITTED` |
 
 ##### Commit: build-writing-domain-scaffold
 
@@ -212,9 +212,9 @@ build(domain-writing): Scaffold Domain: Writing.
 
 #### Commits:
 
-| ID                               | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
-| -------------------------------- | ------------------------------------ | -------- | ------ | ---------- |
-| `add-article-structure-and-type` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `3358fad` | `COMMITTED` |
+| ID                               | Repository / Checkout / Branch        | Policy   | Hash      | Status      |
+| -------------------------------- | ------------------------------------- | -------- | --------- | ----------- |
+| `add-article-structure-and-type` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `3461daf` | `COMMITTED` |
 
 ##### Commit: add-article-structure-and-type
 
@@ -257,10 +257,10 @@ build(domain-writing): Add Article structure and article status type.
 
 #### Commits:
 
-| ID                     | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
-| ---------------------- | ------------------------------------ | -------- | ------ | ---------- |
-| `extract-writing-routines` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `7991af1` | `COMMITTED` |
-| `repoint-management-writing-index` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | `59cdf31`  | `COMMITTED` |
+| ID                                 | Repository / Checkout / Branch        | Policy   | Hash      | Status      |
+| ---------------------------------- | ------------------------------------- | -------- | --------- | ----------- |
+| `extract-writing-routines`         | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `0f15cc5` | `COMMITTED` |
+| `repoint-management-writing-index` | Management / `$MANAGEMENT` / `main`   | `NOPUSH` | `59cdf31` | `COMMITTED` |
 
 ##### Commit: extract-writing-routines
 
@@ -279,7 +279,7 @@ migrate(domain-writing): Extract article routines from _ops/writing.
 **Message:**
 
 ```
-migrate(management): Drop _ops/writing routines; point index at Domain: Writing.
+migrate(domain-writing): Drop _ops/writing routines; point index at Domain: Writing.
 ```
 
 ### Iteration: Add Read Writing Instructions Routine
@@ -308,9 +308,9 @@ migrate(management): Drop _ops/writing routines; point index at Domain: Writing.
 
 #### Commits:
 
-| ID                          | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
-| --------------------------- | ------------------------------------ | -------- | ------ | ---------- |
-| `add-read-writing-instructions` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `6a22f23` | `COMMITTED` |
+| ID                              | Repository / Checkout / Branch        | Policy   | Hash      | Status      |
+| ------------------------------- | ------------------------------------- | -------- | --------- | ----------- |
+| `add-read-writing-instructions` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `3d30a29` | `COMMITTED` |
 
 ##### Commit: add-read-writing-instructions
 
@@ -354,9 +354,9 @@ build(domain-writing): Add read-writing-instructions routine.
 
 #### Commits:
 
-| ID                   | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
-| -------------------- | ------------------------------------ | -------- | ------ | ---------- |
-| `add-write-article-skill` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `be460b4` | `COMMITTED` |
+| ID                        | Repository / Checkout / Branch        | Policy   | Hash      | Status      |
+| ------------------------- | ------------------------------------- | -------- | --------- | ----------- |
+| `add-write-article-skill` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `30869da` | `COMMITTED` |
 
 ##### Commit: add-write-article-skill
 
@@ -395,9 +395,9 @@ build(domain-writing): Add write-article skill with commands.
 
 #### Commits:
 
-| ID                 | Repository / Checkout / Branch       | Policy   | Hash   | Status     |
-| ------------------ | ------------------------------------ | -------- | ------ | ---------- |
-| `add-writer-agent-mode` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `8371154` | `COMMITTED` |
+| ID                      | Repository / Checkout / Branch        | Policy   | Hash      | Status      |
+| ----------------------- | ------------------------------------- | -------- | --------- | ----------- |
+| `add-writer-agent-mode` | Workspace / `$WORKSPACE` / `building` | `NOPUSH` | `0fe4d66` | `COMMITTED` |
 
 ##### Commit: add-writer-agent-mode
 
@@ -436,9 +436,9 @@ build(domain-writing): Add writer agent mode.
 
 #### Commits:
 
-| ID                             | Repository / Checkout / Branch   | Policy   | Hash   | Status     |
-| ------------------------------ | -------------------------------- | -------- | ------ | ---------- |
-| `register-management-writing-articles` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | `ecb29c4`  | `COMMITTED` |
+| ID                                     | Repository / Checkout / Branch      | Policy   | Hash      | Status      |
+| -------------------------------------- | ----------------------------------- | -------- | --------- | ----------- |
+| `register-management-writing-articles` | Management / `$MANAGEMENT` / `main` | `NOPUSH` | `ecb29c4` | `COMMITTED` |
 
 ##### Commit: register-management-writing-articles
 
@@ -447,7 +447,7 @@ build(domain-writing): Add writer agent mode.
 **Message:**
 
 ```
-docs(management): Add Writing Articles section to guide.
+docs(domain-writing): Add Writing Articles section to guide.
 ```
 
 ### Iteration: Review Writing Domain Bottom-up
@@ -482,9 +482,10 @@ docs(management): Add Writing Articles section to guide.
 
 #### Commits:
 
-| ID                      | Repository / Checkout / Branch       | Policy     | Hash   | Status     |
-| ----------------------- | ------------------------------------ | ---------- | ------ | ---------- |
-| `review-writing-domain` | Workspace / `$WORKSPACE` / `building` | `NOCOMMIT` | (TBD)  | `AUTHORED` |
+| ID                         | Repository / Checkout / Branch    | Policy   | Hash      | Status      |
+| -------------------------- | --------------------------------- | -------- | --------- | ----------- |
+| `review-writing-domain`    | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | `03b4b08` | `COMMITTED` |
+| `fix-domain-index-example` | Workspace / `$WORKSPACE` / `main` | `NOPUSH` | `d72b3a2` | `COMMITTED` |
 
 ##### Commit: review-writing-domain
 
@@ -494,6 +495,19 @@ docs(management): Add Writing Articles section to guide.
 
 ```
 refactor(domain-writing): Review writing domain bottom-up.
+
+- Align routines and skill to `%templates`/`%annotations`/`%tone-of-voice`/`%guides`; add `%artefact`.
+- Publication rule, worked structure example, domain indexes, and typo fixes.
+```
+
+##### Commit: fix-domain-index-example
+
+**Repository:** Workspace
+
+**Message:**
+
+```
+docs(domain-index): Fix dead routine example in Domain Author definition.
 ```
 
 ---
@@ -547,11 +561,11 @@ refactor(domain-writing): Review writing domain bottom-up.
 
 ### Feedback
 
-- [x] Iteration `scaffold-writing-domain` — DONE, commit `2a0e3fb` (NOPUSH, not pushed); report at `./instructions/scaffold-writing-domain__report.md`. Created `domain.art` and `definitions/index.art` (5 definitions); registered `Domain: Writing` in `$DOMAINS/index.md`. `npm run ci` green; no blockers.
-- [x] Iteration `add-article-structure-and-status-type` — DONE, commit `3358fad` (NOPUSH, not pushed); report at `./instructions/add-article-structure-and-status-type__report.md`. Created `types/article-status.art` (4 lifecycle options) and `structures/article.art` (5 fields, status by reference); refreshed `$DOMAINS/index.md`. `npm run ci` green; no blockers.
-- [x] Iteration `extract-writing-routines` — DONE, commits `7991af1` (workspace) and `59cdf31` (management), both NOPUSH not pushed; report at `./instructions/extract-writing-routines__report.md`. Created 3 routines with injected inputs and explicit statuses (`DRAFT`/`REVIEWED`/`AUTHORED`); deleted the source routines and repointed the kit index. `npm run ci` green in both repos; no blockers.
-- [x] Iteration `add-read-writing-instructions-routine` — DONE, commit `6a22f23` (NOPUSH, not pushed); report at `./instructions/add-read-writing-instructions-routine__report.md`. Created `routines/read-writing-instructions.art` returning `%writing-resources` and `%missing`, data only, no defaults. `npm run ci` green; no blockers.
-- [x] Iteration `add-write-article-skill` — DONE, commit `be460b4` (NOPUSH, not pushed); report at `./instructions/add-write-article-skill__report.md`. Created `$SKILLS/write-article/SKILL.md` with 5 commands, all resolving resources via Routine: Read Writing Articles Instructions; listed in `$SKILLS/index.md`. `npm run ci` green; no blockers.
-- [x] Iteration `add-writer-agent-mode` — DONE, commit `8371154` (NOPUSH, not pushed); report at `./instructions/add-writer-agent-mode__report.md`. Created `$SKILLS/agent-writer/SKILL.md`; registered `writer` in the agent-modes index, `.codex/agents/writer.toml`, and `opencode.json`. `npm run ci` green; no blockers; update-agents mode-gating nuance noted in the report.
+- [x] Iteration `scaffold-writing-domain` — DONE, commit `d17a1a8` (NOPUSH, not pushed); report at `./instructions/scaffold-writing-domain__report.md`. Created `domain.art` and `definitions/index.art` (5 definitions); registered `Domain: Writing` in `$DOMAINS/index.md`. `npm run ci` green; no blockers.
+- [x] Iteration `add-article-structure-and-status-type` — DONE, commit `3461daf` (NOPUSH, not pushed); report at `./instructions/add-article-structure-and-status-type__report.md`. Created `types/article-status.art` (4 lifecycle options) and `structures/article.art` (5 fields, status by reference); refreshed `$DOMAINS/index.md`. `npm run ci` green; no blockers.
+- [x] Iteration `extract-writing-routines` — DONE, commits `0f15cc5` (workspace) and `59cdf31` (management), both NOPUSH not pushed; report at `./instructions/extract-writing-routines__report.md`. Created 3 routines with injected inputs and explicit statuses (`DRAFT`/`REVIEWED`/`AUTHORED`); deleted the source routines and repointed the kit index. `npm run ci` green in both repos; no blockers.
+- [x] Iteration `add-read-writing-instructions-routine` — DONE, commit `3d30a29` (NOPUSH, not pushed); report at `./instructions/add-read-writing-instructions-routine__report.md`. Created `routines/read-writing-instructions.art` returning `%writing-resources` and `%missing`, data only, no defaults. `npm run ci` green; no blockers.
+- [x] Iteration `add-write-article-skill` — DONE, commit `30869da` (NOPUSH, not pushed); report at `./instructions/add-write-article-skill__report.md`. Created `$SKILLS/write-article/SKILL.md` with 5 commands, all resolving resources via Routine: Read Writing Articles Instructions; listed in `$SKILLS/index.md`. `npm run ci` green; no blockers.
+- [x] Iteration `add-writer-agent-mode` — DONE, commit `0fe4d66` (NOPUSH, not pushed); report at `./instructions/add-writer-agent-mode__report.md`. Created `$SKILLS/agent-writer/SKILL.md`; registered `writer` in the agent-modes index, `.codex/agents/writer.toml`, and `opencode.json`. `npm run ci` green; no blockers; update-agents mode-gating nuance noted in the report.
 - [x] Iteration `register-management-writing-articles` — DONE, commit `ecb29c4` (management, NOPUSH not pushed); report at `./instructions/register-management-writing-articles__report.md`. Added `## Writing Articles` to `$MANAGEMENT/_guide.md` with 5 resolving `::READ` directives; Routine: Read Writing Articles Instructions resolved 5/5 with `%missing` empty. `npm run ci` green; no blockers.
-- [x] Iteration `review-writing-domain-bottom-up` — reviewed all resources bottom-up against `./plan__writing-spec.md`, `## Conventions`; fixed a stray scaffolding comment in `domain.art`, aligned the draft routine's example head with `Structure: Article` (added `Description` and `Titles`), generated `$DOMAINS/writing/index.md`. Verified: 13 comparable-example anchors across the instructions, statuses explicit in every routine, all five skill commands resolve resources first, `::READ` before every routine call. `npm run ci` green. Workspace changes STAGED, not committed — policy `NOCOMMIT`; commit awaiting approval.
+- [x] Iteration `review-writing-domain-bottom-up` — DONE, commits `03b4b08` (workspace, NOPUSH) and `21d8bde` (management, NOPUSH), plus `6bf9e68` and `b23a73e` for this plan's spec and closeout; review executed in session, not delegated. Walked all resources bottom-up in seven layers — types, structure, routines, definitions, skill and agent-mode, domain artefacts, then the live spec and plan — against `./plan__writing-spec.md`, `## Conventions`. Fixed: stray scaffolding comment in `domain.art`; draft example head aligned with `Structure: Article` (added `Description` and `Titles`) plus a worked `**Example:**` block from a published article; routine inputs renamed to `%templates`/`%annotations`/`%tone-of-voice`/`%guides` across all three routines and the skill; `%artefact` added to the register command; publication rule stated for annotations; `$DOMAINS/writing/index.md` regenerated and `$DOMAINS/index.md` topped up with the routines table; typos fixed. Verified: comparable-example anchors present, statuses explicit in every routine, all five skill commands resolve resources first, `::READ` before every routine call. `npm run ci` green in all three repos; no blockers. Commits reworded to the `domain-writing` scope after landing (unpushed only); plan references refreshed in `b23a73e`.

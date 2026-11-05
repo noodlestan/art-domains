@@ -126,7 +126,7 @@ This section lists the downstream work items produced, coordinated, or advanced 
 | 2     | Plan: Add Optional Context Attachments `$PROJECT/_backlog/1-done/plan-optional-context-attachments`                                      | `DONE`  |
 | 2     | Plan: Add Operations Domain `$PROJECT/_backlog/1-done/plan-add-operations-domain/plan.md`                                                | `DONE`  |
 | 2     | Plan: Add Messages Domain `$PROJECT/_backlog/1-done/plan-add-messages-domain/plan.md`                                                    | `DONE`  |
-| 2     | Plan: Add Writing Domain `$PROJECT/_backlog/4-next/plan-add-writing-domain/plan.md`                                                      | `PLANNING` |
+| 2     | Plan: Add Writing Domain `$PROJECT/_backlog/1-done/plan-add-writing-domain/plan.md`                                                      | `DONE`  |
 
 ---
 
@@ -134,7 +134,6 @@ This section lists the downstream work items produced, coordinated, or advanced 
 
 ### Next
 
-- Plan: Add Writing Domain (`PLANNING`).
 - Plan: Specs MVP (`DRAFT`).
 
 ### Blockers
